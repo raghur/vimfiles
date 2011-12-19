@@ -169,4 +169,5 @@ noremap <C-s> :w<cr>
 
 set background=dark
 colors peaksea
-
+nnoremap <F9> :b#<cr>
+nnoremap <F10> :buffers<cr>:buffer
