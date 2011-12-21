@@ -111,17 +111,20 @@ set softtabstop=4
 set shiftwidth=4
 set pastetoggle=<F12>
 set ignorecase
+set guioptions-=T
 
 " disable arrow keys
 noremap   <Up>     <NOP>
 noremap   <Down>   <NOP>
 noremap   <Left>   <NOP>
 noremap   <Right>  <NOP>
+
 map [[ ?{<CR>w99[{
 map ][ /}<CR>b99]}
 map ]] j0[[%/{<CR>
 map [] k$][%?}<CR>
-set guifont=Courier_New:h9:cANSI
+
+set guifont=Consolas:h10:cANSI
 set t_Co=256
 set path+=$HOME,.,,~/git,~/code
 " slash allows opening files from windows.
