@@ -112,6 +112,7 @@ set shiftwidth=4
 set pastetoggle=<F12>
 set ignorecase
 
+" disable arrow keys
 noremap   <Up>     <NOP>
 noremap   <Down>   <NOP>
 noremap   <Left>   <NOP>
@@ -123,24 +124,30 @@ map [] k$][%?}<CR>
 set guifont=Courier_New:h9:cANSI
 set t_Co=256
 set path+=$HOME,.,,~/git,~/code
+" slash allows opening files from windows.
 set sessionoptions+=unix,slash
+
+" avoids messing up folders with *.swp and file~ backups
 set backupdir=~/.vimbackups
 set directory=~/.vimbackups
 set switchbuf=usetab
 set matchpairs+=<:>
 set showmatch
-au BufNewFile,BufRead *.aspx set filetype=html
 set nowrap
 set copyindent
 set smarttab
+set smartindent
 set wildignore=*.swp,*.bak,*.class
 set visualbell
 set noerrorbells
 set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
-"let g:SuperTabMappingForward = '<c-space>'
-"let g:SuperTabMappingBackward = '<s-c-space>'
 
+au BufNewFile,BufRead *.aspx set filetype=html
+au BufNewFile,BufRead *.moin setf moin
+au BufNewFile,BufRead *.wiki setf moin
+
+" completion popup customizations
 set completeopt=longest,menuone
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
@@ -153,21 +160,34 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 
+" random stuff..
 set autochdir
 set foldmethod=syntax
-set smartindent
-au BufNewFile,BufRead *.moin setf moin
-au BufNewFile,BufRead *.wiki setf moin
 set relativenumber
+
+
+" Search customizations
+" replace all instances in a line.
 set gdefault
-nnoremap <leader><space>  :noh<cr>
-set colorcolumn=85
 nnoremap / /\v
+nnoremap <leader><space>  :noh<cr>
+
+" keybindings
+let mapleader = ","
+set colorcolumn=120
 nnoremap 0 ^
 nnoremap ^ 0
 noremap <C-s> :w<cr>
-
-set background=dark
-colors peaksea
 nnoremap <F9> :b#<cr>
 nnoremap <F10> :buffers<cr>:buffer
+
+" colors
+set background=dark
+colors peaksea
+
+" status line/mode line
+set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ %{strftime(\"%d/%m/%Y-%H:%M\")}%=\ col:%c%V\ ascii:%b\ pos:%o\ lin:%l\,%L\ %P
+set laststatus=2
+
+" Nerd tree customizations
+noremap <Leader>f :NERDTreeToggle<cr>
