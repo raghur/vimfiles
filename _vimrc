@@ -167,7 +167,7 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 set autochdir
 set foldmethod=syntax
 set relativenumber
-
+let mapleader = "q"
 
 " Search customizations
 " replace all instances in a line.
@@ -176,13 +176,12 @@ nnoremap / /\v
 nnoremap <leader><space>  :noh<cr>
 
 " keybindings
-let mapleader = ","
 set colorcolumn=120
 nnoremap 0 ^
 nnoremap ^ 0
 noremap <C-s> :w<cr>
-nnoremap <F9> :b#<cr>
-nnoremap <F10> :buffers<cr>:buffer
+nnoremap <leader>p :b#<cr>
+nnoremap <leader>b :buffers<cr>:buffer
 
 " colors
 set background=dark
