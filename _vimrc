@@ -182,6 +182,7 @@ nnoremap ^ 0
 noremap <C-s> :w<cr>
 nnoremap <leader>p :b#<cr>
 nnoremap <leader>b :buffers<cr>:buffer
+vnoremap <leader>h :normal @
 
 " colors
 set background=dark
