@@ -256,17 +256,17 @@ elseif &background=='dark'
   " DARK COLOR DEFINE START
 
   hi Normal		guifg=#d0d0d0	guibg=#202020	gui=NONE
-  hi Comment		guifg=#d0d090	guibg=NONE	gui=NONE
+  hi Comment		guifg=#d0d090	guibg=NONE	gui=italic
   hi Constant		guifg=#80c0e0	guibg=NONE	gui=NONE
   hi Number		guifg=#e0c060	guibg=NONE	gui=NONE
   hi Identifier		guifg=#f0c0f0	guibg=NONE	gui=NONE
-  hi Statement		guifg=#c0d8f8	guibg=NONE	gui=NONE
+  hi Statement		guifg=#c0d8f8	guibg=NONE	gui=italic,bold
   hi PreProc		guifg=#60f080	guibg=NONE	gui=NONE
   hi Type		guifg=#b0d0f0	guibg=NONE	gui=NONE
   hi Special		guifg=#e0c060	guibg=NONE	gui=NONE
   hi Error		guifg=#f08060	guibg=NONE	gui=NONE
   hi Todo		guifg=#800000	guibg=#d0d090	gui=NONE
-  hi Search		guifg=NONE	guibg=#800000	gui=NONE
+  hi Search		guifg=NONE	guibg=#500000	gui=NONE
   hi Visual		guifg=#000000	guibg=#a6caf0	gui=NONE
   hi Cursor		guifg=#000000	guibg=#00f000	gui=NONE
   " NOTE THIS IS IN THE COOL SECTION
@@ -491,7 +491,7 @@ elseif &background=='dark'
     " 256color dark terminal support here
     hi Normal		ctermfg=252	ctermbg=234	cterm=NONE
     " Comment/Uncomment the following line to disable/enable transparency
-    "hi Normal		ctermfg=252	ctermbg=NONE	cterm=NONE
+    hi Normal		ctermfg=252	ctermbg=NONE	cterm=NONE
     hi Comment		ctermfg=186	ctermbg=NONE	cterm=NONE
     hi Constant		ctermfg=110	ctermbg=NONE	cterm=NONE
     hi Number		ctermfg=179	ctermbg=NONE	cterm=NONE
