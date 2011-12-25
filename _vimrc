@@ -194,3 +194,6 @@ set laststatus=2
 
 " Nerd tree customizations
 noremap <Leader>f :NERDTreeToggle<cr>
+
+" Clipboard integration
+set clipboard=unnamed
