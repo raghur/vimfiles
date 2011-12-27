@@ -193,7 +193,8 @@ vnoremap <leader>h :normal @
 map <Leader><Leader> $F{%$
 " copy a block and comment it and move to insert mode
 vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
-
+inoremap <C-e> <esc>A
+inoremap <C-a> <esc>I
 
 " colors
 set background=dark
