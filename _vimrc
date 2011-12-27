@@ -111,7 +111,8 @@ set softtabstop=4
 set shiftwidth=4
 set pastetoggle=<F12>
 set ignorecase
-set guioptions-=T
+set guioptions-=Tr
+set guioptions+=R
 
 " disable arrow keys
 noremap   <Up>     <NOP>
