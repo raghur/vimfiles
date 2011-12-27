@@ -111,7 +111,8 @@ set softtabstop=4
 set shiftwidth=4
 set pastetoggle=<F12>
 set ignorecase
-set guioptions-=Tr
+set guioptions-=T
+set guioptions-=r
 set guioptions+=R
 
 " disable arrow keys
