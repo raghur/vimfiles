@@ -171,7 +171,7 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 set autochdir
 set foldmethod=syntax
 set relativenumber
-
+let mapleader = "q"
 
 " Search customizations
 " replace all instances in a line.
@@ -180,13 +180,18 @@ nnoremap / /\v
 nnoremap <leader><space>  :noh<cr>
 
 " keybindings
-let mapleader = ","
 set colorcolumn=120
 nnoremap 0 ^
 nnoremap ^ 0
 noremap <C-s> :w<cr>
-nnoremap <F9> :b#<cr>
-nnoremap <F10> :buffers<cr>:buffer
+nnoremap <leader>p :b#<cr>
+nnoremap <leader>b :buffers<cr>:buffer
+vnoremap <leader>h :normal @
+" select forward brace block on the line
+map <Leader><Leader> $F{%$
+" copy a block and comment it and move to insert mode
+vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
+
 
 " colors
 set background=dark
@@ -198,3 +203,14 @@ set laststatus=2
 
 " Nerd tree customizations
 noremap <Leader>f :NERDTreeToggle<cr>
+
+" Clipboard integration
+set clipboard=unnamed
+
+"Move lines
+nnoremap <A-j> :m+<CR>==
+nnoremap <A-k> :m-2<CR>==
+inoremap <A-j> <Esc>:m+<CR>==gi
+inoremap <A-k> <Esc>:m-2<CR>==gi
+vnoremap <A-j> :m'>+<CR>gv=gv
+vnoremap <A-k> :m-2<CR>gv=gv
