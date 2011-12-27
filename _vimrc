@@ -124,7 +124,11 @@ map ][ /}<CR>b99]}
 map ]] j0[[%/{<CR>
 map [] k$][%?}<CR>
 
-set guifont=Consolas:h10:cANSI
+if has('win32')
+    set guifont=Consolas:h10:cANSI
+else 
+    set guifont=DejaVu\ Sans\ Mono\ 9
+endif
 set t_Co=256
 set path+=$HOME,.,,~/git,~/code
 " slash allows opening files from windows.
