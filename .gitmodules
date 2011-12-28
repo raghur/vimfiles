@@ -1,3 +1,9 @@
 [submodule "bundle/nerdcommenter"]
 	path = bundle/nerdcommenter
 	url = https://github.com/scrooloose/nerdcommenter
+[submodule "VimRepress"]
+	path = VimRepress
+	url = https://raghur@github.com/raghur/VimRepress.git
+[submodule "bundle/VimRepress"]
+	path = bundle/VimRepress
+	url = https://raghur@github.com/raghur/VimRepress.git
