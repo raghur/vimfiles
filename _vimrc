@@ -153,6 +153,7 @@ set list
 set listchars=tab:>.,trail:.,extends:#,nbsp:.
 
 au BufNewFile,BufRead *.aspx set filetype=html
+au BufNewFile,BufRead *.ascx set filetype=html
 au BufNewFile,BufRead *.moin setf moin
 au BufNewFile,BufRead *.wiki setf moin
 
@@ -193,7 +194,8 @@ vnoremap <leader>h :normal @
 map <Leader><Leader> $F{%$
 " copy a block and comment it and move to insert mode
 vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
-
+inoremap <C-e> <C-o>A
+inoremap <C-a> <C-o>I
 
 " colors
 set background=dark
