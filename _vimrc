@@ -68,8 +68,8 @@ if has("autocmd")
   augroup vimrcEx
   au!
 
-  " For all text files set 'textwidth' to 78 characters.
-  autocmd FileType text setlocal textwidth=78
+  " For all text files set 'textwidth' to 120 characters.
+  autocmd FileType text setlocal textwidth=120
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
@@ -194,8 +194,8 @@ vnoremap <leader>h :normal @
 map <Leader><Leader> $F{%$
 " copy a block and comment it and move to insert mode
 vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
-inoremap <C-e> <C-o>A
-inoremap <C-a> <C-o>I
+inoremap <C-e> <C-o>:call search("\\%" . line(".") . "l[{}() :=\\[\\]\.,\n]","We")<cr>
+inoremap <C-a> <C-o>:call search("\\%" . line(".") . "l[{}() :=\\[\\]\.,]","Web")<cr>
 
 " colors
 set background=dark
