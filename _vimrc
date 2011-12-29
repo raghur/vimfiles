@@ -183,7 +183,7 @@ nnoremap / /\v
 nnoremap <leader><space>  :noh<cr>
 
 " keybindings
-set colorcolumn=120
+set colorcolumn=+1
 nnoremap 0 ^
 nnoremap ^ 0
 noremap <C-s> :w<cr>
@@ -223,3 +223,7 @@ let VIMPRESS = [{'username':'rraghur',
                 \'password':'',
                 \'blog_url':'http://niftybits.wordpress.com' 
                 \}] 
+augroup Markdown
+    autocmd FileType markdown set wrap 
+                            \ linebreak
+augroup END
