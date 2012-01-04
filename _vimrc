@@ -233,7 +233,7 @@ nmap <leader><leader>q <ESC>:execute ':mksession! '
             \ .split(&runtimepath, ',')[0]
             \ . '/sessions/Session.vim'<CR>:wqa<CR>
 
-functio! RestoreSession()
+function! RestoreSession()
   if argc() == 0 "vim called without arguments
     execute 'source ' . split(&runtimepath, ',')[0] . "/sessions/Session.vim"
   end
