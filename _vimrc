@@ -174,7 +174,7 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 set autochdir
 set foldmethod=syntax
 set relativenumber
-let mapleader = "w"
+let mapleader = ","
 
 " Search customizations
 " replace all instances in a line.
