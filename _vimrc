@@ -229,11 +229,13 @@ augroup Markdown
                             \ linebreak
                             \ spell spelllang=en_us
 augroup END
-nmap <leader><leader>q <ESC>:mksession! ~/vimfiles/sessions/Session.vim<CR>:wqa<CR>
+nmap <leader><leader>q <ESC>:execute ':mksession! '
+            \ .split(&runtimepath, ',')[0]
+            \ . '/sessions/Session.vim'<CR>:wqa<CR>
 
-function! RestoreSession()
+functio! RestoreSession()
   if argc() == 0 "vim called without arguments
-    execute 'source ~/vimfiles/sessions/Session.vim'
+    execute 'source ' . split(&runtimepath, ',')[0] . "/sessions/Session.vim"
   end
 endfunction
 autocmd VimEnter * call RestoreSession()
