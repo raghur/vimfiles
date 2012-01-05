@@ -259,7 +259,7 @@ elseif &background=='dark'
   hi Comment		guifg=#d0d090	guibg=NONE	gui=italic
   hi Constant		guifg=#80c0e0	guibg=NONE	gui=NONE
   hi Number		guifg=#e0c060	guibg=NONE	gui=NONE
-  hi Identifier		guifg=#f0c0f0	guibg=NONE	gui=NONE
+  hi Identifier		guifg=#c0d8f8   guibg=NONE	gui=NONE
   hi Statement		guifg=#c0d8f8	guibg=NONE	gui=italic,bold
   hi PreProc		guifg=#60f080	guibg=NONE	gui=NONE
   hi Type		guifg=#b0d0f0	guibg=NONE	gui=NONE
