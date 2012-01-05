@@ -196,7 +196,7 @@ map <Leader><Leader> $F{%$
 vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
 inoremap <C-e> <C-o>:call search("\\%" . line(".") . "l[{}() :=\\[\\]\.,\\n]","We")<cr>
 inoremap <C-a> <C-o>:call search("\\%" . line(".") . "l[{}() :=\\[\\]\.,]","Web")<cr>
-imap <leader><leader> <Esc>
+imap jk <Esc>
 
 " colors
 set background=dark
@@ -224,6 +224,7 @@ let VIMPRESS = [{'username':'rraghur',
                 \'password':'',
                 \'blog_url':'http://niftybits.wordpress.com' 
                 \}] 
+
 augroup Markdown
     autocmd FileType markdown set wrap 
                             \ linebreak
@@ -239,3 +240,4 @@ function! RestoreSession()
   end
 endfunction
 autocmd VimEnter * call RestoreSession()
+
