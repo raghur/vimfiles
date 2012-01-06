@@ -196,7 +196,8 @@ map <Leader><Leader> $F{%$
 vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
 inoremap <C-e> <C-o>:call search("\\%" . line(".") . "l[{}() :=\\[\\]\.,\\n]","We")<cr>
 inoremap <C-a> <C-o>:call search("\\%" . line(".") . "l[{}() :=\\[\\]\.,]","Web")<cr>
-imap jk <Esc>
+inoremap <esc> <c-o>:echoe "use jk"<cr>
+inoremap jk <esc>
 
 " colors
 set background=dark
@@ -240,4 +241,3 @@ function! RestoreSession()
   end
 endfunction
 autocmd VimEnter * call RestoreSession()
-
