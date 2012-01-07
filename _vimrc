@@ -227,7 +227,7 @@ let VIMPRESS = [{'username':'rraghur',
                 \}] 
 
 augroup Markdown
-    autocmd FileType markdown set wrap 
+    autocmd FileType markdown setl wrap 
                             \ linebreak
                             \ spell spelllang=en_us
 augroup END
