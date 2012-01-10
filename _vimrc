@@ -188,7 +188,8 @@ nnoremap 0 ^
 nnoremap ^ 0
 noremap <C-s> :w<cr>
 nnoremap <leader>p :b#<cr>
-nnoremap <leader>b :buffers<cr>:buffer
+"nnoremap <leader>b :buffers<cr>:buffer
+nnoremap <leader>b :CtrlPBuffer<cr>
 vnoremap <leader>h :normal @
 " select forward brace block on the line
 map <Leader><Leader> $F{%$
@@ -241,3 +242,9 @@ function! RestoreSession()
   end
 endfunction
 autocmd VimEnter * call RestoreSession()
+
+if has('win32')
+    set shell=f:/cygwin/bin/bash
+    set shellcmdflag=--login\ -c
+    set shellxquote=\"
+end
