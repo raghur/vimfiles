@@ -126,11 +126,10 @@ map ][ /}<CR>b99]}
 map ]] j0[[%/{<CR>
 map [] k$][%?}<CR>
 
-if has('win32')
-    set guifont=Consolas:h10:cANSI
-else 
-    set guifont=DejaVu\ Sans\ Mono\ 9
-endif
+" run the following code on a new machine
+" cp ~/vimfiles/consolas-powerline.otf ~/.fonts/
+" sudo fc-cache -vf
+set guifont=Consolas\ for\ Powerline\ 10
 set t_Co=256
 set path+=$HOME,.,,~/git,~/code
 " slash allows opening files from windows.
