@@ -208,7 +208,7 @@ set background=dark
 colors peaksea
 
 " status line/mode line
-set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ %{strftime(\"%d/%m/%Y-%H:%M\")}%=\ col:%c%V\ ascii:%b\ pos:%o\ lin:%l\,%L\ %P
+"set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ %{strftime(\"%d/%m/%Y-%H:%M\")}%=\ col:%c%V\ ascii:%b\ pos:%o\ lin:%l\,%L\ %P
 set laststatus=2
 
 " Nerd tree customizations
@@ -251,3 +251,4 @@ if has('win32')
     set shellcmdflag=--login\ -c
     set shellxquote=\"
 end
+let g:Powerline_symbols="fancy"
