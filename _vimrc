@@ -129,7 +129,11 @@ map [] k$][%?}<CR>
 " run the following code on a new machine
 " cp ~/vimfiles/consolas-powerline.otf ~/.fonts/
 " sudo fc-cache -vf
-set guifont=Consolas\ for\ Powerline\ 10
+if has('win32')
+    set guifont=Consolas:h9
+else
+    set guifont=Consolas\ for\ Powerline\ 10
+endif
 set t_Co=256
 set path+=$HOME,.,,~/git,~/code
 " slash allows opening files from windows.
