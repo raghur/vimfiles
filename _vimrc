@@ -252,3 +252,7 @@ if has('win32')
     set shellxquote=\"
 end
 let g:Powerline_symbols="fancy"
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
