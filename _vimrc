@@ -130,7 +130,7 @@ map [] k$][%?}<CR>
 " cp ~/vimfiles/consolas-powerline.otf ~/.fonts/
 " sudo fc-cache -vf
 if has('win32')
-    set guifont=Consolas:h9
+    set guifont=Consolas_for_Powerline:h11
 else
     set guifont=Consolas\ for\ Powerline\ 10
 endif
@@ -251,7 +251,9 @@ if has('win32')
     set shellcmdflag=--login\ -c
     set shellxquote=\"
 end
-let g:Powerline_symbols="fancy"
+"if has("linux")
+    let g:Powerline_symbols="fancy"
+"endif
 
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
