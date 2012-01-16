@@ -136,7 +136,7 @@ else
 endif
 set t_Co=256
 if &term == "xterm"
-	set term=xterm256-color
+	set term=xterm-256color
 endif
 set path+=$HOME,.,,~/git,~/code
 " slash allows opening files from windows.
