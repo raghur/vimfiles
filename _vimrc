@@ -133,10 +133,11 @@ if has('win32')
     set guifont=Consolas:h11
 else
     set guifont=Consolas\ for\ Powerline\ 10
+    let g:Powerline_symbols="fancy"
 endif
 set t_Co=256
 if &term == "xterm"
-	set term=xterm-256color
+    set term=xterm-256color
 endif
 set path+=$HOME,.,,~/git,~/code
 " slash allows opening files from windows.
@@ -254,9 +255,6 @@ if has('win32')
     set shellcmdflag=--login\ -c
     set shellxquote=\"
 end
-"if has("linux")
-    let g:Powerline_symbols="fancy"
-"endif
 
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
