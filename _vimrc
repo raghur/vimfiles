@@ -135,6 +135,9 @@ else
     set guifont=Consolas\ for\ Powerline\ 10
 endif
 set t_Co=256
+if &term == "xterm"
+	set term=xterm256-color
+endif
 set path+=$HOME,.,,~/git,~/code
 " slash allows opening files from windows.
 set sessionoptions+=unix,slash
