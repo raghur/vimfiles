@@ -130,7 +130,7 @@ map [] k$][%?}<CR>
 " cp ~/vimfiles/consolas-powerline.otf ~/.fonts/
 " sudo fc-cache -vf
 if has('win32')
-    set guifont=Consolas_for_Powerline:h11
+    set guifont=Consolas:h11
 else
     set guifont=Consolas\ for\ Powerline\ 10
 endif
