@@ -250,11 +250,11 @@ function! RestoreSession()
 endfunction
 autocmd VimEnter * call RestoreSession()
 
-if has('win32')
-    set shell=f:/cygwin/bin/bash
-    set shellcmdflag=--login\ -c
-    set shellxquote=\"
-end
+"if has('win32')
+    "set shell=f:/cygwin/bin/bash
+    "set shellcmdflag=--login\ -c
+    "set shellxquote=\"
+"end
 
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
