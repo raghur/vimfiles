@@ -22,14 +22,14 @@ endif
 au BufLeave <buffer> call s:JSLintClear()
 
 au BufEnter <buffer> call s:JSLint()
-au InsertLeave <buffer> call s:JSLint()
+"au InsertLeave <buffer> call s:JSLint()
 "au InsertEnter <buffer> call s:JSLint()
 au BufWritePost <buffer> call s:JSLint()
 
 " due to http://tech.groups.yahoo.com/group/vimdev/message/52115
 if(!has("win32") || v:version>702)
-	au CursorHold <buffer> call s:JSLint()
-	au CursorHoldI <buffer> call s:JSLint()
+"	au CursorHold <buffer> call s:JSLint()
+"	au CursorHoldI <buffer> call s:JSLint()
 
 	au CursorHold <buffer> call s:GetJSLintMessage()
 endif
