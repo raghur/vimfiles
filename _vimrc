@@ -209,7 +209,7 @@ inoremap jk <esc>
 
 " colors
 set background=dark
-colors peaksea
+colors dark2
 
 " status line/mode line
 "set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ %{strftime(\"%d/%m/%Y-%H:%M\")}%=\ col:%c%V\ ascii:%b\ pos:%o\ lin:%l\,%L\ %P
