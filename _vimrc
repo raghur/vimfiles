@@ -104,7 +104,8 @@ let &t_te.="\e[0 q"
 
 call pathogen#infect()
 
-set wildchar=<Tab> wildmenu wildmode=full
+set wildchar=<Tab> wildmenu 
+set wildmode=longest,list,full
 set expandtab
 set tabstop=4
 set softtabstop=4
