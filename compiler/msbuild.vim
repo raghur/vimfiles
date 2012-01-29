@@ -6,16 +6,31 @@ finish
 endif
 let current_compiler = "msbuild"
 
+function! FindParentProjectFile(file)
+    let l:path = fnamemodify (a:file, ":p:h")
+"    echom l:path
+    let l:found = 0
+    while l:found == 0
+        let l:projectFile = split(globpath(l:path,  "*.csproj"), "\n", 1)[0]
+        if l:projectFile != ""
+            return fnamemodify(l:projectFile, ":p")
+        else
+            let l:path = fnamemodify(l:path, ":h")
+"            echom l:path
+        endif
+    endwhile
+endfunction
+
 if exists(":CompilerSet") != 2 " older Vim always used :setlocal
 command -nargs=* CompilerSet setlocal <args>
 endif
 
 " default errorformat
 CompilerSet errorformat=\ %#%f(%l\\\,%c):\ %m
-
+let b:msbuildCommand="msbuild\\ /nologo\\ /v:q\\ /property:GenerateFullPaths=true\\ " . FindParentProjectFile(@%)
 " default make
-CompilerSet makeprg=msbuild\ /nologo\ /v:q\ /property:GenerateFullPaths=true
-
+echo "CompilerSet makeprg=" . b:msbuildCommand
+execute "CompilerSet makeprg=" . b:msbuildCommand
 " Automatically open, but do not go to (if there are errors) the quickfix /
 " location list window, or close it when is has become empty.
 "
