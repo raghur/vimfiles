@@ -182,7 +182,7 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 set autochdir
 set foldmethod=syntax
 set relativenumber
-let mapleader = ","
+let mapleader = "m"
 
 " Search customizations
 " replace all instances in a line.
@@ -245,9 +245,12 @@ nmap <leader><leader>q <ESC>:execute ':mksession! '
             \ . '/sessions/Session.vim'<CR>:wqa<CR>
 
 function! RestoreSession()
-  if argc() == 0 "vim called without arguments
-    execute 'source ' . split(&runtimepath, ',')[0] . "/sessions/Session.vim"
-  end
+    if argc() == 0 "vim called without arguments
+        let l:sessionfile = split(&runtimepath, ',')[0] . "/sessions/Session.vim"
+        if filereadable(l:sessionfile)
+            execute 'source ' . l:sessionfile
+        endif
+    end
 endfunction
 autocmd VimEnter * call RestoreSession()
 
