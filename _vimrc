@@ -210,8 +210,8 @@ inoremap <esc> <c-o>:echoe "use jk"<cr>
 inoremap jk <esc>
 
 " colors
-set background=dark
-colors dark2
+set background=light
+colors mayansmoke
 
 " status line/mode line
 "set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ %{strftime(\"%d/%m/%Y-%H:%M\")}%=\ col:%c%V\ ascii:%b\ pos:%o\ lin:%l\,%L\ %P
