@@ -197,6 +197,7 @@ nnoremap ^ 0
 noremap <C-s> :w<cr>
 nnoremap <leader>p :b#<cr>
 nnoremap <leader>sv :ed ~/vimfiles/_vimrc<cr>
+nnoremap <F5> :GundoToggle<CR>
 "nnoremap <leader>b :buffers<cr>:buffer
 nnoremap <leader>b :CtrlPBuffer<cr>
 vnoremap <leader>h :normal @
