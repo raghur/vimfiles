@@ -134,7 +134,7 @@ if has('win32')
     set guifont=Consolas:h11
 else
     set guifont=Consolas\ for\ Powerline\ 10
-    let g:Powerline_symbols="fancy"
+    let g:Powerline_symbols='fancy'
 endif
 set t_Co=256
 if &term == "xterm"
@@ -211,7 +211,7 @@ inoremap jk <esc>
 
 " colors
 set background=light
-colors mayansmoke
+colors PapayaWhip
 
 " status line/mode line
 "set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ %{strftime(\"%d/%m/%Y-%H:%M\")}%=\ col:%c%V\ ascii:%b\ pos:%o\ lin:%l\,%L\ %P
