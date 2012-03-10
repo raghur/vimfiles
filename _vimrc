@@ -134,7 +134,7 @@ if has('win32')
     set guifont=Consolas:h11
 else
     set guifont=Consolas\ for\ Powerline\ 10
-    let g:Powerline_symbols="fancy"
+    let g:Powerline_symbols='fancy'
 endif
 set t_Co=256
 if &term == "xterm"
@@ -196,6 +196,8 @@ nnoremap 0 ^
 nnoremap ^ 0
 noremap <C-s> :w<cr>
 nnoremap <leader>p :b#<cr>
+nnoremap <leader>sv :ed ~/vimfiles/_vimrc<cr>
+nnoremap <F5> :GundoToggle<CR>
 "nnoremap <leader>b :buffers<cr>:buffer
 nnoremap <leader>b :CtrlPBuffer<cr>
 vnoremap <leader>h :normal @
@@ -209,8 +211,8 @@ inoremap <esc> <c-o>:echoe "use jk"<cr>
 inoremap jk <esc>
 
 " colors
-set background=dark
-colors dark2
+set background=light
+colors PapayaWhip
 
 " status line/mode line
 "set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ %{strftime(\"%d/%m/%Y-%H:%M\")}%=\ col:%c%V\ ascii:%b\ pos:%o\ lin:%l\,%L\ %P
