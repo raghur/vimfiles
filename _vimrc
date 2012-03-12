@@ -202,7 +202,7 @@ nnoremap <F5> :GundoToggle<CR>
 nnoremap <leader>b :CtrlPBuffer<cr>
 vnoremap <leader>h :normal @
 " select forward brace block on the line
-map <Leader><Leader> $F{%$
+map <Leader><Leader> V/{<cr>%
 " copy a block and comment it and move to insert mode
 vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
 inoremap <C-e> <C-o>:call search("\\%" . line(".") . "l[{}() :=\\[\\]\.,\\n]","We")<cr>
@@ -255,12 +255,6 @@ function! RestoreSession()
     end
 endfunction
 autocmd VimEnter * call RestoreSession()
-
-"if has('win32')
-    "set shell=f:/cygwin/bin/bash
-    "set shellcmdflag=--login\ -c
-    "set shellxquote=\"
-"end
 
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
