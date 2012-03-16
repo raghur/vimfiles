@@ -201,8 +201,16 @@ nnoremap <F5> :GundoToggle<CR>
 "nnoremap <leader>b :buffers<cr>:buffer
 nnoremap <leader>b :CtrlPBuffer<cr>
 vnoremap <leader>h :normal @
+
 " select forward brace block on the line
-map <Leader><Leader> V/{<cr>%
+nnoremap <Leader><Leader> V/{<cr>%
+vnoremap <leader><leader>  /{<cr>%
+
+" same as before but do it based on %
+nnoremap <Leader>5  V/\v[{(\[\<]<cr>%
+vnoremap <leader>5  /\v[{(\[\<]<cr>%
+
+
 " copy a block and comment it and move to insert mode
 vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
 inoremap <C-e> <C-o>:call search("\\%" . line(".") . "l[{}() :=\\[\\]\.,\\n]","We")<cr>
