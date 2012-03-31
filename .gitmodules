@@ -33,4 +33,4 @@
 	url = https://git.gitorious.org/vim-gnupg/vim-gnupg.git
 [submodule "bundle/TFS"]
 	path = bundle/TFS
-	url = https://github.com/vim-scripts/TFS
+	url = https://raghur@github.com/raghur/TFS.git
