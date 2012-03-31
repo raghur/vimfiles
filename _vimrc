@@ -110,11 +110,12 @@ set expandtab
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-set pastetoggle=<F12>
+set pastetoggle=<F11>
 set ignorecase
 set guioptions-=T
 set guioptions-=r
 set guioptions+=R
+let g:proj_flags="imstg"
 
 " disable arrow keys
 noremap   <Up>     <NOP>
