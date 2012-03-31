@@ -134,7 +134,7 @@ map [] k$][%?}<CR>
 if has('win32')
     set guifont=Consolas:h11
 else
-    set guifont=Consolas\ for\ Powerline\ 10
+    set guifont=Monospace
     let g:Powerline_symbols='fancy'
 endif
 set t_Co=256
@@ -146,8 +146,8 @@ set path+=$HOME,.,,~/git,~/code
 set sessionoptions+=unix,slash
 
 " avoids messing up folders with *.swp and file~ backups
-set backupdir=~/.vimbackups
-set directory=~/.vimbackups
+set backupdir=~/vimfiles/.vimbackups
+set directory=~/vimfiles/.vimbackups
 set switchbuf=usetab
 set matchpairs+=<:>
 set showmatch
