@@ -137,7 +137,7 @@ else
     let g:Powerline_symbols='fancy'
 endif
 set t_Co=256
-if &term == "xterm"
+if &term == "xterm" || &term== "screen-256color"
     set term=xterm-256color
 endif
 set path+=$HOME,.,,~/git,~/code
