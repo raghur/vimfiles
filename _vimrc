@@ -220,9 +220,13 @@ inoremap <esc> <c-o>:echoe "use jk"<cr>
 inoremap jk <esc>
 
 " colors
-set background=light
-colors PapayaWhip
-
+if has("gui")
+    set background=light
+    colors PapayaWhip
+else
+" running in console mode
+    colors molokai
+endif
 " status line/mode line
 "set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ %{strftime(\"%d/%m/%Y-%H:%M\")}%=\ col:%c%V\ ascii:%b\ pos:%o\ lin:%l\,%L\ %P
 set laststatus=2
