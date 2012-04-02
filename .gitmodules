@@ -34,3 +34,6 @@
 [submodule "bundle/TFS"]
 	path = bundle/TFS
 	url = https://raghur@github.com/raghur/TFS.git
+[submodule "bundle/colors-solarized"]
+	path = bundle/colors-solarized
+	url = https://github.com/altercation/vim-colors-solarized
