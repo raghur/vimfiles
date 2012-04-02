@@ -131,11 +131,11 @@ map [] k$][%?}<CR>
 " run the following code on a new machine
 " cp ~/vimfiles/consolas-powerline.otf ~/.fonts/
 " sudo fc-cache -vf
+let g:Powerline_symbols='fancy'
 if has('win32')
-    set guifont=Consolas:h11
+    set guifont=Ubuntu_Mono_for_Powerline:h11
 else
     set guifont=Monospace
-    let g:Powerline_symbols='fancy'
 endif
 set t_Co=256
 if &term == "xterm" || &term== "screen-256color"
