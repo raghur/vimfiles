@@ -32,6 +32,7 @@ set history=50      " keep 50 lines of command line history
 set ruler       " show the cursor position all the time
 set showcmd     " display incomplete commands
 set incsearch       " do incremental searching
+set encoding=utf-8
 
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
 " let &guioptions = substitute(&guioptions, "t", "", "g")
@@ -131,11 +132,12 @@ map [] k$][%?}<CR>
 " run the following code on a new machine
 " cp ~/vimfiles/consolas-powerline.otf ~/.fonts/
 " sudo fc-cache -vf
+let g:Powerline_symbols='fancy'
 if has('win32')
-    set guifont=Consolas:h11
+    set guifont=Ubuntu_Mono_for_Powerline:h11:b
+    "set guifont=Consolas:h11
 else
     set guifont=Monospace
-    let g:Powerline_symbols='fancy'
 endif
 set t_Co=256
 if &term == "xterm" || &term== "screen-256color"
@@ -184,7 +186,7 @@ set autochdir
 set foldmethod=syntax
 set relativenumber
 let mapleader = "m"
-
+let maplocalleader='\'
 " Search customizations
 " replace all instances in a line.
 set gdefault
@@ -220,9 +222,13 @@ inoremap <esc> <c-o>:echoe "use jk"<cr>
 inoremap jk <esc>
 
 " colors
-set background=light
-colors PapayaWhip
-
+if has("gui_running")
+    set background=light
+else
+    set background=dark
+endif
+let g:solarized_termcolors=256
+colors solarized
 " status line/mode line
 "set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ %{strftime(\"%d/%m/%Y-%H:%M\")}%=\ col:%c%V\ ascii:%b\ pos:%o\ lin:%l\,%L\ %P
 set laststatus=2
@@ -240,6 +246,11 @@ inoremap <A-j> <Esc>:m+<CR>==gi
 inoremap <A-k> <Esc>:m-2<CR>==gi
 vnoremap <A-j> :m'>+<CR>gv=gv
 vnoremap <A-k> :m-2<CR>gv=gv
+
+"Move by screen lines
+nnoremap j gj
+nnoremap k gk
+
 
 let VIMPRESS = [{'username':'rraghur', 
                 \'password':'',
@@ -272,4 +283,7 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:GPGDefaultRecipients=['Raghu Rajagopalan']
 
 
-
+"Threesome configuration - initial layout
+let g:threesome_initial_mode = "grid"
+let g:threesome_initial_layout_grid = 2
+let g:threesome_initial_scrollbind_grid = 1
