@@ -186,7 +186,7 @@ set autochdir
 set foldmethod=syntax
 set relativenumber
 let mapleader = "m"
-
+let maplocalleader='\'
 " Search customizations
 " replace all instances in a line.
 set gdefault
