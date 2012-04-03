@@ -1,0 +1,50 @@
+snippet step "step snippet for s9" b
+{% step %}
+${0}
+${VISUAL}
+{% end %}
+endsnippet
+
+snippet h1 "Heading 1" b
+${0}${VISUAL}
+===============================
+endsnippet
+
+
+snippet h2 "Heading 2" b
+${0}${VISUAL}
+-------------------------------
+endsnippet
+
+snippet h3 "Heading 3" b
+### ${0}${VISUAL}
+endsnippet
+
+snippet block "blockquote" b
+>
+> ${0:Blockquote content}
+>
+endsnippet
+
+snippet link "Link markup" 
+[${1:Link text}](${0:http://})
+endsnippet
+
+snippet code "code block " b
+{% code lang=${1:lang} %}
+${0}${VISUAL}
+{% end %}
+endsnippet
+
+snippet img "inline image"
+![${1:title}](${2:url})
+endsnippet
+
+snippet {% "wrap"
+{% ${0:directive} %}
+${VISUAL}
+{% end %}
+endsnippet
+
+
+

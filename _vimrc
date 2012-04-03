@@ -110,11 +110,12 @@ set expandtab
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
-set pastetoggle=<F12>
+set pastetoggle=<F11>
 set ignorecase
 set guioptions-=T
 set guioptions-=r
 set guioptions+=R
+let g:proj_flags="imstg"
 
 " disable arrow keys
 noremap   <Up>     <NOP>
@@ -133,11 +134,11 @@ map [] k$][%?}<CR>
 if has('win32')
     set guifont=Consolas:h11
 else
-    set guifont=Consolas\ for\ Powerline\ 10
+    set guifont=Monospace
     let g:Powerline_symbols='fancy'
 endif
 set t_Co=256
-if &term == "xterm"
+if &term == "xterm" || &term== "screen-256color"
     set term=xterm-256color
 endif
 set path+=$HOME,.,,~/git,~/code
@@ -145,8 +146,8 @@ set path+=$HOME,.,,~/git,~/code
 set sessionoptions+=unix,slash
 
 " avoids messing up folders with *.swp and file~ backups
-set backupdir=~/.vimbackups
-set directory=~/.vimbackups
+set backupdir=~/vimfiles/.vimbackups
+set directory=~/vimfiles/.vimbackups
 set switchbuf=usetab
 set matchpairs+=<:>
 set showmatch
@@ -198,9 +199,9 @@ noremap <C-s> :w<cr>
 nnoremap <leader>p :b#<cr>
 nnoremap <leader>sv :ed ~/vimfiles/_vimrc<cr>
 nnoremap <F5> :GundoToggle<CR>
-"nnoremap <leader>b :buffers<cr>:buffer
 nnoremap <leader>b :CtrlPBuffer<cr>
 vnoremap <leader>h :normal @
+vnoremap <leader>v "0p
 
 " select forward brace block on the line
 nnoremap <Leader><Leader> V/{<cr>%
@@ -267,3 +268,8 @@ autocmd VimEnter * call RestoreSession()
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+let g:GPGDefaultRecipients=['Raghu Rajagopalan']
+
+
+

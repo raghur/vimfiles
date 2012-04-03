@@ -1,0 +1,23 @@
+snippet setup "basic test" b
+[TestInitialize]
+public void SetUp()
+{
+    ${0:initialize here}
+}
+endsnippet
+
+snippet testc "test class " b
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+
+[TestClass]
+public class ${1:ClassName}
+{
+	${0}
+}
+endsnippet
+
