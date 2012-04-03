@@ -134,7 +134,7 @@ map [] k$][%?}<CR>
 " sudo fc-cache -vf
 let g:Powerline_symbols='fancy'
 if has('win32')
-    set guifont=Ubuntu_Mono_for_Powerline:h11
+    set guifont=Ubuntu_Mono_for_Powerline:h11:b
     "set guifont=Consolas:h11
 else
     set guifont=Monospace
