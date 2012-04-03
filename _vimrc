@@ -247,6 +247,11 @@ inoremap <A-k> <Esc>:m-2<CR>==gi
 vnoremap <A-j> :m'>+<CR>gv=gv
 vnoremap <A-k> :m-2<CR>gv=gv
 
+"Move by screen lines
+nnoremap j gj
+nnoremap k gk
+
+
 let VIMPRESS = [{'username':'rraghur', 
                 \'password':'',
                 \'blog_url':'http://niftybits.wordpress.com' 
