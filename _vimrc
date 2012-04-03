@@ -222,7 +222,7 @@ inoremap <esc> <c-o>:echoe "use jk"<cr>
 inoremap jk <esc>
 
 " colors
-if has("gui")
+if has("gui_running")
     set background=light
 else
     set background=dark
