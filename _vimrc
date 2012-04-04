@@ -285,5 +285,5 @@ let g:GPGDefaultRecipients=['Raghu Rajagopalan']
 
 "Threesome configuration - initial layout
 let g:threesome_initial_mode = "grid"
-let g:threesome_initial_layout_grid = 2
+let g:threesome_initial_layout_grid = 1
 let g:threesome_initial_scrollbind_grid = 1
