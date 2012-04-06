@@ -24,7 +24,7 @@ snippet h4 "Heading 3" b
 ${0}
 endsnippet
 
-snippet em "italics" i
+snippet em "italics" iw
 _${1:${VISUAL:italic text}}_ ${0}
 endsnippet
 
@@ -64,9 +64,13 @@ snippet img "inline image"
 ![${1:title}](${2:url})
 endsnippet
 
+# doesnt work
 snippet ref "reference link" i
-[${1:${VISUAL:the text}}] [${2:linkid}] $0
-
+`!p
+import vim
+vim.command(':norm vG"ay')
+`
+[${1:text}] [${2:linkid}] $0 `!v getreg("a")`
 [$2]: <${3:url}> "$1"
 endsnippet
 ######################################
