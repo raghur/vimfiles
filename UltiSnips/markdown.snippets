@@ -18,7 +18,7 @@ snippet h3 "Heading 3" b
 ${0}
 endsnippet
 
-snippet h4 "Heading 3" b
+snippet h4 "Heading 3" bw
 #### ${1:${VISUAL:Heading}}
 
 ${0}
@@ -28,11 +28,11 @@ snippet em "italics" iw
 _${1:${VISUAL:italic text}}_ ${0}
 endsnippet
 
-snippet bold "bold" i
+snippet bold "bold" iw
 __${1:${VISUAL:italic text}}__ ${0}
 endsnippet
 
-snippet block "blockquote" b
+snippet >> "blockquote" b
 `!p
 import re
 snip.rv = "\n" + re.sub('^', '> ', snip.v.text, 0, re.M) 
