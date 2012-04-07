@@ -134,8 +134,8 @@ map [] k$][%?}<CR>
 " sudo fc-cache -vf
 let g:Powerline_symbols='fancy'
 if has('win32')
-    set guifont=Ubuntu_Mono_for_Powerline:h11:b
-    "set guifont=Consolas:h11
+    "set guifont=Ubuntu_Mono_for_Powerline:h11:b
+    set guifont=Consolas:h11
 else
     set guifont=Monospace
 endif
@@ -285,5 +285,5 @@ let g:GPGDefaultRecipients=['Raghu Rajagopalan']
 
 "Threesome configuration - initial layout
 let g:threesome_initial_mode = "grid"
-let g:threesome_initial_layout_grid = 2
+let g:threesome_initial_layout_grid = 1
 let g:threesome_initial_scrollbind_grid = 1

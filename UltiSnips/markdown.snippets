@@ -1,43 +1,85 @@
-snippet step "step snippet for s9" b
-{% step %}
-${0}
-${VISUAL}
-{% end %}
-endsnippet
-
 snippet h1 "Heading 1" b
-${0}${VISUAL}
+${1:${VISUAL:Heading}}
 ===============================
-endsnippet
 
+${0}
+endsnippet
 
 snippet h2 "Heading 2" b
-${0}${VISUAL}
+${1:${VISUAL:Heading}}
 -------------------------------
+
+${0}
 endsnippet
 
 snippet h3 "Heading 3" b
-### ${0}${VISUAL}
+### ${1:${VISUAL:Heading}}
+
+${0}
 endsnippet
 
-snippet block "blockquote" b
->
-> ${0:Blockquote content}
->
+snippet h4 "Heading 3" bw
+#### ${1:${VISUAL:Heading}}
+
+${0}
+endsnippet
+
+snippet em "italics" iw
+_${1:${VISUAL:italic text}}_ ${0}
+endsnippet
+
+snippet bold "bold" iw
+__${1:${VISUAL:italic text}}__ ${0}
+endsnippet
+
+snippet >> "blockquote" b
+`!p
+import re
+snip.rv = "\n" + re.sub('^', '> ', snip.v.text, 0, re.M) 
+`
+${0}
+endsnippet
+
+snippet uli "unordered list" b
+`!p
+import re
+snip.rv = "\n" + re.sub('^', '*.  ', snip.v.text, 0, re.M) 
+`
+${0}
+endsnippet
+
+snippet li "numbered list" b
+`!p
+import re
+snip.rv = "\n" + re.sub('^', '1.  ', snip.v.text, 0, re.M) 
+`
+${0}
 endsnippet
 
 snippet link "Link markup" 
-[${VISUAL}](${1:http://}) $0
-endsnippet
-
-snippet code "code block " b
-{% code lang=${1:lang} %}
-${0}${VISUAL}
-{% end %}
+[${1:${VISUAL:Link text}}](${2:link url}) $0
 endsnippet
 
 snippet img "inline image"
 ![${1:title}](${2:url})
+endsnippet
+
+# doesnt work
+snippet ref "reference link" i
+`!p
+import vim
+vim.command(':norm vG"ay')
+`
+[${1:text}] [${2:linkid}] $0 `!v getreg("a")`
+[$2]: <${3:url}> "$1"
+endsnippet
+######################################
+#  S9 (slideshow) specific snippets  #
+######################################
+snippet code "code block " b
+{% code lang=${1:lang} %}
+${0}${VISUAL}
+{% end %}
 endsnippet
 
 snippet {% "wrap"
@@ -46,5 +88,11 @@ ${VISUAL}
 {% end %}
 endsnippet
 
+snippet step "step snippet for s9" b
+{% step %}
+${0}
+${VISUAL}
+{% end %}
+endsnippet
 
 
