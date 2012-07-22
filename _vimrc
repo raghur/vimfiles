@@ -204,6 +204,7 @@ nnoremap <F5> :GundoToggle<CR>
 nnoremap <leader>b :CtrlPBuffer<cr>
 vnoremap <leader>h :normal @
 vnoremap <leader>v "0p
+nnoremap <silent> <F10> :YRShow<CR>
 
 " select forward brace block on the line
 nnoremap <Leader><Leader> V/{<cr>%

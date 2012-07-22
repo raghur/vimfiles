@@ -43,3 +43,6 @@
 [submodule "bundle/threesome.vim"]
 	path = bundle/threesome.vim
 	url = https://github.com/sjl/threesome.vim.git
+[submodule "bundle/yankring"]
+	path = bundle/yankring
+	url = https://github.com/vim-scripts/YankRing.vim.git
