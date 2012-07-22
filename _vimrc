@@ -137,7 +137,7 @@ if has('win32')
     "set guifont=Ubuntu_Mono_for_Powerline:h11:b
     set guifont=Consolas:h11
 else
-    set guifont=Monospace
+    set guifont=Monospace\ 10,Ubuntu\ Mono\ 11,DejaVu\ Sans\ Mono\ 10
 endif
 set t_Co=256
 if &term == "xterm" || &term== "screen-256color"
