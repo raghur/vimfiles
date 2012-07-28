@@ -290,6 +290,8 @@ let g:ctrlp_max_height = 15
 let g:ctrlp_tabpage_position = 'al'
 let g:ctrlp_open_multi = '1t'
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir']
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_cache_dir = $HOME.'/.ctrlp_cache'
 set winaltkeys=no
 nnoremap <leader>t :CtrlPTag<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
