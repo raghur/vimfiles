@@ -134,8 +134,8 @@ map [] k$][%?}<CR>
 " sudo fc-cache -vf
 let g:Powerline_symbols='fancy'
 if has('win32')
-    "set guifont=Ubuntu_Mono_for_Powerline:h11:b
-    set guifont=Consolas:h11
+    ""set guifont=Ubuntu_Mono_for_Powerline:h11:b
+    set guifont=Consolas:h09
 else
     set guifont=Monospace\ 10,Ubuntu\ Mono\ 11,DejaVu\ Sans\ Mono\ 10
 endif
@@ -157,7 +157,7 @@ set nowrap
 set copyindent
 set smarttab
 set smartindent
-set wildignore=*.swp,*.bak,*.class
+set wildignore+=*.swp,*.bak,*.class,.git/*,.svn/*,.git\*,.svn\*
 set visualbell
 set noerrorbells
 set list
@@ -201,7 +201,6 @@ noremap <C-s> :w<cr>
 nnoremap <leader>p :b#<cr>
 nnoremap <leader>sv :ed ~/vimfiles/_vimrc<cr>
 nnoremap <F5> :GundoToggle<CR>
-nnoremap <leader>b :CtrlPBuffer<cr>
 vnoremap <leader>h :normal @
 vnoremap <leader>v "0p
 nnoremap <silent> <F10> :YRShow<CR>
@@ -228,8 +227,9 @@ if has("gui_running")
 else
     set background=dark
 endif
+set background=light
 let g:solarized_termcolors=256
-colors solarized
+colors molokai
 " status line/mode line
 "set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ %{strftime(\"%d/%m/%Y-%H:%M\")}%=\ col:%c%V\ ascii:%b\ pos:%o\ lin:%l\,%L\ %P
 set laststatus=2
@@ -283,8 +283,12 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 let g:GPGDefaultRecipients=['Raghu Rajagopalan']
 
-
-"Threesome configuration - initial layout
-let g:threesome_initial_mode = "grid"
-let g:threesome_initial_layout_grid = 1
-let g:threesome_initial_scrollbind_grid = 1
+" ctrlp configuration and keybindings
+let g:ctrlp_match_window_bottom = 0
+let g:ctrlp_match_window_reversed = 0
+let g:ctrlp_max_height = 15
+let g:ctrlp_tabpage_position = 'al'
+let g:ctrlp_open_multi = '1t'
+let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir']
+nnoremap <leader>t :CtrlPTag<cr>
+nnoremap <leader>b :CtrlPBuffer<cr>
