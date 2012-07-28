@@ -49,3 +49,6 @@
 [submodule "bundle/splice"]
 	path = bundle/splice
 	url = https://github.com/sjl/splice.vim.git
+[submodule "bundle/vim-yankstack"]
+	path = bundle/vim-yankstack
+	url = https://github.com/maxbrunsfeld/vim-yankstack.git
