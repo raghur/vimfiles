@@ -46,9 +46,6 @@
 [submodule "bundle/vim-haml"]
 	path = bundle/vim-haml
 	url = https://github.com/tpope/vim-haml
-[submodule "bundle/yankring"]
-	path = bundle/yankring
-	url = https://github.com/vim-scripts/YankRing.vim.git
 [submodule "bundle/splice"]
 	path = bundle/splice
 	url = https://github.com/sjl/splice.vim.git
