@@ -283,6 +283,9 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 let g:GPGDefaultRecipients=['Raghu Rajagopalan']
 
+" Required for yankstack
+set winaltkeys=no
+
 " ctrlp configuration and keybindings
 let g:ctrlp_match_window_bottom = 0
 let g:ctrlp_match_window_reversed = 0
@@ -292,6 +295,8 @@ let g:ctrlp_open_multi = '1t'
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir']
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_cache_dir = $HOME.'/.ctrlp_cache'
-set winaltkeys=no
 nnoremap <leader>t :CtrlPTag<cr>
 nnoremap <leader>b :CtrlPMixed<cr>
+nnoremap <leader>q :CtrlPQuickfix<cr>
+nnoremap <leader>c :CtrlPChange<cr>
+
