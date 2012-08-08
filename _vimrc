@@ -300,3 +300,4 @@ nnoremap <leader>b :CtrlPMixed<cr>
 nnoremap <leader>q :CtrlPQuickfix<cr>
 nnoremap <leader>c :CtrlPChangeAll<cr>
 
+set sessionoptions="blank,buffers,curdir,resize,tabpages,unix,winpos,winsize"
