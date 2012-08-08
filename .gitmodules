@@ -52,3 +52,6 @@
 [submodule "bundle/vim-yankstack"]
 	path = bundle/vim-yankstack
 	url = https://github.com/maxbrunsfeld/vim-yankstack.git
+[submodule "bundle/tabular"]
+	path = bundle/tabular
+	url = https://github.com/godlygeek/tabular.git
