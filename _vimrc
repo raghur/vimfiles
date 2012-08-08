@@ -298,5 +298,5 @@ let g:ctrlp_cache_dir = $HOME.'/.ctrlp_cache'
 nnoremap <leader>t :CtrlPTag<cr>
 nnoremap <leader>b :CtrlPMixed<cr>
 nnoremap <leader>q :CtrlPQuickfix<cr>
-nnoremap <leader>c :CtrlPChange<cr>
+nnoremap <leader>c :CtrlPChangeAll<cr>
 
