@@ -1,3 +1,19 @@
+snippet post "Post Header" b
+"=========== Meta ============
+"StrID : 
+"Title : ${1}
+"Slug  : ${1/ /-/g}
+"Cats  : Uncategorized
+"Tags  : ${2}
+"=============================
+"EditType   : post
+"EditFormat : Markdown
+"TextAttach : 
+"========== Content ==========
+
+${0}
+endsnippet
+
 snippet h1 "Heading 1" b
 ${1:${VISUAL:Heading}}
 ===============================
