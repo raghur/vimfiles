@@ -106,7 +106,7 @@ let &t_te.="\e[0 q"
 call pathogen#infect()
 
 set wildchar=<Tab> wildmenu
-set wildmode=list:longest,full
+set wildmode=longest,list
 set expandtab
 set tabstop=4
 set softtabstop=4
@@ -192,6 +192,9 @@ let maplocalleader='\'
 set gdefault
 nnoremap / /\v
 nnoremap <leader><space>  :noh<cr>
+vnoremap > >gv
+vnoremap < <gv
+
 
 " keybindings
 set colorcolumn=+1
@@ -300,4 +303,8 @@ nnoremap <leader>b :CtrlPMixed<cr>
 nnoremap <leader>q :CtrlPQuickfix<cr>
 nnoremap <leader>c :CtrlPChangeAll<cr>
 
+" Session management
 set sessionoptions="blank,buffers,curdir,resize,tabpages,unix,winpos,winsize"
+let g:session_directory="~/vimbackups"
+let g:session_command_aliases = 1
+
