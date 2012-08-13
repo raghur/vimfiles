@@ -307,4 +307,4 @@ nnoremap <leader>c :CtrlPChangeAll<cr>
 set sessionoptions="blank,buffers,curdir,resize,tabpages,unix,winpos,winsize"
 let g:session_directory="~/.vimbackups"
 let g:session_command_aliases = 1
-
+set shellslash
