@@ -135,7 +135,7 @@ map [] k$][%?}<CR>
 let g:Powerline_symbols='fancy'
 if has('win32')
     ""set guifont=Ubuntu_Mono_for_Powerline:h11:b
-    set guifont=Consolas:h09
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h09
 else
     set guifont=Monospace\ 10,Ubuntu\ Mono\ 11,DejaVu\ Sans\ Mono\ 10
 endif
@@ -161,8 +161,7 @@ set wildignore+=*.swp,*.bak,*.class,.git/*,.svn/*,.git\*,.svn\*
 set visualbell
 set noerrorbells
 set list
-set listchars=tab:>.,trail:.,extends:#,nbsp:.
-
+set listchars=tab:▶.,trail:░,extends:➤,nbsp:.
 au BufNewFile,BufRead *.aspx set filetype=html
 au BufNewFile,BufRead *.ascx set filetype=html
 au BufNewFile,BufRead *.moin setf moin
