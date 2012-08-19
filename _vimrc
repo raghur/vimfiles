@@ -144,8 +144,6 @@ if &term == "xterm" || &term== "screen-256color"
     set term=xterm-256color
 endif
 set path+=$HOME,.,,~/git,~/code
-" slash allows opening files from windows.
-set sessionoptions+=unix,slash
 
 " avoids messing up folders with *.swp and file~ backups
 set backupdir=~/vimfiles/.vimbackups
@@ -255,29 +253,16 @@ nnoremap j gj
 nnoremap k gk
 
 
-let VIMPRESS = [{'username':'rraghur', 
+let VIMPRESS = [{'username':'rraghur',
                 \'password':'',
-                \'blog_url':'http://niftybits.wordpress.com' 
-                \}] 
+                \'blog_url':'http://niftybits.wordpress.com'
+                \}]
 
 augroup Markdown
-    autocmd FileType markdown setl wrap 
+    autocmd FileType markdown setl wrap
                             \ linebreak
                             \ spell spelllang=en_us
 augroup END
-nmap <leader><leader>q <ESC>:execute ':mksession! '
-            \ .split(&runtimepath, ',')[0]
-            \ . '/sessions/Session.vim'<CR>:wqa<CR>
-
-function! RestoreSession()
-    if argc() == 0 "vim called without arguments
-        let l:sessionfile = split(&runtimepath, ',')[0] . "/sessions/Session.vim"
-        if filereadable(l:sessionfile)
-            execute 'source ' . l:sessionfile
-        endif
-    end
-endfunction
-autocmd VimEnter * call RestoreSession()
 
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
@@ -303,7 +288,7 @@ nnoremap <leader>q :CtrlPQuickfix<cr>
 nnoremap <leader>c :CtrlPChangeAll<cr>
 
 " Session management
-set sessionoptions="blank,buffers,curdir,resize,tabpages,unix,winpos,winsize"
+set sessionoptions="blank,buffers,curdir,resize,tabpages,unix,slash,winpos,winsize"
 let g:session_directory="~/.vimbackups"
 let g:session_command_aliases = 1
 set shellslash
