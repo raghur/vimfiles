@@ -135,7 +135,7 @@ map [] k$][%?}<CR>
 let g:Powerline_symbols='fancy'
 if has('win32')
     ""set guifont=Ubuntu_Mono_for_Powerline:h11:b
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h09
+    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h10
 else
     set guifont=Monospace\ 10,Ubuntu\ Mono\ 11,DejaVu\ Sans\ Mono\ 10
 endif
