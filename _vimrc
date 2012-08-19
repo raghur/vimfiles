@@ -308,3 +308,10 @@ set sessionoptions="blank,buffers,curdir,resize,tabpages,unix,winpos,winsize"
 let g:session_directory="~/.vimbackups"
 let g:session_command_aliases = 1
 set shellslash
+
+"Use cygwin shell - see http://code.google.com/p/vimshell/
+set shellquote=
+set shellslash  
+set shellxquote=
+set shellpipe=2>&1\|tee
+set shellredir=>%s\ 2>&1
