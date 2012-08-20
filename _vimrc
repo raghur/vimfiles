@@ -135,7 +135,7 @@ map [] k$][%?}<CR>
 let g:Powerline_symbols='fancy'
 if has('win32')
     ""set guifont=Ubuntu_Mono_for_Powerline:h11:b
-    set guifont=DejaVu\ Sans\ Mono\ for\ Powerline:h10
+    set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h10
 else
     set guifont=Monospace\ 10,Ubuntu\ Mono\ 11,DejaVu\ Sans\ Mono\ 10
 endif
@@ -276,7 +276,7 @@ set winaltkeys=no
 " ctrlp configuration and keybindings
 let g:ctrlp_match_window_bottom = 0
 let g:ctrlp_match_window_reversed = 0
-let g:ctrlp_max_height = 15
+let g:ctrlp_max_height = 10
 let g:ctrlp_tabpage_position = 'al'
 let g:ctrlp_open_multi = '1t'
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir']
@@ -295,7 +295,7 @@ set shellslash
 
 "Use cygwin shell - see http://code.google.com/p/vimshell/
 set shellquote=
-set shellslash  
+set shellslash
 set shellxquote=
 set shellpipe=2>&1\|tee
 set shellredir=>%s\ 2>&1
