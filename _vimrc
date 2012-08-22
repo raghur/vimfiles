@@ -194,7 +194,7 @@ vnoremap < <gv
 
 
 " keybindings
-set colorcolumn=+1
+set colorcolumn=120
 nnoremap 0 ^
 nnoremap ^ 0
 noremap <C-s> :w<cr>
