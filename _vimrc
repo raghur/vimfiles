@@ -203,7 +203,6 @@ nnoremap <leader>sv :ed ~/vimfiles/_vimrc<cr>
 nnoremap <F5> :GundoToggle<CR>
 vnoremap <leader>h :normal @
 vnoremap <leader>v "0p
-nnoremap <silent> <F10> :YRShow<CR>
 
 " select forward brace block on the line
 nnoremap <Leader><Leader> V/{<cr>%
