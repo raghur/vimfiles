@@ -177,6 +177,7 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
+au BufNewFile,BufReadPost *.coffee setl foldmethod=indent, nofoldenable
 
 " random stuff..
 set autochdir
@@ -194,7 +195,7 @@ vnoremap < <gv
 
 
 " keybindings
-set colorcolumn=+1
+set colorcolumn=120
 nnoremap 0 ^
 nnoremap ^ 0
 noremap <C-s> :w<cr>
@@ -290,11 +291,4 @@ nnoremap <leader>c :CtrlPChangeAll<cr>
 set sessionoptions="blank,buffers,curdir,resize,tabpages,unix,slash,winpos,winsize"
 let g:session_directory="~/vimfiles/.vimbackups"
 let g:session_command_aliases = 1
-set shellslash
 
-"Use cygwin shell - see http://code.google.com/p/vimshell/
-set shellquote=
-set shellslash
-set shellxquote=
-set shellpipe=2>&1\|tee
-set shellredir=>%s\ 2>&1

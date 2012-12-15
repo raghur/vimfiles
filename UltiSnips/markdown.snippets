@@ -2,7 +2,7 @@ snippet post "Post Header" b
 "=========== Meta ============
 "StrID : 
 "Title : ${1}
-"Slug  : ${1/ /-/g}
+"Slug  : ${1/[ -]+/-/g}
 "Cats  : Uncategorized
 "Tags  : ${2}
 "=============================
