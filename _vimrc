@@ -293,3 +293,5 @@ let g:session_directory="~/vimfiles/.vimbackups"
 let g:session_command_aliases = 1
 set shellslash
 
+call yankstack#setup()
+
