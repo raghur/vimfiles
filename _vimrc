@@ -189,7 +189,7 @@ let maplocalleader='\'
 " replace all instances in a line.
 set gdefault
 nnoremap / /\v
-nnoremap <leader><space>  :noh<cr>
+nnoremap <leader>h  :noh<cr>
 vnoremap > >gv
 vnoremap < <gv
 
@@ -257,6 +257,7 @@ let VIMPRESS = [{'username':'rraghur',
                 \'password':'',
                 \'blog_url':'http://niftybits.wordpress.com'
                 \}]
+let VIMREPRESS = VIMPRESS
 
 augroup Markdown
     autocmd FileType markdown setl wrap
@@ -284,6 +285,7 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_cache_dir = $HOME.'/.ctrlp_cache'
 nnoremap <leader>t :CtrlPTag<cr>
 nnoremap <leader>b :CtrlPMixed<cr>
+nnoremap <leader><space> :CtrlP<cr>
 nnoremap <leader>q :CtrlPQuickfix<cr>
 nnoremap <leader>c :CtrlPChangeAll<cr>
 
@@ -295,3 +297,5 @@ set shellslash
 
 call yankstack#setup()
 
+let g:tracServerList = {}       
+"let g:tracServerList['APS'] = 'http://raghuramanr:wsxedc01!@trac.biz.aditi.com/projects/aps/login/xmlrpc' 
