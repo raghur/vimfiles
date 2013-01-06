@@ -296,6 +296,8 @@ let g:session_command_aliases = 1
 set shellslash
 
 call yankstack#setup()
+call pathogen#infect()
+call pathogen#helptags()
 
 let g:tracServerList = {}       
 "let g:tracServerList['APS'] = 'http://raghuramanr:wsxedc01!@trac.biz.aditi.com/projects/aps/login/xmlrpc' 
