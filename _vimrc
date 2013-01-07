@@ -286,6 +286,7 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_cache_dir = $HOME.'/.ctrlp_cache'
 nnoremap <leader>t :CtrlPTag<cr>
 nnoremap <leader>b :CtrlPMixed<cr>
+nnoremap <leader>r :CtrlPMRUFiles<cr>
 nnoremap <leader><space> :CtrlP<cr>
 nnoremap <leader>q :CtrlPQuickfix<cr>
 nnoremap <leader>c :CtrlPChangeAll<cr>
