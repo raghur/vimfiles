@@ -70,6 +70,3 @@
 [submodule "bundle/hardmode"]
 	path = bundle/hardmode
 	url = https://github.com/wikitopian/hardmode.git
-[submodule "bundle/powerline-py"]
-	path = bundle/powerline-py
-	url = https://github.com/Lokaltog/powerline.git
