@@ -67,3 +67,9 @@
 [submodule "bundle/trac.vim"]
 	path = bundle/trac.vim
 	url = https://github.com/mjbrownie/Trac.vim.git
+[submodule "bundle/hardmode"]
+	path = bundle/hardmode
+	url = https://github.com/wikitopian/hardmode.git
+[submodule "bundle/powerline-py"]
+	path = bundle/powerline-py
+	url = https://github.com/Lokaltog/powerline.git
