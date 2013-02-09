@@ -307,3 +307,5 @@ let g:tracServerList = {}
 " hard mode
 nnoremap <leader>hm  <ESC>:call HardMode()<CR>
 nnoremap <leader>he  <ESC>:call EasyMode()<CR>
+autocmd VimEnter,BufNewFile,BufReadPost * call HardMode()
+
