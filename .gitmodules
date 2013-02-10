@@ -55,3 +55,18 @@
 [submodule "bundle/vim-powerline"]
 	path = bundle/vim-powerline
 	url = https://github.com/Lokaltog/vim-powerline.git
+[submodule "bundle/jslint.vim"]
+	path = bundle/jslint.vim
+	url = https://github.com/hallettj/jslint.vim.git
+[submodule "bundle/matchtag"]
+	path = bundle/matchtag
+	url = https://github.com/gregsexton/MatchTag.git
+[submodule "bundle/vim-matchit"]
+	path = bundle/vim-matchit
+	url = https://github.com/tsaleh/vim-matchit.git
+[submodule "bundle/vim-ragtag"]
+	path = bundle/vim-ragtag
+	url = https://github.com/tpope/vim-ragtag.git
+[submodule "bundle/vim-autocomplpop"]
+	path = bundle/vim-autocomplpop
+	url = https://github.com/clones/vim-autocomplpop.git
