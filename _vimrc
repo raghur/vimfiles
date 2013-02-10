@@ -305,7 +305,7 @@ let g:tracServerList = {}
 "let g:tracServerList['APS'] = 'http://raghuramanr:wsxedc01!@trac.biz.aditi.com/projects/aps/login/xmlrpc' 
 
 " hard mode
-nnoremap <leader>hm  <ESC>:call HardMode()<CR>
+nnoremap <leader>hh  <ESC>:call HardMode()<CR>
 nnoremap <leader>he  <ESC>:call EasyMode()<CR>
 autocmd VimEnter,BufNewFile,BufReadPost * call HardMode()
 
