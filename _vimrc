@@ -133,13 +133,15 @@ map [] k$][%?}<CR>
 " cp ~/vimfiles/consolas-powerline.otf ~/.fonts/
 " sudo fc-cache -vf
 let g:Powerline_symbols='fancy'
+let s:GrepOpts='\ --exclude-dir=.git\ --exclude-dir=.svn\ --exclude-dir=tmp\ --exclude=*.tmp\ --exclude=*.min.js\ -Plirn'
 if has('win32')
     ""set guifont=Ubuntu_Mono_for_Powerline:h11:b
     set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h10
-    set grepprg=f:/utils/gnuwin/grep.exe\ --exclude-dir=.git\ --exclude-dir=tmp\ --exclude=*.tmp\ -Pirn
+    set grepprg=f:/utils/gnuwin/grep.exe
 else
     set guifont=Monospace\ 10,Ubuntu\ Mono\ 11,DejaVu\ Sans\ Mono\ 10
 endif
+execute "set grepprg+=".s:GrepOpts
 map <F4> :execute "lgrep! " . expand("<cword>") . " *" <Bar> lopen<CR>
 set t_Co=256
 if &term == "xterm" || &term== "screen-256color"
