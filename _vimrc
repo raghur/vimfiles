@@ -303,7 +303,4 @@ call pathogen#infect()
 call pathogen#helptags()
 vnoremap % <space>%
 
-let g:tracServerList = {}
-"let g:tracServerList['APS'] = 'http://raghuramanr:wsxedc01!@trac.biz.aditi.com/projects/aps/login/xmlrpc' 
-
 
