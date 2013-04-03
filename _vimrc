@@ -136,9 +136,11 @@ let g:Powerline_symbols='fancy'
 if has('win32')
     ""set guifont=Ubuntu_Mono_for_Powerline:h11:b
     set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h10
+    set grepprg=f:/utils/gnuwin/grep.exe\ --exclude-dir=.git\ --exclude-dir=tmp\ --exclude=*.tmp\ -Pirn
 else
     set guifont=Monospace\ 10,Ubuntu\ Mono\ 11,DejaVu\ Sans\ Mono\ 10
 endif
+map <F4> :execute "lgrep! " . expand("<cword>") . " *" <Bar> lopen<CR>
 set t_Co=256
 if &term == "xterm" || &term== "screen-256color"
     set term=xterm-256color
@@ -304,8 +306,4 @@ vnoremap % <space>%
 let g:tracServerList = {}
 "let g:tracServerList['APS'] = 'http://raghuramanr:wsxedc01!@trac.biz.aditi.com/projects/aps/login/xmlrpc' 
 
-" hard mode
-nnoremap <leader>hh  <ESC>:call HardMode()<CR>
-nnoremap <leader>he  <ESC>:call EasyMode()<CR>
-autocmd VimEnter,BufNewFile,BufReadPost * call HardMode()
 
