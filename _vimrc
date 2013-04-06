@@ -133,12 +133,26 @@ map [] k$][%?}<CR>
 " cp ~/vimfiles/consolas-powerline.otf ~/.fonts/
 " sudo fc-cache -vf
 let g:Powerline_symbols='fancy'
+let s:GrepOpts='\ --exclude-dir=.git\ --exclude-dir=.svn\ --exclude-dir=tmp\ --exclude=*.tmp\ --exclude=*.min.js\ -PHIirn'
 if has('win32')
     ""set guifont=Ubuntu_Mono_for_Powerline:h11:b
     set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h10
+    set grepprg=f:/utils/gnuwin/grep.exe
 else
     set guifont=Monospace\ 10,Ubuntu\ Mono\ 11,DejaVu\ Sans\ Mono\ 10
 endif
+execute "set grepprg+=".s:GrepOpts
+map <F6> :execute "silent lgrep! \\b" . expand("<cword>") . "\\b *" <Bar>lopen<CR>
+map <S-F6> :call Grep_with_args("\\b".expand("<cword>")."\\b", "**/*")<cr>
+fun! Grep_with_args(patt, fileglob)
+    let pattern=input("Enter PCRE regex: ", a:patt)
+    let filepat=input("Fileglob: ", a:fileglob)
+    let folder=input("Path: ", expand("%:p:h"))
+    let filelist=join(split(globpath(folder ,filepat), "\n"), " ")
+    let cmd="silent lgrep! " . pattern . " " . filelist . "| lopen"
+    "echom cmd
+    execute cmd
+endfun
 set t_Co=256
 if &term == "xterm" || &term== "screen-256color"
     set term=xterm-256color
@@ -301,11 +315,4 @@ call pathogen#infect()
 call pathogen#helptags()
 vnoremap % <space>%
 
-let g:tracServerList = {}
-"let g:tracServerList['APS'] = 'http://raghuramanr:wsxedc01!@trac.biz.aditi.com/projects/aps/login/xmlrpc' 
-
-" hard mode
-nnoremap <leader>hh  <ESC>:call HardMode()<CR>
-nnoremap <leader>he  <ESC>:call EasyMode()<CR>
-autocmd VimEnter,BufNewFile,BufReadPost * call HardMode()
 
