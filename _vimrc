@@ -191,6 +191,7 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 au BufNewFile,BufReadPost *.coffee setl foldmethod=indent, nofoldenable
+au filetype help :wincmd L
 
 " random stuff..
 set autochdir
