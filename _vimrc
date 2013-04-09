@@ -246,9 +246,7 @@ else
 endif
 set background=light
 let g:solarized_termcolors=256
-colors molokai
-" status line/mode line
-"set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ %{strftime(\"%d/%m/%Y-%H:%M\")}%=\ col:%c%V\ ascii:%b\ pos:%o\ lin:%l\,%L\ %P
+colors darkblack
 set laststatus=2
 
 " Clipboard integration
@@ -308,7 +306,7 @@ nnoremap <leader>c :CtrlPChangeAll<cr>
 set sessionoptions="blank,buffers,curdir,resize,tabpages,unix,slash,winpos,winsize"
 let g:session_directory="~/vimfiles/.vimbackups"
 let g:session_command_aliases = 1
-set shellslash
+"set shellslash
 
 call yankstack#setup()
 call pathogen#infect()
