@@ -318,6 +318,7 @@ vnoremap % <space>%
 let g:formatprg_javascript="js-beautify"
 let g:formatprg_args_javascript=" -jw 80 -"
 fun! FormatFile() 
+    let curline=line(".")
     if exists("g:formatprg_". &ft) 
         let cmd ="%!" . eval("g:formatprg_". &ft)
         if exists("g:formatprg_args_". &ft) 
@@ -328,5 +329,6 @@ fun! FormatFile()
     else
         exec "normal ". "gg=G"
     endif
+    exec "normal ". curline. "G"
 endfun
 map <F7> :call FormatFile() <cr>
