@@ -315,6 +315,8 @@ vnoremap % <space>%
 
 let g:formatprg_javascript="js-beautify"
 let g:formatprg_args_javascript=" -jw 80 -"
+let g:formatprg_json="js-beautify"
+let g:formatprg_args_json=" -jw 80 -"
 fun! FormatFile() 
     let curline=line(".")
     if exists("g:formatprg_". &ft) 
