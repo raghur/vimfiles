@@ -139,6 +139,8 @@ if has('win32')
     ""set guifont=Ubuntu_Mono_for_Powerline:h11:b
     set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h10
     let s:ack="f:/utils/ack.bat"
+    let g:find="f:\\utils\\gnuwin\\find.exe "
+    let g:grep="f:\\utils\\gnuwin\\grep.exe "
     execute "set grepprg=" . s:ack
 else
     set grepprg=ack
@@ -295,6 +297,8 @@ let g:ctrlp_open_multi = '1t'
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir']
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_cache_dir = $HOME.'/.ctrlp_cache'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_working_path_mode = 'ra'
 nnoremap <leader>t :CtrlPTag<cr>
 nnoremap <leader>b :CtrlPMixed<cr>
 nnoremap <leader>r :CtrlPMRUFiles<cr>
