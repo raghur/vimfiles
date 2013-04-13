@@ -133,25 +133,29 @@ map [] k$][%?}<CR>
 " cp ~/vimfiles/consolas-powerline.otf ~/.fonts/
 " sudo fc-cache -vf
 let g:Powerline_symbols='fancy'
-"let s:GrepOpts='\ --exclude-dir=.git\ --exclude-dir=.svn\ --exclude-dir=tmp\ --exclude=*.tmp\ --exclude=*.min.js\ -PHIirn'
-let s:GrepOpts='\ -a\ --no-group\ -Hi '
+let s:find_prog = "grep"
+let s:grepopts='\ --exclude-dir=.git\ --exclude-dir=.svn\ --exclude-dir=tmp\ --exclude=*.tmp\ --exclude=*.min.js\ -PHIirn'
+let s:ackopts='\ -a\ --no-group\ -Hi '
 if has('win32')
     ""set guifont=Ubuntu_Mono_for_Powerline:h11:b
     set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h10
     let s:ack="f:/utils/ack.bat"
-    let g:find="f:\\utils\\gnuwin\\find.exe "
-    let g:grep="f:\\utils\\gnuwin\\grep.exe "
-    execute "set grepprg=" . s:ack
+    let s:find="f:\\utils\\gnuwin\\find.exe"
+    let s:grep="f:\\utils\\gnuwin\\grep.exe"
 else
-    set grepprg=ack
+    let s:ack="ack"
+    let s:find="find"
+    let s:grep="grep"
     set guifont=Monospace\ 10,Ubuntu\ Mono\ 11,DejaVu\ Sans\ Mono\ 10
 endif
-execute "set grepprg+=".s:GrepOpts
+execute "set grepprg=" . eval("s:".s:find_prog)."\\ ".eval("s:".s:find_prog."opts")
 fun! Grep_with_args(patt, fileglob)
-    let pattern=input("Enter PCRE regex: ", a:patt)
-    let filepat=input("File Regex: ", a:fileglob)
-    let cmd="silent lgrep! -G '". filepat ."' '". pattern . "'| lopen"
-    echom cmd
+    let pattern=input("Perl regex: ", a:patt)
+    let filepat=input("Find opts : ", a:fileglob)
+    let folder=input("Path: ", expand("%:p:h"))
+    let filelist=join(split(globpath(folder, "**/".filepat), "\n"), " ")
+    let cmd="silent lgrep! '". pattern . "' ". filelist. "| lopen"
+    "echom cmd
     execute cmd
 endfun
 set t_Co=256
