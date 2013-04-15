@@ -140,8 +140,8 @@ if has('win32')
     ""set guifont=Ubuntu_Mono_for_Powerline:h11:b
     set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h10
     let s:ack="f:/utils/ack.bat"
-    let s:find="f:\\utils\\gnuwin\\find.exe"
-    let s:grep="f:\\utils\\gnuwin\\grep.exe"
+    let s:find=fnamemodify(findfile("find.exe", $GNUWIN), ":p")
+    let s:grep=fnamemodify(findfile("grep.exe", $GNUWIN), ":p")
 else
     let s:ack="ack"
     let s:find="find"
