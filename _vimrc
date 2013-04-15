@@ -103,7 +103,41 @@ let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
 
-call pathogen#infect()
+set rtp+=~/vimfiles/bundle/vundle/
+call vundle#rc("$HOME/vimfiles/bundle")
+
+" let Vundle manage Vundle
+" required! 
+Bundle 'gmarik/vundle'
+Bundle 'vim-scripts/L9.git'
+
+Bundle 'https://git.gitorious.org/vim-gnupg/vim-gnupg'
+Bundle 'raghur/VimRepress'
+Bundle 'vim-scripts/L9'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'kien/ctrlp.vim'
+Bundle 'Raimondi/delimitMate'
+Bundle 'sjl/gundo.vim'
+Bundle 'wikitopian/hardmode'
+Bundle 'hallettj/jslint.vim'
+Bundle 'gregsexton/MatchTag'
+Bundle 'scrooloose/nerdcommenter'
+Bundle 'sjl/splice.vim'
+Bundle 'SirVer/ultisnips'
+Bundle 'clones/vim-autocomplpop'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'flazz/vim-colorschemes'
+Bundle 'pangloss/vim-javascript'
+Bundle 'elzr/vim-json'
+Bundle 'tsaleh/vim-matchit'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'tpope/vim-ragtag'
+Bundle 'xolox/vim-session'
+Bundle 'tpope/vim-surround'
+Bundle 'kana/vim-textobj-indent'
+Bundle 'kana/vim-textobj-user'
+Bundle 'maxbrunsfeld/vim-yankstack'
+Bundle 'mattn/zencoding-vim'
 
 set wildchar=<Tab> wildmenu
 set wildmode=longest,list
@@ -317,8 +351,6 @@ let g:session_command_aliases = 1
 "set shellslash
 
 call yankstack#setup()
-call pathogen#infect()
-call pathogen#helptags()
 vnoremap % <space>%
 
 let g:formatprg_javascript="js-beautify"

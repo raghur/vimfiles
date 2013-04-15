@@ -105,3 +105,6 @@
 [submodule "bundle/vim-json"]
 	path = bundle/vim-json
 	url = https://github.com/elzr/vim-json.git
+[submodule "bundle/vundle"]
+	path = bundle/vundle
+	url = https://github.com/gmarik/vundle.git
