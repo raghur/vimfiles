@@ -1,3 +1,4 @@
 sessions/*
 .vimbackups/*
 .netrwhist
+bundle/*
