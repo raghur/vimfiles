@@ -247,6 +247,7 @@ nnoremap <leader>h  :noh<cr>
 map <leader>f :execute "silent lgrep! \\b" . expand("<cword>") . "\\b *" <Bar>lopen<CR>
 map <leader>ff :call Grep_with_args("\\b".expand("<cword>")."\\b", ".*")<cr>
 map <leader>fc :lcl <cr>
+map <leader>pw :ed ~\.gnupg\passwords.txt.asc <cr>
 vnoremap > >gv
 vnoremap < <gv
 
