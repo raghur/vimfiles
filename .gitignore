@@ -2,3 +2,4 @@ sessions/*
 .vimbackups/*
 .netrwhist
 bundle/*
+!bundle/vundle
