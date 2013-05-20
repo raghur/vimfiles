@@ -349,7 +349,7 @@ nnoremap <leader>c :CtrlPChangeAll<cr>
 set sessionoptions="blank,buffers,curdir,resize,tabpages,unix,slash,winpos,winsize"
 let g:session_directory="~/vimfiles/.vimbackups"
 let g:session_command_aliases = 1
-"set shellslash
+set nossl
 
 call yankstack#setup()
 vnoremap % <space>%
