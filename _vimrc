@@ -124,7 +124,8 @@ Bundle 'gregsexton/MatchTag'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'sjl/splice.vim'
 Bundle 'SirVer/ultisnips'
-Bundle 'clones/vim-autocomplpop'
+"Bundle 'clones/vim-autocomplpop'
+Bundle 'Shougo/neocomplete.vim'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'raghur/vim-colorschemes'
 Bundle 'pangloss/vim-javascript'
@@ -138,6 +139,7 @@ Bundle 'kana/vim-textobj-indent'
 Bundle 'kana/vim-textobj-user'
 Bundle 'maxbrunsfeld/vim-yankstack'
 Bundle 'mattn/zencoding-vim'
+Bundle 'eugeneching/consolas-powerline-vim'
 
 set wildchar=<Tab> wildmenu
 set wildmode=longest,list
@@ -172,7 +174,8 @@ let s:grepopts='\ --exclude-dir=.git\ --exclude-dir=.svn\ --exclude-dir=tmp\ --e
 let s:ackopts='\ -a\ --no-group\ -Hi '
 if has('win32')
     ""set guifont=Ubuntu_Mono_for_Powerline:h11:b
-    set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h10
+    "set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h10
+    set guifont=Consolas\ for\ Powerline\ FixedD:h12
     let s:ack="f:/utils/ack.bat"
     let s:find=fnamemodify(findfile("find.exe", $GNUWIN), ":p")
     let s:grep=fnamemodify(findfile("grep.exe", $GNUWIN), ":p")
@@ -219,17 +222,18 @@ au BufNewFile,BufRead *.moin setf moin
 au BufNewFile,BufRead *.wiki setf moin
 
 " completion popup customizations http://vim.wikia.com/wiki/VimTip1386
+" ACP customizations
 set completeopt=longest,menuone
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-inoremap <expr> <M-,> pumvisible() ? '<C-n>' : '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType c set omnifunc=ccomplete#Complete
+"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+"inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+"inoremap <expr> <M-,> pumvisible() ? '<C-n>' : '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+"autocmd FileType python set omnifunc=pythoncomplete#Complete
+"autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+"autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+"autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+"autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+"autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+"autocmd FileType c set omnifunc=ccomplete#Complete
 au BufNewFile,BufReadPost *.coffee setl foldmethod=indent, nofoldenable
 au filetype help :wincmd L
 
@@ -324,8 +328,6 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 let g:GPGDefaultRecipients=['Raghu Rajagopalan']
 
-" Required for yankstack
-set winaltkeys=no
 
 " ctrlp configuration and keybindings
 let g:ctrlp_match_window_bottom = 0
@@ -338,22 +340,25 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_cache_dir = $HOME.'/.ctrlp_cache'
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_working_path_mode = 'ra'
-nnoremap <leader>t :CtrlPTag<cr>
-nnoremap <leader>b :CtrlPMixed<cr>
+nnoremap <leader>m :CtrlPMixed<cr>
+nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>r :CtrlPMRUFiles<cr>
 nnoremap <leader><space> :CtrlP<cr>
-nnoremap <leader>q :CtrlPQuickfix<cr>
-nnoremap <leader>c :CtrlPChangeAll<cr>
 
+" neocomplete
+source $HOME/vimfiles/neocomplete-custom.vim
 " Session management
 set sessionoptions="blank,buffers,curdir,resize,tabpages,unix,slash,winpos,winsize"
 let g:session_directory="~/vimfiles/.vimbackups"
 let g:session_command_aliases = 1
 set nossl
 
+" Required for yankstack
+set winaltkeys=no
 call yankstack#setup()
 vnoremap % <space>%
 
+" customizations made outside of any plugins
 let g:formatprg_javascript="js-beautify"
 let g:formatprg_args_javascript=" -jw 80 -"
 let g:formatprg_json="js-beautify"
@@ -373,3 +378,4 @@ fun! FormatFile()
     exec "normal ". curline. "G"
 endfun
 map <F7> :call FormatFile() <cr>
+
