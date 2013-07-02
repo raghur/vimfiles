@@ -124,14 +124,15 @@ Bundle 'gregsexton/MatchTag'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'sjl/splice.vim'
 Bundle 'SirVer/ultisnips'
-"Bundle 'clones/vim-autocomplpop'
-Bundle 'Shougo/neocomplete.vim'
+"Bundle 'Valloric/YouCompleteMe'
+Bundle 'scrooloose/syntastic'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'raghur/vim-colorschemes'
 Bundle 'pangloss/vim-javascript'
 Bundle 'elzr/vim-json'
 Bundle 'tsaleh/vim-matchit'
-Bundle 'Lokaltog/vim-powerline'
+"Bundle 'Lokaltog/vim-powerline'
+Bundle 'bling/vim-airline'
 Bundle 'tpope/vim-ragtag'
 Bundle 'xolox/vim-session'
 Bundle 'tpope/vim-surround'
@@ -139,7 +140,8 @@ Bundle 'kana/vim-textobj-indent'
 Bundle 'kana/vim-textobj-user'
 Bundle 'maxbrunsfeld/vim-yankstack'
 Bundle 'mattn/zencoding-vim'
-Bundle 'eugeneching/consolas-powerline-vim'
+"Bundle 'eugeneching/consolas-powerline-vim'
+Bundle 'Lokaltog/powerline-fonts'
 
 set wildchar=<Tab> wildmenu
 set wildmode=longest,list
@@ -153,6 +155,7 @@ set guioptions-=T
 set guioptions-=r
 set guioptions+=R
 let g:proj_flags="imstg"
+set ttimeoutlen=50
 
 " disable arrow keys
 noremap   <Up>     <NOP>
@@ -169,13 +172,27 @@ map [] k$][%?}<CR>
 " cp ~/vimfiles/consolas-powerline.otf ~/.fonts/
 " sudo fc-cache -vf
 let g:Powerline_symbols='fancy'
+
+" vim-airline configuration
+let g:airline_enable_fugitive=0
+let g:airline_enable_syntastic=1
+let g:airline_powerline_fonts=1
+" powerline symbols
+let g:airline_left_sep = ''
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_sep = ''
+let g:airline_fugitive_prefix = '   '
+let g:airline_readonly_symbol = ''
+let g:airline_linecolumn_prefix = ' '
+
 let s:find_prog = "grep"
 let s:grepopts='\ --exclude-dir=.git\ --exclude-dir=.svn\ --exclude-dir=tmp\ --exclude=*.tmp\ --exclude=*.min.js\ -PHIirn'
 let s:ackopts='\ -a\ --no-group\ -Hi '
 if has('win32')
     ""set guifont=Ubuntu_Mono_for_Powerline:h11:b
-    "set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h10
-    set guifont=Consolas\ for\ Powerline\ FixedD:h12
+    set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h11
+    "set guifont=Consolas\ for\ Powerline\ FixedD:h12
     let s:ack="f:/utils/ack.bat"
     let s:find=fnamemodify(findfile("find.exe", $GNUWIN), ":p")
     let s:grep=fnamemodify(findfile("grep.exe", $GNUWIN), ":p")
@@ -220,20 +237,6 @@ au BufNewFile,BufRead *.aspx set filetype=html
 au BufNewFile,BufRead *.ascx set filetype=html
 au BufNewFile,BufRead *.moin setf moin
 au BufNewFile,BufRead *.wiki setf moin
-
-" completion popup customizations http://vim.wikia.com/wiki/VimTip1386
-" ACP customizations
-set completeopt=longest,menuone
-"inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-"inoremap <expr> <C-n> pumvisible() ? '<C-n>' : '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-"inoremap <expr> <M-,> pumvisible() ? '<C-n>' : '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-"autocmd FileType python set omnifunc=pythoncomplete#Complete
-"autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-"autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-"autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-"autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-"autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-"autocmd FileType c set omnifunc=ccomplete#Complete
 au BufNewFile,BufReadPost *.coffee setl foldmethod=indent, nofoldenable
 au filetype help :wincmd L
 
@@ -344,9 +347,14 @@ nnoremap <leader>m :CtrlPMixed<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>r :CtrlPMRUFiles<cr>
 nnoremap <leader><space> :CtrlP<cr>
-
+" autocomplpop
+Bundle 'clones/vim-autocomplpop'
+source $HOME/vimfiles/autocomplpop-custom.vim
 " neocomplete
-source $HOME/vimfiles/neocomplete-custom.vim
+" Bundle 'Shougo/neocomplete.vim'
+"source $HOME/vimfiles/neocomplete-custom.vim
+
+
 " Session management
 set sessionoptions="blank,buffers,curdir,resize,tabpages,unix,slash,winpos,winsize"
 let g:session_directory="~/vimfiles/.vimbackups"
