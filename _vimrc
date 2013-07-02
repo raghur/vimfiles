@@ -131,8 +131,6 @@ Bundle 'raghur/vim-colorschemes'
 Bundle 'pangloss/vim-javascript'
 Bundle 'elzr/vim-json'
 Bundle 'tsaleh/vim-matchit'
-"Bundle 'Lokaltog/vim-powerline'
-Bundle 'bling/vim-airline'
 Bundle 'tpope/vim-ragtag'
 Bundle 'xolox/vim-session'
 Bundle 'tpope/vim-surround'
@@ -140,8 +138,12 @@ Bundle 'kana/vim-textobj-indent'
 Bundle 'kana/vim-textobj-user'
 Bundle 'maxbrunsfeld/vim-yankstack'
 Bundle 'mattn/zencoding-vim'
-"Bundle 'eugeneching/consolas-powerline-vim'
+" vim-airline and fonts
+Bundle 'bling/vim-airline'
 Bundle 'Lokaltog/powerline-fonts'
+" Powerline v1 and fonts
+"Bundle 'Lokaltog/vim-powerline'
+"Bundle 'eugeneching/consolas-powerline-vim'
 
 set wildchar=<Tab> wildmenu
 set wildmode=longest,list
@@ -168,31 +170,11 @@ map ][ /}<CR>b99]}
 map ]] j0[[%/{<CR>
 map [] k$][%?}<CR>
 
-" run the following code on a new machine
-" cp ~/vimfiles/consolas-powerline.otf ~/.fonts/
-" sudo fc-cache -vf
-let g:Powerline_symbols='fancy'
-
-" vim-airline configuration
-let g:airline_enable_fugitive=0
-let g:airline_enable_syntastic=1
-let g:airline_powerline_fonts=1
-" powerline symbols
-let g:airline_left_sep = ''
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_sep = ''
-let g:airline_fugitive_prefix = '   '
-let g:airline_readonly_symbol = ''
-let g:airline_linecolumn_prefix = ' '
-
 let s:find_prog = "grep"
 let s:grepopts='\ --exclude-dir=.git\ --exclude-dir=.svn\ --exclude-dir=tmp\ --exclude=*.tmp\ --exclude=*.min.js\ -PHIirn'
 let s:ackopts='\ -a\ --no-group\ -Hi '
 if has('win32')
-    ""set guifont=Ubuntu_Mono_for_Powerline:h11:b
     set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h11
-    "set guifont=Consolas\ for\ Powerline\ FixedD:h12
     let s:ack="f:/utils/ack.bat"
     let s:find=fnamemodify(findfile("find.exe", $GNUWIN), ":p")
     let s:grep=fnamemodify(findfile("grep.exe", $GNUWIN), ":p")
@@ -212,6 +194,26 @@ fun! Grep_with_args(patt, fileglob)
     "echom cmd
     execute cmd
 endfun
+
+" run the following code on a new machine
+" cp ~/vimfiles/consolas-powerline.otf ~/.fonts/
+" sudo fc-cache -vf
+let g:Powerline_symbols='fancy'
+
+" vim-airline configuration
+let g:airline_enable_fugitive=0
+let g:airline_enable_syntastic=1
+let g:airline_powerline_fonts=1
+" powerline symbols
+if (&guifont =~ 'Powerline')
+    let g:airline_left_sep = ''
+    let g:airline_left_sep = ''
+    let g:airline_right_sep = ''
+    let g:airline_right_sep = ''
+    let g:airline_fugitive_prefix = '   '
+    let g:airline_readonly_symbol = ''
+    let g:airline_linecolumn_prefix = ' '
+endif
 set t_Co=256
 if &term == "xterm" || &term== "screen-256color"
     set term=xterm-256color
