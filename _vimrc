@@ -246,6 +246,7 @@ au filetype help :wincmd L
 set autochdir
 set foldmethod=syntax
 set relativenumber
+set nu
 let mapleader = "m"
 let maplocalleader='\'
 " Search customizations
