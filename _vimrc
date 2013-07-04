@@ -103,8 +103,9 @@ let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
 
-set rtp+=~/vimfiles/bundle/vundle/
-call vundle#rc("$HOME/vimfiles/bundle")
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc("$HOME/.vim/bundle")
 
 " let Vundle manage Vundle
 " required! 
@@ -132,6 +133,7 @@ Bundle 'pangloss/vim-javascript'
 Bundle 'elzr/vim-json'
 Bundle 'tsaleh/vim-matchit'
 Bundle 'tpope/vim-ragtag'
+Bundle 'xolox/vim-misc'
 Bundle 'xolox/vim-session'
 Bundle 'tpope/vim-surround'
 Bundle 'kana/vim-textobj-indent'
@@ -144,7 +146,7 @@ Bundle 'Lokaltog/powerline-fonts'
 " Powerline v1 and fonts
 "Bundle 'Lokaltog/vim-powerline'
 "Bundle 'eugeneching/consolas-powerline-vim'
-
+filetype plugin indent on
 set wildchar=<Tab> wildmenu
 set wildmode=longest,list
 set expandtab
@@ -196,11 +198,12 @@ fun! Grep_with_args(patt, fileglob)
 endfun
 
 " run the following code on a new machine
-" cp ~/vimfiles/consolas-powerline.otf ~/.fonts/
+" cp ~/.vim/consolas-powerline.otf ~/.fonts/
 " sudo fc-cache -vf
 let g:Powerline_symbols='fancy'
 
 " vim-airline configuration
+set lz
 let g:airline_enable_fugitive=0
 let g:airline_enable_syntastic=1
 let g:airline_powerline_fonts=1
@@ -221,8 +224,8 @@ endif
 set path+=$HOME,.,,~/git,~/code
 
 " avoids messing up folders with *.swp and file~ backups
-set backupdir=~/vimfiles/.vimbackups
-set directory=~/vimfiles/.vimbackups
+set backupdir=~/.vim/.vimbackups
+set directory=~/.vim/.vimbackups
 set switchbuf=usetab
 set matchpairs+=<:>
 set showmatch
@@ -268,7 +271,7 @@ nnoremap 0 ^
 nnoremap ^ 0
 noremap <C-s> :w<cr>
 nnoremap <leader>p :b#<cr>
-nnoremap <leader>sv :ed ~/vimfiles/_vimrc<cr>
+nnoremap <leader>sv :ed ~/.vim/_vimrc<cr>
 nnoremap <F5> :GundoToggle<CR>
 vnoremap <leader>h :normal @
 vnoremap <leader>v "0p
@@ -352,16 +355,20 @@ nnoremap <leader>r :CtrlPMRUFiles<cr>
 nnoremap <leader><space> :CtrlP<cr>
 " autocomplpop
 Bundle 'clones/vim-autocomplpop'
-source $HOME/vimfiles/autocomplpop-custom.vim
+source $HOME/.vim/autocomplpop-custom.vim
 " neocomplete
 " Bundle 'Shougo/neocomplete.vim'
-"source $HOME/vimfiles/neocomplete-custom.vim
+"source $HOME/.vim/neocomplete-custom.vim
 
 
 " Session management
 set sessionoptions="blank,buffers,curdir,resize,tabpages,unix,slash,winpos,winsize"
-let g:session_directory="~/vimfiles/.vimbackups"
+let g:session_directory="~/.vim/.vimbackups"
 let g:session_command_aliases = 1
+let g:session_autosave='yes'
+let g:session_autoload='yes'
+let g:session_default_to_last=1
+
 set nossl
 
 " Required for yankstack
