@@ -143,10 +143,19 @@ Bundle 'mattn/zencoding-vim'
 " vim-airline and fonts
 Bundle 'bling/vim-airline'
 Bundle 'Lokaltog/powerline-fonts'
+Bundle 'nosami/Omnisharp'
+Bundle 'tpope/vim-dispatch'
 " Powerline v1 and fonts
 "Bundle 'Lokaltog/vim-powerline'
 "Bundle 'eugeneching/consolas-powerline-vim'
+" autocomplpop
+Bundle 'clones/vim-autocomplpop'
+source $HOME/.vim/autocomplpop-custom.vim
+" neocomplete
+" Bundle 'Shougo/neocomplete.vim'
+"source $HOME/.vim/neocomplete-custom.vim
 filetype plugin indent on
+
 set wildchar=<Tab> wildmenu
 set wildmode=longest,list
 set expandtab
@@ -353,12 +362,6 @@ nnoremap <leader>m :CtrlPMixed<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>r :CtrlPMRUFiles<cr>
 nnoremap <leader><space> :CtrlP<cr>
-" autocomplpop
-Bundle 'clones/vim-autocomplpop'
-source $HOME/.vim/autocomplpop-custom.vim
-" neocomplete
-" Bundle 'Shougo/neocomplete.vim'
-"source $HOME/.vim/neocomplete-custom.vim
 
 
 " Session management
@@ -378,6 +381,8 @@ vnoremap % <space>%
 
 " customizations made outside of any plugins
 let g:formatprg_javascript="js-beautify"
+let g:formatprg_cs=fnamemodify(findfile("astyle.exe", $GNUWIN), ":p")
+let g:formatprg_args_cs=" --mode=cs --style=ansi -pcHs4"
 let g:formatprg_args_javascript=" -jw 80 -"
 let g:formatprg_json="js-beautify"
 let g:formatprg_args_json=" -jw 80 -"
