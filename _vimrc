@@ -187,8 +187,8 @@ let s:ackopts='\ -a\ --no-group\ -Hi '
 if has('win32')
     set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h11
     let s:ack="f:/utils/ack.bat"
-    let s:find=fnamemodify(findfile("find.exe", $GNUWIN), ":p")
-    let s:grep=fnamemodify(findfile("grep.exe", $GNUWIN), ":p")
+    let s:find=fnamemodify(findfile("find.exe", $GNUWIN."**"), ":p")
+    let s:grep=fnamemodify(findfile("grep.exe", $GNUWIN."**"), ":p")
 else
     let s:ack="ack"
     let s:find="find"
