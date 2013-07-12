@@ -403,3 +403,5 @@ fun! FormatFile()
 endfun
 map <F7> :call FormatFile() <cr>
 
+au WinLeave * set nocursorline
+au WinEnter * set cursorline 
