@@ -114,6 +114,7 @@ Bundle 'vim-scripts/L9.git'
 
 Bundle 'https://git.gitorious.org/vim-gnupg/vim-gnupg'
 Bundle 'raghur/VimRepress'
+Bundle 'raghur/vim-helpnav'
 Bundle 'vim-scripts/L9'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'kien/ctrlp.vim'
@@ -163,7 +164,7 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set pastetoggle=<F11>
-set ignorecase
+set ignorecase smartcase
 set guioptions-=T
 set guioptions-=r
 set guioptions+=R
