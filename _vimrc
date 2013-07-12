@@ -149,11 +149,11 @@ Bundle 'tpope/vim-dispatch'
 "Bundle 'Lokaltog/vim-powerline'
 "Bundle 'eugeneching/consolas-powerline-vim'
 " autocomplpop
-Bundle 'clones/vim-autocomplpop'
-source $HOME/.vim/autocomplpop-custom.vim
-" neocomplete
-" Bundle 'Shougo/neocomplete.vim'
-"source $HOME/.vim/neocomplete-custom.vim
+"Bundle 'clones/vim-autocomplpop'
+"source $HOME/.vim/autocomplpop-custom.vim
+ "neocomplete
+ Bundle 'Shougo/neocomplete.vim'
+source $HOME/.vim/neocomplete-custom.vim
 filetype plugin indent on
 
 set wildchar=<Tab> wildmenu
