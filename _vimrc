@@ -110,8 +110,7 @@ call vundle#rc("$HOME/.vim/bundle")
 " let Vundle manage Vundle
 " required! 
 Bundle 'gmarik/vundle'
-Bundle 'vim-scripts/L9.git'
-
+Bundle 'kshenoy/vim-signature'
 Bundle 'https://git.gitorious.org/vim-gnupg/vim-gnupg'
 Bundle 'raghur/VimRepress'
 Bundle 'raghur/vim-helpnav'
@@ -249,6 +248,7 @@ set noerrorbells
 set list
 set listchars=tab:▶.,trail:░,extends:➤,nbsp:.
 au BufNewFile,BufRead *.aspx set filetype=html
+au BufNewFile,BufRead *.cshtml set filetype=html
 au BufNewFile,BufRead *.ascx set filetype=html
 au BufNewFile,BufRead *.moin setf moin
 au BufNewFile,BufRead *.wiki setf moin
@@ -404,4 +404,4 @@ endfun
 map <F7> :call FormatFile() <cr>
 
 au WinLeave * set nocursorline
-au WinEnter * set cursorline 
+au WinEnter * set cursorline
