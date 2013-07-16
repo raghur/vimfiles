@@ -261,7 +261,7 @@ set autochdir
 set foldmethod=syntax
 set relativenumber
 set nu
-let mapleader = "m"
+let mapleader = " "
 let maplocalleader='\'
 " Search customizations
 " replace all instances in a line.
@@ -284,7 +284,6 @@ noremap <C-s> :w<cr>
 nnoremap <leader>p :b#<cr>
 nnoremap <leader>sv :ed ~/.vim/_vimrc<cr>
 nnoremap <F5> :GundoToggle<CR>
-vnoremap <leader>h :normal @
 vnoremap <leader>v "0p
 
 " select forward brace block on the line
@@ -363,7 +362,7 @@ let g:ctrlp_working_path_mode = 'ra'
 nnoremap <leader>m :CtrlPMixed<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>r :CtrlPMRUFiles<cr>
-nnoremap <leader><space> :CtrlP<cr>
+nnoremap <leader><leader> :CtrlP<cr>
 
 
 " Session management
