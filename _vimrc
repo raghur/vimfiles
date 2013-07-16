@@ -185,7 +185,8 @@ let s:find_prog = "grep"
 let s:grepopts='\ --exclude-dir=.git\ --exclude-dir=.svn\ --exclude-dir=tmp\ --exclude=*.tmp\ --exclude=*.min.js\ -PHIirn'
 let s:ackopts='\ -a\ --no-group\ -Hi '
 if has('win32')
-    set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h11
+    set guifont=Source_Code_Pro_ExtraLight:h12
+    "set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h11
     let s:ack="f:/utils/ack.bat"
     let s:find=fnamemodify(findfile("find.exe", $GNUWIN."**"), ":p")
     let s:grep=fnamemodify(findfile("grep.exe", $GNUWIN."**"), ":p")
