@@ -299,7 +299,7 @@ vnoremap <leader>5  /\v[{(\[\<]<cr>%
 vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
 inoremap <C-e> <C-o>:call search("\\%" . line(".") . "l[{}() :=\\[\\]\.,\\n]","We")<cr>
 inoremap <C-a> <C-o>:call search("\\%" . line(".") . "l[{}() :=\\[\\]\.,]","Web")<cr>
-inoremap <esc> <c-o>:echoe "use jk"<cr>
+"inoremap <esc> <c-o>:echoe "use jk"<cr>
 inoremap jk <esc>
 
 " colors
@@ -408,3 +408,6 @@ map <F7> :call FormatFile() <cr>
 
 au WinLeave * set nocursorline
 au WinEnter * set cursorline
+fun! RemoveCtrlM()
+    execute("%s/\r$//")
+endfun
