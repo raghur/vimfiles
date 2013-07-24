@@ -145,6 +145,7 @@ Bundle 'bling/vim-airline'
 Bundle 'Lokaltog/powerline-fonts'
 Bundle 'nosami/Omnisharp'
 Bundle 'tpope/vim-dispatch'
+Bundle 'airblade/vim-rooter'
 " Powerline v1 and fonts
 "Bundle 'Lokaltog/vim-powerline'
 "Bundle 'eugeneching/consolas-powerline-vim'
