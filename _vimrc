@@ -179,32 +179,12 @@ map ][ /}<CR>b99]}
 map ]] j0[[%/{<CR>
 map [] k$][%?}<CR>
 
-let s:find_prog = "grep"
-let s:grepopts='\ --exclude-dir=packages\ --exclude-dir=.git\ --exclude-dir=.svn\ --exclude-dir=tmp\ --exclude=*.intellisense.js\ --exclude=*-vsdoc.js\ --exclude=*.tmp\ --exclude=*.min.js\ -PHIirn\ $*'
-let s:ackopts='\ -a\ --no-group\ -Hi '
 if has('win32')
     set guifont=Source_Code_Pro_ExtraLight:h12
     "set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h11
-    let s:ack="f:/utils/ack.bat"
-    let s:find=fnamemodify(findfile("find.exe", $GNUWIN."**"), ":p")
-    let s:grep=fnamemodify(findfile("grep.exe", $GNUWIN."**"), ":p")
 else
-    let s:ack="ack"
-    let s:find="find"
-    let s:grep="grep"
     set guifont=Monospace\ 10,Ubuntu\ Mono\ 11,DejaVu\ Sans\ Mono\ 10
 endif
-execute "set grepprg=" . eval("s:".s:find_prog)."\\ ".eval("s:".s:find_prog."opts")
-fun! Grep_with_args(patt, fileglob)
-    let l:cmd=":lgrep! "
-    let l:post=a:patt . " * ". "\| lopen"
-    if (expand("%:e") != "")
-        let l:cmd = l:cmd .  " --include=*.". expand("%:e") . " " 
-    endif
-    let l:cmd = l:cmd . " " . l:post
-    return l:cmd
-endfun
-
 " vim-airline configuration
 set lz
 let g:airline_enable_fugitive=0
@@ -260,8 +240,6 @@ let maplocalleader='\'
 set gdefault
 nnoremap / /\v
 nnoremap <leader>h  :noh<cr>
-nnoremap <leader>f :execute "silent lgrep! \\b" . expand("<cword>") . "\\b *" <Bar>lopen<CR>
-nnoremap <expr><leader>ff Grep_with_args("\\b".expand("<cword>")."\\b", ".*")
 nnoremap <leader>fc :lcl <cr>
 nnoremap <leader>pw :ed ~\.gnupg\passwords.txt.asc <cr>
 vnoremap > >gv
@@ -403,6 +381,32 @@ au WinEnter * set cursorline
 fun! RemoveCtrlM()
     execute("%s/\r$//")
 endfun
+
+let s:find_prog = "grep"
+let s:grepopts='\ --exclude-dir=packages\ --exclude-dir=.git\ --exclude-dir=.svn\ --exclude-dir=tmp\ --exclude=*.intellisense.js\ --exclude=*-vsdoc.js\ --exclude=*.tmp\ --exclude=*.min.js\ -PHIirn\ $*'
+let s:ackopts='\ -a\ --no-group\ -Hi '
+if has('win32')
+    let s:ack="f:/utils/ack.bat"
+    let s:find=fnamemodify(findfile("find.exe", $GNUWIN."**"), ":p")
+    let s:grep=fnamemodify(findfile("grep.exe", $GNUWIN."**"), ":p")
+else
+    let s:ack="ack"
+    let s:find="find"
+    let s:grep="grep"
+endif
+
+execute "set grepprg=" . eval("s:".s:find_prog)."\\ ".eval("s:".s:find_prog."opts")
+
+fun! Grep_with_args(patt)
+    let l:cmd=":silent lgrep! "
+    let l:post=a:patt . " * ". "\| lopen"
+    if (expand("%:e") != "")
+        let l:cmd = l:cmd .  " --include=*.". expand("%:e") . " " 
+    endif
+    let l:cmd = l:cmd . " " . l:post
+    return l:cmd
+endfun
+
 fun! s:get_visual_selection()
     let l=getline("'<")
     let [line1,col1] = getpos("'<")[1:2]
@@ -411,3 +415,5 @@ fun! s:get_visual_selection()
 endfun
 nnoremap <expr> <leader>* ":lvimgrep /" . expand("<cword>") . "/j  **/*." .  expand("%:e") . " \|lopen"
 vnoremap <script> <leader>* <Esc>:lvimgrep /<C-R><C-R>=<SID>get_visual_selection()<CR>/j **/*.<C-R><C-R>=expand("%:e")<CR>\|lopen
+nnoremap <expr><leader>f Grep_with_args("\\b".expand("<cword>")."\\b", ".*")
+vnoremap <script><leader>f <Esc>:silent lgrep --include=*.<C-R><C-R>=expand("%:e")<CR> <C-R><C-R>=<SID>get_visual_selection()<CR> * \|lopen
