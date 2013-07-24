@@ -250,7 +250,6 @@ au BufNewFile,BufReadPost *.coffee setl foldmethod=indent, nofoldenable
 au filetype help :wincmd L
 
 " random stuff..
-set autochdir
 set foldmethod=syntax
 set relativenumber
 set nu
@@ -404,3 +403,11 @@ au WinEnter * set cursorline
 fun! RemoveCtrlM()
     execute("%s/\r$//")
 endfun
+fun! s:get_visual_selection()
+    let l=getline("'<")
+    let [line1,col1] = getpos("'<")[1:2]
+    let [line2,col2] = getpos("'>")[1:2]
+    return l[col1 - 1: col2 - 1]
+endfun
+nnoremap <expr> <leader>* ":lvimgrep /" . expand("<cword>") . "/j  **/*." .  expand("%:e") . " \|lopen"
+vnoremap <script> <leader>* <Esc>:lvimgrep /<C-R><C-R>=<SID>get_visual_selection()<CR>/j **/*.<C-R><C-R>=expand("%:e")<CR>\|lopen
