@@ -180,7 +180,7 @@ map ]] j0[[%/{<CR>
 map [] k$][%?}<CR>
 
 let s:find_prog = "grep"
-let s:grepopts='\ --exclude-dir=.git\ --exclude-dir=.svn\ --exclude-dir=tmp\ --exclude=*.tmp\ --exclude=*.min.js\ -PHIirn'
+let s:grepopts='\ --exclude-dir=packages\ --exclude-dir=.git\ --exclude-dir=.svn\ --exclude-dir=tmp\ --exclude=*.intellisense.js\ --exclude=*-vsdoc.js\ --exclude=*.tmp\ --exclude=*.min.js\ -PHIirn\ $*'
 let s:ackopts='\ -a\ --no-group\ -Hi '
 if has('win32')
     set guifont=Source_Code_Pro_ExtraLight:h12
@@ -196,13 +196,13 @@ else
 endif
 execute "set grepprg=" . eval("s:".s:find_prog)."\\ ".eval("s:".s:find_prog."opts")
 fun! Grep_with_args(patt, fileglob)
-    let pattern=input("Perl regex: ", a:patt)
-    let filepat=input("Find opts : ", a:fileglob)
-    let folder=input("Path: ", expand("%:p:h"))
-    let filelist=join(split(globpath(folder, "**/".filepat), "\n"), " ")
-    let cmd="silent lgrep! '". pattern . "' ". filelist. "| lopen"
-    "echom cmd
-    execute cmd
+    let l:cmd=":lgrep! "
+    let l:post=a:patt . " * ". "\| lopen"
+    if (expand("%:e") != "")
+        let l:cmd = l:cmd .  " --include=*.". expand("%:e") . " " 
+    endif
+    let l:cmd = l:cmd . " " . l:post
+    return l:cmd
 endfun
 
 " vim-airline configuration
@@ -260,10 +260,10 @@ let maplocalleader='\'
 set gdefault
 nnoremap / /\v
 nnoremap <leader>h  :noh<cr>
-map <leader>f :execute "silent lgrep! \\b" . expand("<cword>") . "\\b *" <Bar>lopen<CR>
-map <leader>ff :call Grep_with_args("\\b".expand("<cword>")."\\b", ".*")<cr>
-map <leader>fc :lcl <cr>
-map <leader>pw :ed ~\.gnupg\passwords.txt.asc <cr>
+nnoremap <leader>f :execute "silent lgrep! \\b" . expand("<cword>") . "\\b *" <Bar>lopen<CR>
+nnoremap <expr><leader>ff Grep_with_args("\\b".expand("<cword>")."\\b", ".*")
+nnoremap <leader>fc :lcl <cr>
+nnoremap <leader>pw :ed ~\.gnupg\passwords.txt.asc <cr>
 vnoremap > >gv
 vnoremap < <gv
 
