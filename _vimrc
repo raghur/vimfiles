@@ -1,6 +1,3 @@
-" An example for a vimrc file.
-"
-" Maintainer:   Bram Moolenaar <Bram@vim.org>
 " Last change:  2008 Dec 17
 "
 " To use it, copy it to
@@ -207,11 +204,6 @@ fun! Grep_with_args(patt, fileglob)
     "echom cmd
     execute cmd
 endfun
-
-" run the following code on a new machine
-" cp ~/.vim/consolas-powerline.otf ~/.fonts/
-" sudo fc-cache -vf
-let g:Powerline_symbols='fancy'
 
 " vim-airline configuration
 set lz
