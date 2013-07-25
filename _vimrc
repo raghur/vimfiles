@@ -397,13 +397,26 @@ endif
 
 execute "set grepprg=" . eval("s:".s:find_prog)."\\ ".eval("s:".s:find_prog."opts")
 
-fun! Grep_with_args(patt)
-    let l:cmd=":silent lgrep! "
-    let l:post=a:patt . " * ". "\| lopen"
+fun! Get_grep_include_opt(prefix)
+    let l:cmd = ""
     if (expand("%:e") != "")
-        let l:cmd = l:cmd .  " --include=*.". expand("%:e") . " " 
+        "let l:cmd =  " --include=*.". expand("%:e") . " " 
+        let l:cmd = a:prefix . expand("%:e") . " " 
     endif
+    return l:cmd
+endfun
+fun! Grep_with_args(patt, path)
+    let l:cmd=":silent lgrep! "
+    let l:post="\"" . a:patt . "\""
+    let l:pipe =  "\| lopen"
+    let l:cmd = l:cmd .  Get_grep_include_opt(" --include=*.")
     let l:cmd = l:cmd . " " . l:post
+    if a:path != ""
+        let l:cmd = l:cmd . " " . a:path
+    else
+        let l:cmd = l:cmd . "  *" 
+    endif
+    let l:cmd = l:cmd . " " . l:pipe
     return l:cmd
 endfun
 
@@ -413,7 +426,21 @@ fun! s:get_visual_selection()
     let [line2,col2] = getpos("'>")[1:2]
     return l[col1 - 1: col2 - 1]
 endfun
-nnoremap <expr> <leader>* ":lvimgrep /" . expand("<cword>") . "/j  **/*." .  expand("%:e") . " \|lopen"
-vnoremap <script> <leader>* <Esc>:lvimgrep /<C-R><C-R>=<SID>get_visual_selection()<CR>/j **/*.<C-R><C-R>=expand("%:e")<CR>\|lopen
-nnoremap <expr><leader>f Grep_with_args("\\b".expand("<cword>")."\\b", ".*")
-vnoremap <script><leader>f <Esc>:silent lgrep --include=*.<C-R><C-R>=expand("%:e")<CR> <C-R><C-R>=<SID>get_visual_selection()<CR> * \|lopen
+
+" lvimgrep - internal - slow
+nnoremap <expr> <leader>* ":silent lvimgrep /" . expand("<cword>") . "/j " .  Get_grep_include_opt("**/*.") . " \|lopen"
+vnoremap <script> <leader>* <Esc>:lvimgrep /<C-R><C-R>=<SID>get_visual_selection()<CR>/j <C-R><C-R>=Get_grep_include_opt("**/*.")<CR>\|lopen
+
+" vimgrep - fast but external
+" project root
+nnoremap <expr><leader>f Grep_with_args("\\b".expand("<cword>")."\\b", "")
+vnoremap <script><leader>f <Esc>:silent lgrep
+                            \ <C-R><C-R>=Get_grep_include_opt(" --include=*.")<CR>
+                            \ "<C-R><C-R>=<SID>get_visual_selection()<CR>"
+                            \ * \|lopen
+" down current folder
+nnoremap <expr><leader>fd Grep_with_args("\\b".expand("<cword>")."\\b", expand("%:p:h"))
+vnoremap <script><leader>fd <Esc>:silent lgrep
+                            \ <C-R><C-R>=Get_grep_include_opt(" --include=*.")<CR>
+                            \ "<C-R><C-R>=<SID>get_visual_selection()<CR>"
+                            \ <C-R><C-R>=expand("%:p:h")<CR>\* \|lopen
