@@ -384,7 +384,6 @@ fun! RemoveCtrlM()
     execute("%s/\r$//")
 endfun
 
-let s:find_prog = "grep"
 let s:grepopts='\ --exclude-dir=packages\ --exclude-dir=.git\ --exclude-dir=.svn\ --exclude-dir=tmp\ --exclude=*.intellisense.js\ --exclude=*-vsdoc.js\ --exclude=*.tmp\ --exclude=*.min.js\ -PHIirn\ $*'
 let s:ackopts='\ -a\ --no-group\ -Hi '
 if has('win32')
@@ -397,7 +396,7 @@ else
     let s:grep="grep"
 endif
 
-execute "set grepprg=" . eval("s:".s:find_prog)."\\ ".eval("s:".s:find_prog."opts")
+execute "set grepprg=" . s:grep ."\\ ".s:grepopts
 
 fun! Get_grep_include_opt(prefix)
     let l:cmd = ""
