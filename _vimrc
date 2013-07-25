@@ -101,6 +101,7 @@ let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
 
 filetype off
+set rtp+=~/.vim
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc("$HOME/.vim/bundle")
 
@@ -312,6 +313,7 @@ augroup Markdown
 augroup END
 
 let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<C-tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
