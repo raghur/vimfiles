@@ -1,14 +1,3 @@
-" An example for a vimrc file.
-"
-" Maintainer:   Bram Moolenaar <Bram@vim.org>
-" Last change:  2008 Dec 17
-"
-" To use it, copy it to
-"     for Unix and OS/2:  ~/.vimrc
-"         for Amiga:  s:.vimrc
-"  for MS-DOS and Win32:  $VIM\_vimrc
-"       for OpenVMS:  sys$login:.vimrc
-
 " When started as "evim", evim.vim will already have done these settings.
 if v:progname =~? "evim"
     finish
@@ -104,12 +93,14 @@ let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
 
 filetype off
+set rtp+=~/.vim
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc("$HOME/.vim/bundle")
 
 " let Vundle manage Vundle
 " required! 
 Bundle 'gmarik/vundle'
+Bundle 'kshenoy/vim-signature'
 Bundle 'https://git.gitorious.org/vim-gnupg/vim-gnupg'
 Bundle 'raghur/VimRepress'
 Bundle 'raghur/vim-helpnav'
@@ -144,6 +135,7 @@ Bundle 'bling/vim-airline'
 Bundle 'Lokaltog/powerline-fonts'
 Bundle 'nosami/Omnisharp'
 Bundle 'tpope/vim-dispatch'
+Bundle 'airblade/vim-rooter'
 " Powerline v1 and fonts
 "Bundle 'Lokaltog/vim-powerline'
 "Bundle 'eugeneching/consolas-powerline-vim'
@@ -179,36 +171,12 @@ map ][ /}<CR>b99]}
 map ]] j0[[%/{<CR>
 map [] k$][%?}<CR>
 
-let s:find_prog = "grep"
-let s:grepopts='\ --exclude-dir=.git\ --exclude-dir=.svn\ --exclude-dir=tmp\ --exclude=*.tmp\ --exclude=*.min.js\ -PHIirn'
-let s:ackopts='\ -a\ --no-group\ -Hi '
 if has('win32')
-    set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h11
-    let s:ack="f:/utils/ack.bat"
-    let s:find=fnamemodify(findfile("find.exe", $GNUWIN."**"), ":p")
-    let s:grep=fnamemodify(findfile("grep.exe", $GNUWIN."**"), ":p")
+    set guifont=Source_Code_Pro_ExtraLight:h12
+    "set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h11
 else
-    let s:ack="ack"
-    let s:find="find"
-    let s:grep="grep"
     set guifont=Monospace\ 10,Ubuntu\ Mono\ 11,DejaVu\ Sans\ Mono\ 10
 endif
-execute "set grepprg=" . eval("s:".s:find_prog)."\\ ".eval("s:".s:find_prog."opts")
-fun! Grep_with_args(patt, fileglob)
-    let pattern=input("Perl regex: ", a:patt)
-    let filepat=input("Find opts : ", a:fileglob)
-    let folder=input("Path: ", expand("%:p:h"))
-    let filelist=join(split(globpath(folder, "**/".filepat), "\n"), " ")
-    let cmd="silent lgrep! '". pattern . "' ". filelist. "| lopen"
-    "echom cmd
-    execute cmd
-endfun
-
-" run the following code on a new machine
-" cp ~/.vim/consolas-powerline.otf ~/.fonts/
-" sudo fc-cache -vf
-let g:Powerline_symbols='fancy'
-
 " vim-airline configuration
 set lz
 let g:airline_enable_fugitive=0
@@ -256,21 +224,18 @@ au WinLeave * set nocursorline
 au WinEnter * set cursorline 
 
 " random stuff..
-set autochdir
 set foldmethod=syntax
 set relativenumber
 set nu
-let mapleader = "m"
+let mapleader = " "
 let maplocalleader='\'
 " Search customizations
 " replace all instances in a line.
 set gdefault
 nnoremap / /\v
 nnoremap <leader>h  :noh<cr>
-map <leader>f :execute "silent lgrep! \\b" . expand("<cword>") . "\\b *" <Bar>lopen<CR>
-map <leader>ff :call Grep_with_args("\\b".expand("<cword>")."\\b", ".*")<cr>
-map <leader>fc :lcl <cr>
-map <leader>pw :ed ~\.gnupg\passwords.txt.asc <cr>
+nnoremap <leader>fc :lcl <cr>
+nnoremap <leader>pw :ed ~\.gnupg\passwords.txt.asc <cr>
 vnoremap > >gv
 vnoremap < <gv
 
@@ -283,7 +248,6 @@ noremap <C-s> :w<cr>
 nnoremap <leader>p :b#<cr>
 nnoremap <leader>sv :ed ~/.vim/_vimrc<cr>
 nnoremap <F5> :GundoToggle<CR>
-vnoremap <leader>h :normal @
 vnoremap <leader>v "0p
 
 " select forward brace block on the line
@@ -299,7 +263,7 @@ vnoremap <leader>5  /\v[{(\[\<]<cr>%
 vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
 inoremap <C-e> <C-o>:call search("\\%" . line(".") . "l[{}() :=\\[\\]\.,\\n]","We")<cr>
 inoremap <C-a> <C-o>:call search("\\%" . line(".") . "l[{}() :=\\[\\]\.,]","Web")<cr>
-inoremap <esc> <c-o>:echoe "use jk"<cr>
+"inoremap <esc> <c-o>:echoe "use jk"<cr>
 inoremap jk <esc>
 
 " colors
@@ -342,6 +306,7 @@ augroup Markdown
 augroup END
 
 let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsExpandTrigger="<C-tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
@@ -362,11 +327,14 @@ let g:ctrlp_working_path_mode = 'ra'
 nnoremap <leader>m :CtrlPMixed<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>r :CtrlPMRUFiles<cr>
-nnoremap <leader><space> :CtrlP<cr>
+nnoremap <leader><leader> :CtrlP<cr>
 
 
 " Session management
-set sessionoptions="blank,buffers,curdir,resize,tabpages,unix,slash,winpos,winsize"
+set sessionoptions&
+set sessionoptions-=options
+set sessionoptions+=resize,unix,slash,winpos
+
 let g:session_directory="~/.vim/.vimbackups"
 let g:session_command_aliases = 1
 let g:session_autosave='yes'
@@ -403,6 +371,70 @@ fun! FormatFile()
 endfun
 map <F7> :call FormatFile() <cr>
 
+au WinLeave * set nocursorline
+au WinEnter * set cursorline
+fun! RemoveCtrlM()
+    execute("%s/\r$//")
+endfun
 
-" do this last so it has effect
-source $HOME/.vim/neocomplete-custom.vim
+let s:grepopts='\ --exclude-dir=packages\ --exclude-dir=.git\ --exclude-dir=.svn\ --exclude-dir=tmp\ --exclude=*.intellisense.js\ --exclude=*-vsdoc.js\ --exclude=*.tmp\ --exclude=*.min.js\ -PHIirn\ $*'
+let s:ackopts='\ -a\ --no-group\ -Hi '
+if has('win32')
+    let s:ack="f:/utils/ack.bat"
+    let s:find=fnamemodify(findfile("find.exe", $GNUWIN."**"), ":p")
+    let s:grep=fnamemodify(findfile("grep.exe", $GNUWIN."**"), ":p")
+else
+    let s:ack="ack"
+    let s:find="find"
+    let s:grep="grep"
+endif
+
+execute "set grepprg=" . s:grep ."\\ ".s:grepopts
+
+fun! Get_grep_include_opt(prefix)
+    let l:cmd = ""
+    if (expand("%:e") != "")
+        "let l:cmd =  " --include=*.". expand("%:e") . " " 
+        let l:cmd = a:prefix . expand("%:e") . " " 
+    endif
+    return l:cmd
+endfun
+fun! Grep_with_args(patt, path)
+    let l:cmd=":silent lgrep! "
+    let l:post="\"" . a:patt . "\""
+    let l:pipe =  "\| lopen"
+    let l:cmd = l:cmd .  Get_grep_include_opt(" --include=*.")
+    let l:cmd = l:cmd . " " . l:post
+    if a:path != ""
+        let l:cmd = l:cmd . " " . a:path
+    else
+        let l:cmd = l:cmd . "  *" 
+    endif
+    let l:cmd = l:cmd . " " . l:pipe
+    return l:cmd
+endfun
+
+fun! s:get_visual_selection()
+    let l=getline("'<")
+    let [line1,col1] = getpos("'<")[1:2]
+    let [line2,col2] = getpos("'>")[1:2]
+    return l[col1 - 1: col2 - 1]
+endfun
+
+" lvimgrep - internal - slow
+nnoremap <expr> <leader>* ":silent lvimgrep /" . expand("<cword>") . "/j " .  Get_grep_include_opt("**/*.") . " \|lopen"
+vnoremap <script> <leader>* <Esc>:lvimgrep /<C-R><C-R>=<SID>get_visual_selection()<CR>/j <C-R><C-R>=Get_grep_include_opt("**/*.")<CR>\|lopen
+
+" vimgrep - fast but external
+" project root
+nnoremap <expr><leader>f Grep_with_args("\\b".expand("<cword>")."\\b", "")
+vnoremap <script><leader>f <Esc>:silent lgrep
+                            \ <C-R><C-R>=Get_grep_include_opt(" --include=*.")<CR>
+                            \ "<C-R><C-R>=<SID>get_visual_selection()<CR>"
+                            \ * \|lopen
+" down current folder
+nnoremap <expr><leader>fd Grep_with_args("\\b".expand("<cword>")."\\b", expand("%:p:h"))
+vnoremap <script><leader>fd <Esc>:silent lgrep
+                            \ <C-R><C-R>=Get_grep_include_opt(" --include=*.")<CR>
+                            \ "<C-R><C-R>=<SID>get_visual_selection()<CR>"
+                            \ <C-R><C-R>=expand("%:p:h")<CR>\* \|lopen
