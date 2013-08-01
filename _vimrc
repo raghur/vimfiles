@@ -110,8 +110,6 @@ call vundle#rc("$HOME/.vim/bundle")
 " let Vundle manage Vundle
 " required! 
 Bundle 'gmarik/vundle'
-Bundle 'vim-scripts/L9.git'
-
 Bundle 'https://git.gitorious.org/vim-gnupg/vim-gnupg'
 Bundle 'raghur/VimRepress'
 Bundle 'raghur/vim-helpnav'
@@ -152,9 +150,8 @@ Bundle 'tpope/vim-dispatch'
 " autocomplpop
 "Bundle 'clones/vim-autocomplpop'
 "source $HOME/.vim/autocomplpop-custom.vim
- "neocomplete
- Bundle 'Shougo/neocomplete.vim'
-source $HOME/.vim/neocomplete-custom.vim
+"neocomplete
+Bundle 'Shougo/neocomplete.vim'
 filetype plugin indent on
 
 set wildchar=<Tab> wildmenu
@@ -249,11 +246,14 @@ set noerrorbells
 set list
 set listchars=tab:▶.,trail:░,extends:➤,nbsp:.
 au BufNewFile,BufRead *.aspx set filetype=html
+au BufNewFile,BufRead *.cshtml set filetype=html
 au BufNewFile,BufRead *.ascx set filetype=html
 au BufNewFile,BufRead *.moin setf moin
 au BufNewFile,BufRead *.wiki setf moin
 au BufNewFile,BufReadPost *.coffee setl foldmethod=indent, nofoldenable
-au filetype help :wincmd L
+"au filetype help :wincmd L
+au WinLeave * set nocursorline
+au WinEnter * set cursorline 
 
 " random stuff..
 set autochdir
@@ -403,5 +403,6 @@ fun! FormatFile()
 endfun
 map <F7> :call FormatFile() <cr>
 
-au WinLeave * set nocursorline
-au WinEnter * set cursorline 
+
+" do this last so it has effect
+source $HOME/.vim/neocomplete-custom.vim
