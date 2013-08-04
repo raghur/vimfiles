@@ -1,9 +1,3 @@
-" When started as "evim", evim.vim will already have done these settings.
-if v:progname =~? "evim"
-    finish
-endif
-
-" Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 set hidden
@@ -172,7 +166,7 @@ map ]] j0[[%/{<CR>
 map [] k$][%?}<CR>
 
 if has('win32')
-    set guifont=Source_Code_Pro_ExtraLight:h12
+    set guifont=Source_Code_Pro_for_Powerline:h12
     "set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h11
 else
     set guifont=Monospace\ 10,Ubuntu\ Mono\ 11,DejaVu\ Sans\ Mono\ 10
@@ -310,6 +304,10 @@ let g:UltiSnipsExpandTrigger="<C-tab>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
+" If you have git, make sure that path does NOT point to git bash tools
+" Path for git win should point to the libexec/git-core folder
+" The default GPG should point to cygwin git
+" To check: :sh, which gpg
 let g:GPGDefaultRecipients=['Raghu Rajagopalan']
 
 
