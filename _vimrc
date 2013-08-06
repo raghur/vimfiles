@@ -93,7 +93,6 @@ let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
 
 filetype off
-set rtp+=~/.vim
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc("$HOME/.vim/bundle")
 
@@ -136,15 +135,10 @@ Bundle 'Lokaltog/powerline-fonts'
 Bundle 'nosami/Omnisharp'
 Bundle 'tpope/vim-dispatch'
 Bundle 'airblade/vim-rooter'
-" Powerline v1 and fonts
-"Bundle 'Lokaltog/vim-powerline'
-"Bundle 'eugeneching/consolas-powerline-vim'
-" autocomplpop
-"Bundle 'clones/vim-autocomplpop'
-"source $HOME/.vim/autocomplpop-custom.vim
  "neocomplete
  Bundle 'Shougo/neocomplete.vim'
 source $HOME/.vim/neocomplete-custom.vim
+set rtp+=~/.vim
 filetype plugin indent on
 
 set wildchar=<Tab> wildmenu
@@ -160,6 +154,9 @@ set guioptions-=r
 set guioptions+=R
 let g:proj_flags="imstg"
 set ttimeoutlen=50
+set undofile
+set undodir=~/.vim/.vimbackups/.undo
+set undolevels=1000
 
 " disable arrow keys
 noremap   <Up>     <NOP>
@@ -180,16 +177,17 @@ else
 endif
 " vim-airline configuration
 set lz
-let g:airline_enable_fugitive=0
+let g:airline_enable_branch=0
 let g:airline_enable_syntastic=1
 let g:airline_powerline_fonts=1
+let g:airline_detect_modified=1
 " powerline symbols
 if (&guifont =~ 'Powerline')
     let g:airline_left_sep = ''
     "let g:airline_left_sep = ''
     "let g:airline_right_sep = ''
     let g:airline_right_sep = ''
-    let g:airline_fugitive_prefix = '   '
+    let g:airline_branch_prefix = '   '
     let g:airline_readonly_symbol = ''
     let g:airline_linecolumn_prefix = ' '
 endif
@@ -304,8 +302,8 @@ augroup Markdown
                 \ spell spelllang=en_us
 augroup END
 
-let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsExpandTrigger="<C-tab>"
+let g:UltiSnipsExpandTrigger="<C-CR>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
@@ -334,7 +332,7 @@ set sessionoptions&
 set sessionoptions-=options
 set sessionoptions+=resize,unix,slash,winpos
 
-let g:session_directory="~/.vim/.vimbackups"
+let g:session_directory="~/.vim/.vimbackups/.sessions"
 let g:session_command_aliases = 1
 let g:session_autosave='yes'
 let g:session_autoload='yes'
@@ -437,3 +435,5 @@ vnoremap <script><leader>fd <Esc>:silent lgrep
                             \ <C-R><C-R>=Get_grep_include_opt(" --include=*.")<CR>
                             \ "<C-R><C-R>=<SID>get_visual_selection()<CR>"
                             \ <C-R><C-R>=expand("%:p:h")<CR>\* \|lopen
+
+execute(":redir! > ~/.vim/.vimbackups/000messages")
