@@ -3,3 +3,4 @@ sessions/*
 .netrwhist
 bundle/*
 !bundle/vundle
+*.un~
