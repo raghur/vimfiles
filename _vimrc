@@ -191,8 +191,8 @@ endif
 set path+=$HOME,.,,~/git,~/code
 
 " avoids messing up folders with *.swp and file~ backups
-set backupdir=~/.vim/.vimbackups
-set directory=~/.vim/.vimbackups
+set backupdir=~/.vim/.vimbackups/.backup
+set directory=~/.vim/.vimbackups/.swap
 set switchbuf=usetab
 set matchpairs+=<:>
 set showmatch
@@ -237,19 +237,10 @@ set colorcolumn=120
 nnoremap 0 ^
 nnoremap ^ 0
 noremap <C-s> :w<cr>
-nnoremap <leader>p :b#<cr>
+nnoremap <C-Tab> :b#<cr>
 nnoremap <leader>sv :ed ~/.vim/_vimrc<cr>
 nnoremap <F5> :GundoToggle<CR>
 vnoremap <leader>v "0p
-
-" select forward brace block on the line
-nnoremap <Leader><Leader> V/{<cr>%
-vnoremap <leader><leader>  /{<cr>%
-
-" same as before but do it based on %
-nnoremap <Leader>5  V/\v[{(\[\<]<cr>%
-vnoremap <leader>5  /\v[{(\[\<]<cr>%
-
 
 " copy a block and comment it and move to insert mode
 vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
