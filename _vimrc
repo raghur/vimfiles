@@ -1,9 +1,3 @@
-" When started as "evim", evim.vim will already have done these settings.
-if v:progname =~? "evim"
-    finish
-endif
-
-" Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 set hidden
@@ -135,9 +129,8 @@ Bundle 'Lokaltog/powerline-fonts'
 Bundle 'nosami/Omnisharp'
 Bundle 'tpope/vim-dispatch'
 Bundle 'airblade/vim-rooter'
- "neocomplete
- Bundle 'Shougo/neocomplete.vim'
-source $HOME/.vim/neocomplete-custom.vim
+"neocomplete
+Bundle 'Shougo/neocomplete.vim'
 set rtp+=~/.vim
 filetype plugin indent on
 
@@ -170,7 +163,7 @@ map ]] j0[[%/{<CR>
 map [] k$][%?}<CR>
 
 if has('win32')
-    set guifont=Source_Code_Pro_ExtraLight:h12
+    set guifont=Source_Code_Pro_for_Powerline:h12
     "set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h11
 else
     set guifont=Monospace\ 10,Ubuntu\ Mono\ 11,DejaVu\ Sans\ Mono\ 10
@@ -218,7 +211,9 @@ au BufNewFile,BufRead *.ascx set filetype=html
 au BufNewFile,BufRead *.moin setf moin
 au BufNewFile,BufRead *.wiki setf moin
 au BufNewFile,BufReadPost *.coffee setl foldmethod=indent, nofoldenable
-au filetype help :wincmd L
+"au filetype help :wincmd L
+au WinLeave * set nocursorline
+au WinEnter * set cursorline 
 
 " random stuff..
 set foldmethod=syntax
@@ -307,6 +302,10 @@ let g:UltiSnipsExpandTrigger="<C-CR>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
+" If you have git, make sure that path does NOT point to git bash tools
+" Path for git win should point to the libexec/git-core folder
+" The default GPG should point to cygwin git
+" To check: :sh, which gpg
 let g:GPGDefaultRecipients=['Raghu Rajagopalan']
 
 
