@@ -168,6 +168,9 @@ if has('win32')
 else
     set guifont=Monospace\ 10,Ubuntu\ Mono\ 11,DejaVu\ Sans\ Mono\ 10
 endif
+
+let g:vim_json_syntax_conceal = 0
+
 " vim-airline configuration
 set lz
 let g:airline_enable_branch=0
