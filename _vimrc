@@ -166,7 +166,10 @@ if has('win32')
     set guifont=Source_Code_Pro_for_Powerline:h12
     "set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h11
 else
-    set guifont=Monospace\ 10,Ubuntu\ Mono\ 11,DejaVu\ Sans\ Mono\ 10
+    set guifont=Source\ Code\ Pro\ for\ Powerline\ 11,
+                \DejaVu\ Sans\ Mono\ for\ Powerline\ 10,
+                \Monospace\ 10,
+                \Ubuntu\ Mono\ 11
 endif
 
 let g:vim_json_syntax_conceal = 0
@@ -207,16 +210,18 @@ set wildignore+=*.swp,*.bak,*.class,.git/*,.svn/*,.git\*,.svn\*
 set visualbell
 set noerrorbells
 set list
-set listchars=tab:▶.,trail:░,extends:➤,nbsp:.
+if has("gui")
+    set listchars=tab:▶.,trail:░,extends:➤,nbsp:.
+    "au filetype help :wincmd L
+    au WinLeave * set nocursorline
+    au WinEnter * set cursorline
+endif
 au BufNewFile,BufRead *.aspx set filetype=html
 au BufNewFile,BufRead *.cshtml set filetype=html
 au BufNewFile,BufRead *.ascx set filetype=html
 au BufNewFile,BufRead *.moin setf moin
 au BufNewFile,BufRead *.wiki setf moin
 au BufNewFile,BufReadPost *.coffee setl foldmethod=indent, nofoldenable
-"au filetype help :wincmd L
-au WinLeave * set nocursorline
-au WinEnter * set cursorline
 
 " random stuff..
 set foldmethod=syntax
@@ -291,12 +296,12 @@ augroup Markdown
                 \ spell spelllang=en_us
 augroup END
 
-let g:UltiSnipsExpandTrigger="<C-tab>"
+let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsExpandTrigger="<C-CR>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
-" If you have git, make sure that path does NOT point to git bash tools
+"If you have git, make sure that path does NOT point to git bash tools
 " Path for git win should point to the libexec/git-core folder
 " The default GPG should point to cygwin git
 " To check: :sh, which gpg
@@ -318,7 +323,6 @@ nnoremap <leader>m :CtrlPMixed<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>r :CtrlPMRUFiles<cr>
 nnoremap <leader><leader> :CtrlP<cr>
-
 
 " Session management
 set sessionoptions&
@@ -430,3 +434,9 @@ vnoremap <script><leader>fd <Esc>:silent lgrep
                             \ <C-R><C-R>=expand("%:p:h")<CR>\* \|lopen
 
 execute(":redir! > ~/.vim/.vimbackups/000messages")
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+so ~/.vim/neocomplete-custom.vim
+
