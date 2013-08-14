@@ -1,7 +1,7 @@
 " This must be first, because it changes other options as a side effect.
 set nocompatible
 set hidden
-set showmode 
+set showmode
 filetype plugin indent on
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -92,7 +92,7 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc("$HOME/.vim/bundle")
 
 " let Vundle manage Vundle
-" required! 
+" required!
 Bundle 'gmarik/vundle'
 Bundle 'kshenoy/vim-signature'
 Bundle 'https://git.gitorious.org/vim-gnupg/vim-gnupg'
@@ -166,7 +166,10 @@ if has('win32')
     set guifont=Source_Code_Pro_for_Powerline:h12
     "set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h11
 else
-    set guifont=Monospace\ 10,Ubuntu\ Mono\ 11,DejaVu\ Sans\ Mono\ 10
+    set guifont=Source\ Code\ Pro\ for\ Powerline\ 11,
+                \DejaVu\ Sans\ Mono\ for\ Powerline\ 10,
+                \Monospace\ 10,
+                \Ubuntu\ Mono\ 11
 endif
 
 let g:vim_json_syntax_conceal = 0
@@ -207,16 +210,18 @@ set wildignore+=*.swp,*.bak,*.class,.git/*,.svn/*,.git\*,.svn\*
 set visualbell
 set noerrorbells
 set list
-set listchars=tab:▶.,trail:░,extends:➤,nbsp:.
+if has("gui")
+    set listchars=tab:▶.,trail:░,extends:➤,nbsp:.
+    "au filetype help :wincmd L
+    au WinLeave * set nocursorline
+    au WinEnter * set cursorline
+endif
 au BufNewFile,BufRead *.aspx set filetype=html
 au BufNewFile,BufRead *.cshtml set filetype=html
 au BufNewFile,BufRead *.ascx set filetype=html
 au BufNewFile,BufRead *.moin setf moin
 au BufNewFile,BufRead *.wiki setf moin
 au BufNewFile,BufReadPost *.coffee setl foldmethod=indent, nofoldenable
-"au filetype help :wincmd L
-au WinLeave * set nocursorline
-au WinEnter * set cursorline 
 
 " random stuff..
 set foldmethod=syntax
@@ -230,7 +235,7 @@ set gdefault
 nnoremap / /\v
 nnoremap <leader>h  :noh<cr>
 nnoremap <leader>fc :lcl <cr>
-nnoremap <leader>pw :ed ~\.gnupg\passwords.txt.asc <cr>
+nnoremap <leader>pw :ed ~/.gnupg/passwords.txt.asc <cr>
 vnoremap > >gv
 vnoremap < <gv
 
@@ -295,7 +300,7 @@ let g:UltiSnipsExpandTrigger="<C-CR>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
-" If you have git, make sure that path does NOT point to git bash tools
+"If you have git, make sure that path does NOT point to git bash tools
 " Path for git win should point to the libexec/git-core folder
 " The default GPG should point to cygwin git
 " To check: :sh, which gpg
@@ -317,7 +322,6 @@ nnoremap <leader>m :CtrlPMixed<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>r :CtrlPMRUFiles<cr>
 nnoremap <leader><leader> :CtrlP<cr>
-
 
 " Session management
 set sessionoptions&
@@ -344,11 +348,11 @@ let g:formatprg_args_cs=" --mode=cs --style=ansi -pcHs4"
 let g:formatprg_args_javascript=" -jw 80 -"
 let g:formatprg_json="js-beautify"
 let g:formatprg_args_json=" -jw 80 -"
-fun! FormatFile() 
+fun! FormatFile()
     let curline=line(".")
-    if exists("g:formatprg_". &ft) 
+    if exists("g:formatprg_". &ft)
         let cmd ="%!" . eval("g:formatprg_". &ft)
-        if exists("g:formatprg_args_". &ft) 
+        if exists("g:formatprg_args_". &ft)
             let cmd=cmd. eval("g:formatprg_args_". &ft)
         endif
         echo cmd
@@ -383,8 +387,8 @@ execute "set grepprg=" . s:grep ."\\ ".s:grepopts
 fun! Get_grep_include_opt(prefix)
     let l:cmd = ""
     if (expand("%:e") != "")
-        "let l:cmd =  " --include=*.". expand("%:e") . " " 
-        let l:cmd = a:prefix . expand("%:e") . " " 
+        "let l:cmd =  " --include=*.". expand("%:e") . " "
+        let l:cmd = a:prefix . expand("%:e") . " "
     endif
     return l:cmd
 endfun
@@ -397,7 +401,7 @@ fun! Grep_with_args(patt, path)
     if a:path != ""
         let l:cmd = l:cmd . " " . a:path
     else
-        let l:cmd = l:cmd . "  *" 
+        let l:cmd = l:cmd . "  *"
     endif
     let l:cmd = l:cmd . " " . l:pipe
     return l:cmd
@@ -429,6 +433,7 @@ vnoremap <script><leader>fd <Esc>:silent lgrep
                             \ <C-R><C-R>=expand("%:p:h")<CR>\* \|lopen
 
 execute(":redir! > ~/.vim/.vimbackups/000messages")
+" Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 " Use neocomplete.
 let g:neocomplete#enable_at_startup = 1
