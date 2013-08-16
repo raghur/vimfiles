@@ -1,6 +1,3 @@
-" This must be first, because it changes other options as a side effect.
-set nocompatible
-set hidden
 set showmode
 filetype plugin indent on
 " allow backspacing over everything in insert mode
@@ -170,6 +167,8 @@ else
                 \DejaVu\ Sans\ Mono\ for\ Powerline\ 10,
                 \Monospace\ 10,
                 \Ubuntu\ Mono\ 11
+    let g:GPGExecutable="gpg2"
+    let g:GPGUseAgent = 1
 endif
 
 let g:vim_json_syntax_conceal = 0
@@ -335,7 +334,6 @@ let g:session_autosave='yes'
 let g:session_autoload='yes'
 let g:session_default_to_last=1
 
-set nossl
 
 " Required for yankstack
 set winaltkeys=no
@@ -374,6 +372,7 @@ endfun
 let s:grepopts='\ --exclude-dir=packages\ --exclude-dir=.git\ --exclude-dir=.svn\ --exclude-dir=tmp\ --exclude=*.intellisense.js\ --exclude=*-vsdoc.js\ --exclude=*.tmp\ --exclude=*.min.js\ -PHIirn\ $*'
 let s:ackopts='\ -a\ --no-group\ -Hi '
 if has('win32')
+    set nossl
     let s:ack="f:/utils/ack.bat"
     let s:find=fnamemodify(findfile("find.exe", $GNUWIN."**"), ":p")
     let s:grep=fnamemodify(findfile("grep.exe", $GNUWIN."**"), ":p")
@@ -439,4 +438,6 @@ let g:acp_enableAtStartup = 0
 " Use neocomplete.
 let g:neocomplete#enable_at_startup = 1
 so ~/.vim/neocomplete-custom.vim
-
+if has("unix")
+    command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+endif
