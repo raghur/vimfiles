@@ -84,6 +84,7 @@ let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
 
 filetype off
+set rtp+=~/.vim
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc("$HOME/.vim/bundle")
 
@@ -128,7 +129,6 @@ Bundle 'tpope/vim-dispatch'
 Bundle 'airblade/vim-rooter'
 "neocomplete
 Bundle 'Shougo/neocomplete.vim'
-set rtp+=~/.vim
 filetype plugin indent on
 
 set wildchar=<Tab> wildmenu
@@ -244,7 +244,7 @@ set colorcolumn=120
 nnoremap 0 ^
 nnoremap ^ 0
 noremap <C-s> :w<cr>
-nnoremap <C-Tab> :b#<cr>
+nnoremap <C-Backspace> :b#<cr>
 nnoremap <leader>sv :ed ~/.vim/_vimrc<cr>
 nnoremap <F5> :GundoToggle<CR>
 vnoremap <leader>v "0p
@@ -295,7 +295,6 @@ augroup Markdown
                 \ spell spelllang=en_us
 augroup END
 
-let g:UltiSnipsExpandTrigger="<C-Tab>"
 let g:UltiSnipsExpandTrigger="<C-CR>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
