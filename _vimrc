@@ -100,7 +100,6 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'kien/ctrlp.vim'
 Bundle 'Raimondi/delimitMate'
 Bundle 'sjl/gundo.vim'
-Bundle 'wikitopian/hardmode'
 Bundle 'hallettj/jslint.vim'
 Bundle 'gregsexton/MatchTag'
 Bundle 'scrooloose/nerdcommenter'
@@ -124,11 +123,18 @@ Bundle 'mattn/zencoding-vim'
 " vim-airline and fonts
 Bundle 'bling/vim-airline'
 Bundle 'Lokaltog/powerline-fonts'
-Bundle 'nosami/Omnisharp'
 Bundle 'tpope/vim-dispatch'
 Bundle 'airblade/vim-rooter'
 "neocomplete
 Bundle 'Shougo/neocomplete.vim'
+if has("unix")
+    set shell=bash\ -i
+    Bundle 'suan/vim-instant-markdown'
+    let g:instant_markdown_slow = 1
+    set clipboard=unnamedplus
+else
+    Bundle 'nosami/Omnisharp'
+endif
 filetype plugin indent on
 
 set wildchar=<Tab> wildmenu
