@@ -1,3 +1,12 @@
+
+snippet kbd "Keboard markup" 
+<kbd>${VISUAL:keys}</kbd>
+endsnippet
+
+snippet gist "Gist markup" b
+<script src="https://gist.github.com/raghur/${1:snipid}.js"></script>
+endsnippet
+
 snippet post "Post Header" b
 "=========== Meta ============
 "StrID : 
@@ -80,10 +89,11 @@ snippet img "inline image"
 ![${1:title}](${2:url})
 endsnippet
 
-snippet source "source code"
-[sourcecode language="$1"]
-    $2
-[/sourcecode]
+snippet code "source code"
+
+~~~{class="${1:lang}"}
+${VISUAL:source code}
+~~~
 endsnippet
 # doesnt work
 snippet ref "reference link" i
