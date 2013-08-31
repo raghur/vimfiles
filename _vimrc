@@ -13,6 +13,8 @@ set ruler       " show the cursor position all the time
 set showcmd     " display incomplete commands
 set incsearch       " do incremental searching
 set encoding=utf-8
+set hidden
+
 
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
 " let &guioptions = substitute(&guioptions, "t", "", "g")
@@ -98,7 +100,9 @@ Bundle 'raghur/vim-helpnav'
 Bundle 'vim-scripts/L9'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'kien/ctrlp.vim'
-Bundle 'Raimondi/delimitMate'
+"Bundle 'Raimondi/delimitMate'
+Bundle 'kana/vim-smartinput'
+Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'sjl/gundo.vim'
 Bundle 'hallettj/jslint.vim'
 Bundle 'gregsexton/MatchTag'
@@ -217,7 +221,6 @@ set noerrorbells
 set list
 if has("gui")
     set listchars=tab:▶.,trail:░,extends:➤,nbsp:.
-    "au filetype help :wincmd L
     au WinLeave * set nocursorline
     au WinEnter * set cursorline
 endif
@@ -368,8 +371,6 @@ fun! FormatFile()
 endfun
 map <F7> :call FormatFile() <cr>
 
-au WinLeave * set nocursorline
-au WinEnter * set cursorline
 fun! RemoveCtrlM()
     execute("%s/\r$//")
 endfun
