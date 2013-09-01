@@ -100,6 +100,8 @@ Bundle 'raghur/vim-helpnav'
 Bundle 'vim-scripts/L9'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'kien/ctrlp.vim'
+Bundle 'kien/rainbow_parentheses.vim'
+Bundle 'vim-pandoc/vim-pandoc'
 "Bundle 'Raimondi/delimitMate'
 Bundle 'kana/vim-smartinput'
 Bundle 'nathanaelkane/vim-indent-guides'
@@ -133,7 +135,7 @@ Bundle 'airblade/vim-rooter'
 Bundle 'Shougo/neocomplete.vim'
 if has("unix")
     set shell=bash\ -i
-    Bundle 'suan/vim-instant-markdown'
+    "Bundle 'suan/vim-instant-markdown'
     let g:instant_markdown_slow = 1
     set clipboard=unnamedplus
 else
@@ -301,7 +303,7 @@ let VIMREPRESS = VIMPRESS
 augroup Markdown
     autocmd FileType markdown setl wrap
                 \ linebreak
-                \ spell spelllang=en_us
+                "\ spell spelllang=en_us
 augroup END
 
 let g:UltiSnipsExpandTrigger="<C-CR>"
