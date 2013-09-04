@@ -109,7 +109,6 @@ Bundle 'sjl/gundo.vim'
 Bundle 'hallettj/jslint.vim'
 Bundle 'gregsexton/MatchTag'
 Bundle 'scrooloose/nerdcommenter'
-Bundle 'sjl/splice.vim'
 Bundle 'SirVer/ultisnips'
 "Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/syntastic'
@@ -125,7 +124,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'kana/vim-textobj-indent'
 Bundle 'kana/vim-textobj-user'
 Bundle 'maxbrunsfeld/vim-yankstack'
-Bundle 'mattn/zencoding-vim'
+Bundle 'rstacruz/sparkup'
 " vim-airline and fonts
 Bundle 'bling/vim-airline'
 Bundle 'Lokaltog/powerline-fonts'
@@ -183,11 +182,15 @@ else
     let g:GPGUseAgent = 1
 endif
 
+" syntastic
+let g:syntastic_python_checkers = ['pylama']
+
+" vim-json
 let g:vim_json_syntax_conceal = 0
 
 " vim-airline configuration
 set lz
-let g:airline_enable_branch=0
+let g:airline_enable_branch=1
 let g:airline_enable_syntastic=1
 let g:airline_powerline_fonts=1
 let g:airline_detect_modified=1
