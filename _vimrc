@@ -95,7 +95,6 @@ call vundle#rc("$HOME/.vim/bundle")
 Bundle 'gmarik/vundle'
 Bundle 'kshenoy/vim-signature'
 Bundle 'https://git.gitorious.org/vim-gnupg/vim-gnupg'
-Bundle 'raghur/VimRepress'
 Bundle 'raghur/vim-helpnav'
 Bundle 'vim-scripts/L9'
 Bundle 'altercation/vim-colors-solarized'
@@ -295,13 +294,6 @@ vnoremap <A-k> :m-2<CR>gv=gv
 "Move by screen lines
 nnoremap j gj
 nnoremap k gk
-
-
-let VIMPRESS = [{'username':'rraghur',
-            \'password':'',
-            \'blog_url':'http://niftybits.wordpress.com'
-            \}]
-let VIMREPRESS = VIMPRESS
 
 augroup Markdown
     autocmd FileType markdown setl wrap
