@@ -9,18 +9,12 @@ endsnippet
 
 snippet post "Post Header" b
 <!--
-"=========== Meta ============
-"StrID : 
-"Title : ${1}
-"Slug  : ${1/[ -]+/-/g}
-"Cats  : Uncategorized
-"Tags  : ${2}
-"=============================
-"EditType   : post
-"EditFormat : Markdown
-"TextAttach : 
-"========== Content ==========
+PostId	 :
+Title    : ${1:title}
+Labels   : ${2:labels}
+Format	 : markdown
 -->
+### ${3:Post subhead}
 ${0}
 endsnippet
 

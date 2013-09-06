@@ -379,6 +379,10 @@ map <F7> :call FormatFile() <cr>
 fun! RemoveCtrlM()
     execute("%s/\r$//")
 endfun
+fun! SanitizeBlogEntry()
+    execute("%s/\r$//")
+    execute("%s/\\$//")
+endfun
 
 let s:grepopts='\ --exclude-dir=packages\ --exclude-dir=.git\ --exclude-dir=.svn\ --exclude-dir=tmp\ --exclude=*.intellisense.js\ --exclude=*-vsdoc.js\ --exclude=*.tmp\ --exclude=*.min.js\ -PHIirn\ $*'
 let s:ackopts='\ -a\ --no-group\ -Hi '
