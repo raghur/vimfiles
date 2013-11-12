@@ -15,6 +15,10 @@ set incsearch       " do incremental searching
 set encoding=utf-8
 set hidden
 
+" Disable AutoComplPop.
+let g:acp_enableAtStartup = 0
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
 
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
 " let &guioptions = substitute(&guioptions, "t", "", "g")
@@ -245,7 +249,7 @@ let maplocalleader='\'
 " replace all instances in a line.
 set gdefault
 nnoremap / /\v
-nnoremap <leader>h  :noh<cr>
+nnoremap <leader>h  :noh<cr><c-l>
 nnoremap <leader>fc :lcl <cr>
 nnoremap <leader>pw :ed ~/.gnupg/passwords.txt.asc <cr>
 vnoremap > >gv
@@ -302,7 +306,7 @@ augroup Markdown
 augroup END
 
 let g:UltiSnipsExpandTrigger="<C-CR>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<C-tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 "If you have git, make sure that path does NOT point to git bash tools
@@ -440,11 +444,8 @@ vnoremap <script><leader>fd <Esc>:silent lgrep
                             \ <C-R><C-R>=expand("%:p:h")<CR>\* \|lopen
 
 execute(":redir! > ~/.vim/.vimbackups/000messages")
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
 so ~/.vim/neocomplete-custom.vim
 if has("unix")
     command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 endif
+
