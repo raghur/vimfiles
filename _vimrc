@@ -132,6 +132,7 @@ Bundle 'rstacruz/sparkup'
 Bundle 'bling/vim-airline'
 Bundle 'Lokaltog/powerline-fonts'
 Bundle 'tpope/vim-dispatch'
+Bundle 'plasticboy/vim-markdown'
 Bundle 'airblade/vim-rooter'
 "neocomplete
 Bundle 'Shougo/neocomplete.vim'
@@ -157,6 +158,7 @@ set guioptions-=T
 set guioptions-=r
 set guioptions+=R
 let g:proj_flags="imstg"
+set timeout timeoutlen=250
 set ttimeoutlen=50
 set undofile
 set undodir=~/.vim/.vimbackups/.undo
@@ -174,7 +176,8 @@ map ]] j0[[%/{<CR>
 map [] k$][%?}<CR>
 
 if has('win32')
-    set guifont=Source_Code_Pro_for_Powerline:h12
+    set guifont=Source_Code_Pro_Light:h12
+    set guifont=Powerline_Consolas:h11
     "set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h11
 else
     set guifont=Source\ Code\ Pro\ for\ Powerline\ 11,
@@ -281,7 +284,7 @@ else
 endif
 set background=light
 let g:solarized_termcolors=256
-colors darkblack
+colors molokai
 set laststatus=2
 
 " Clipboard integration
@@ -325,6 +328,8 @@ let g:ctrlp_open_multi = '1t'
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir']
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_cache_dir = $HOME.'/.ctrlp_cache'
+let g:ctrlp_mruf_exclude = '.*\\dev\\shm\\pass\..*' " Windows
+let g:ctrlp_mruf_case_sensitive = 0
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_working_path_mode = 'ra'
 nnoremap <leader>m :CtrlPMixed<cr>
