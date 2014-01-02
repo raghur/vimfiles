@@ -177,8 +177,8 @@ map [] k$][%?}<CR>
 
 if has('win32')
     set guifont=Source_Code_Pro_Light:h12
+    set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h11
     set guifont=Powerline_Consolas:h11
-    "set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h11
 else
     set guifont=Source\ Code\ Pro\ for\ Powerline\ 11,
                 \DejaVu\ Sans\ Mono\ for\ Powerline\ 10,
@@ -231,7 +231,7 @@ set visualbell
 set noerrorbells
 set list
 if has("gui")
-    set listchars=tab:▶.,trail:░,extends:➤,nbsp:.
+    set listchars=tab:».,trail:░,extends:→,nbsp:.
     au WinLeave * set nocursorline
     au WinEnter * set cursorline
 endif
