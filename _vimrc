@@ -126,7 +126,6 @@ Bundle 'xolox/vim-session'
 Bundle 'tpope/vim-surround'
 Bundle 'kana/vim-textobj-indent'
 Bundle 'kana/vim-textobj-user'
-Bundle 'maxbrunsfeld/vim-yankstack'
 Bundle 'rstacruz/sparkup'
 " vim-airline and fonts
 Bundle 'bling/vim-airline'
@@ -164,6 +163,23 @@ set undofile
 set undodir=~/.vim/.vimbackups/.undo
 set undolevels=1000
 
+" Required for yankstack
+Bundle 'maxbrunsfeld/vim-yankstack'
+set winaltkeys=no
+call yankstack#setup()
+
+" vim sneak; replace f/F with sneak
+Bundle 'justinmk/vim-sneak'
+nnoremap f :Sneak!         1<cr>
+nnoremap F :SneakBackward! 1<cr>
+xnoremap f <esc>:<c-u>SneakV!         1<cr>
+xnoremap F <esc>:<c-u>SneakVBackward! 1<cr>
+" need this otherwise vim-yankstack takes over the bindings
+nmap s <Plug>SneakForward
+nmap S <Plug>SneakBackward
+xmap s <Plug>VSneakForward
+xmap S <Plug>VSneakBackward
+
 " disable arrow keys
 noremap   <Up>     <NOP>
 noremap   <Down>   <NOP>
@@ -182,7 +198,7 @@ if has('win32')
                 \DejaVu\ Sans\ Mono\ For\ Powerline:h11
 else
     set guifont=
-                \Meslo\ LG\ L\ for\ Powerline\ 10,
+                \Meslo\ LG\ S\ for\ Powerline\ 10,
                 \Monaco\ for\ Powerline\ 10,
                 \Source\ Code\ Pro\ for\ Powerline\ 11,
                 \DejaVu\ Sans\ Mono\ for\ Powerline\ 10,
@@ -353,9 +369,6 @@ let g:session_autoload='yes'
 let g:session_default_to_last=1
 
 
-" Required for yankstack
-set winaltkeys=no
-call yankstack#setup()
 vnoremap % <space>%
 
 " customizations made outside of any plugins
