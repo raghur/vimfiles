@@ -176,11 +176,15 @@ map ]] j0[[%/{<CR>
 map [] k$][%?}<CR>
 
 if has('win32')
-    set guifont=Source_Code_Pro_Light:h12
-    set guifont=DejaVu\ Sans\ Mono\ For\ Powerline:h11
-    set guifont=Powerline_Consolas:h11
+    set guifont=
+                \Powerline_Consolas:h11,
+                \Source_Code_Pro_Light:h12,
+                \DejaVu\ Sans\ Mono\ For\ Powerline:h11
 else
-    set guifont=Source\ Code\ Pro\ for\ Powerline\ 11,
+    set guifont=
+                \Meslo\ LG\ L\ for\ Powerline\ 10,
+                \Monaco\ for\ Powerline\ 10,
+                \Source\ Code\ Pro\ for\ Powerline\ 11,
                 \DejaVu\ Sans\ Mono\ for\ Powerline\ 10,
                 \Monospace\ 10,
                 \Ubuntu\ Mono\ 11
