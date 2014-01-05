@@ -371,11 +371,22 @@ vnoremap % <space>%
 
 " customizations made outside of any plugins
 let g:formatprg_javascript="js-beautify"
-let g:formatprg_cs=fnamemodify(findfile("astyle.exe", $GNUWIN), ":p")
+let g:formatprg_cs="astyle"
 let g:formatprg_args_cs=" --mode=cs --style=ansi -pcHs4"
 let g:formatprg_args_javascript=" -jw 80 -"
 let g:formatprg_json="js-beautify"
 let g:formatprg_args_json=" -jw 80 -"
+let g:formatprg_html="tidy"
+let g:formatprg_args_html=" -iq --indent-spaces 4"
+let g:formatprg_xml="tidy"
+let g:formatprg_args_xml=" -iq -asxml --indent-spaces 4"
+
+if (has('win32'))
+    let g:formatprg_cs=fnamemodify(findfile(g:formatprg_cs . ".exe", $GNUWIN), ":p")
+    let g:formatprg_html=fnamemodify(findfile(g:formatprg_html . ".exe", $GNUWIN), ":p")
+    let g:formatprg_xml=fnamemodify(findfile(g:formatprg_xml . ".exe", $GNUWIN), ":p")
+endif
+
 fun! FormatFile()
     let curline=line(".")
     if exists("g:formatprg_". &ft)
