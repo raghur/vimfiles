@@ -157,7 +157,7 @@ set guioptions-=T
 set guioptions-=r
 set guioptions+=R
 let g:proj_flags="imstg"
-set timeout timeoutlen=250
+set timeout timeoutlen=500
 set ttimeoutlen=50
 set undofile
 set undodir=~/.vim/.vimbackups/.undo
@@ -177,8 +177,6 @@ xnoremap F <esc>:<c-u>SneakVBackward! 1<cr>
 " need this otherwise vim-yankstack takes over the bindings
 nmap s <Plug>SneakForward
 nmap S <Plug>SneakBackward
-xmap s <Plug>VSneakForward
-xmap S <Plug>VSneakBackward
 
 " disable arrow keys
 noremap   <Up>     <NOP>
