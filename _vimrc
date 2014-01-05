@@ -138,10 +138,43 @@ Bundle 'Shougo/neocomplete.vim'
 if has("unix")
     set shell=bash\ -i
     "Bundle 'suan/vim-instant-markdown'
-    let g:instant_markdown_slow = 1
+    "let g:instant_markdown_slow = 1
     set clipboard=unnamedplus
 else
     Bundle 'nosami/Omnisharp'
+    nnoremap <leader><F5> :wa!<cr>:OmniSharpBuild<cr>
+    " Builds can run asynchronously with vim-dispatch installed
+    nnoremap <F5> :wa!<cr>:OmniSharpBuildAsync<cr>
+
+    "The following commands are contextual, based on the current cursor position.
+    nnoremap <F12> :OmniSharpGotoDefinition<cr>
+    nnoremap gd :OmniSharpGotoDefinition<cr>
+    nnoremap <leader>fi :OmniSharpFindImplementations<cr>
+    nnoremap <leader>ft :OmniSharpFindType<cr>
+    nnoremap <leader>fs :OmniSharpFindSymbol<cr>
+    nnoremap <leader>fu :OmniSharpFindUsages<cr>
+    nnoremap <leader>fm :OmniSharpFindMembersInBuffer<cr>
+    nnoremap <leader>tt :OmniSharpTypeLookup<cr>
+    "I find contextual code actions so useful that I have it mapped to the spacebar
+    nnoremap <space> :OmniSharpGetCodeActions<cr>
+
+    " rename with dialog
+    nnoremap <leader>nm :OmniSharpRename<cr>
+    nnoremap <F2> :OmniSharpRename<cr>
+    " rename without dialog - with cursor on the symbol to rename... ':Rename newname'
+    command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
+
+    " Force OmniSharp to reload the solution. Useful when switching branches etc.
+    nnoremap <leader>rl :OmniSharpReloadSolution<cr>
+    nnoremap <leader>cf :OmniSharpCodeFormat<cr>
+    " Load the current .cs file to the nearest project
+    nnoremap <leader>tp :OmniSharpAddToProject<cr>
+    " (Experimental - uses vim-dispatch or vimproc plugin) - Start the omnisharp server for the current solution
+    nnoremap <leader>ss :OmniSharpStartServer<cr>
+    nnoremap <leader>sp :OmniSharpStopServer<cr>
+
+    " Add syntax highlighting for types and interfaces
+    nnoremap <leader>th :OmniSharpHighlightTypes<cr>
 endif
 filetype plugin indent on
 
