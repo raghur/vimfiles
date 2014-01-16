@@ -105,6 +105,7 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'kien/ctrlp.vim'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'vim-pandoc/vim-pandoc'
+Bundle 'tpope/vim-fugitive'
 "Bundle 'Raimondi/delimitMate'
 Bundle 'kana/vim-smartinput'
 Bundle 'nathanaelkane/vim-indent-guides'
@@ -144,7 +145,7 @@ else
     Bundle 'nosami/Omnisharp'
     nnoremap <leader><F5> :wa!<cr>:OmniSharpBuild<cr>
     " Builds can run asynchronously with vim-dispatch installed
-    nnoremap <F5> :wa!<cr>:OmniSharpBuildAsync<cr>
+    nnoremap <F6> :wa!<cr>:OmniSharpBuildAsync<cr>
 
     "The following commands are contextual, based on the current cursor position.
     nnoremap <F12> :OmniSharpGotoDefinition<cr>
@@ -210,6 +211,12 @@ xnoremap F <esc>:<c-u>SneakVBackward! 1<cr>
 " need this otherwise vim-yankstack takes over the bindings
 nmap s <Plug>SneakForward
 nmap S <Plug>SneakBackward
+
+Bundle 'nvie/vim-flake8'
+Bundle 'nvie/vim-pyunit'
+Bundle 'klen/python-mode'
+Bundle 'klen/rope-vim'
+let g:pymode_run_bind = '<leader>pr'
 
 " disable arrow keys
 noremap   <Up>     <NOP>
@@ -379,7 +386,7 @@ let g:ctrlp_open_multi = '1t'
 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir']
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_cache_dir = $HOME.'/.ctrlp_cache'
-let g:ctrlp_mruf_exclude = '.*\\dev\\shm\\pass\..*' " Windows
+let g:ctrlp_mruf_exclude = '\(.*\\dev\\shm\\pass\..*\)|\(.*\\.git\COMMIT_EDITMSG\)' " Windows
 let g:ctrlp_mruf_case_sensitive = 0
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_working_path_mode = 'ra'
