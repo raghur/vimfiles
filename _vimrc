@@ -1,5 +1,5 @@
+" Options
 set showmode
-filetype plugin indent on
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
@@ -14,33 +14,54 @@ set showcmd     " display incomplete commands
 set incsearch       " do incremental searching
 set encoding=utf-8
 set hidden
-
-" Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-
-" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-" let &guioptions = substitute(&guioptions, "t", "", "g")
-
-" Don't use Ex mode, use Q for formatting
-map Q gq
-
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U> <C-G>u<C-U>
-
+set wildchar=<Tab> wildmenu
+set wildmode=longest,list
+set expandtab
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
+set pastetoggle=<F11>
+set ignorecase smartcase
+set guioptions-=T
+set guioptions-=r
+set guioptions+=R
+set timeout timeoutlen=500
+set ttimeoutlen=50
+set undofile
+set undodir=~/.vim/.vimbackups/.undo
+set undolevels=1000
+" required for yankstack
+set winaltkeys=no
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
     set mouse=a
 endif
 
-" Switch syntax highlighting on, when the terminal has colors
-" Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
-    syntax on
-    set hlsearch
+" avoids messing up folders with *.swp and file~ backups
+set backupdir=~/.vim/.vimbackups/.backup
+set directory=~/.vim/.vimbackups/.swap
+set switchbuf=usetab
+set matchpairs+=<:>
+set showmatch
+set nowrap
+set copyindent
+set smarttab
+set smartindent
+set wildignore+=*.swp,*.bak,*.class,.git/*,.svn/*,.git\*,.svn\*
+set visualbell
+set noerrorbells
+set list
+if has("gui")
+    set listchars=tab:».,trail:░,extends:→,nbsp:.
+    au WinLeave * set nocursorline
+    au WinEnter * set cursorline
 endif
+
+set t_Co=256
+if &term == "xterm" || &term== "screen-256color"
+    set term=xterm-256color
+endif
+set path+=$HOME,.,,~/git,~/code
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
@@ -76,18 +97,53 @@ else
 
 endif " has("autocmd")
 
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
-if !exists(":DiffOrig")
-    command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-                \ | wincmd p | diffthis
+" Switch syntax highlighting on, when the terminal has colors
+" Also switch on highlighting the last used search pattern.
+if &t_Co > 2 || has("gui_running")
+    syntax on
+    set hlsearch
 endif
 
-let &t_ti.="\e[1 q"
-let &t_SI.="\e[5 q"
-let &t_EI.="\e[1 q"
-let &t_te.="\e[0 q"
+set foldmethod=syntax
+set relativenumber
+set nu
+map <space> <leader>
+" replace all instances in a line.
+set gdefault
+set colorcolumn=120
+
+" Session management
+set sessionoptions&
+set sessionoptions-=options
+set sessionoptions+=resize,unix,slash,winpos
+" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
+let &guioptions = substitute(&guioptions, "t", "", "g")
+
+" colors
+if has("gui_running")
+    set background=light
+else
+    set background=dark
+endif
+colors molokai
+set laststatus=2
+
+if has('win32')
+    set guifont=
+                \Powerline_Consolas:h11,
+                \Source_Code_Pro_Light:h12,
+                \DejaVu\ Sans\ Mono\ For\ Powerline:h11
+else
+    set guifont=
+                \Meslo\ LG\ S\ for\ Powerline\ 10,
+                \Monaco\ for\ Powerline\ 10,
+                \Source\ Code\ Pro\ for\ Powerline\ 11,
+                \DejaVu\ Sans\ Mono\ for\ Powerline\ 10,
+                \Monospace\ 10,
+                \Ubuntu\ Mono\ 11
+    let g:GPGExecutable="gpg2"
+    let g:GPGUseAgent = 1
+endif
 
 filetype off
 set rtp+=~/.vim
@@ -99,10 +155,35 @@ call vundle#rc("$HOME/.vim/bundle")
 Bundle 'gmarik/vundle'
 Bundle 'kshenoy/vim-signature'
 Bundle 'https://git.gitorious.org/vim-gnupg/vim-gnupg'
+"If you have git, make sure that path does NOT point to git bash tools
+" Path for git win should point to the libexec/git-core folder
+" The default GPG should point to cygwin git
+" To check: :sh, which gpg
+let g:GPGDefaultRecipients=['Raghu Rajagopalan']
+
 Bundle 'raghur/vim-helpnav'
 Bundle 'vim-scripts/L9'
 Bundle 'altercation/vim-colors-solarized'
+let g:solarized_termcolors=256
+
 Bundle 'kien/ctrlp.vim'
+let g:ctrlp_match_window_bottom = 0
+let g:ctrlp_match_window_reversed = 0
+let g:ctrlp_max_height = 10
+let g:ctrlp_tabpage_position = 'al'
+let g:ctrlp_open_multi = '1t'
+let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir']
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_cache_dir = $HOME.'/.ctrlp_cache'
+let g:ctrlp_mruf_exclude = '\(.*\\dev\\shm\\pass\..*\)|\(.*\\.git\COMMIT_EDITMSG\)' " Windows
+let g:ctrlp_mruf_case_sensitive = 0
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_working_path_mode = 'ra'
+
+nnoremap <leader>m :CtrlPMixed<cr>
+nnoremap <leader>b :CtrlPBuffer<cr>
+nnoremap <leader>r :CtrlPMRUFiles<cr>
+nnoremap <leader><Space> :CtrlP<cr>
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'vim-pandoc/vim-pandoc'
 Bundle 'tpope/vim-fugitive'
@@ -113,33 +194,88 @@ Bundle 'sjl/gundo.vim'
 Bundle 'hallettj/jslint.vim'
 Bundle 'gregsexton/MatchTag'
 Bundle 'scrooloose/nerdcommenter'
+
 Bundle 'SirVer/ultisnips'
+let g:UltiSnipsExpandTrigger="<C-CR>"
+let g:UltiSnipsJumpForwardTrigger="<C-tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 "Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/syntastic'
+" syntastic
+let g:syntastic_python_checkers = ['pylama']
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'raghur/vim-colorschemes'
 Bundle 'pangloss/vim-javascript'
+
 Bundle 'elzr/vim-json'
+let g:vim_json_syntax_conceal = 0
+
 Bundle 'tsaleh/vim-matchit'
 Bundle 'tpope/vim-ragtag'
 Bundle 'xolox/vim-misc'
 Bundle 'xolox/vim-session'
+let g:session_directory="~/.vim/.vimbackups/.sessions"
+let g:session_command_aliases = 1
+let g:session_autosave='yes'
+let g:session_autoload='yes'
+let g:session_default_to_last=1
+
 Bundle 'tpope/vim-surround'
 Bundle 'kana/vim-textobj-indent'
 Bundle 'kana/vim-textobj-user'
 Bundle 'rstacruz/sparkup'
+
 " vim-airline and fonts
 Bundle 'bling/vim-airline'
 Bundle 'Lokaltog/powerline-fonts'
+set lz
+let g:airline_enable_branch=1
+let g:airline_enable_syntastic=1
+let g:airline_powerline_fonts=1
+let g:airline_detect_modified=1
+" powerline symbols
+if (&guifont =~ 'Powerline')
+    let g:airline_left_sep = ''
+    "let g:airline_left_sep = ''
+    "let g:airline_right_sep = ''
+    let g:airline_right_sep = ''
+    let g:airline_branch_prefix = '   '
+    let g:airline_readonly_symbol = ''
+    let g:airline_linecolumn_prefix = ' '
+endif
 Bundle 'tpope/vim-dispatch'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'airblade/vim-rooter'
+" cruft???
+"let g:proj_flags="imstg"
 "neocomplete
 Bundle 'Shougo/neocomplete.vim'
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+so ~/.vim/neocomplete-custom.vim
+
+" Required for yankstack
+Bundle 'maxbrunsfeld/vim-yankstack'
+call yankstack#setup()
+
+" vim sneak; replace f/F with sneak
+Bundle 'justinmk/vim-sneak'
+nnoremap f :Sneak!         1<cr>
+nnoremap F :SneakBackward! 1<cr>
+xnoremap f <esc>:<c-u>SneakV!         1<cr>
+xnoremap F <esc>:<c-u>SneakVBackward! 1<cr>
+" need this otherwise vim-yankstack takes over the bindings
+nmap s <Plug>SneakForward
+nmap S <Plug>SneakBackward
+
+Bundle 'nvie/vim-flake8'
+Bundle 'nvie/vim-pyunit'
+Bundle 'klen/python-mode'
+let g:pymode_run_bind = '<leader>pr'
+Bundle 'klen/rope-vim'
+
 if has("unix")
     set shell=bash\ -i
-    "Bundle 'suan/vim-instant-markdown'
-    "let g:instant_markdown_slow = 1
     set clipboard=unnamedplus
 else
     " Clipboard integration
@@ -181,146 +317,37 @@ else
 endif
 filetype plugin indent on
 
-set wildchar=<Tab> wildmenu
-set wildmode=longest,list
-set expandtab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-set pastetoggle=<F11>
-set ignorecase smartcase
-set guioptions-=T
-set guioptions-=r
-set guioptions+=R
-let g:proj_flags="imstg"
-set timeout timeoutlen=500
-set ttimeoutlen=50
-set undofile
-set undodir=~/.vim/.vimbackups/.undo
-set undolevels=1000
 
-" Required for yankstack
-Bundle 'maxbrunsfeld/vim-yankstack'
-set winaltkeys=no
-call yankstack#setup()
 
-" vim sneak; replace f/F with sneak
-Bundle 'justinmk/vim-sneak'
-nnoremap f :Sneak!         1<cr>
-nnoremap F :SneakBackward! 1<cr>
-xnoremap f <esc>:<c-u>SneakV!         1<cr>
-xnoremap F <esc>:<c-u>SneakVBackward! 1<cr>
-" need this otherwise vim-yankstack takes over the bindings
-nmap s <Plug>SneakForward
-nmap S <Plug>SneakBackward
-
-Bundle 'nvie/vim-flake8'
-Bundle 'nvie/vim-pyunit'
-Bundle 'klen/python-mode'
-Bundle 'klen/rope-vim'
-let g:pymode_run_bind = '<leader>pr'
-
+""" NON PLUGIN SPECIFIC KEYBINDINGS """"
 " disable arrow keys
 noremap   <Up>     <NOP>
 noremap   <Down>   <NOP>
 noremap   <Left>   <NOP>
 noremap   <Right>  <NOP>
+"inoremap <esc> <c-o>:echoe "use jk"<cr>
+inoremap jk <esc>
 
 map [[ ?{<CR>w99[{
 map ][ /}<CR>b99]}
 map ]] j0[[%/{<CR>
 map [] k$][%?}<CR>
 
-if has('win32')
-    set guifont=
-                \Powerline_Consolas:h11,
-                \Source_Code_Pro_Light:h12,
-                \DejaVu\ Sans\ Mono\ For\ Powerline:h11
-else
-    set guifont=
-                \Meslo\ LG\ S\ for\ Powerline\ 10,
-                \Monaco\ for\ Powerline\ 10,
-                \Source\ Code\ Pro\ for\ Powerline\ 11,
-                \DejaVu\ Sans\ Mono\ for\ Powerline\ 10,
-                \Monospace\ 10,
-                \Ubuntu\ Mono\ 11
-    let g:GPGExecutable="gpg2"
-    let g:GPGUseAgent = 1
-endif
+" Don't use Ex mode, use Q for formatting
+map Q gq
 
-" syntastic
-let g:syntastic_python_checkers = ['pylama']
+" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+" so that you can undo CTRL-U after inserting a line break.
+inoremap <C-U> <C-G>u<C-U>
 
-" vim-json
-let g:vim_json_syntax_conceal = 0
-
-" vim-airline configuration
-set lz
-let g:airline_enable_branch=1
-let g:airline_enable_syntastic=1
-let g:airline_powerline_fonts=1
-let g:airline_detect_modified=1
-" powerline symbols
-if (&guifont =~ 'Powerline')
-    let g:airline_left_sep = ''
-    "let g:airline_left_sep = ''
-    "let g:airline_right_sep = ''
-    let g:airline_right_sep = ''
-    let g:airline_branch_prefix = '   '
-    let g:airline_readonly_symbol = ''
-    let g:airline_linecolumn_prefix = ' '
-endif
-set t_Co=256
-if &term == "xterm" || &term== "screen-256color"
-    set term=xterm-256color
-endif
-set path+=$HOME,.,,~/git,~/code
-
-" avoids messing up folders with *.swp and file~ backups
-set backupdir=~/.vim/.vimbackups/.backup
-set directory=~/.vim/.vimbackups/.swap
-set switchbuf=usetab
-set matchpairs+=<:>
-set showmatch
-set nowrap
-set copyindent
-set smarttab
-set smartindent
-set wildignore+=*.swp,*.bak,*.class,.git/*,.svn/*,.git\*,.svn\*
-set visualbell
-set noerrorbells
-set list
-if has("gui")
-    set listchars=tab:».,trail:░,extends:→,nbsp:.
-    au WinLeave * set nocursorline
-    au WinEnter * set cursorline
-endif
-au BufNewFile,BufRead *.aspx set filetype=html
-au BufNewFile,BufRead *.cshtml set filetype=html
-au BufNewFile,BufRead *.ascx set filetype=html
-au BufNewFile,BufRead *.moin setf moin
-au BufNewFile,BufRead *.wiki setf moin
-au BufNewFile,BufReadPost *.coffee setl foldmethod=indent, nofoldenable
-
-" random stuff..
-set foldmethod=syntax
-set relativenumber
-set nu
-map <space> <leader>
 let maplocalleader='\'
 " Search customizations
-" replace all instances in a line.
-set gdefault
 nnoremap / /\v
 nnoremap <leader>h  :noh<cr><c-l>
 nnoremap <leader>fc :lcl <cr>
 nnoremap <leader>pw :ed ~/.gnupg/passwords.txt.asc <cr>
 vnoremap > >gv
 vnoremap < <gv
-
-
-" keybindings
-set colorcolumn=120
 nnoremap 0 ^
 nnoremap ^ 0
 noremap <C-s> :w<cr>
@@ -328,24 +355,11 @@ nnoremap <C-Backspace> :b#<cr>
 nnoremap <leader>sv :ed ~/.vim/_vimrc<cr>
 nnoremap <F5> :GundoToggle<CR>
 vnoremap <leader>v "0p
-
 " copy a block and comment it and move to insert mode
 vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
 inoremap <C-e> <C-o>:call search("\\%" . line(".") . "l[{}() :=\\[\\]\.,\\n]","We")<cr>
 inoremap <C-a> <C-o>:call search("\\%" . line(".") . "l[{}() :=\\[\\]\.,]","Web")<cr>
-"inoremap <esc> <c-o>:echoe "use jk"<cr>
-inoremap jk <esc>
-
-" colors
-if has("gui_running")
-    set background=light
-else
-    set background=dark
-endif
-set background=light
-let g:solarized_termcolors=256
-colors molokai
-set laststatus=2
+vnoremap % <space>%
 
 
 "Move lines
@@ -365,49 +379,14 @@ augroup Markdown
                 \ linebreak
                 "\ spell spelllang=en_us
 augroup END
-
-let g:UltiSnipsExpandTrigger="<C-CR>"
-let g:UltiSnipsJumpForwardTrigger="<C-tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-
-"If you have git, make sure that path does NOT point to git bash tools
-" Path for git win should point to the libexec/git-core folder
-" The default GPG should point to cygwin git
-" To check: :sh, which gpg
-let g:GPGDefaultRecipients=['Raghu Rajagopalan']
+au BufNewFile,BufRead *.aspx set filetype=html
+au BufNewFile,BufRead *.cshtml set filetype=html
+au BufNewFile,BufRead *.ascx set filetype=html
+au BufNewFile,BufRead *.moin setf moin
+au BufNewFile,BufRead *.wiki setf moin
+au BufNewFile,BufReadPost *.coffee setl foldmethod=indent, nofoldenable
 
 
-" ctrlp configuration and keybindings
-let g:ctrlp_match_window_bottom = 0
-let g:ctrlp_match_window_reversed = 0
-let g:ctrlp_max_height = 10
-let g:ctrlp_tabpage_position = 'al'
-let g:ctrlp_open_multi = '1t'
-let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir']
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_cache_dir = $HOME.'/.ctrlp_cache'
-let g:ctrlp_mruf_exclude = '\(.*\\dev\\shm\\pass\..*\)|\(.*\\.git\COMMIT_EDITMSG\)' " Windows
-let g:ctrlp_mruf_case_sensitive = 0
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_working_path_mode = 'ra'
-nnoremap <leader>m :CtrlPMixed<cr>
-nnoremap <leader>b :CtrlPBuffer<cr>
-nnoremap <leader>r :CtrlPMRUFiles<cr>
-nnoremap <leader><Space> :CtrlP<cr>
-
-" Session management
-set sessionoptions&
-set sessionoptions-=options
-set sessionoptions+=resize,unix,slash,winpos
-
-let g:session_directory="~/.vim/.vimbackups/.sessions"
-let g:session_command_aliases = 1
-let g:session_autosave='yes'
-let g:session_autoload='yes'
-let g:session_default_to_last=1
-
-
-vnoremap % <space>%
 
 " customizations made outside of any plugins
 let g:formatprg_javascript="js-beautify"
@@ -443,14 +422,6 @@ fun! FormatFile()
 endfun
 map <F7> :call FormatFile() <cr>
 
-fun! RemoveCtrlM()
-    execute("%s/\r$//")
-endfun
-fun! SanitizeBlogEntry()
-    execute("%s/\r$//")
-    execute("%s/\\$//")
-endfun
-
 let s:grepopts='\ --exclude-dir=packages\ --exclude-dir=.git\ --exclude-dir=.svn\ --exclude-dir=tmp\ --exclude=*.intellisense.js\ --exclude=*-vsdoc.js\ --exclude=*.tmp\ --exclude=*.min.js\ -PHIirn\ $*'
 let s:ackopts='\ -a\ --no-group\ -Hi '
 if has('win32')
@@ -474,6 +445,7 @@ fun! Get_grep_include_opt(prefix)
     endif
     return l:cmd
 endfun
+
 fun! Grep_with_args(patt, path)
     let l:cmd=":silent lgrep! "
     let l:post="\"" . a:patt . "\""
@@ -514,9 +486,29 @@ vnoremap <script><leader>fd <Esc>:silent lgrep
                             \ "<C-R><C-R>=<SID>get_visual_selection()<CR>"
                             \ <C-R><C-R>=expand("%:p:h")<CR>\* \|lopen
 
-execute(":redir! > ~/.vim/.vimbackups/000messages")
-so ~/.vim/neocomplete-custom.vim
+"execute(":redir! > ~/.vim/.vimbackups/000messages")
 if has("unix")
     command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 endif
 
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+" Only define it when not defined already.
+if !exists(":DiffOrig")
+    command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+                \ | wincmd p | diffthis
+endif
+" termcap codes for cursor shape changes on entry and exit to
+" /from insert mode
+let &t_ti.="\e[1 q"
+let &t_SI.="\e[5 q"
+let &t_EI.="\e[1 q"
+let &t_te.="\e[0 q"
+fun! RemoveCtrlM()
+    execute("%s/\r$//")
+endfun
+fun! SanitizeBlogEntry()
+    execute("%s/\r$//")
+    execute("%s/\\$//")
+endfun
+command! RemoveCtrlM call RemoveCtrlM()
