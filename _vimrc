@@ -304,7 +304,7 @@ au BufNewFile,BufReadPost *.coffee setl foldmethod=indent, nofoldenable
 set foldmethod=syntax
 set relativenumber
 set nu
-let mapleader = " "
+map <space> <leader>
 let maplocalleader='\'
 " Search customizations
 " replace all instances in a line.
