@@ -142,6 +142,8 @@ if has("unix")
     "let g:instant_markdown_slow = 1
     set clipboard=unnamedplus
 else
+    " Clipboard integration
+    set clipboard=unnamed
     Bundle 'nosami/Omnisharp'
     nnoremap <leader><F5> :wa!<cr>:OmniSharpBuild<cr>
     " Builds can run asynchronously with vim-dispatch installed
@@ -345,8 +347,6 @@ let g:solarized_termcolors=256
 colors molokai
 set laststatus=2
 
-" Clipboard integration
-set clipboard=unnamed
 
 "Move lines
 nnoremap <A-j> :m+<CR>==
