@@ -393,7 +393,7 @@ let g:ctrlp_working_path_mode = 'ra'
 nnoremap <leader>m :CtrlPMixed<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>r :CtrlPMRUFiles<cr>
-nnoremap <leader><leader> :CtrlP<cr>
+nnoremap <leader><Space> :CtrlP<cr>
 
 " Session management
 set sessionoptions&
