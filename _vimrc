@@ -1,13 +1,8 @@
-" Options
+" vim: fdm=marker:
+" Options {{{
 set showmode
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
-
-if has("vms")
-    set nobackup      " do not keep a backup file, use versions instead
-else
-    set backup        " keep a backup file
-endif
 set history=50      " keep 50 lines of command line history
 set ruler       " show the cursor position all the time
 set showcmd     " display incomplete commands
@@ -16,10 +11,6 @@ set encoding=utf-8
 set hidden
 set wildchar=<Tab> wildmenu
 set wildmode=longest,list
-set expandtab
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
 set pastetoggle=<F11>
 set ignorecase smartcase
 set guioptions-=T
@@ -37,15 +28,21 @@ if has('mouse')
     set mouse=a
 endif
 
-" avoids messing up folders with *.swp and file~ backups
-set backupdir=~/.vim/.vimbackups/.backup
+" Backup Options {{{
+set backup        " keep a backup file
+set backupdir=~/.vim/.vimbackups/.backup " avoids messing up folders with *.swp and file~ backups
 set directory=~/.vim/.vimbackups/.swap
+"}}}
 set switchbuf=usetab
 set matchpairs+=<:>
 set showmatch
 set nowrap
 set copyindent
 set smarttab
+set expandtab
+set tabstop=4
+set softtabstop=4
+set shiftwidth=4
 set smartindent
 set wildignore+=*.swp,*.bak,*.class,.git/*,.svn/*,.git\*,.svn\*
 set visualbell
@@ -53,8 +50,6 @@ set noerrorbells
 set list
 if has("gui")
     set listchars=tab:».,trail:░,extends:→,nbsp:.
-    au WinLeave * set nocursorline
-    au WinEnter * set cursorline
 endif
 
 set t_Co=256
@@ -119,8 +114,16 @@ set colorcolumn=120
 set sessionoptions&
 set sessionoptions-=options
 set sessionoptions+=resize,unix,slash,winpos
-" For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-let &guioptions = substitute(&guioptions, "t", "", "g")
+
+if has("unix")
+    set shell=bash\ -i
+    set clipboard=unnamedplus
+else
+    " Clipboard integration
+    set clipboard=unnamed
+    " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
+    let &guioptions = substitute(&guioptions, "t", "", "g")
+endif
 
 " colors
 if has("gui_running")
@@ -128,7 +131,6 @@ if has("gui_running")
 else
     set background=dark
 endif
-colors molokai
 set laststatus=2
 
 if has('win32')
@@ -148,6 +150,15 @@ else
     let g:GPGUseAgent = 1
 endif
 
+" termcap codes for cursor shape changes on entry and exit to
+" /from insert mode
+let &t_ti.="\e[1 q"
+let &t_SI.="\e[5 q"
+let &t_EI.="\e[1 q"
+let &t_te.="\e[0 q"
+"}}}
+
+" Plugin Bundles and config {{{
 filetype off
 set rtp+=~/.vim
 set rtp+=~/.vim/bundle/vundle/
@@ -157,6 +168,7 @@ call vundle#rc("$HOME/.vim/bundle")
 " required!
 Bundle 'gmarik/vundle'
 Bundle 'kshenoy/vim-signature'
+
 Bundle 'https://git.gitorious.org/vim-gnupg/vim-gnupg'
 "If you have git, make sure that path does NOT point to git bash tools
 " Path for git win should point to the libexec/git-core folder
@@ -168,8 +180,8 @@ Bundle 'raghur/vim-helpnav'
 Bundle 'vim-scripts/L9'
 Bundle 'altercation/vim-colors-solarized'
 let g:solarized_termcolors=256
-
-Bundle 'kien/ctrlp.vim'
+" CtrlP{{{
+Bundle 'kien/ctrlp.vim' 
 let g:ctrlp_match_window_bottom = 0
 let g:ctrlp_match_window_reversed = 0
 let g:ctrlp_max_height = 10
@@ -182,11 +194,12 @@ let g:ctrlp_mruf_exclude = '\(.*\\dev\\shm\\pass\..*\)|\(.*\\.git\COMMIT_EDITMSG
 let g:ctrlp_mruf_case_sensitive = 0
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_working_path_mode = 'ra'
-
 nnoremap <leader>m :CtrlPMixed<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>r :CtrlPMRUFiles<cr>
 nnoremap <leader><Space> :CtrlP<cr>
+"}}}
+
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'vim-pandoc/vim-pandoc'
 Bundle 'tpope/vim-fugitive'
@@ -203,11 +216,13 @@ let g:UltiSnipsExpandTrigger="<C-CR>"
 let g:UltiSnipsJumpForwardTrigger="<C-tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 "Bundle 'Valloric/YouCompleteMe'
+
 Bundle 'scrooloose/syntastic'
-" syntastic
 let g:syntastic_python_checkers = ['pylama']
+
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'raghur/vim-colorschemes'
+colors molokai
 Bundle 'pangloss/vim-javascript'
 
 Bundle 'elzr/vim-json'
@@ -249,8 +264,7 @@ endif
 Bundle 'tpope/vim-dispatch'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'airblade/vim-rooter'
-" cruft???
-"let g:proj_flags="imstg"
+
 "neocomplete
 Bundle 'Shougo/neocomplete.vim'
 " Use neocomplete.
@@ -276,53 +290,47 @@ Bundle 'nvie/vim-pyunit'
 Bundle 'klen/python-mode'
 let g:pymode_run_bind = '<leader>pr'
 Bundle 'klen/rope-vim'
+" Omnisharp {{{
+Bundle 'nosami/Omnisharp'
+nnoremap <leader><F5> :wa!<cr>:OmniSharpBuild<cr>
+" Builds can run asynchronously with vim-dispatch installed
+nnoremap <F6> :wa!<cr>:OmniSharpBuildAsync<cr>
 
-if has("unix")
-    set shell=bash\ -i
-    set clipboard=unnamedplus
-else
-    " Clipboard integration
-    set clipboard=unnamed
-    Bundle 'nosami/Omnisharp'
-    nnoremap <leader><F5> :wa!<cr>:OmniSharpBuild<cr>
-    " Builds can run asynchronously with vim-dispatch installed
-    nnoremap <F6> :wa!<cr>:OmniSharpBuildAsync<cr>
+"The following commands are contextual, based on the current cursor position.
+nnoremap <F12> :OmniSharpGotoDefinition<cr>
+nnoremap gd :OmniSharpGotoDefinition<cr>
+nnoremap <leader>fi :OmniSharpFindImplementations<cr>
+nnoremap <leader>ft :OmniSharpFindType<cr>
+nnoremap <leader>fs :OmniSharpFindSymbol<cr>
+nnoremap <leader>fu :OmniSharpFindUsages<cr>
+nnoremap <leader>fm :OmniSharpFindMembersInBuffer<cr>
+nnoremap <leader>tt :OmniSharpTypeLookup<cr>
+"I find contextual code actions so useful that I have it mapped to the spacebar
+nnoremap <A-space> :OmniSharpGetCodeActions<cr>
 
-    "The following commands are contextual, based on the current cursor position.
-    nnoremap <F12> :OmniSharpGotoDefinition<cr>
-    nnoremap gd :OmniSharpGotoDefinition<cr>
-    nnoremap <leader>fi :OmniSharpFindImplementations<cr>
-    nnoremap <leader>ft :OmniSharpFindType<cr>
-    nnoremap <leader>fs :OmniSharpFindSymbol<cr>
-    nnoremap <leader>fu :OmniSharpFindUsages<cr>
-    nnoremap <leader>fm :OmniSharpFindMembersInBuffer<cr>
-    nnoremap <leader>tt :OmniSharpTypeLookup<cr>
-    "I find contextual code actions so useful that I have it mapped to the spacebar
-    nnoremap <space> :OmniSharpGetCodeActions<cr>
+" rename with dialog
+nnoremap <leader>nm :OmniSharpRename<cr>
+nnoremap <F2> :OmniSharpRename<cr>
+" rename without dialog - with cursor on the symbol to rename... ':Rename newname'
+command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
 
-    " rename with dialog
-    nnoremap <leader>nm :OmniSharpRename<cr>
-    nnoremap <F2> :OmniSharpRename<cr>
-    " rename without dialog - with cursor on the symbol to rename... ':Rename newname'
-    command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
+" Force OmniSharp to reload the solution. Useful when switching branches etc.
+nnoremap <leader>rl :OmniSharpReloadSolution<cr>
+nnoremap <leader>cf :OmniSharpCodeFormat<cr>
+" Load the current .cs file to the nearest project
+nnoremap <leader>tp :OmniSharpAddToProject<cr>
+" (Experimental - uses vim-dispatch or vimproc plugin) - Start the omnisharp server for the current solution
+nnoremap <leader>ss :OmniSharpStartServer<cr>
+nnoremap <leader>sp :OmniSharpStopServer<cr>
 
-    " Force OmniSharp to reload the solution. Useful when switching branches etc.
-    nnoremap <leader>rl :OmniSharpReloadSolution<cr>
-    nnoremap <leader>cf :OmniSharpCodeFormat<cr>
-    " Load the current .cs file to the nearest project
-    nnoremap <leader>tp :OmniSharpAddToProject<cr>
-    " (Experimental - uses vim-dispatch or vimproc plugin) - Start the omnisharp server for the current solution
-    nnoremap <leader>ss :OmniSharpStartServer<cr>
-    nnoremap <leader>sp :OmniSharpStopServer<cr>
+" Add syntax highlighting for types and interfaces
+nnoremap <leader>th :OmniSharpHighlightTypes<cr>
+"}}}
 
-    " Add syntax highlighting for types and interfaces
-    nnoremap <leader>th :OmniSharpHighlightTypes<cr>
-endif
 filetype plugin indent on
+"}}}
 
-
-
-""" NON PLUGIN SPECIFIC KEYBINDINGS """"
+"Non Plugin specific keybindings {{{
 " disable arrow keys
 noremap   <Up>     <NOP>
 noremap   <Down>   <NOP>
@@ -376,7 +384,14 @@ vnoremap <A-k> :m-2<CR>gv=gv
 "Move by screen lines
 nnoremap j gj
 nnoremap k gk
+"}}}
 
+" Autocommands {{{
+
+if has("gui_running")
+    au WinLeave * set nocursorline
+    au WinEnter * set cursorline
+endif
 augroup Markdown
     autocmd FileType markdown setl wrap
                 \ linebreak
@@ -388,10 +403,10 @@ au BufNewFile,BufRead *.ascx set filetype=html
 au BufNewFile,BufRead *.moin setf moin
 au BufNewFile,BufRead *.wiki setf moin
 au BufNewFile,BufReadPost *.coffee setl foldmethod=indent, nofoldenable
+"}}}
 
-
-
-" customizations made outside of any plugins
+" Custom code/Utils {{{
+" Format file {{{
 let g:formatprg_javascript="js-beautify"
 let g:formatprg_cs="astyle"
 let g:formatprg_args_cs=" --mode=cs --style=ansi -pcHs4"
@@ -403,11 +418,13 @@ let g:formatprg_args_html=" -iq --indent-spaces 4"
 let g:formatprg_xml="tidy"
 let g:formatprg_args_xml=" -iq -asxml --indent-spaces 4"
 
+" Windows specific {{{
 if (has('win32'))
     let g:formatprg_cs=fnamemodify(findfile(g:formatprg_cs . ".exe", $GNUWIN), ":p")
     let g:formatprg_html=fnamemodify(findfile(g:formatprg_html . ".exe", $GNUWIN), ":p")
     let g:formatprg_xml=fnamemodify(findfile(g:formatprg_xml . ".exe", $GNUWIN), ":p")
 endif
+"}}}
 
 fun! FormatFile()
     let curline=line(".")
@@ -424,7 +441,9 @@ fun! FormatFile()
     exec "normal ". curline. "G"
 endfun
 map <F7> :call FormatFile() <cr>
+"}}}
 
+" File search {{{
 let s:grepopts='\ --exclude-dir=packages\ --exclude-dir=.git\ --exclude-dir=.svn\ --exclude-dir=tmp\ --exclude=*.intellisense.js\ --exclude=*-vsdoc.js\ --exclude=*.tmp\ --exclude=*.min.js\ -PHIirn\ $*'
 let s:ackopts='\ -a\ --no-group\ -Hi '
 if has('win32')
@@ -488,7 +507,10 @@ vnoremap <script><leader>fd <Esc>:silent lgrep
                             \ <C-R><C-R>=Get_grep_include_opt(" --include=*.")<CR>
                             \ "<C-R><C-R>=<SID>get_visual_selection()<CR>"
                             \ <C-R><C-R>=expand("%:p:h")<CR>\* \|lopen
+"}}}
+"}}}
 
+" Commands {{{
 "execute(":redir! > ~/.vim/.vimbackups/000messages")
 if has("unix")
     command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
@@ -501,17 +523,25 @@ if !exists(":DiffOrig")
     command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
                 \ | wincmd p | diffthis
 endif
-" termcap codes for cursor shape changes on entry and exit to
-" /from insert mode
-let &t_ti.="\e[1 q"
-let &t_SI.="\e[5 q"
-let &t_EI.="\e[1 q"
-let &t_te.="\e[0 q"
 fun! RemoveCtrlM()
     execute("%s/\r$//")
 endfun
+command! RemoveCtrlM call RemoveCtrlM()
+
 fun! SanitizeBlogEntry()
     execute("%s/\r$//")
     execute("%s/\\$//")
 endfun
-command! RemoveCtrlM call RemoveCtrlM()
+function! NeatFoldText() "{{{
+  let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
+  let lines_count = v:foldend - v:foldstart + 1
+  let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
+  let foldchar = matchstr(&fillchars, 'fold:\zs.')
+  let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
+  let foldtextend = lines_count_text . repeat(foldchar, 8)
+  let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
+  return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
+endfunction
+set foldtext=NeatFoldText()
+" }}}
+"}}}
