@@ -181,7 +181,7 @@ Bundle 'vim-scripts/L9'
 Bundle 'altercation/vim-colors-solarized'
 let g:solarized_termcolors=256
 " CtrlP{{{
-Bundle 'kien/ctrlp.vim' 
+Bundle 'kien/ctrlp.vim'
 let g:ctrlp_match_window_bottom = 0
 let g:ctrlp_match_window_reversed = 0
 let g:ctrlp_max_height = 10
@@ -291,40 +291,43 @@ Bundle 'klen/python-mode'
 let g:pymode_run_bind = '<leader>pr'
 Bundle 'klen/rope-vim'
 " Omnisharp {{{
-Bundle 'nosami/Omnisharp'
-nnoremap <leader><F5> :wa!<cr>:OmniSharpBuild<cr>
-" Builds can run asynchronously with vim-dispatch installed
-nnoremap <F6> :wa!<cr>:OmniSharpBuildAsync<cr>
 
-"The following commands are contextual, based on the current cursor position.
-nnoremap <F12> :OmniSharpGotoDefinition<cr>
-nnoremap gd :OmniSharpGotoDefinition<cr>
-nnoremap <leader>fi :OmniSharpFindImplementations<cr>
-nnoremap <leader>ft :OmniSharpFindType<cr>
-nnoremap <leader>fs :OmniSharpFindSymbol<cr>
-nnoremap <leader>fu :OmniSharpFindUsages<cr>
-nnoremap <leader>fm :OmniSharpFindMembersInBuffer<cr>
-nnoremap <leader>tt :OmniSharpTypeLookup<cr>
-"I find contextual code actions so useful that I have it mapped to the spacebar
-nnoremap <A-space> :OmniSharpGetCodeActions<cr>
+if has("win32")
+    Bundle 'nosami/Omnisharp'
+    nnoremap <leader><F5> :wa!<cr>:OmniSharpBuild<cr>
+    " Builds can run asynchronously with vim-dispatch installed
+    nnoremap <F6> :wa!<cr>:OmniSharpBuildAsync<cr>
 
-" rename with dialog
-nnoremap <leader>nm :OmniSharpRename<cr>
-nnoremap <F2> :OmniSharpRename<cr>
-" rename without dialog - with cursor on the symbol to rename... ':Rename newname'
-command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
+    "The following commands are contextual, based on the current cursor position.
+    nnoremap <F12> :OmniSharpGotoDefinition<cr>
+    nnoremap gd :OmniSharpGotoDefinition<cr>
+    nnoremap <leader>fi :OmniSharpFindImplementations<cr>
+    nnoremap <leader>ft :OmniSharpFindType<cr>
+    nnoremap <leader>fs :OmniSharpFindSymbol<cr>
+    nnoremap <leader>fu :OmniSharpFindUsages<cr>
+    nnoremap <leader>fm :OmniSharpFindMembersInBuffer<cr>
+    nnoremap <leader>tt :OmniSharpTypeLookup<cr>
+    "I find contextual code actions so useful that I have it mapped to the spacebar
+    nnoremap <A-space> :OmniSharpGetCodeActions<cr>
 
-" Force OmniSharp to reload the solution. Useful when switching branches etc.
-nnoremap <leader>rl :OmniSharpReloadSolution<cr>
-nnoremap <leader>cf :OmniSharpCodeFormat<cr>
-" Load the current .cs file to the nearest project
-nnoremap <leader>tp :OmniSharpAddToProject<cr>
-" (Experimental - uses vim-dispatch or vimproc plugin) - Start the omnisharp server for the current solution
-nnoremap <leader>ss :OmniSharpStartServer<cr>
-nnoremap <leader>sp :OmniSharpStopServer<cr>
+    " rename with dialog
+    nnoremap <leader>nm :OmniSharpRename<cr>
+    nnoremap <F2> :OmniSharpRename<cr>
+    " rename without dialog - with cursor on the symbol to rename... ':Rename newname'
+    command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
 
-" Add syntax highlighting for types and interfaces
-nnoremap <leader>th :OmniSharpHighlightTypes<cr>
+    " Force OmniSharp to reload the solution. Useful when switching branches etc.
+    nnoremap <leader>rl :OmniSharpReloadSolution<cr>
+    nnoremap <leader>cf :OmniSharpCodeFormat<cr>
+    " Load the current .cs file to the nearest project
+    nnoremap <leader>tp :OmniSharpAddToProject<cr>
+    " (Experimental - uses vim-dispatch or vimproc plugin) - Start the omnisharp server for the current solution
+    nnoremap <leader>ss :OmniSharpStartServer<cr>
+    nnoremap <leader>sp :OmniSharpStopServer<cr>
+
+    " Add syntax highlighting for types and interfaces
+    nnoremap <leader>th :OmniSharpHighlightTypes<cr>
+endif
 "}}}
 
 filetype plugin indent on
@@ -524,13 +527,21 @@ if !exists(":DiffOrig")
                 \ | wincmd p | diffthis
 endif
 fun! RemoveCtrlM()
-    execute("%s/\r$//")
+    :%s/\r$//
 endfun
 command! RemoveCtrlM call RemoveCtrlM()
 
+fun! SanitizeSpaces()
+    retab
+    :%s/\s\+$//
+    :w
+endfun
+command! Fixspaces call SanitizeSpaces()
+
 fun! SanitizeBlogEntry()
-    execute("%s/\r$//")
-    execute("%s/\\$//")
+    call SanitizeSpaces()
+    :%s/\r$//
+    :%s/\\$//
 endfun
 function! NeatFoldText() "{{{
   let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
