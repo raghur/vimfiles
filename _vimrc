@@ -336,6 +336,7 @@ noremap   <Up>     <NOP>
 noremap   <Down>   <NOP>
 noremap   <Left>   <NOP>
 noremap   <Right>  <NOP>
+nnoremap  <backspace> <C-O>
 "inoremap <esc> <c-o>:echoe "use jk"<cr>
 inoremap jk <esc>
 
