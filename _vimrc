@@ -105,6 +105,9 @@ if &t_Co > 2 || has("gui_running")
 endif
 
 set foldmethod=syntax
+set foldopen=block,hor,mark,percent,quickfix,search,tag,undo,jump
+set foldnestmax=5
+set foldminlines=4
 set relativenumber
 set nu
 map <space> <leader>
