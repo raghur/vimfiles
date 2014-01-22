@@ -203,6 +203,7 @@ nnoremap <leader><Space> :CtrlP<cr>
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'vim-pandoc/vim-pandoc'
 Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-repeat'
 "Bundle 'Raimondi/delimitMate'
 Bundle 'kana/vim-smartinput'
 Bundle 'nathanaelkane/vim-indent-guides'
@@ -262,7 +263,7 @@ if (&guifont =~ 'Powerline')
     let g:airline_linecolumn_prefix = ' '
 endif
 Bundle 'tpope/vim-dispatch'
-Bundle 'plasticboy/vim-markdown'
+Bundle 'tpope/vim-markdown'
 Bundle 'airblade/vim-rooter'
 
 "neocomplete
