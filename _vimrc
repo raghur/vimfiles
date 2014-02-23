@@ -48,7 +48,7 @@ set wildignore+=*.swp,*.bak,*.class,.git/*,.svn/*,.git\*,.svn\*
 set visualbell
 set noerrorbells
 set list
-if has("gui")
+if has("gui_running")
     set listchars=tab:».,trail:░,extends:→,nbsp:.
 endif
 
