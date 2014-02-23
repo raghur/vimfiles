@@ -200,7 +200,6 @@ nnoremap <leader>r :CtrlPMRUFiles<cr>
 nnoremap <leader><Space> :CtrlP<cr>
 "}}}
 
-Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'vim-pandoc/vim-pandoc'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-repeat'
@@ -223,7 +222,7 @@ let g:syntastic_javascript_checkers = ['jshint']
 nnoremap <leader>j :lnext<cr>
 nnoremap <leader>k :lprev<cr>
 let g:syntastic_mode_map = { 'mode': 'active',
-            \ 'active_filetypes': ['javascript', 'python'],
+            \ 'active_filetypes': ['javascript', 'python', 'json'],
             \ 'passive_filetypes': [] }
 
 
