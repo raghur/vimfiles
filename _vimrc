@@ -208,7 +208,6 @@ Bundle 'tpope/vim-repeat'
 Bundle 'kana/vim-smartinput'
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'sjl/gundo.vim'
-Bundle 'hallettj/jslint.vim'
 Bundle 'gregsexton/MatchTag'
 Bundle 'scrooloose/nerdcommenter'
 
@@ -220,6 +219,13 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 Bundle 'scrooloose/syntastic'
 let g:syntastic_python_checkers = ['pylama']
+let g:syntastic_javascript_checkers = ['jshint']
+nnoremap <leader>j :lnext<cr>
+nnoremap <leader>k :lprev<cr>
+let g:syntastic_mode_map = { 'mode': 'active',
+            \ 'active_filetypes': ['javascript', 'python'],
+            \ 'passive_filetypes': [] }
+
 
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'raghur/vim-colorschemes'
