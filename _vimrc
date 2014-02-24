@@ -48,14 +48,15 @@ set wildignore+=*.swp,*.bak,*.class,.git/*,.svn/*,.git\*,.svn\*
 set visualbell
 set noerrorbells
 set list
-if has("gui_running")
-    set listchars=tab:».,trail:░,extends:→,nbsp:.
+set listchars=tab:».,trail:░,extends:→,nbsp:.
+
+if (!has("gui_running"))
+    set t_Co=256
+    set term=xterm
+    let &t_AB="\e[48;5;%dm"
+    let &t_AF="\e[38;5;%dm"
 endif
 
-set t_Co=256
-if &term == "xterm" || &term== "screen-256color"
-    set term=xterm-256color
-endif
 set path+=$HOME,.,,~/git,~/code
 
 " Only do this part when compiled with support for autocommands.
