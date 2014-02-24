@@ -50,12 +50,16 @@ set noerrorbells
 set list
 set listchars=tab:».,trail:░,extends:→,nbsp:.
 
-if (!has("gui_running"))
-    set t_Co=256
-    set term=xterm
-    let &t_AB="\e[48;5;%dm"
-    let &t_AF="\e[38;5;%dm"
+set t_Co=256
+if &term =~ '256color'
+    " disable Background Color Erase (BCE) so that color schemes
+    " render properly when inside 256-color tmux and GNU screen.
+    " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
+    set t_ut=
 endif
+"set term=xterm-256color
+"let &t_AB="\e[48;5;%dm"
+"let &t_AF="\e[38;5;%dm"
 
 set path+=$HOME,.,,~/git,~/code
 
@@ -255,6 +259,7 @@ Bundle 'rstacruz/sparkup'
 
 " vim-airline and fonts
 Bundle 'bling/vim-airline'
+"Bundle 'edkolev/tmuxline.vim'
 Bundle 'Lokaltog/powerline-fonts'
 set lz
 let g:airline_enable_branch=1
