@@ -50,6 +50,15 @@ set noerrorbells
 set list
 set listchars=tab:».,trail:░,extends:→,nbsp:.
 
+" ConEmu
+if !empty($CONEMUBUILD)
+    set term=xterm
+    set t_Co=256
+    let &t_AB="\e[48;5;%dm"
+    let &t_AF="\e[38;5;%dm"
+endif
+
+" tmux and otherwise
 set t_Co=256
 if &term =~ '256color'
     " disable Background Color Erase (BCE) so that color schemes
@@ -57,9 +66,6 @@ if &term =~ '256color'
     " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
     set t_ut=
 endif
-"set term=xterm-256color
-"let &t_AB="\e[48;5;%dm"
-"let &t_AF="\e[38;5;%dm"
 
 set path+=$HOME,.,,~/git,~/code
 
