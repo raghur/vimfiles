@@ -340,43 +340,42 @@ if &term =~ '^screen'
 endif
 
 " Omnisharp {{{
+"if has("win32")
+    "Bundle 'nosami/Omnisharp'
+    "nnoremap <leader><F5> :wa!<cr>:OmniSharpBuild<cr>
+    "" Builds can run asynchronously with vim-dispatch installed
+    "nnoremap <F6> :wa!<cr>:OmniSharpBuildAsync<cr>
 
-if has("win32")
-    Bundle 'nosami/Omnisharp'
-    nnoremap <leader><F5> :wa!<cr>:OmniSharpBuild<cr>
-    " Builds can run asynchronously with vim-dispatch installed
-    nnoremap <F6> :wa!<cr>:OmniSharpBuildAsync<cr>
+    ""The following commands are contextual, based on the current cursor position.
+    "nnoremap <F12> :OmniSharpGotoDefinition<cr>
+    "nnoremap gd :OmniSharpGotoDefinition<cr>
+    "nnoremap <leader>fi :OmniSharpFindImplementations<cr>
+    "nnoremap <leader>ft :OmniSharpFindType<cr>
+    "nnoremap <leader>fs :OmniSharpFindSymbol<cr>
+    "nnoremap <leader>fu :OmniSharpFindUsages<cr>
+    "nnoremap <leader>fm :OmniSharpFindMembersInBuffer<cr>
+    "nnoremap <leader>tt :OmniSharpTypeLookup<cr>
+    ""I find contextual code actions so useful that I have it mapped to the spacebar
+    "nnoremap <A-space> :OmniSharpGetCodeActions<cr>
 
-    "The following commands are contextual, based on the current cursor position.
-    nnoremap <F12> :OmniSharpGotoDefinition<cr>
-    nnoremap gd :OmniSharpGotoDefinition<cr>
-    nnoremap <leader>fi :OmniSharpFindImplementations<cr>
-    nnoremap <leader>ft :OmniSharpFindType<cr>
-    nnoremap <leader>fs :OmniSharpFindSymbol<cr>
-    nnoremap <leader>fu :OmniSharpFindUsages<cr>
-    nnoremap <leader>fm :OmniSharpFindMembersInBuffer<cr>
-    nnoremap <leader>tt :OmniSharpTypeLookup<cr>
-    "I find contextual code actions so useful that I have it mapped to the spacebar
-    nnoremap <A-space> :OmniSharpGetCodeActions<cr>
+    "" rename with dialog
+    "nnoremap <leader>nm :OmniSharpRename<cr>
+    "nnoremap <F2> :OmniSharpRename<cr>
+    "" rename without dialog - with cursor on the symbol to rename... ':Rename newname'
+    "command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
 
-    " rename with dialog
-    nnoremap <leader>nm :OmniSharpRename<cr>
-    nnoremap <F2> :OmniSharpRename<cr>
-    " rename without dialog - with cursor on the symbol to rename... ':Rename newname'
-    command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
+    "" Force OmniSharp to reload the solution. Useful when switching branches etc.
+    "nnoremap <leader>rl :OmniSharpReloadSolution<cr>
+    "nnoremap <leader>cf :OmniSharpCodeFormat<cr>
+    "" Load the current .cs file to the nearest project
+    "nnoremap <leader>tp :OmniSharpAddToProject<cr>
+    "" (Experimental - uses vim-dispatch or vimproc plugin) - Start the omnisharp server for the current solution
+    "nnoremap <leader>ss :OmniSharpStartServer<cr>
+    "nnoremap <leader>sp :OmniSharpStopServer<cr>
 
-    " Force OmniSharp to reload the solution. Useful when switching branches etc.
-    nnoremap <leader>rl :OmniSharpReloadSolution<cr>
-    nnoremap <leader>cf :OmniSharpCodeFormat<cr>
-    " Load the current .cs file to the nearest project
-    nnoremap <leader>tp :OmniSharpAddToProject<cr>
-    " (Experimental - uses vim-dispatch or vimproc plugin) - Start the omnisharp server for the current solution
-    nnoremap <leader>ss :OmniSharpStartServer<cr>
-    nnoremap <leader>sp :OmniSharpStopServer<cr>
-
-    " Add syntax highlighting for types and interfaces
-    nnoremap <leader>th :OmniSharpHighlightTypes<cr>
-endif
+    "" Add syntax highlighting for types and interfaces
+    "nnoremap <leader>th :OmniSharpHighlightTypes<cr>
+"endif
 "}}}
 
 filetype plugin indent on
@@ -497,8 +496,20 @@ map <F7> :call FormatFile() <cr>
 "}}}
 
 " File search {{{
-let s:grepopts='\ --exclude-dir=packages\ --exclude-dir=.git\ --exclude-dir=.svn\ --exclude-dir=tmp\ --exclude=*.intellisense.js\ --exclude=*-vsdoc.js\ --exclude=*.tmp\ --exclude=*.min.js\ -PHIirn\ $*'
+
+" The Silver Searcher
+if executable('ag')
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
 let s:ackopts='\ -a\ --no-group\ -Hi '
+let s:grepopts='\ --exclude-dir=packages\ --exclude-dir=.git\ --exclude-dir=.svn\ --exclude-dir=tmp\ --exclude=*.intellisense.js\ --exclude=*-vsdoc.js\ --exclude=*.tmp\ --exclude=*.min.js\ -PHIirn\ $*'
 if has('win32')
     set nossl
     let s:ack="f:/utils/ack.bat"
@@ -508,6 +519,11 @@ else
     let s:ack="ack"
     let s:find="find"
     let s:grep="grep"
+endif
+
+if executable('ag')
+    let s:grep='ag'
+    let s:grepopts='\ --nogroup\ --nocolor'
 endif
 
 execute "set grepprg=" . s:grep ."\\ ".s:grepopts
@@ -525,12 +541,12 @@ fun! Grep_with_args(patt, path)
     let l:cmd=":silent lgrep! "
     let l:post="\"" . a:patt . "\""
     let l:pipe =  "\| lopen"
-    let l:cmd = l:cmd .  Get_grep_include_opt(" --include=*.")
+    "let l:cmd = l:cmd .  Get_grep_include_opt(" --include=*.")
     let l:cmd = l:cmd . " " . l:post
     if a:path != ""
         let l:cmd = l:cmd . " " . a:path
-    else
-        let l:cmd = l:cmd . "  *"
+    "else
+        "let l:cmd = l:cmd . "  *"
     endif
     let l:cmd = l:cmd . " " . l:pipe
     return l:cmd
@@ -550,16 +566,17 @@ vnoremap <script> <leader>* <Esc>:lvimgrep /<C-R><C-R>=<SID>get_visual_selection
 " vimgrep - fast but external
 " project root
 nnoremap <expr><leader>f Grep_with_args("\\b".expand("<cword>")."\\b", "")
+nnoremap <expr><leader>ft Grep_with_args("\\b".expand("<cword>")."\\b", "")
 vnoremap <script><leader>f <Esc>:silent lgrep
-                            \ <C-R><C-R>=Get_grep_include_opt(" --include=*.")<CR>
                             \ "<C-R><C-R>=<SID>get_visual_selection()<CR>"
                             \ * \|lopen
+                             "\ <C-R><C-R>=Get_grep_include_opt(" --include=*.")<CR>
 " down current folder
 nnoremap <expr><leader>fd Grep_with_args("\\b".expand("<cword>")."\\b", expand("%:p:h"))
 vnoremap <script><leader>fd <Esc>:silent lgrep
-                            \ <C-R><C-R>=Get_grep_include_opt(" --include=*.")<CR>
                             \ "<C-R><C-R>=<SID>get_visual_selection()<CR>"
                             \ <C-R><C-R>=expand("%:p:h")<CR>\* \|lopen
+                             "\ <C-R><C-R>=Get_grep_include_opt(" --include=*.")<CR>
 "}}}
 "}}}
 
