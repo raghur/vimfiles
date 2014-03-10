@@ -232,7 +232,13 @@ Bundle 'SirVer/ultisnips'
 let g:UltiSnipsExpandTrigger="<C-CR>"
 let g:UltiSnipsJumpForwardTrigger="<C-tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-"Bundle 'Valloric/YouCompleteMe'
+Bundle 'Valloric/YouCompleteMe'
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_auto_stop_csharp_server = 1
+
+nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<cr>
+"Bundle 'marijnh/tern_for_vim'
 
 Bundle 'scrooloose/syntastic'
 let g:syntastic_python_checkers = ['pylama']
@@ -294,10 +300,13 @@ Bundle 'tpope/vim-markdown'
 Bundle 'airblade/vim-rooter'
 
 "neocomplete
-Bundle 'Shougo/neocomplete.vim'
+"Bundle 'Shougo/vimproc.vim'
+"Bundle 'Shougo/neocomplete.vim'
+"Bundle 'Shougo/vimproc.vim'
 " Use neocomplete.
+let g:neocomplete#use_vimproc = 1
 let g:neocomplete#enable_at_startup = 1
-so ~/.vim/neocomplete-custom.vim
+"so ~/.vim/neocomplete-custom.vim
 
 " Required for yankstack
 Bundle 'maxbrunsfeld/vim-yankstack'
