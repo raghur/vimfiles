@@ -245,9 +245,10 @@ let g:syntastic_python_checkers = ['pylama']
 let g:syntastic_javascript_checkers = ['jshint']
 nnoremap <leader>j :lnext<cr>
 nnoremap <leader>k :lprev<cr>
-let g:syntastic_mode_map = { 'mode': 'active',
-            \ 'active_filetypes': ['javascript', 'python', 'json'],
-            \ 'passive_filetypes': [] }
+nnoremap <leader>c :w\|SyntasticCheck<cr>
+let g:syntastic_mode_map = { 'mode': 'passive',
+            \ 'active_filetypes': ['python', 'json'],
+            \ 'passive_filetypes': ['javascript'] }
 
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'raghur/vim-colorschemes'
