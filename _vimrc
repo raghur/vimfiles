@@ -171,7 +171,7 @@ let &t_te.="\e[0 q"
 
 " Plugin Bundles and config {{{
 filetype off
-set rtp+=~/.vim
+set rtp^=~/.vim
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc("$HOME/.vim/bundle")
 
@@ -228,17 +228,19 @@ Bundle 'sjl/gundo.vim'
 Bundle 'gregsexton/MatchTag'
 Bundle 'scrooloose/nerdcommenter'
 
-Bundle 'SirVer/ultisnips'
-let g:UltiSnipsExpandTrigger="<C-CR>"
-let g:UltiSnipsJumpForwardTrigger="<C-tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 Bundle 'Valloric/YouCompleteMe'
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_auto_stop_csharp_server = 1
-
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<cr>
 "Bundle 'marijnh/tern_for_vim'
+
+
+Bundle 'SirVer/ultisnips'
+Bundle 'SirVer/vim-snippets'
+let g:UltiSnipsSnippetsDir="~/.vim/Ultisnips"
+let g:UltiSnipsExpandTrigger="<c-cr>"
+let g:UltiSnipsListSnippets="<c-tab>"
 
 Bundle 'scrooloose/syntastic'
 let g:syntastic_python_checkers = ['pylama']
@@ -303,7 +305,6 @@ Bundle 'airblade/vim-rooter'
 "neocomplete
 "Bundle 'Shougo/vimproc.vim'
 "Bundle 'Shougo/neocomplete.vim'
-"Bundle 'Shougo/vimproc.vim'
 " Use neocomplete.
 let g:neocomplete#use_vimproc = 1
 let g:neocomplete#enable_at_startup = 1
