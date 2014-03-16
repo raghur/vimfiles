@@ -279,7 +279,7 @@ endif
 Bundle 'tpope/vim-surround'
 Bundle 'kana/vim-textobj-indent'
 Bundle 'kana/vim-textobj-user'
-Bundle 'rstacruz/sparkup'
+Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 
 " vim-airline and fonts
 Bundle 'bling/vim-airline'
