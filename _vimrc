@@ -5,7 +5,9 @@ set showmode
 set backspace=indent,eol,start
 set history=50      " keep 50 lines of command line history
 set ruler       " show the cursor position all the time
-set showcmd     " display incomplete commands
+set noshowcmd
+set nocursorline
+set nocursorcolumn     " display incomplete commands
 set incsearch       " do incremental searching
 set encoding=utf-8
 set hidden
@@ -228,7 +230,7 @@ Bundle 'sjl/gundo.vim'
 Bundle 'gregsexton/MatchTag'
 Bundle 'scrooloose/nerdcommenter'
 
-Bundle 'Valloric/YouCompleteMe'
+"Bundle 'Valloric/YouCompleteMe'
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_auto_stop_csharp_server = 1
@@ -304,11 +306,11 @@ Bundle 'airblade/vim-rooter'
 
 "neocomplete
 "Bundle 'Shougo/vimproc.vim'
-"Bundle 'Shougo/neocomplete.vim'
+Bundle 'Shougo/neocomplete.vim'
 " Use neocomplete.
-let g:neocomplete#use_vimproc = 1
+"let g:neocomplete#use_vimproc = 1
 let g:neocomplete#enable_at_startup = 1
-"so ~/.vim/neocomplete-custom.vim
+so ~/.vim/neocomplete-custom.vim
 
 " Required for yankstack
 Bundle 'maxbrunsfeld/vim-yankstack'
@@ -451,10 +453,6 @@ nnoremap k gk
 
 " Autocommands {{{
 
-if has("gui_running")
-    au WinLeave * set nocursorline
-    au WinEnter * set cursorline
-endif
 augroup Markdown
     autocmd FileType markdown setl wrap
                 \ linebreak
