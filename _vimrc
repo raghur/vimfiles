@@ -240,6 +240,7 @@ nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<cr>
 
 Bundle 'SirVer/ultisnips'
 Bundle 'SirVer/vim-snippets'
+let g:UltiSnipsUsePythonVersion=2
 let g:UltiSnipsSnippetsDir="~/.vim/Ultisnips"
 let g:UltiSnipsExpandTrigger="<c-cr>"
 let g:UltiSnipsListSnippets="<c-tab>"
@@ -420,6 +421,7 @@ let maplocalleader='\'
 " Search customizations
 nnoremap / /\v
 nnoremap <leader>h  :noh<cr><c-l>
+nnoremap <leader>w  :w<cr>
 nnoremap <leader>fc :lcl <cr>
 nnoremap <leader>pw :ed ~/.gnupg/passwords.txt.asc <cr>
 vnoremap > >gv
