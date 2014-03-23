@@ -210,6 +210,7 @@ let g:ctrlp_working_path_mode = 'ra'
 nnoremap <leader>m :CtrlPMixed<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>r :CtrlPMRUFiles<cr>
+nnoremap <leader>c :CtrlPChange<cr>
 nnoremap <leader><Space> :CtrlP<cr>
 "}}}
 
@@ -239,7 +240,7 @@ nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<cr>
 
 
 Bundle 'SirVer/ultisnips'
-Bundle 'SirVer/vim-snippets'
+Bundle 'honza/vim-snippets'
 let g:UltiSnipsUsePythonVersion=2
 let g:UltiSnipsSnippetsDir="~/.vim/Ultisnips"
 let g:UltiSnipsExpandTrigger="<c-cr>"
@@ -250,7 +251,7 @@ let g:syntastic_python_checkers = ['pylama']
 let g:syntastic_javascript_checkers = ['jshint']
 nnoremap <leader>j :lnext<cr>
 nnoremap <leader>k :lprev<cr>
-nnoremap <leader>c :w\|SyntasticCheck<cr>
+nnoremap <leader><F5> :w\|SyntasticCheck<cr>
 let g:syntastic_mode_map = { 'mode': 'passive',
             \ 'active_filetypes': ['python', 'json'],
             \ 'passive_filetypes': ['javascript'] }
@@ -306,10 +307,10 @@ Bundle 'tpope/vim-markdown'
 Bundle 'airblade/vim-rooter'
 
 "neocomplete
-"Bundle 'Shougo/vimproc.vim'
+Bundle 'Shougo/vimproc.vim'
 Bundle 'Shougo/neocomplete.vim'
 " Use neocomplete.
-"let g:neocomplete#use_vimproc = 1
+let g:neocomplete#use_vimproc = 1
 let g:neocomplete#enable_at_startup = 1
 so ~/.vim/neocomplete-custom.vim
 
