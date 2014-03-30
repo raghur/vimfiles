@@ -148,8 +148,9 @@ set laststatus=2
 
 if has('win32')
     set guifont=
+                \Ubuntu_Mono_derivative_Powerlin:h13,
+                \Source_Code_Pro_Light:h11,
                 \Powerline_Consolas:h11,
-                \Source_Code_Pro_Light:h12,
                 \DejaVu\ Sans\ Mono\ For\ Powerline:h11
 else
     set guifont=
@@ -179,22 +180,22 @@ call vundle#rc("$HOME/.vim/bundle")
 
 " let Vundle manage Vundle
 " required!
-Bundle 'gmarik/vundle'
-Bundle 'kshenoy/vim-signature'
+Plugin 'gmarik/vundle'
+Plugin 'kshenoy/vim-signature'
 
-Bundle 'https://git.gitorious.org/vim-gnupg/vim-gnupg'
+Plugin 'https://git.gitorious.org/vim-gnupg/vim-gnupg'
 "If you have git, make sure that path does NOT point to git bash tools
 " Path for git win should point to the libexec/git-core folder
 " The default GPG should point to cygwin git
 " To check: :sh, which gpg
 let g:GPGDefaultRecipients=['Raghu Rajagopalan']
 
-Bundle 'raghur/vim-helpnav'
-Bundle 'vim-scripts/L9'
-Bundle 'altercation/vim-colors-solarized'
+Plugin 'raghur/vim-helpnav'
+Plugin 'vim-scripts/L9'
+Plugin 'altercation/vim-colors-solarized'
 let g:solarized_termcolors=256
 " CtrlP{{{
-Bundle 'kien/ctrlp.vim'
+Plugin 'kien/ctrlp.vim'
 let g:ctrlp_match_window_bottom = 0
 let g:ctrlp_match_window_reversed = 0
 let g:ctrlp_max_height = 10
@@ -214,39 +215,39 @@ nnoremap <leader>c :CtrlPChange<cr>
 nnoremap <leader><Space> :CtrlP<cr>
 "}}}
 
-Bundle 'vim-pandoc/vim-pandoc'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-repeat'
-"Bundle 'Raimondi/delimitMate'
-Bundle 'kana/vim-smartinput'
+Plugin 'vim-pandoc/vim-pandoc'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-repeat'
+"Plugin 'Raimondi/delimitMate'
+Plugin 'kana/vim-smartinput'
 
-Bundle 'nathanaelkane/vim-indent-guides'
+Plugin 'nathanaelkane/vim-indent-guides'
 let g:indent_guides_guide_size = 1
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 if has("gui_running")
     let g:indent_guides_enable_on_vim_startup = 1
 endif
 
-Bundle 'sjl/gundo.vim'
-Bundle 'gregsexton/MatchTag'
-Bundle 'scrooloose/nerdcommenter'
+Plugin 'sjl/gundo.vim'
+Plugin 'gregsexton/MatchTag'
+Plugin 'scrooloose/nerdcommenter'
 
-"Bundle 'Valloric/YouCompleteMe'
+"Plugin 'Valloric/YouCompleteMe'
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_auto_stop_csharp_server = 1
 nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<cr>
-"Bundle 'marijnh/tern_for_vim'
+"Plugin 'marijnh/tern_for_vim'
 
 
-Bundle 'SirVer/ultisnips'
-Bundle 'honza/vim-snippets'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
 let g:UltiSnipsUsePythonVersion=2
 let g:UltiSnipsSnippetsDir="~/.vim/Ultisnips"
 let g:UltiSnipsExpandTrigger="<c-cr>"
 let g:UltiSnipsListSnippets="<c-tab>"
 
-Bundle 'scrooloose/syntastic'
+Plugin 'scrooloose/syntastic'
 let g:syntastic_python_checkers = ['pylama']
 let g:syntastic_javascript_checkers = ['jshint']
 nnoremap <leader>j :lnext<cr>
@@ -256,16 +257,21 @@ let g:syntastic_mode_map = { 'mode': 'passive',
             \ 'active_filetypes': ['python', 'json'],
             \ 'passive_filetypes': ['javascript'] }
 
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'raghur/vim-colorschemes'
-colors molokai
-Bundle 'pangloss/vim-javascript'
+Plugin 'kchmck/vim-coffee-script'
+Plugin 'raghur/vim-colorschemes'
+Plugin 'sickill/vim-monokai'
+Plugin 'jaromero/vim-monokai-refined'
+"colors Monokai-Refined
+"colors monokai
+"colors molokai
+colors smyck
+Plugin 'pangloss/vim-javascript'
 
-Bundle 'elzr/vim-json'
+Plugin 'elzr/vim-json'
 let g:vim_json_syntax_conceal = 0
 
-Bundle 'tsaleh/vim-matchit'
-Bundle 'tpope/vim-ragtag'
+Plugin 'tsaleh/vim-matchit'
+Plugin 'tpope/vim-ragtag'
 
 " load session only on windows gvim
 if (!has('win32unix'))
@@ -278,48 +284,41 @@ if (!has('win32unix'))
     let g:session_default_to_last=1
 endif
 
-Bundle 'tpope/vim-surround'
-Bundle 'kana/vim-textobj-indent'
-Bundle 'kana/vim-textobj-user'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plugin 'tpope/vim-surround'
+Plugin 'kana/vim-textobj-indent'
+Plugin 'kana/vim-textobj-user'
+Plugin 'sgur/vim-textobj-parameter'
+Plugin 'kana/vim-textobj-function'
+Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 
 " vim-airline and fonts
-Bundle 'bling/vim-airline'
-"Bundle 'edkolev/tmuxline.vim'
-Bundle 'Lokaltog/powerline-fonts'
-set lz
+set lazyredraw
+Plugin 'bling/vim-airline'
+"Plugin 'edkolev/tmuxline.vim'
+Plugin 'Lokaltog/powerline-fonts'
 let g:airline_enable_branch=1
 let g:airline_enable_syntastic=1
 let g:airline_powerline_fonts=1
 let g:airline_detect_modified=1
-" powerline symbols
-if (&guifont =~ 'Powerline')
-    let g:airline_left_sep = ''
-    "let g:airline_left_sep = ''
-    "let g:airline_right_sep = ''
-    let g:airline_right_sep = ''
-    let g:airline_branch_prefix = '   '
-    let g:airline_readonly_symbol = ''
-    let g:airline_linecolumn_prefix = ' '
-endif
-Bundle 'tpope/vim-dispatch'
-Bundle 'tpope/vim-markdown'
-Bundle 'airblade/vim-rooter'
+
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-markdown'
+Plugin 'airblade/vim-rooter'
 
 "neocomplete
-Bundle 'Shougo/vimproc.vim'
-Bundle 'Shougo/neocomplete.vim'
+Plugin 'Shougo/vimproc.vim'
+Plugin 'Shougo/neocomplete.vim'
 " Use neocomplete.
 let g:neocomplete#use_vimproc = 1
 let g:neocomplete#enable_at_startup = 1
 so ~/.vim/neocomplete-custom.vim
 
 " Required for yankstack
-Bundle 'maxbrunsfeld/vim-yankstack'
+Plugin 'maxbrunsfeld/vim-yankstack'
 call yankstack#setup()
 
 " vim sneak; replace f/F with sneak
-Bundle 'justinmk/vim-sneak'
+Plugin 'justinmk/vim-sneak'
 "replace 'f' with inclusive 1-char Sneak
 nmap f <Plug>Sneak_f
 nmap F <Plug>Sneak_F
@@ -335,13 +334,13 @@ xmap T <Plug>Sneak_T
 omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
 
-Bundle 'nvie/vim-flake8'
-Bundle 'nvie/vim-pyunit'
-Bundle 'klen/python-mode'
+Plugin 'nvie/vim-flake8'
+Plugin 'nvie/vim-pyunit'
+Plugin 'klen/python-mode'
 let g:pymode_run_bind = '<leader>pr'
-Bundle 'klen/rope-vim'
+Plugin 'klen/rope-vim'
 
-Bundle 'nacitar/terminalkeys.vim'
+Plugin 'nacitar/terminalkeys.vim'
 if &term =~ '^screen'
   " Page keys http://sourceforge.net/p/tmux/tmux-code/ci/master/tree/FAQ
   execute "set t_kP=\e[5;*~"
@@ -356,7 +355,8 @@ endif
 
 " Omnisharp {{{
 "if has("win32")
-    "Bundle 'nosami/Omnisharp'
+    "Plugin 'nosami/Omnisharp'
+    "autocmd FileType cs setlocal omnifunc=OmniSharp#Complete
     "nnoremap <leader><F5> :wa!<cr>:OmniSharpBuild<cr>
     "" Builds can run asynchronously with vim-dispatch installed
     "nnoremap <F6> :wa!<cr>:OmniSharpBuildAsync<cr>
@@ -436,8 +436,6 @@ nnoremap <F5> :GundoToggle<CR>
 vnoremap <leader>v "0p
 " copy a block and comment it and move to insert mode
 vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
-inoremap <C-e> <C-o>:call search("\\%" . line(".") . "l[{}() :=\\[\\]\.,\\n]","We")<cr>
-inoremap <C-a> <C-o>:call search("\\%" . line(".") . "l[{}() :=\\[\\]\.,]","Web")<cr>
 vnoremap % <space>%
 
 
