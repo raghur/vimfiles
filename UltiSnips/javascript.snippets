@@ -10,5 +10,21 @@ function ${1:TheClassName}(${2:args}) {
 	self.publicMethod = publicMethod;
 	return self;
 }
+endsnippet
 
+snippet varfn "variable assigned to function" !b
+var ${1} = function(${2}) {
+	${0}
+}
+endsnippet
+
+snippet han "callback" i
+$1(function($2){
+	$0
+});
+endsnippet
+snippet .fail "fail handler" i
+.fail(function (xhr, textStatus, errorThrown) {
+	$0
+});
 endsnippet
