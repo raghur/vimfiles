@@ -211,7 +211,6 @@ let g:ctrlp_working_path_mode = 'ra'
 nnoremap <leader>m :CtrlPMixed<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>r :CtrlPMRUFiles<cr>
-nnoremap <leader>c :CtrlPChange<cr>
 nnoremap <leader><Space> :CtrlP<cr>
 "}}}
 
@@ -261,16 +260,14 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'raghur/vim-colorschemes'
 Plugin 'sickill/vim-monokai'
 Plugin 'jaromero/vim-monokai-refined'
-"colors Monokai-Refined
-"colors monokai
-"colors molokai
 colors smyck
+
 Plugin 'pangloss/vim-javascript'
 
 Plugin 'elzr/vim-json'
 let g:vim_json_syntax_conceal = 0
 
-Plugin 'tsaleh/vim-matchit'
+Plugin 'jwhitley/vim-matchit'
 Plugin 'tpope/vim-ragtag'
 
 " load session only on windows gvim
@@ -588,6 +585,20 @@ vnoremap <script><leader>fd <Esc>:silent lgrep
                             \ <C-R><C-R>=expand("%:p:h")<CR>\* \|lopen
                              "\ <C-R><C-R>=Get_grep_include_opt(" --include=*.")<CR>
 "}}}
+
+" Cycle colors
+let g:colorschemes="smyck:Monokai-Refined:monokai:molokai"
+fun! CycleColorScheme()
+    let arr = split(g:colorschemes, ":")
+    let c = index(arr, g:colors_name) + 1
+    if (c >= len(arr))
+        let c = 0
+    endif
+    let scheme = arr[c]
+    exec "colors " scheme
+    echo "Setting colorscheme to: " scheme
+endfun
+nnoremap <leader>c :call CycleColorScheme()<cr>
 "}}}
 
 " Commands {{{
