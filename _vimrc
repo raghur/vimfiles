@@ -192,8 +192,6 @@ let g:GPGDefaultRecipients=['Raghu Rajagopalan']
 
 Plugin 'raghur/vim-helpnav'
 Plugin 'vim-scripts/L9'
-Plugin 'altercation/vim-colors-solarized'
-let g:solarized_termcolors=256
 " CtrlP{{{
 Plugin 'kien/ctrlp.vim'
 let g:ctrlp_match_window_bottom = 0
@@ -257,9 +255,14 @@ let g:syntastic_mode_map = { 'mode': 'passive',
             \ 'passive_filetypes': ['javascript'] }
 
 Plugin 'kchmck/vim-coffee-script'
+" colorscheme bundles and repos
 Plugin 'raghur/vim-colorschemes'
 Plugin 'sickill/vim-monokai'
 Plugin 'jaromero/vim-monokai-refined'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'chriskempson/base16-vim'
+let base16colorspace=256
+let g:solarized_termcolors=256
 colors smyck
 
 Plugin 'pangloss/vim-javascript'
@@ -456,12 +459,13 @@ augroup Markdown
                 \ linebreak
                 "\ spell spelllang=en_us
 augroup END
-au BufNewFile,BufRead *.aspx set filetype=html
+au BufNewFile,BufRead *.aspx setl filetype=html
 au BufNewFile,BufRead *.cshtml set filetype=html
 au BufNewFile,BufRead *.ascx set filetype=html
 au BufNewFile,BufRead *.moin setf moin
 au BufNewFile,BufRead *.wiki setf moin
 au BufNewFile,BufReadPost *.coffee setl foldmethod=indent, nofoldenable
+au FileType html setl foldmethod=indent
 "}}}
 
 " Custom code/Utils {{{
@@ -587,7 +591,7 @@ vnoremap <script><leader>fd <Esc>:silent lgrep
 "}}}
 
 " Cycle colors
-let g:colorschemes="smyck:Monokai-Refined:monokai:molokai"
+let g:colorschemes="smyck:base16-default:Monokai-Refined:monokai:molokai"
 fun! CycleColorScheme()
     let arr = split(g:colorschemes, ":")
     let c = index(arr, g:colors_name) + 1
