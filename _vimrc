@@ -176,7 +176,7 @@ let &t_te.="\e[0 q"
 filetype off
 set rtp^=~/.vim
 set rtp+=~/.vim/bundle/vundle/
-call vundle#rc("$HOME/.vim/bundle")
+call vundle#rc("$HOME/.vim/bundle/")
 
 " let Vundle manage Vundle
 " required!
@@ -602,7 +602,7 @@ fun! CycleColorScheme()
     exec "colors " scheme
     echo "Setting colorscheme to: " scheme
 endfun
-nnoremap <leader>c :call CycleColorScheme()<cr>
+nnoremap <leader><tab> :call CycleColorScheme()<cr>
 "}}}
 
 " Commands {{{
