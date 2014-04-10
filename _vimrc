@@ -601,13 +601,13 @@ fun! CycleColorScheme()
     endif
     let scheme = arr[c]
     exec "colors " scheme
-    echo "Setting colorscheme to: " scheme
+    echom "Setting colorscheme to: " scheme
 endfun
 nnoremap <leader><tab> :call CycleColorScheme()<cr>
+
 "}}}
 
 " Commands {{{
-"execute(":redir! > ~/.vim/.vimbackups/000messages")
 if has("unix")
     command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 endif
