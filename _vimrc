@@ -273,17 +273,6 @@ let g:vim_json_syntax_conceal = 0
 Plugin 'jwhitley/vim-matchit'
 Plugin 'tpope/vim-ragtag'
 
-" load session only on windows gvim
-if (!has('win32unix'))
-    Bundle 'xolox/vim-misc'
-    Bundle 'xolox/vim-session'
-    let g:session_directory="~/.vim/.vimbackups/.sessions"
-    let g:session_command_aliases = 1
-    let g:session_autosave='yes'
-    let g:session_autoload='yes'
-    let g:session_default_to_last=1
-endif
-
 Plugin 'tpope/vim-surround'
 Plugin 'kana/vim-textobj-indent'
 Plugin 'kana/vim-textobj-user'
@@ -392,6 +381,17 @@ endif
     "nnoremap <leader>th :OmniSharpHighlightTypes<cr>
 "endif
 "}}}
+
+" load session only on windows gvim
+if (!has('win32unix'))
+    Plugin 'xolox/vim-misc'
+    Plugin 'xolox/vim-session'
+    let g:session_directory="~/.vim/.vimbackups/.sessions"
+    let g:session_command_aliases = 1
+    let g:session_autosave='yes'
+    let g:session_autoload='yes'
+    let g:session_default_to_last=1
+endif
 
 filetype plugin indent on
 "}}}
