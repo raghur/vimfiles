@@ -648,5 +648,14 @@ function! NeatFoldText() "{{{
 endfunction
 set foldtext=NeatFoldText()
 " }}}
+
+
+" use :redir @+ to copy output of command to clipboard
+:redir!>$HOME/.vim/.vimbackups/000messages
+function! ShowMessageBuffer()
+    :botright sp ~/.vim/.vimbackups/000messages
+    normal G
+endfun
+command! Messages  call ShowMessageBuffer()
 "}}}
 call vundle#config#require(g:bundles)
