@@ -464,7 +464,8 @@ au BufNewFile,BufRead *.cshtml set filetype=html
 au BufNewFile,BufRead *.ascx set filetype=html
 au BufNewFile,BufRead *.moin setf moin
 au BufNewFile,BufRead *.wiki setf moin
-au BufNewFile,BufReadPost *.coffee setl foldmethod=indent, nofoldenable
+au BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
+                                    \ shiftwidth=2 expandtab
 au FileType html setl foldmethod=indent
 "}}}
 
