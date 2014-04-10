@@ -278,7 +278,7 @@ Plugin 'kana/vim-textobj-indent'
 Plugin 'kana/vim-textobj-user'
 Plugin 'sgur/vim-textobj-parameter'
 Plugin 'kana/vim-textobj-function'
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plugin 'rstacruz/sparkup', {'rtp': 'vim'}
 
 " vim-airline and fonts
 set lazyredraw
@@ -648,3 +648,4 @@ endfunction
 set foldtext=NeatFoldText()
 " }}}
 "}}}
+call vundle#config#require(g:bundles)
