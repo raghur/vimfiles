@@ -283,6 +283,8 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim'}
 " vim-airline and fonts
 set lazyredraw
 Plugin 'bling/vim-airline'
+" line below has a trailing space.
+set fillchars+=stl:\ ,stlnc:\ 
 "Plugin 'edkolev/tmuxline.vim'
 Plugin 'Lokaltog/powerline-fonts'
 let g:airline_enable_branch=1
