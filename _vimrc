@@ -589,19 +589,24 @@ vnoremap <script><leader>fd <Esc>:silent lgrep
 "}}}
 
 " Cycle colors
-let g:colorschemes="smyck:base16-default:Monokai-Refined:monokai:molokai"
-fun! CycleColorScheme(dir)
-    let arr = split(g:colorschemes, ":")
-    let c = index(arr, g:colors_name) + a:dir
+fun! CycleArray(arr, value, dir)
+    let c = index(a:arr, a:value) + a:dir
     if (a:dir > 0)
-        if (c >= len(arr))
+        if (c >= len(a:arr))
             let c = 0
         endif
     else
         if (c < 0)
-            let c = len(arr) - 1
+            let c = len(a:arr) - 1
         endif
     endif
+    return c
+endfunction
+
+let g:colorschemes="smyck:base16-default:Monokai-Refined:monokai:molokai"
+fun! CycleColorScheme(dir)
+    let arr = split(g:colorschemes, ":")
+    let c = CycleArray(arr, g:colors_name, a:dir)
     let scheme = arr[c]
     exec "colors " scheme
     echom "Setting colorscheme to: " scheme
@@ -609,19 +614,9 @@ endfun
 command! ColorsNext call CycleColorScheme(1)
 command! ColorsPrev call CycleColorScheme(-1)
 
-
 fun! CycleFont(dir)
     let arr = split(g:fonts, ",")
-    let c = index(arr, &guifont) + a:dir
-    if (a:dir > 0)
-        if (c >= len(arr))
-            let c = 0
-        endif
-    else
-        if (c < 0)
-            let c = len(arr) - 1
-        endif
-    endif
+    let c = CycleArray(arr, &guifont, a:dir)
     let font = substitute(arr[c], " ", '\\ ', "g")
     exec("set guifont=".font)
     echom "Setting font to: " &guifont
