@@ -146,6 +146,7 @@ else
 endif
 set laststatus=2
 
+let g:fonts="Meslo\ LG\ S\ for\ Powerline\ 10,Monaco\ for\ Powerline\ 10,Source\ Code\ Pro\ for\ Powerline\ 11,DejaVu\ Sans\ Mono\ for\ Powerline\ 10,Monospace\ 10,Ubuntu\ Mono\ 11"
 if has('win32')
     set guifont=
                 \Ubuntu_Mono_derivative_Powerlin:h13,
@@ -153,13 +154,7 @@ if has('win32')
                 \Powerline_Consolas:h11,
                 \DejaVu\ Sans\ Mono\ For\ Powerline:h11
 else
-    set guifont=
-                \Meslo\ LG\ S\ for\ Powerline\ 10,
-                \Monaco\ for\ Powerline\ 10,
-                \Source\ Code\ Pro\ for\ Powerline\ 11,
-                \DejaVu\ Sans\ Mono\ for\ Powerline\ 10,
-                \Monospace\ 10,
-                \Ubuntu\ Mono\ 11
+    set guifont=Meslo\ LG\ S\ for\ Powerline\ 10
     let g:GPGExecutable="gpg2"
     let g:GPGUseAgent = 1
 endif
@@ -607,6 +602,17 @@ fun! CycleColorScheme()
 endfun
 nnoremap <leader><tab> :call CycleColorScheme()<cr>
 
+fun! CycleFont()
+    let arr = split(g:fonts, ",")
+    let c = index(arr, &guifont) + 1
+    if (c >= len(arr))
+        let c = 0
+    endif
+    let font = substitute(arr[c], " ", '\\ ', "g")
+    exec("set guifont=".font)
+    echom "Setting font to: " &guifont
+endfun
+command! CycleFont call CycleFont()
 "}}}
 
 " Commands {{{
