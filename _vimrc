@@ -144,16 +144,12 @@ if has("gui_running")
 else
     set background=dark
 endif
-set laststatus=2
 
-let g:fonts="Meslo\ LG\ S\ for\ Powerline\ 10,Monaco\ for\ Powerline\ 10,Source\ Code\ Pro\ for\ Powerline\ 11,DejaVu\ Sans\ Mono\ for\ Powerline\ 10,Monospace\ 10,Ubuntu\ Mono\ 11"
 if has('win32')
-    set guifont=
-                \Ubuntu_Mono_derivative_Powerlin:h13,
-                \Source_Code_Pro_Light:h11,
-                \Powerline_Consolas:h11,
-                \DejaVu\ Sans\ Mono\ For\ Powerline:h11
+    let g:fonts='Ubuntu_Mono_derivative_Powerlin:h13,Source_Code_Pro_Light:h11,Powerline_Consolas:h11,DejaVu Sans Mono For Powerline:h11'
+    set guifont=Ubuntu_Mono_derivative_Powerlin:h13
 else
+    let g:fonts="Meslo\ LG\ S\ for\ Powerline\ 10,Monaco\ for\ Powerline\ 10,Source\ Code\ Pro\ for\ Powerline\ 11,DejaVu\ Sans\ Mono\ for\ Powerline\ 10,Monospace\ 10,Ubuntu\ Mono\ 11"
     set guifont=Meslo\ LG\ S\ for\ Powerline\ 10
     let g:GPGExecutable="gpg2"
     let g:GPGUseAgent = 1
@@ -277,6 +273,7 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim'}
 
 " vim-airline and fonts
 set lazyredraw
+set laststatus=2
 Plugin 'bling/vim-airline'
 " line below has a trailing space.
 set fillchars+=stl:\ ,stlnc:\ 
