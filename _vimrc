@@ -303,6 +303,8 @@ call yankstack#setup()
 
 " vim sneak; replace f/F with sneak
 Plugin 'justinmk/vim-sneak'
+" 2 char sneak
+nmap s <Plug>Sneak_s
 "replace 'f' with inclusive 1-char Sneak
 nmap f <Plug>Sneak_f
 nmap F <Plug>Sneak_F
