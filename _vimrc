@@ -241,8 +241,8 @@ let g:UltiSnipsListSnippets="<c-tab>"
 Plugin 'scrooloose/syntastic'
 let g:syntastic_python_checkers = ['pylama']
 let g:syntastic_javascript_checkers = ['jshint']
-nnoremap <C-n> :cnext<cr>
-nnoremap <C-p> :cprev<cr>
+nnoremap <leader>n :cnext<cr>
+nnoremap <leader>p :cprev<cr>
 nnoremap <leader><F5> :w\|SyntasticCheck<cr>
 let g:syntastic_mode_map = { 'mode': 'passive',
             \ 'active_filetypes': ['python', 'json'],
