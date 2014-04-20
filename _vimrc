@@ -271,6 +271,7 @@ Plugin 'kana/vim-textobj-indent'
 Plugin 'kana/vim-textobj-user'
 Plugin 'sgur/vim-textobj-parameter'
 Plugin 'kana/vim-textobj-function'
+Plugin 'terryma/vim-expand-region'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim'}
 
 " vim-airline and fonts
