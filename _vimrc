@@ -632,9 +632,12 @@ if !exists(":DiffOrig")
                 \ | wincmd p | diffthis
 endif
 fun! RemoveCtrlM()
-    :%s/\r$//
+    :update
+    :e ++ff=dos
+    :%s/\r$//e
 endfun
 command! RemoveCtrlM call RemoveCtrlM()
+command! EditAsWin call RemoveCtrlM()
 
 fun! SanitizeSpaces()
     retab
