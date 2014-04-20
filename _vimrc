@@ -305,6 +305,7 @@ call yankstack#setup()
 Plugin 'justinmk/vim-sneak'
 " 2 char sneak
 nmap s <Plug>Sneak_s
+nmap S <Plug>Sneak_S
 "replace 'f' with inclusive 1-char Sneak
 nmap f <Plug>Sneak_f
 nmap F <Plug>Sneak_F
