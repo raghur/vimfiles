@@ -202,6 +202,7 @@ let g:ctrlp_working_path_mode = 'ra'
 nnoremap <leader>m :CtrlPMixed<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>r :CtrlPMRUFiles<cr>
+nnoremap <leader>q :CtrlPQuickfix<cr>
 nnoremap <leader><Space> :CtrlP<cr>
 "}}}
 
@@ -240,8 +241,8 @@ let g:UltiSnipsListSnippets="<c-tab>"
 Plugin 'scrooloose/syntastic'
 let g:syntastic_python_checkers = ['pylama']
 let g:syntastic_javascript_checkers = ['jshint']
-nnoremap <leader>j :lnext<cr>
-nnoremap <leader>k :lprev<cr>
+nnoremap <C-n> :cnext<cr>
+nnoremap <C-p> :cprev<cr>
 nnoremap <leader><F5> :w\|SyntasticCheck<cr>
 let g:syntastic_mode_map = { 'mode': 'passive',
             \ 'active_filetypes': ['python', 'json'],
@@ -505,18 +506,6 @@ map <F7> :call FormatFile() <cr>
 "}}}
 
 " File search {{{
-
-" The Silver Searcher
-if executable('ag')
-  " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-endif
 let s:ackopts='\ -a\ --no-group\ -Hi '
 let s:grepopts='\ --exclude-dir=packages\ --exclude-dir=.git\ --exclude-dir=.svn\ --exclude-dir=tmp\ --exclude=*.intellisense.js\ --exclude=*-vsdoc.js\ --exclude=*.tmp\ --exclude=*.min.js\ -PHIirn\ $*'
 if has('win32')
@@ -530,9 +519,18 @@ else
     let s:grep="grep"
 endif
 
+" The Silver Searcher
 if executable('ag')
-    let s:grep='ag'
-    let s:grepopts='\ --nogroup\ --nocolor'
+  " Use ag over grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+  let s:grep='ag'
+  let s:grepopts='\ --nogroup\ --nocolor'
 endif
 
 execute "set grepprg=" . s:grep ."\\ ".s:grepopts
@@ -547,9 +545,9 @@ fun! Get_grep_include_opt(prefix)
 endfun
 
 fun! Grep_with_args(patt, path)
-    let l:cmd=":silent lgrep! "
+    let l:cmd=":silent grep! "
     let l:post="\"" . a:patt . "\""
-    let l:pipe =  "\| lopen"
+    let l:pipe =  "\| copen"
     "let l:cmd = l:cmd .  Get_grep_include_opt(" --include=*.")
     let l:cmd = l:cmd . " " . l:post
     if a:path != ""
@@ -569,22 +567,21 @@ fun! s:get_visual_selection()
 endfun
 
 " lvimgrep - internal - slow
-nnoremap <expr> <leader>* ":silent lvimgrep /" . expand("<cword>") . "/j " .  Get_grep_include_opt("**/*.") . " \|lopen"
-vnoremap <script> <leader>* <Esc>:lvimgrep /<C-R><C-R>=<SID>get_visual_selection()<CR>/j <C-R><C-R>=Get_grep_include_opt("**/*.")<CR>\|lopen
+nnoremap <expr> <leader>* ":silent vimgrep /" . expand("<cword>") . "/j " .  Get_grep_include_opt("**/*.") . " \|copen"
+vnoremap <script> <leader>* <Esc>:vimgrep /<C-R><C-R>=<SID>get_visual_selection()<CR>/j <C-R><C-R>=Get_grep_include_opt("**/*.")<CR>\|copen
 
 " vimgrep - fast but external
 " project root
 nnoremap <expr><leader>f Grep_with_args("\\b".expand("<cword>")."\\b", "")
-nnoremap <expr><leader>ft Grep_with_args("\\b".expand("<cword>")."\\b", "")
-vnoremap <script><leader>f <Esc>:silent lgrep
+vnoremap <script><leader>f <Esc>:silent grep
                             \ "<C-R><C-R>=<SID>get_visual_selection()<CR>"
-                            \ * \|lopen
+                            \ * \|copen
                              "\ <C-R><C-R>=Get_grep_include_opt(" --include=*.")<CR>
 " down current folder
 nnoremap <expr><leader>fd Grep_with_args("\\b".expand("<cword>")."\\b", expand("%:p:h"))
-vnoremap <script><leader>fd <Esc>:silent lgrep
+vnoremap <script><leader>fd <Esc>:silent grep
                             \ "<C-R><C-R>=<SID>get_visual_selection()<CR>"
-                            \ <C-R><C-R>=expand("%:p:h")<CR>\* \|lopen
+                            \ <C-R><C-R>=expand("%:p:h")<CR>\* \|copen
                              "\ <C-R><C-R>=Get_grep_include_opt(" --include=*.")<CR>
 "}}}
 
