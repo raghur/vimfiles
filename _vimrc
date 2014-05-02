@@ -679,4 +679,4 @@ function! ShowMessageBuffer()
 endfun
 command! Messages  call ShowMessageBuffer()
 "}}}
-call vundle#config#require(g:bundles)
+"call vundle#config#require(g:bundles)
