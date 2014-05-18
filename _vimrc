@@ -325,7 +325,7 @@ Plugin 'nvie/vim-flake8'
 Plugin 'nvie/vim-pyunit'
 Plugin 'klen/python-mode'
 let g:pymode_run_bind = '<leader>pr'
-Plugin 'klen/rope-vim'
+"Plugin 'klen/rope-vim'
 
 Plugin 'nacitar/terminalkeys.vim'
 if &term =~ '^screen'
