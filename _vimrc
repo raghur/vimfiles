@@ -173,6 +173,8 @@ call vundle#rc("$HOME/.vim/bundle/")
 " required!
 Plugin 'gmarik/vundle'
 Plugin 'kshenoy/vim-signature'
+nnoremap <leader>[ :call signature#GotoMark( "prev", "line", "alpha" )<CR>
+nnoremap <leader>] :call signature#GotoMark( "next", "line", "alpha" )<CR>
 
 Plugin 'https://git.gitorious.org/vim-gnupg/vim-gnupg'
 "If you have git, make sure that path does NOT point to git bash tools
@@ -239,8 +241,8 @@ let g:UltiSnipsListSnippets="<c-tab>"
 Plugin 'scrooloose/syntastic'
 let g:syntastic_python_checkers = ['pylama']
 let g:syntastic_javascript_checkers = ['jshint']
-nnoremap <C-n> :cnext<cr>
-nnoremap <C-p> :cprev<cr>
+nnoremap <leader>n :cnext<cr>
+nnoremap <leader>p :cprev<cr>
 nnoremap <leader><F5> :w\|SyntasticCheck<cr>
 let g:syntastic_mode_map = { 'mode': 'passive',
             \ 'active_filetypes': ['python', 'json'],
@@ -270,6 +272,7 @@ Plugin 'kana/vim-textobj-indent'
 Plugin 'kana/vim-textobj-user'
 Plugin 'sgur/vim-textobj-parameter'
 Plugin 'kana/vim-textobj-function'
+Plugin 'terryma/vim-expand-region'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim'}
 
 " vim-airline and fonts
@@ -644,16 +647,22 @@ command! EditAsWin call RemoveCtrlM()
 
 fun! SanitizeSpaces()
     retab
-    :%s/\s\+$//
+    :%s/\s\+$//e
     :w
 endfun
 command! Fixspaces call SanitizeSpaces()
 
 fun! SanitizeBlogEntry()
     call SanitizeSpaces()
-    :%s/\r$//
-    :%s/\\$//
+    :%s/\r$//e
+    :%s/\\$//e
 endfun
+
+fun! BlogSave()
+    call SanitizeBlogEntry()
+    :! easyblogger file %
+endfun
+command! BlogSave call BlogSave()
 function! NeatFoldText() "{{{
   let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
   let lines_count = v:foldend - v:foldstart + 1
@@ -676,4 +685,3 @@ function! ShowMessageBuffer()
 endfun
 command! Messages  call ShowMessageBuffer()
 "}}}
-call vundle#config#require(g:bundles)
