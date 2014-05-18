@@ -647,16 +647,22 @@ command! EditAsWin call RemoveCtrlM()
 
 fun! SanitizeSpaces()
     retab
-    :%s/\s\+$//
+    :%s/\s\+$//e
     :w
 endfun
 command! Fixspaces call SanitizeSpaces()
 
 fun! SanitizeBlogEntry()
     call SanitizeSpaces()
-    :%s/\r$//
-    :%s/\\$//
+    :%s/\r$//e
+    :%s/\\$//e
 endfun
+
+fun! BlogSave()
+    call SanitizeBlogEntry()
+    :! easyblogger file %
+endfun
+command! BlogSave call BlogSave()
 function! NeatFoldText() "{{{
   let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
   let lines_count = v:foldend - v:foldstart + 1
@@ -679,4 +685,3 @@ function! ShowMessageBuffer()
 endfun
 command! Messages  call ShowMessageBuffer()
 "}}}
-"call vundle#config#require(g:bundles)
