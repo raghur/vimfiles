@@ -328,7 +328,9 @@ Plugin 'nvie/vim-flake8'
 Plugin 'nvie/vim-pyunit'
 Plugin 'klen/python-mode'
 let g:pymode_run_bind = '<leader>pr'
-Plugin 'klen/rope-vim'
+"Plugin 'klen/rope-vim'
+Plugin 'python-rope/ropevim'
+let g:pymode_rope = 0
 
 Plugin 'nacitar/terminalkeys.vim'
 if &term =~ '^screen'
@@ -480,14 +482,14 @@ let g:formatprg_json="js-beautify"
 let g:formatprg_args_json=" -jw 80 -f -"
 let g:formatprg_html="tidy"
 let g:formatprg_args_html=" -iq --indent-spaces 4"
-let g:formatprg_xml="tidy"
-let g:formatprg_args_xml=" -iq -asxml --indent-spaces 4"
+let g:formatprg_xml="xmllint"
+let g:formatprg_args_xml=" --format --recover - 2>/dev/null"
 
 " Windows specific {{{
 if (has('win32'))
-    let g:formatprg_cs=fnamemodify(findfile(g:formatprg_cs . ".exe", $GNUWIN), ":p")
-    let g:formatprg_html=fnamemodify(findfile(g:formatprg_html . ".exe", $GNUWIN), ":p")
-    let g:formatprg_xml=fnamemodify(findfile(g:formatprg_xml . ".exe", $GNUWIN), ":p")
+    let g:formatprg_cs=fnamemodify(findfile(g:formatprg_cs . ".exe", $GNUWIN."/**3"), ":p")
+    let g:formatprg_html=fnamemodify(findfile(g:formatprg_html . ".exe", $GNUWIN."/**3"), ":p")
+    let g:formatprg_xml=fnamemodify(findfile(g:formatprg_xml . ".exe", $GNUWIN."/**3"), ":p")
 endif
 "}}}
 
