@@ -175,7 +175,7 @@ Plugin 'gmarik/vundle'
 Plugin 'kshenoy/vim-signature'
 nnoremap <leader>[ :call signature#GotoMark( "prev", "line", "alpha" )<CR>
 nnoremap <leader>] :call signature#GotoMark( "next", "line", "alpha" )<CR>
-
+Plugin 'wellle/targets.vim'
 Plugin 'https://git.gitorious.org/vim-gnupg/vim-gnupg'
 "If you have git, make sure that path does NOT point to git bash tools
 " Path for git win should point to the libexec/git-core folder
