@@ -166,27 +166,34 @@ let &t_te.="\e[0 q"
 " Plugin Bundles and config {{{
 filetype off
 set rtp^=~/.vim
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc("$HOME/.vim/bundle/")
+set rtp+=~/.vim/bundle/neobundle.vim/
+call neobundle#begin(expand('~/.vim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
 
-" let Vundle manage Vundle
-" required!
-Plugin 'gmarik/vundle'
-Plugin 'kshenoy/vim-signature'
+NeoBundle 'kshenoy/vim-signature'
 nnoremap <leader>[ :call signature#GotoMark( "prev", "line", "alpha" )<CR>
 nnoremap <leader>] :call signature#GotoMark( "next", "line", "alpha" )<CR>
-Plugin 'wellle/targets.vim'
-Plugin 'https://git.gitorious.org/vim-gnupg/vim-gnupg'
+NeoBundle 'wellle/targets.vim'
+NeoBundle 'https://git.gitorious.org/vim-gnupg/vim-gnupg.git', {
+    \   'lazy': 1,
+    \   'autoload': {
+    \       'filetypes' : ['gpg']
+    \   }}
 "If you have git, make sure that path does NOT point to git bash tools
 " Path for git win should point to the libexec/git-core folder
 " The default GPG should point to cygwin git
 " To check: :sh, which gpg
 let g:GPGDefaultRecipients=['Raghu Rajagopalan']
 
-Plugin 'raghur/vim-helpnav'
-Plugin 'vim-scripts/L9'
+NeoBundle 'raghur/vim-helpnav', {
+    \   'lazy': 1,
+    \   'autoload': {
+    \       'filetypes' : ['help']
+    \   }}
+
+NeoBundle 'vim-scripts/L9'
 " CtrlP{{{
-Plugin 'kien/ctrlp.vim'
+NeoBundle 'kien/ctrlp.vim'
 let g:ctrlp_match_window_bottom = 0
 let g:ctrlp_match_window_reversed = 0
 let g:ctrlp_max_height = 10
@@ -206,22 +213,22 @@ nnoremap <leader>q :CtrlPQuickfix<cr>
 nnoremap <leader><Space> :CtrlP<cr>
 "}}}
 
-Plugin 'vim-pandoc/vim-pandoc'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-repeat'
+NeoBundle 'vim-pandoc/vim-pandoc'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-repeat'
 "Plugin 'Raimondi/delimitMate'
-Plugin 'kana/vim-smartinput'
+NeoBundle 'kana/vim-smartinput'
 
-Plugin 'nathanaelkane/vim-indent-guides'
+NeoBundle 'nathanaelkane/vim-indent-guides'
 let g:indent_guides_guide_size = 1
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 if has("gui_running")
     let g:indent_guides_enable_on_vim_startup = 1
 endif
 
-Plugin 'sjl/gundo.vim'
-Plugin 'gregsexton/MatchTag'
-Plugin 'scrooloose/nerdcommenter'
+NeoBundle 'sjl/gundo.vim'
+NeoBundle 'gregsexton/MatchTag'
+NeoBundle 'scrooloose/nerdcommenter'
 
 "Plugin 'Valloric/YouCompleteMe'
 let g:ycm_autoclose_preview_window_after_completion = 1
@@ -231,14 +238,14 @@ nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<cr>
 "Plugin 'marijnh/tern_for_vim'
 
 
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
+NeoBundle 'SirVer/ultisnips'
+NeoBundle 'honza/vim-snippets'
 let g:UltiSnipsUsePythonVersion=2
 let g:UltiSnipsSnippetsDir="~/.vim/Ultisnips"
 let g:UltiSnipsExpandTrigger="<c-cr>"
 let g:UltiSnipsListSnippets="<c-tab>"
 
-Plugin 'scrooloose/syntastic'
+NeoBundle 'scrooloose/syntastic'
 let g:syntastic_python_checkers = ['pylama']
 let g:syntastic_javascript_checkers = ['jshint']
 nnoremap <leader>n :cnext<cr>
@@ -248,64 +255,82 @@ let g:syntastic_mode_map = { 'mode': 'passive',
             \ 'active_filetypes': ['python', 'json'],
             \ 'passive_filetypes': ['javascript'] }
 
-Plugin 'kchmck/vim-coffee-script'
+NeoBundle 'kchmck/vim-coffee-script'
 " colorscheme bundles and repos
-Plugin 'raghur/vim-colorschemes'
-Plugin 'sickill/vim-monokai'
-Plugin 'jaromero/vim-monokai-refined'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'chriskempson/base16-vim'
+NeoBundle 'raghur/vim-colorschemes'
+NeoBundle 'sickill/vim-monokai'
+NeoBundle 'jaromero/vim-monokai-refined'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'chriskempson/base16-vim'
 let base16colorspace=256
 let g:solarized_termcolors=256
-colors smyck
 
-Plugin 'pangloss/vim-javascript'
+NeoBundle 'pangloss/vim-javascript', {
+    \   'lazy': 1,
+    \   'autoload': {
+    \       'filetypes' : ['javascript']
+    \   }}
 
-Plugin 'elzr/vim-json'
+
+NeoBundle 'elzr/vim-json'
 let g:vim_json_syntax_conceal = 0
 
-Plugin 'jwhitley/vim-matchit'
-Plugin 'tpope/vim-ragtag'
+NeoBundle 'jwhitley/vim-matchit'
+NeoBundle 'tpope/vim-ragtag'
 
-Plugin 'tpope/vim-surround'
-Plugin 'kana/vim-textobj-indent'
-Plugin 'kana/vim-textobj-user'
-Plugin 'sgur/vim-textobj-parameter'
-Plugin 'kana/vim-textobj-function'
-Plugin 'terryma/vim-expand-region'
-Plugin 'rstacruz/sparkup', {'rtp': 'vim'}
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'kana/vim-textobj-indent'
+NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'sgur/vim-textobj-parameter'
+NeoBundle 'kana/vim-textobj-function'
+NeoBundle 'terryma/vim-expand-region'
+NeoBundle 'rstacruz/sparkup', {
+    \   'lazy': 1,
+    \   'rtp' : 'vim',
+    \   'autoload': {
+    \       'filetypes' : ['html']
+    \   }}
 
 " vim-airline and fonts
 set lazyredraw
 set laststatus=2
-Plugin 'bling/vim-airline'
+NeoBundle 'bling/vim-airline'
 " line below has a trailing space.
-set fillchars+=stl:\ ,stlnc:\ 
-"Plugin 'edkolev/tmuxline.vim'
-Plugin 'Lokaltog/powerline-fonts'
+NeoBundle 'Lokaltog/powerline-fonts'
 let g:airline_enable_branch=1
 let g:airline_enable_syntastic=1
 let g:airline_powerline_fonts=1
 let g:airline_detect_modified=1
 
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-markdown'
-Plugin 'airblade/vim-rooter'
+NeoBundle 'tpope/vim-dispatch'
+NeoBundle 'tpope/vim-markdown', {
+    \   'lazy': 1,
+    \   'autoload': {
+    \       'filetypes' : ['markdown']
+    \   }}
+
+NeoBundle 'airblade/vim-rooter'
 
 "neocomplete
-Plugin 'Shougo/vimproc.vim'
-Plugin 'Shougo/neocomplete.vim'
+NeoBundle 'Shougo/vimproc.vim', {
+            \ 'build' : {
+            \     'windows' : 'tools\\update-dll-mingw',
+            \     'cygwin' : 'make -f make_cygwin.mak',
+            \     'mac' : 'make -f make_mac.mak',
+            \     'unix' : 'make -f make_unix.mak',
+            \    },
+            \ }
+NeoBundle 'Shougo/neocomplete.vim'
 " Use neocomplete.
 let g:neocomplete#use_vimproc = 1
 let g:neocomplete#enable_at_startup = 1
 so ~/.vim/neocomplete-custom.vim
 
 " Required for yankstack
-Plugin 'maxbrunsfeld/vim-yankstack'
-call yankstack#setup()
+NeoBundle 'maxbrunsfeld/vim-yankstack'
 
 " vim sneak; replace f/F with sneak
-Plugin 'justinmk/vim-sneak'
+NeoBundle 'justinmk/vim-sneak'
 " 2 char sneak
 nmap s <Plug>Sneak_s
 nmap S <Plug>Sneak_S
@@ -324,15 +349,30 @@ xmap T <Plug>Sneak_T
 omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
 
-Plugin 'nvie/vim-flake8'
-Plugin 'nvie/vim-pyunit'
-Plugin 'klen/python-mode'
+NeoBundle 'nvie/vim-flake8', {
+    \   'lazy': 1,
+    \   'autoload': {
+    \       'filetypes' : ['python']
+    \   }}
+
+NeoBundle 'nvie/vim-pyunit', {
+    \   'lazy': 1,
+    \   'autoload': {
+    \       'filetypes' : ['python']
+    \   }}
+
+NeoBundle 'klen/python-mode', {
+    \   'lazy': 1,
+    \   'autoload': {
+    \       'filetypes' : ['python']
+    \   }}
+
 let g:pymode_run_bind = '<leader>pr'
 "Plugin 'klen/rope-vim'
-Plugin 'python-rope/ropevim'
+NeoBundle 'python-rope/ropevim'
 let g:pymode_rope = 0
 
-Plugin 'nacitar/terminalkeys.vim'
+NeoBundle 'nacitar/terminalkeys.vim'
 if &term =~ '^screen'
   " Page keys http://sourceforge.net/p/tmux/tmux-code/ci/master/tree/FAQ
   execute "set t_kP=\e[5;*~"
@@ -387,8 +427,8 @@ endif
 
 " load session only on windows gvim
 if (!has('win32unix'))
-    Plugin 'xolox/vim-misc'
-    Plugin 'xolox/vim-session'
+    NeoBundle 'xolox/vim-misc'
+    NeoBundle 'xolox/vim-session'
     let g:session_directory="~/.vim/.vimbackups/.sessions"
     let g:session_command_aliases = 1
     let g:session_autosave='yes'
@@ -396,7 +436,9 @@ if (!has('win32unix'))
     let g:session_default_to_last=1
 endif
 
+call neobundle#end()
 filetype plugin indent on
+colors smyck
 "}}}
 
 "Non Plugin specific keybindings {{{
@@ -666,14 +708,14 @@ fun! BlogSave()
 endfun
 command! BlogSave call BlogSave()
 function! NeatFoldText() "{{{
-  let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
-  let lines_count = v:foldend - v:foldstart + 1
-  let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
-  let foldchar = matchstr(&fillchars, 'fold:\zs.')
-  let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
-  let foldtextend = lines_count_text . repeat(foldchar, 8)
-  let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
-  return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
+    let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
+    let lines_count = v:foldend - v:foldstart + 1
+    let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
+    let foldchar = matchstr(&fillchars, 'fold:\zs.')
+    let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
+    let foldtextend = lines_count_text . repeat(foldchar, 8)
+    let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
+    return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
 endfunction
 set foldtext=NeatFoldText()
 " }}}
@@ -686,4 +728,6 @@ function! ShowMessageBuffer()
     normal G
 endfun
 command! Messages  call ShowMessageBuffer()
+NeoBundleCheck
 "}}}
+
