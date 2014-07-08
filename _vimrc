@@ -312,14 +312,8 @@ NeoBundle 'tpope/vim-markdown', {
 NeoBundle 'airblade/vim-rooter'
 
 "neocomplete
-NeoBundle 'Shougo/vimproc.vim', {
-            \ 'build' : {
-            \     'windows' : 'tools\\update-dll-mingw',
-            \     'cygwin' : 'make -f make_cygwin.mak',
-            \     'mac' : 'make -f make_mac.mak',
-            \     'unix' : 'make -f make_unix.mak',
-            \    },
-            \ }
+" run: nmake -f Make_msvc.mak nodebug=1
+NeoBundle 'Shougo/vimproc.vim'
 NeoBundle 'Shougo/neocomplete.vim'
 " Use neocomplete.
 let g:neocomplete#use_vimproc = 1
