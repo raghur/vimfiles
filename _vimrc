@@ -314,11 +314,13 @@ NeoBundle 'airblade/vim-rooter'
 "neocomplete
 " run: nmake -f Make_msvc.mak nodebug=1
 NeoBundle 'Shougo/vimproc.vim'
-NeoBundle 'Shougo/neocomplete.vim'
-" Use neocomplete.
-let g:neocomplete#use_vimproc = 1
-let g:neocomplete#enable_at_startup = 1
-so ~/.vim/neocomplete-custom.vim
+if has('lua')
+    NeoBundle 'Shougo/neocomplete.vim'
+    " Use neocomplete.
+    let g:neocomplete#use_vimproc = 1
+    let g:neocomplete#enable_at_startup = 1
+    so ~/.vim/neocomplete-custom.vim
+endif
 
 " Required for yankstack
 NeoBundle 'maxbrunsfeld/vim-yankstack'
