@@ -275,7 +275,7 @@ NeoBundle 'pangloss/vim-javascript', {
 NeoBundle 'elzr/vim-json'
 let g:vim_json_syntax_conceal = 0
 
-NeoBundle 'jwhitley/vim-matchit'
+NeoBundle 'jwhitley/vim-matchit.git'
 NeoBundle 'tpope/vim-ragtag'
 
 NeoBundle 'tpope/vim-surround'
