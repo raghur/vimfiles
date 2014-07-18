@@ -718,6 +718,14 @@ endfunction
 set foldtext=NeatFoldText()
 " }}}
 
+function! ToHtml()
+    :w
+    let file=expand("%:p")
+    let outfile=fnamemodify(file, ":r") . ".html"
+    exec "!pandoc -i " . file . " -o " . outfile
+    echom "wrote" . " " . outfile
+endfunction
+command! ToHtml call ToHtml()
 
 " use :redir @+ to copy output of command to clipboard
 :redir!>$HOME/.vim/.vimbackups/000messages
