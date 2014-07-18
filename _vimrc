@@ -278,7 +278,6 @@ let g:vim_json_syntax_conceal = 0
 NeoBundle 'jwhitley/vim-matchit.git'
 NeoBundle 'tpope/vim-ragtag'
 
-NeoBundle 'tpope/vim-surround'
 NeoBundle 'kana/vim-textobj-indent'
 NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'sgur/vim-textobj-parameter'
@@ -322,28 +321,19 @@ if has('lua')
     so ~/.vim/neocomplete-custom.vim
 endif
 
-" Required for yankstack
 NeoBundle 'maxbrunsfeld/vim-yankstack'
+" make sure this is after vim-yankstack
+NeoBundle 'tpope/vim-surround'
 
 " vim sneak; replace f/F with sneak
 NeoBundle 'justinmk/vim-sneak'
-" 2 char sneak
-nmap s <Plug>Sneak_s
-nmap S <Plug>Sneak_S
-"replace 'f' with inclusive 1-char Sneak
-nmap f <Plug>Sneak_f
-nmap F <Plug>Sneak_F
-xmap f <Plug>Sneak_f
-xmap F <Plug>Sneak_F
-omap f <Plug>Sneak_f
-omap F <Plug>Sneak_F
-"replace 't' with exclusive 1-char Sneak
-nmap t <Plug>Sneak_t
-nmap T <Plug>Sneak_T
-xmap t <Plug>Sneak_t
-xmap T <Plug>Sneak_T
-omap t <Plug>Sneak_t
-omap T <Plug>Sneak_T
+ "replace 'f' with 1-char Sneak
+ nmap f <Plug>Sneak_f
+ nmap F <Plug>Sneak_F
+ xmap f <Plug>Sneak_f
+ xmap F <Plug>Sneak_F
+ omap f <Plug>Sneak_f
+ omap F <Plug>Sneak_F
 
 NeoBundle 'nvie/vim-flake8', {
     \   'lazy': 1,
