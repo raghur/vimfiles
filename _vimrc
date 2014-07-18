@@ -278,7 +278,6 @@ let g:vim_json_syntax_conceal = 0
 NeoBundle 'jwhitley/vim-matchit.git'
 NeoBundle 'tpope/vim-ragtag'
 
-NeoBundle 'tpope/vim-surround'
 NeoBundle 'kana/vim-textobj-indent'
 NeoBundle 'kana/vim-textobj-user'
 NeoBundle 'sgur/vim-textobj-parameter'
@@ -322,8 +321,9 @@ if has('lua')
     so ~/.vim/neocomplete-custom.vim
 endif
 
-" Required for yankstack
 NeoBundle 'maxbrunsfeld/vim-yankstack'
+" make sure this is after vim-yankstack
+NeoBundle 'tpope/vim-surround'
 
 " vim sneak; replace f/F with sneak
 NeoBundle 'justinmk/vim-sneak'
