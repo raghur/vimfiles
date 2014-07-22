@@ -177,7 +177,7 @@ NeoBundle 'wellle/targets.vim'
 NeoBundle 'https://git.gitorious.org/vim-gnupg/vim-gnupg.git', {
     \   'lazy': 1,
     \   'autoload': {
-    \       'filetypes' : ['gpg']
+    \       'filename_patterns' : ['\.gpg$', '\.asc$']
     \   }}
 "If you have git, make sure that path does NOT point to git bash tools
 " Path for git win should point to the libexec/git-core folder
@@ -314,7 +314,11 @@ NeoBundle 'airblade/vim-rooter'
 " run: nmake -f Make_msvc.mak nodebug=1
 NeoBundle 'Shougo/vimproc.vim'
 if has('lua')
-    NeoBundle 'Shougo/neocomplete.vim'
+    NeoBundle 'Shougo/neocomplete', {
+        \ 'depends' : 'Shougo/context_filetype.vim',
+        \ 'disabled' : !has('lua'),
+        \ 'vim_version' : '7.3.885'
+        \ }
     " Use neocomplete.
     let g:neocomplete#use_vimproc = 1
     let g:neocomplete#enable_at_startup = 1
