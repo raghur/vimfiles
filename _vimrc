@@ -209,7 +209,7 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_cache_dir = $HOME.'/.ctrlp_cache'
 let g:ctrlp_mruf_exclude = '\(.*\\dev\\shm\\pass\..*\)|\(.*\\.git\COMMIT_EDITMSG\)' " Windows
 let g:ctrlp_mruf_case_sensitive = 0
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|pyc)$'
 let g:ctrlp_working_path_mode = 'ra'
 nnoremap <leader>m :CtrlPMixed<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
