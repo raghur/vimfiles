@@ -193,7 +193,12 @@ NeoBundle 'raghur/vim-helpnav', {
 
 NeoBundle 'vim-scripts/L9'
 " CtrlP{{{
-NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'kien/ctrlp.vim', {
+    \ 'lazy': 1,
+    \ 'autoload': {
+    \       'commands': ['CtrlP', 'CtrlPMixed', 'CtrlPMRUFiles', 'CtrlPQuickfix', 'CtrlPBuffer']
+    \}
+    \}
 let g:ctrlp_match_window_bottom = 0
 let g:ctrlp_match_window_reversed = 0
 let g:ctrlp_max_height = 10
@@ -226,7 +231,12 @@ if has("gui_running")
     let g:indent_guides_enable_on_vim_startup = 1
 endif
 
-NeoBundle 'sjl/gundo.vim'
+NeoBundle 'sjl/gundo.vim', {
+            \            'lazy':1,
+            \            'autoload': {
+            \               'commands': "GundoToggle"
+            \           }
+            \}
 NeoBundle 'gregsexton/MatchTag'
 NeoBundle 'scrooloose/nerdcommenter'
 
