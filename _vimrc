@@ -177,7 +177,7 @@ NeoBundle 'wellle/targets.vim'
 NeoBundle 'https://git.gitorious.org/vim-gnupg/vim-gnupg.git', {
     \   'lazy': 1,
     \   'autoload': {
-    \       'filetypes' : ['gpg']
+    \       'filename_patterns' : ['\.gpg$', '\.asc$']
     \   }}
 "If you have git, make sure that path does NOT point to git bash tools
 " Path for git win should point to the libexec/git-core folder
@@ -193,7 +193,12 @@ NeoBundle 'raghur/vim-helpnav', {
 
 NeoBundle 'vim-scripts/L9'
 " CtrlP{{{
-NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'kien/ctrlp.vim', {
+    \ 'lazy': 1,
+    \ 'autoload': {
+    \       'commands': ['CtrlP', 'CtrlPMixed', 'CtrlPMRUFiles', 'CtrlPQuickfix', 'CtrlPBuffer']
+    \}
+    \}
 let g:ctrlp_match_window_bottom = 0
 let g:ctrlp_match_window_reversed = 0
 let g:ctrlp_max_height = 10
@@ -204,7 +209,7 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_cache_dir = $HOME.'/.ctrlp_cache'
 let g:ctrlp_mruf_exclude = '\(.*\\dev\\shm\\pass\..*\)|\(.*\\.git\COMMIT_EDITMSG\)' " Windows
 let g:ctrlp_mruf_case_sensitive = 0
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|pyc)$'
 let g:ctrlp_working_path_mode = 'ra'
 nnoremap <leader>m :CtrlPMixed<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
@@ -226,15 +231,20 @@ if has("gui_running")
     let g:indent_guides_enable_on_vim_startup = 1
 endif
 
-NeoBundle 'sjl/gundo.vim'
+NeoBundle 'sjl/gundo.vim', {
+            \            'lazy':1,
+            \            'autoload': {
+            \               'commands': "GundoToggle"
+            \           }
+            \}
 NeoBundle 'gregsexton/MatchTag'
 NeoBundle 'scrooloose/nerdcommenter'
 
 "Plugin 'Valloric/YouCompleteMe'
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_auto_stop_csharp_server = 1
-nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<cr>
+"let g:ycm_autoclose_preview_window_after_completion = 1
+"let g:ycm_autoclose_preview_window_after_insertion = 1
+"let g:ycm_auto_stop_csharp_server = 1
+"nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<cr>
 "Plugin 'marijnh/tern_for_vim'
 
 
@@ -314,7 +324,11 @@ NeoBundle 'airblade/vim-rooter'
 " run: nmake -f Make_msvc.mak nodebug=1
 NeoBundle 'Shougo/vimproc.vim'
 if has('lua')
-    NeoBundle 'Shougo/neocomplete.vim'
+    NeoBundle 'Shougo/neocomplete', {
+        \ 'depends' : 'Shougo/context_filetype.vim',
+        \ 'disabled' : !has('lua'),
+        \ 'vim_version' : '7.3.885'
+        \ }
     " Use neocomplete.
     let g:neocomplete#use_vimproc = 1
     let g:neocomplete#enable_at_startup = 1
