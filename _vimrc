@@ -241,10 +241,10 @@ NeoBundle 'gregsexton/MatchTag'
 NeoBundle 'scrooloose/nerdcommenter'
 
 "Plugin 'Valloric/YouCompleteMe'
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_auto_stop_csharp_server = 1
-nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<cr>
+"let g:ycm_autoclose_preview_window_after_completion = 1
+"let g:ycm_autoclose_preview_window_after_insertion = 1
+"let g:ycm_auto_stop_csharp_server = 1
+"nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<cr>
 "Plugin 'marijnh/tern_for_vim'
 
 
