@@ -369,10 +369,13 @@ NeoBundle 'klen/python-mode', {
     \       'filetypes' : ['python']
     \   }}
 
+NeoBundle 'python-rope/ropevim', {
+    \   'lazy': 1,
+    \   'autoload': {
+    \       'filetypes' : ['python']
+    \   }}
 let g:pymode_run_bind = '<leader>pr'
-"Plugin 'klen/rope-vim'
-NeoBundle 'python-rope/ropevim'
-let g:pymode_rope = 0
+let g:pymode_rope = 1
 
 NeoBundle 'nacitar/terminalkeys.vim'
 if &term =~ '^screen'
