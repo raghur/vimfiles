@@ -259,7 +259,9 @@ NeoBundle 'scrooloose/syntastic'
 let g:syntastic_python_checkers = ['pylama']
 let g:syntastic_javascript_checkers = ['jshint']
 nnoremap <leader>n :cnext<cr>
+nnoremap <leader>ln :lnext<cr>
 nnoremap <leader>p :cprev<cr>
+nnoremap <leader>lp :lprev<cr>
 nnoremap <leader><F5> :w\|SyntasticCheck<cr>
 let g:syntastic_mode_map = { 'mode': 'passive',
             \ 'active_filetypes': ['python', 'json'],
