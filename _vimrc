@@ -216,13 +216,15 @@ nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>r :CtrlPMRUFiles<cr>
 nnoremap <leader>q :CtrlPQuickfix<cr>
 nnoremap <leader><Space> :CtrlP<cr>
+nmap gf :CtrlP<CR><C-\>w
 "}}}
 
 NeoBundle 'vim-pandoc/vim-pandoc'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-repeat'
 "Plugin 'Raimondi/delimitMate'
-NeoBundle 'kana/vim-smartinput'
+"NeoBundle 'kana/vim-smartinput'
+NeoBundle 'jiangmiao/auto-pairs'
 
 NeoBundle 'nathanaelkane/vim-indent-guides'
 let g:indent_guides_guide_size = 1
