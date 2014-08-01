@@ -72,7 +72,7 @@ if &term =~ '256color'
     set t_ut=
 endif
 
-set path+=$HOME,.,,~/git,~/code
+set path=.,,**,$HOME
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
@@ -219,13 +219,15 @@ nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>r :CtrlPMRUFiles<cr>
 nnoremap <leader>q :CtrlPQuickfix<cr>
 nnoremap <leader><Space> :CtrlP<cr>
+nmap <leader>gf :CtrlP<CR><C-\>w
 "}}}
 
 NeoBundle 'vim-pandoc/vim-pandoc'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-repeat'
 "Plugin 'Raimondi/delimitMate'
-NeoBundle 'kana/vim-smartinput'
+"NeoBundle 'kana/vim-smartinput'
+NeoBundle 'jiangmiao/auto-pairs'
 
 NeoBundle 'nathanaelkane/vim-indent-guides'
 let g:indent_guides_guide_size = 1
@@ -262,7 +264,9 @@ NeoBundle 'scrooloose/syntastic'
 let g:syntastic_python_checkers = ['pylama']
 let g:syntastic_javascript_checkers = ['jshint']
 nnoremap <leader>n :cnext<cr>
+nnoremap <leader>ln :lnext<cr>
 nnoremap <leader>p :cprev<cr>
+nnoremap <leader>lp :lprev<cr>
 nnoremap <leader><F5> :w\|SyntasticCheck<cr>
 let g:syntastic_mode_map = { 'mode': 'passive',
             \ 'active_filetypes': ['python', 'json'],
