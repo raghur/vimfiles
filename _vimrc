@@ -29,7 +29,10 @@ set winaltkeys=no
 if has('mouse')
     set mouse=a
 endif
-
+if has('neovim')
+  let s:python_host_init = 'python -c "import neovim; neovim.start_host()"'
+  let &initpython = s:python_host_init
+endif
 " Backup Options {{{
 set backup        " keep a backup file
 set backupdir=~/.vim/.vimbackups/.backup " avoids messing up folders with *.swp and file~ backups
