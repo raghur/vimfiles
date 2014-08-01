@@ -69,7 +69,7 @@ if &term =~ '256color'
     set t_ut=
 endif
 
-set path+=$HOME,.,,~/git,~/code
+set path=.,,**,$HOME
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
@@ -216,7 +216,7 @@ nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>r :CtrlPMRUFiles<cr>
 nnoremap <leader>q :CtrlPQuickfix<cr>
 nnoremap <leader><Space> :CtrlP<cr>
-nmap gf :CtrlP<CR><C-\>w
+nmap <leader>gf :CtrlP<CR><C-\>w
 "}}}
 
 NeoBundle 'vim-pandoc/vim-pandoc'
