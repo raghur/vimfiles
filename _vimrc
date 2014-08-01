@@ -155,12 +155,13 @@ else
     let g:GPGUseAgent = 1
 endif
 
-" termcap codes for cursor shape changes on entry and exit to
-" /from insert mode
-let &t_ti.="\e[1 q"
-let &t_SI.="\e[5 q"
-let &t_EI.="\e[1 q"
-let &t_te.="\e[0 q"
+" messses with console vim - extra q characters
+"" termcap codes for cursor shape changes on entry and exit to
+"" /from insert mode
+"let &t_ti.="\e[1 q"
+"let &t_SI.="\e[5 q"
+"let &t_EI.="\e[1 q"
+"let &t_te.="\e[0 q"
 "}}}
 
 " Plugin Bundles and config {{{
