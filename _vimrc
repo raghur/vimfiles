@@ -130,15 +130,12 @@ set colorcolumn=120
 set sessionoptions&
 set sessionoptions-=options
 set sessionoptions+=resize,unix,slash,winpos
+set guioptions-=t
 
-if has("unix")
-    set shell=bash\ -i
+if has("unnamedplus")
     set clipboard=unnamedplus
 else
-    " Clipboard integration
     set clipboard=unnamed
-    " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
-    let &guioptions = substitute(&guioptions, "t", "", "g")
 endif
 
 " colors
