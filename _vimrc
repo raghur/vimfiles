@@ -176,7 +176,6 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'kshenoy/vim-signature'
 nnoremap <leader>[ :call signature#GotoMark( "prev", "line", "alpha" )<CR>
 nnoremap <leader>] :call signature#GotoMark( "next", "line", "alpha" )<CR>
-NeoBundle 'wellle/targets.vim'
 NeoBundle 'https://git.gitorious.org/vim-gnupg/vim-gnupg.git', {
     \   'lazy': 1,
     \   'autoload': {
@@ -225,8 +224,6 @@ nmap <leader>gf :CtrlP<CR><C-\>w
 NeoBundle 'vim-pandoc/vim-pandoc'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-repeat'
-"Plugin 'Raimondi/delimitMate'
-"NeoBundle 'kana/vim-smartinput'
 NeoBundle 'jiangmiao/auto-pairs'
 
 NeoBundle 'nathanaelkane/vim-indent-guides'
@@ -447,6 +444,7 @@ let g:session_command_aliases = 1
 let g:session_autosave='yes'
 let g:session_autoload='yes'
 let g:session_default_to_last=1
+NeoBundle 'wellle/targets.vim'
 
 call neobundle#end()
 filetype plugin indent on
