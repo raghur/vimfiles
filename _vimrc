@@ -446,9 +446,10 @@ let g:session_autoload='yes'
 let g:session_default_to_last=1
 NeoBundle 'wellle/targets.vim'
 
+set rtp+=$GOROOT/misc/vim
 call neobundle#end()
 filetype plugin indent on
-colors smyck
+colors Monokai-Refined
 "}}}
 
 "Non Plugin specific keybindings {{{
