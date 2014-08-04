@@ -18,8 +18,7 @@ set ignorecase smartcase
 set guioptions-=T
 set guioptions-=r
 set guioptions+=R
-set timeout timeoutlen=500
-set ttimeoutlen=50
+set timeout timeoutlen=1000 ttimeoutlen=100
 set undofile
 set undodir=~/.vim/.vimbackups/.undo
 set undolevels=1000
@@ -292,11 +291,12 @@ let g:vim_json_syntax_conceal = 0
 NeoBundle 'jwhitley/vim-matchit.git'
 NeoBundle 'tpope/vim-ragtag'
 
-NeoBundle 'kana/vim-textobj-indent'
-NeoBundle 'kana/vim-textobj-user'
-NeoBundle 'sgur/vim-textobj-parameter'
-NeoBundle 'kana/vim-textobj-function'
-NeoBundle 'terryma/vim-expand-region'
+"NeoBundle 'kana/vim-textobj-user'
+"NeoBundle 'sgur/vim-textobj-parameter'
+"NeoBundle 'kana/vim-textobj-function'
+"NeoBundle 'kana/vim-textobj-indent'
+"NeoBundle 'thinca/vim-textobj-between'
+"NeoBundle 'terryma/vim-expand-region'
 NeoBundle 'rstacruz/sparkup', {
     \   'lazy': 1,
     \   'rtp' : 'vim',
