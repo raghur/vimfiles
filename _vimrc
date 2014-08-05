@@ -420,6 +420,7 @@ noremap   <Down>   <NOP>
 noremap   <Left>   <NOP>
 noremap   <Right>  <NOP>
 nnoremap  <backspace> <C-O>
+nnoremap   <c-w> :bd<cr>
 "inoremap <esc> <c-o>:echoe "use jk"<cr>
 inoremap jk <esc>
 
