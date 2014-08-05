@@ -338,20 +338,22 @@ if has('lua')
     let g:neocomplete#enable_at_startup = 1
     so ~/.vim/neocomplete-custom.vim
 endif
-
+let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
 NeoBundle 'maxbrunsfeld/vim-yankstack'
+
 " make sure this is after vim-yankstack
 NeoBundle 'tpope/vim-surround'
 
 " vim sneak; replace f/F with sneak
 NeoBundle 'justinmk/vim-sneak'
- "replace 'f' with 1-char Sneak
- nmap f <Plug>Sneak_f
- nmap F <Plug>Sneak_F
- xmap f <Plug>Sneak_f
- xmap F <Plug>Sneak_F
- omap f <Plug>Sneak_f
- omap F <Plug>Sneak_F
+"replace 'f' with 1-char Sneak
+nmap f <Plug>Sneak_f
+nmap F <Plug>Sneak_F
+xmap f <Plug>Sneak_f
+xmap F <Plug>Sneak_F
+omap f <Plug>Sneak_f
+omap F <Plug>Sneak_F
+let g:sneak#s_next = 0
 
 NeoBundle 'nvie/vim-flake8', {
     \   'lazy': 1,
