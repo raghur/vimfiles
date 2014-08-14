@@ -175,7 +175,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'kshenoy/vim-signature'
 nnoremap <leader>[ :call signature#GotoMark( "prev", "line", "alpha" )<CR>
 nnoremap <leader>] :call signature#GotoMark( "next", "line", "alpha" )<CR>
-NeoBundle 'https://git.gitorious.org/vim-gnupg/vim-gnupg.git', {
+NeoBundle 'jamessan/vim-gnupg', {
     \   'lazy': 1,
     \   'autoload': {
     \       'filename_patterns' : ['\.gpg$', '\.asc$']
