@@ -140,7 +140,7 @@ set sessionoptions-=options
 set sessionoptions+=resize,unix,slash,winpos
 set guioptions-=t
 
-if has("unnamedplus")
+if has('unix')
     set clipboard=unnamedplus
 else
     set clipboard=unnamed
@@ -240,7 +240,7 @@ NeoBundle 'sjl/gundo.vim', {
             \}
 NeoBundle 'gregsexton/MatchTag'
 NeoBundle 'scrooloose/nerdcommenter'
-
+NeoBundle 'tyru/open-browser.vim'
 "Plugin 'Valloric/YouCompleteMe'
 "let g:ycm_autoclose_preview_window_after_completion = 1
 "let g:ycm_autoclose_preview_window_after_insertion = 1
@@ -263,6 +263,8 @@ nnoremap <leader>n :cnext<cr>
 nnoremap <leader>ln :lnext<cr>
 nnoremap <leader>p :cprev<cr>
 nnoremap <leader>lp :lprev<cr>
+nnoremap <leader>c :ccl<cr>
+nnoremap <leader>lc :lcl<cr>
 nnoremap <leader><F5> :w\|SyntasticCheck<cr>
 let g:syntastic_mode_map = { 'mode': 'passive',
             \ 'active_filetypes': ['python', 'json'],
@@ -271,6 +273,7 @@ let g:syntastic_mode_map = { 'mode': 'passive',
 NeoBundle 'kchmck/vim-coffee-script'
 " colorscheme bundles and repos
 NeoBundle 'raghur/vim-colorschemes'
+NeoBundle 'vim-scripts/Colour-Sampler-Pack'
 NeoBundle 'sickill/vim-monokai'
 NeoBundle 'jaromero/vim-monokai-refined'
 NeoBundle 'altercation/vim-colors-solarized'
@@ -621,7 +624,7 @@ fun! CycleArray(arr, value, dir)
     return c
 endfunction
 
-let g:colorschemes="smyck:base16-default:Monokai-Refined:monokai:molokai"
+let g:colorschemes="smyck:base16-default:Monokai-Refined:monokai:molokai:buttercream"
 fun! CycleColorScheme(dir)
     let arr = split(g:colorschemes, ":")
     let c = CycleArray(arr, g:colors_name, a:dir)
@@ -698,8 +701,9 @@ function! ToHtml()
     :w
     let file=expand("%:p")
     let outfile=fnamemodify(file, ":r") . ".html"
-    exec "!pandoc -i " . file . " -o " . outfile
+    exec "silent !pandoc -i " . file . " -o " . outfile
     echom "wrote" . " " . outfile
+    call openbrowser#open("file:///".substitute(outfile, "\\", "/", "g"))
 endfunction
 command! ToHtml call ToHtml()
 
