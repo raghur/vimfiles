@@ -358,6 +358,13 @@ omap f <Plug>Sneak_f
 omap F <Plug>Sneak_F
 let g:sneak#s_next = 0
 
+NeoBundle 'vim-scripts/EnhancedJumps', {
+    \   'depends': 'vim-scripts/ingo-library'
+    \   }
+nmap <backspace> <Plug>EnhancedJumpsOlder
+nmap <C-backspace> <Plug>EnhancedJumpsRemoteOlder
+nmap <C-tab> <Plug>EnhancedJumpsRemoteNewer
+NeoBundle 'justinmk/vim-gtfo'
 NeoBundle 'nvie/vim-flake8', {
     \   'lazy': 1,
     \   'autoload': {
@@ -422,7 +429,6 @@ noremap   <Up>     <NOP>
 noremap   <Down>   <NOP>
 noremap   <Left>   <NOP>
 noremap   <Right>  <NOP>
-nnoremap  <backspace> <C-O>
 nnoremap   <c-space> :bd<cr>
 "inoremap <esc> <c-o>:echoe "use jk"<cr>
 inoremap jk <esc>
@@ -451,7 +457,6 @@ vnoremap < <gv
 nnoremap 0 ^
 nnoremap ^ 0
 noremap <C-s> :w<cr>
-nnoremap <C-Backspace> :b#<cr>
 nnoremap <leader>sv :ed ~/.vim/_vimrc<cr>
 nnoremap <F5> :GundoToggle<CR>
 vnoremap <leader>v "0p
