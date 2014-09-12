@@ -12,6 +12,35 @@ function ${1:TheClassName}(${2:args}) {
 }
 endsnippet
 
+snippet desc "Jasmine test suite" !b
+describe("Suite", function() {
+	beforeEach(function() {
+
+	});
+	afterEach(function(){
+
+	});
+	$0
+});
+endsnippet
+
+snippet adesc "Async Jasmine test suite" !b
+describe("Suite", function() {
+	beforeEach(function(done) {
+
+	});
+	afterEach(function(done){
+
+	});
+	$0
+});
+endsnippet
+
+snippet it "Jasmine test " !b
+it("$1", function() {
+	$0
+});
+endsnippet
 snippet varfn "variable assigned to function" !b
 var ${1} = function(${2}) {
 	${0}
@@ -23,6 +52,7 @@ $1(function($2){
 	$0
 });
 endsnippet
+
 snippet .fail "fail handler" i
 .fail(function (xhr, textStatus, errorThrown) {
 	$0
