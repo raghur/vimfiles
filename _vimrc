@@ -636,7 +636,7 @@ fun! CycleArray(arr, value, dir)
     return c
 endfunction
 
-let g:colorschemes="smyck:base16-default:Monokai-Refined:monokai:molokai:pyte:mayansmoke"
+let g:colorschemes="smyck:base16-default:Monokai-Refined:monokai:molokai:github:mayansmoke:newspaper"
 fun! CycleColorScheme(dir)
     let arr = split(g:colorschemes, ":")
     let c = CycleArray(arr, g:colors_name, a:dir)
