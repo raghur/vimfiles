@@ -678,6 +678,16 @@ endfun
 command! RemoveCtrlM call RemoveCtrlM()
 command! EditAsWin call RemoveCtrlM()
 
+func! ReadExCommandOutput(newbuf, cmd)
+  redir => l:message
+  silent! execute a:cmd
+  redir END
+  if a:newbuf | wincmd n | endif
+  silent put=l:message
+endf
+command! -nargs=+ -bang -complete=command R call ReadExCommandOutput(<bang>1, <q-args>)
+inoremap <c-r>R <c-o>:<up><home>R! <cr>
+
 fun! SanitizeSpaces()
     retab
     :%s/\s\+$//e
@@ -719,13 +729,6 @@ function! ToHtml()
 endfunction
 command! ToHtml call ToHtml()
 
-" use :redir @+ to copy output of command to clipboard
-:redir!>$HOME/.vim/.vimbackups/000messages
-function! ShowMessageBuffer()
-    :botright sp ~/.vim/.vimbackups/000messages
-    normal G
-endfun
-command! Messages  call ShowMessageBuffer()
 NeoBundleCheck
 "}}}
 
