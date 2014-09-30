@@ -365,13 +365,13 @@ omap f <Plug>Sneak_f
 omap F <Plug>Sneak_F
 let g:sneak#s_next = 0
 
-NeoBundle 'vim-scripts/EnhancedJumps', {
-    \   'depends': 'vim-scripts/ingo-library'
-    \   }
-nmap <backspace> <Plug>EnhancedJumpsOlder
-nmap <C-backspace> <Plug>EnhancedJumpsRemoteOlder
-nmap <C-tab> <Plug>EnhancedJumpsRemoteNewer
-NeoBundle 'justinmk/vim-gtfo'
+"NeoBundle 'vim-scripts/EnhancedJumps', {
+    "\   'depends': 'vim-scripts/ingo-library'
+    "\   }
+"nmap <backspace> <Plug>EnhancedJumpsOlder
+"nmap <C-backspace> <Plug>EnhancedJumpsRemoteOlder
+"nmap <C-tab> <Plug>EnhancedJumpsRemoteNewer
+"NeoBundle 'justinmk/vim-gtfo'
 NeoBundle 'nvie/vim-flake8', {
     \   'lazy': 1,
     \   'autoload': {
