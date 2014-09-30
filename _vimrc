@@ -246,7 +246,12 @@ NeoBundle 'tyru/open-browser.vim'
 "let g:ycm_autoclose_preview_window_after_insertion = 1
 "let g:ycm_auto_stop_csharp_server = 1
 "nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<cr>
-"Plugin 'marijnh/tern_for_vim'
+NeoBundle 'marijnh/tern_for_vim', {
+\            'lazy':1,
+\            'autoload': {
+\              'filetypes' : ['javascript']
+\           }
+\}
 
 
 NeoBundle 'SirVer/ultisnips'
