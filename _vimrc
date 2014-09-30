@@ -517,7 +517,7 @@ let g:formatprg_args_xml=" --format --recover - 2>/dev/null"
 
 " Windows specific {{{
 if (has('win32'))
-    set renderoptions=type:directx,gamma:1.0,contrast:1.0,level:2.0,geom:1,renmode:4,taamode:1
+    set renderoptions=type:directx,gamma:1.0,contrast:0.2,level:1.0,geom:1,renmode:5,taamode:1
     let g:formatprg_cs=fnamemodify(findfile(g:formatprg_cs . ".exe", $GNUWIN."/**3"), ":p")
     let g:formatprg_html=fnamemodify(findfile(g:formatprg_html . ".exe", $GNUWIN."/**3"), ":p")
     let g:formatprg_xml=fnamemodify(findfile(g:formatprg_xml . ".exe", $GNUWIN."/**3"), ":p")
