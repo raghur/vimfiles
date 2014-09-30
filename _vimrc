@@ -265,13 +265,14 @@ let g:UltiSnipsListSnippets="<c-tab>"
 NeoBundle 'scrooloose/syntastic'
 let g:syntastic_python_checkers = ['pylama']
 let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_auto_loc_list = 1
 nnoremap <leader>n :cnext<cr>
 nnoremap <leader>ln :lnext<cr>
 nnoremap <leader>p :cprev<cr>
 nnoremap <leader>lp :lprev<cr>
 nnoremap <leader>c :ccl<cr>
 nnoremap <leader>lc :lcl<cr>
-nnoremap <leader><F5> :w\|SyntasticCheck<cr>
+nnoremap <F4> :w\|SyntasticCheck<cr>
 let g:syntastic_mode_map = { 'mode': 'passive',
             \ 'active_filetypes': ['python', 'json'],
             \ 'passive_filetypes': ['javascript'] }
