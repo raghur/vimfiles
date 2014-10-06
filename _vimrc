@@ -150,7 +150,7 @@ else
 endif
 
 if has('win32')
-    let g:fonts='Ubuntu_Mono_derivative_Powerlin:h13,Source_Code_Pro_Light:h11,Powerline_Consolas:h11,DejaVu Sans Mono For Powerline:h11'
+    let g:fonts='Ubuntu_Mono_derivative_Powerlin:h13,Source_Code_Pro_Light:h11,Powerline_Consolas:h11,DejaVu Sans Mono For Powerline:h11,PragmataPro_for_powerline:h10.4'
     set guifont=Ubuntu_Mono_derivative_Powerlin:h13
 else
     let g:fonts="Meslo\ LG\ S\ for\ Powerline\ 10,Monaco\ for\ Powerline\ 10,Source\ Code\ Pro\ for\ Powerline\ 11,DejaVu\ Sans\ Mono\ for\ Powerline\ 10,Monospace\ 10,Ubuntu\ Mono\ 11"
@@ -228,6 +228,7 @@ nmap <leader>gf :CtrlP<CR><C-\>w
 NeoBundle 'vim-pandoc/vim-pandoc'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-repeat'
+let g:AutoPairsShortcutToggle = ''
 NeoBundle 'jiangmiao/auto-pairs'
 
 NeoBundle 'nathanaelkane/vim-indent-guides'
@@ -251,27 +252,32 @@ NeoBundle 'tyru/open-browser.vim'
 "let g:ycm_autoclose_preview_window_after_insertion = 1
 "let g:ycm_auto_stop_csharp_server = 1
 "nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<cr>
-"Plugin 'marijnh/tern_for_vim'
+NeoBundle 'marijnh/tern_for_vim', {
+\            'lazy':1,
+\            'autoload': {
+\              'filetypes' : ['javascript']
+\           }
+\}
 
-if !has('neovim')
-    NeoBundle 'SirVer/ultisnips'
-    NeoBundle 'honza/vim-snippets'
-    let g:UltiSnipsUsePythonVersion=2
-    let g:UltiSnipsSnippetsDir="~/.vim/Ultisnips"
-    let g:UltiSnipsExpandTrigger="<c-cr>"
-    let g:UltiSnipsListSnippets="<c-tab>"
-endif
+
+NeoBundle 'SirVer/ultisnips'
+NeoBundle 'honza/vim-snippets'
+let g:UltiSnipsUsePythonVersion=3
+let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
+let g:UltiSnipsExpandTrigger="<c-cr>"
+let g:UltiSnipsListSnippets="<c-tab>"
 
 NeoBundle 'scrooloose/syntastic'
 let g:syntastic_python_checkers = ['pylama']
 let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_auto_loc_list = 1
 nnoremap <leader>n :cnext<cr>
 nnoremap <leader>ln :lnext<cr>
 nnoremap <leader>p :cprev<cr>
 nnoremap <leader>lp :lprev<cr>
 nnoremap <leader>c :ccl<cr>
 nnoremap <leader>lc :lcl<cr>
-nnoremap <leader><F5> :w\|SyntasticCheck<cr>
+nnoremap <F4> :w\|SyntasticCheck<cr>
 let g:syntastic_mode_map = { 'mode': 'passive',
             \ 'active_filetypes': ['python', 'json'],
             \ 'passive_filetypes': ['javascript'] }
@@ -364,13 +370,13 @@ omap f <Plug>Sneak_f
 omap F <Plug>Sneak_F
 let g:sneak#s_next = 0
 
-NeoBundle 'vim-scripts/EnhancedJumps', {
-    \   'depends': 'vim-scripts/ingo-library'
-    \   }
-nmap <backspace> <Plug>EnhancedJumpsOlder
-nmap <C-backspace> <Plug>EnhancedJumpsRemoteOlder
-nmap <C-tab> <Plug>EnhancedJumpsRemoteNewer
-NeoBundle 'justinmk/vim-gtfo'
+"NeoBundle 'vim-scripts/EnhancedJumps', {
+    "\   'depends': 'vim-scripts/ingo-library'
+    "\   }
+"nmap <backspace> <Plug>EnhancedJumpsOlder
+"nmap <C-backspace> <Plug>EnhancedJumpsRemoteOlder
+"nmap <C-tab> <Plug>EnhancedJumpsRemoteNewer
+"NeoBundle 'justinmk/vim-gtfo'
 NeoBundle 'nvie/vim-flake8', {
     \   'lazy': 1,
     \   'autoload': {
@@ -516,7 +522,7 @@ let g:formatprg_args_xml=" --format --recover - 2>/dev/null"
 
 " Windows specific {{{
 if (has('win32'))
-    set renderoptions=type:directx,gamma:1.0,contrast:1.0,level:2.0,geom:1,renmode:4,taamode:1
+    set renderoptions=type:directx,gamma:1.0,contrast:0.2,level:1.0,geom:1,renmode:5,taamode:1
     let g:formatprg_cs=fnamemodify(findfile(g:formatprg_cs . ".exe", $GNUWIN."/**3"), ":p")
     let g:formatprg_html=fnamemodify(findfile(g:formatprg_html . ".exe", $GNUWIN."/**3"), ":p")
     let g:formatprg_xml=fnamemodify(findfile(g:formatprg_xml . ".exe", $GNUWIN."/**3"), ":p")
@@ -559,6 +565,11 @@ if executable('ag')
   " Use ag over grep
   set grepprg=ag\ --nogroup\ --nocolor
 
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
   let s:grep='ag'
   let s:grepopts='\ --nogroup\ --nocolor'
 endif
@@ -630,7 +641,7 @@ fun! CycleArray(arr, value, dir)
     return c
 endfunction
 
-let g:colorschemes="smyck:base16-default:Monokai-Refined:monokai:molokai:pyte:mayansmoke"
+let g:colorschemes="smyck:base16-default:Monokai-Refined:monokai:molokai:github:mayansmoke:newspaper"
 fun! CycleColorScheme(dir)
     let arr = split(g:colorschemes, ":")
     let c = CycleArray(arr, g:colors_name, a:dir)
@@ -671,6 +682,16 @@ fun! RemoveCtrlM()
 endfun
 command! RemoveCtrlM call RemoveCtrlM()
 command! EditAsWin call RemoveCtrlM()
+
+func! ReadExCommandOutput(newbuf, cmd)
+  redir => l:message
+  silent! execute a:cmd
+  redir END
+  if a:newbuf | wincmd n | endif
+  silent put=l:message
+endf
+command! -nargs=+ -bang -complete=command R call ReadExCommandOutput(<bang>1, <q-args>)
+inoremap <c-r>R <c-o>:<up><home>R! <cr>
 
 fun! SanitizeSpaces()
     retab
@@ -713,13 +734,6 @@ function! ToHtml()
 endfunction
 command! ToHtml call ToHtml()
 
-" use :redir @+ to copy output of command to clipboard
-:redir!>$HOME/.vim/.vimbackups/000messages
-function! ShowMessageBuffer()
-    :botright sp ~/.vim/.vimbackups/000messages
-    normal G
-endfun
-command! Messages  call ShowMessageBuffer()
 NeoBundleCheck
 "}}}
 
