@@ -28,10 +28,6 @@ set winaltkeys=no
 if has('mouse')
     set mouse=a
 endif
-if has('neovim')
-  let s:python_host_init = 'python -c "import neovim; neovim.start_host()"'
-  let &initpython = s:python_host_init
-endif
 " Backup Options {{{
 set backup        " keep a backup file
 set backupdir=~/.vim/.vimbackups/.backup " avoids messing up folders with *.swp and file~ backups
@@ -196,10 +192,12 @@ NeoBundle 'vim-scripts/L9'
 " CtrlP{{{
 NeoBundle 'kien/ctrlp.vim', {
     \ 'lazy': 1,
+    \ 'depends': 'FelikZ/ctrlp-py-matcher',
     \ 'autoload': {
     \       'commands': ['CtrlP', 'CtrlPMixed', 'CtrlPMRUFiles', 'CtrlPQuickfix', 'CtrlPBuffer']
+    \   }
     \}
-    \}
+let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 let g:ctrlp_match_window_bottom = 0
 let g:ctrlp_match_window_reversed = 0
 let g:ctrlp_max_height = 10
@@ -212,6 +210,13 @@ let g:ctrlp_mruf_exclude = '\(.*\\dev\\shm\\pass\..*\)|\(.*\\.git\COMMIT_EDITMSG
 let g:ctrlp_mruf_case_sensitive = 0
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|pyc)$'
 let g:ctrlp_working_path_mode = 'ra'
+if executable('ag')
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+  " ag is fast enough that CtrlP doesn't need to cache
+  let g:ctrlp_use_caching = 0
+endif
 nnoremap <leader>m :CtrlPMixed<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader>r :CtrlPMRUFiles<cr>
