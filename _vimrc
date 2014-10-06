@@ -28,10 +28,6 @@ set winaltkeys=no
 if has('mouse')
     set mouse=a
 endif
-if has('neovim')
-  let s:python_host_init = 'python -c "import neovim; neovim.start_host()"'
-  let &initpython = s:python_host_init
-endif
 " Backup Options {{{
 set backup        " keep a backup file
 set backupdir=~/.vim/.vimbackups/.backup " avoids messing up folders with *.swp and file~ backups
@@ -248,13 +244,14 @@ NeoBundle 'tyru/open-browser.vim'
 "nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<cr>
 "Plugin 'marijnh/tern_for_vim'
 
-
-NeoBundle 'SirVer/ultisnips'
-NeoBundle 'honza/vim-snippets'
-let g:UltiSnipsUsePythonVersion=2
-let g:UltiSnipsSnippetsDir="~/.vim/Ultisnips"
-let g:UltiSnipsExpandTrigger="<c-cr>"
-let g:UltiSnipsListSnippets="<c-tab>"
+if !has('neovim')
+    NeoBundle 'SirVer/ultisnips'
+    NeoBundle 'honza/vim-snippets'
+    let g:UltiSnipsUsePythonVersion=2
+    let g:UltiSnipsSnippetsDir="~/.vim/Ultisnips"
+    let g:UltiSnipsExpandTrigger="<c-cr>"
+    let g:UltiSnipsListSnippets="<c-tab>"
+endif
 
 NeoBundle 'scrooloose/syntastic'
 let g:syntastic_python_checkers = ['pylama']
