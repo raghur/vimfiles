@@ -136,11 +136,7 @@ set sessionoptions-=options
 set sessionoptions+=resize,unix,slash,winpos
 set guioptions-=t
 
-if has('unix')
-    set clipboard=unnamedplus
-else
-    set clipboard=unnamed
-endif
+set clipboard=unnamedplus
 
 " colors
 if has("gui_running")
