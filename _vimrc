@@ -150,7 +150,7 @@ endif
 
 if has('win32')
     let g:fonts='Ubuntu_Mono_derivative_Powerlin:h13,Source_Code_Pro_Light:h11,Powerline_Consolas:h11,DejaVu Sans Mono For Powerline:h11,PragmataPro_for_powerline:h10.4'
-    set guifont=Ubuntu_Mono_derivative_Powerlin:h13
+    set guifont=PragmataPro_for_powerline:h11
 else
     let g:fonts="Meslo\ LG\ S\ for\ Powerline\ 10,Monaco\ for\ Powerline\ 10,Source\ Code\ Pro\ for\ Powerline\ 11,DejaVu\ Sans\ Mono\ for\ Powerline\ 10,Monospace\ 10,Ubuntu\ Mono\ 11"
     set guifont=Meslo\ LG\ S\ for\ Powerline\ 10
