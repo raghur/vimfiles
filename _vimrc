@@ -393,6 +393,8 @@ nmap <C-tab> <Plug>EnhancedJumpsRemoteNewer
 
 "NeoBundle 'justinmk/vim-gtfo'
 
+NeoBundle 'PProvost/vim-ps1'
+
 NeoBundle 'nvie/vim-flake8', {
     \   'lazy': 1,
     \   'autoload': {
