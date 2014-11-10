@@ -511,18 +511,30 @@ nnoremap k gk
 " Autocommands {{{
 
 augroup Markdown
+    au!
     autocmd FileType markdown setl wrap
                 \ linebreak
                 "\ spell spelllang=en_us
 augroup END
-au BufNewFile,BufRead *.aspx setl filetype=html
-au BufNewFile,BufRead *.cshtml set filetype=html
-au BufNewFile,BufRead *.ascx set filetype=html
-au BufNewFile,BufRead *.moin setf moin
-au BufNewFile,BufRead *.wiki setf moin
-au BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
+augroup Html
+    au!
+    au BufNewFile,BufRead *.aspx setl filetype=html
+    au BufNewFile,BufRead *.cshtml set filetype=html
+    au BufNewFile,BufRead *.ascx set filetype=html
+    au FileType html setl foldmethod=indent
+augroup END
+
+augroup Moin
+    au!
+    au BufNewFile,BufRead *.moin setf moin
+    au BufNewFile,BufRead *.wiki setf moin
+augroup END
+
+augroup coffeescript
+    au!
+    au BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
                                     \ shiftwidth=2 expandtab
-au FileType html setl foldmethod=indent
+augroup END
 "}}}
 
 " Custom code/Utils {{{
