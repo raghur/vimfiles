@@ -7,9 +7,8 @@ let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 " Define dictionary.
 let g:neocomplete#sources#dictionary#dictionaries = {
     \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
+    \ 'vimshell' : $HOME.'/.vimshell_hist'
+    \ }
 
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
@@ -31,7 +30,6 @@ function! s:my_cr_function()
 endfunction
 " <TAB>: completion.
 inoremap <expr><tab>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
