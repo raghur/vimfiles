@@ -227,7 +227,7 @@ nmap <leader>gf :CtrlP<CR><C-\>w
 NeoBundle 'vim-pandoc/vim-pandoc'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-repeat'
-let g:AutoPairsShortcutToggle = ''
+let g:AutoPairsShortcutToggle = '\\'
 NeoBundle 'jiangmiao/auto-pairs'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 let g:indent_guides_guide_size = 1
