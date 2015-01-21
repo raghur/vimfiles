@@ -225,6 +225,7 @@ nmap <leader>gf :CtrlP<CR><C-\>w
 "}}}
 
 NeoBundle 'vim-pandoc/vim-pandoc'
+NeoBundle 'vim-pandoc/vim-pandoc-syntax'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-repeat'
 let g:AutoPairsShortcutToggle = '\\'
@@ -759,7 +760,8 @@ function! ToHtml()
     :w
     let file=expand("%:p")
     let outfile=fnamemodify(file, ":r") . ".html"
-    exec "silent !pandoc -i " . file . " -o " . outfile
+    let css=fnamemodify(file, ":h") . "pandoc.css"
+    exec "silent !pandoc --toc -c ". css . "  -fmarkdown_github+footnotes+implicit_header_references+auto_identifiers -i " . file . " -o " . outfile
     echom "wrote" . " " . outfile
     call openbrowser#open("file:///".substitute(outfile, "\\", "/", "g"))
 endfunction
