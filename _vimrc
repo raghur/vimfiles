@@ -277,7 +277,7 @@ NeoBundle 'marijnh/tern_for_vim', {
 if has('python') || has('python3')
     NeoBundle 'SirVer/ultisnips'
     NeoBundle 'honza/vim-snippets'
-    let g:UltiSnipsUsePythonVersion=3
+    "let g:UltiSnipsUsePythonVersion=2
     let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
     let g:UltiSnipsExpandTrigger="<c-cr>"
     let g:UltiSnipsListSnippets="<c-tab>"
