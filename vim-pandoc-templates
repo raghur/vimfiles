@@ -1,0 +1,2 @@
+html|--toc -fmarkdown_github+footnotes+implicit_header_references+auto_identifiers
+htmlwithToc|html --toc -fmarkdown_github+footnotes+implicit_header_references+auto_identifiers
