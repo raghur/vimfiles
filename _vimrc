@@ -217,9 +217,13 @@ if executable('ag')
   let g:ctrlp_use_caching = 0
 endif
 nnoremap <leader>m :CtrlPMixed<cr>
-nnoremap <leader>b :CtrlPBuffer<cr>
-nnoremap <leader>r :CtrlPMRUFiles<cr>
-nnoremap <leader>q :CtrlPQuickfix<cr>
+"nnoremap <leader>b :CtrlPBuffer<cr>
+"nnoremap <leader>r :CtrlPMRUFiles<cr>
+"nnoremap <leader>q :CtrlPQuickfix<cr>
+nnoremap <leader>q :q<cr>
+nnoremap <leader>w :w<cr>
+nnoremap <leader>wq :wq<cr>
+nnoremap <leader>o :on<cr>
 nnoremap <leader><Space> :CtrlP<cr>
 nmap <leader>gf :CtrlP<CR><C-\>w
 "}}}
@@ -673,7 +677,7 @@ fun! CycleArray(arr, value, dir)
     return c
 endfunction
 
-let g:colorschemes="smyck:base16-default:Monokai-Refined:monokai:molokai:github:mayansmoke:newspaper"
+let g:colorschemes="smyck:base16-default:base16-eighties:Monokai-Refined:monokai:molokai:github:mayansmoke:newspaper"
 fun! CycleColorScheme(dir)
     let arr = split(g:colorschemes, ":")
     let c = CycleArray(arr, g:colors_name, a:dir)
