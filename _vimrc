@@ -153,7 +153,7 @@ if has('win32')
     set guifont=PragmataPro_for_powerline:h11
 else
     let g:fonts="Meslo\ LG\ S\ for\ Powerline\ 10,Monaco\ for\ Powerline\ 10,Source\ Code\ Pro\ for\ Powerline\ 11,DejaVu\ Sans\ Mono\ for\ Powerline\ 10,Monospace\ 10,Ubuntu\ Mono\ 11"
-    set guifont=Meslo\ LG\ S\ for\ Powerline\ 10
+    set guifont=Meslo\ LG\ S\ for\ Powerline\ 12
     let g:GPGExecutable="gpg2"
     let g:GPGUseAgent = 1
 endif
