@@ -196,7 +196,7 @@ NeoBundle 'kien/ctrlp.vim', {
     \       'commands': ['CtrlP', 'CtrlPMixed', 'CtrlPMRUFiles', 'CtrlPQuickfix', 'CtrlPBuffer']
     \   }
     \}
-let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+"let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 let g:ctrlp_match_window_bottom = 0
 let g:ctrlp_match_window_reversed = 0
 let g:ctrlp_max_height = 10
@@ -211,20 +211,33 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|pyc)$'
 let g:ctrlp_working_path_mode = 'ra'
 if executable('ag')
   " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+  let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+      \ --ignore .git
+      \ --ignore .svn
+      \ --ignore .hg
+      \ --ignore .DS_Store
+      \ --ignore "**/*.pyc"
+      \ -g ""'
 
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
 endif
+nnoremap <leader>bd :bd<cr>
+nnoremap <leader>d :bd!<cr>
 nnoremap <leader>m :CtrlPMixed<cr>
-"nnoremap <leader>b :CtrlPBuffer<cr>
-"nnoremap <leader>r :CtrlPMRUFiles<cr>
-"nnoremap <leader>q :CtrlPQuickfix<cr>
-nnoremap <leader>q :q<cr>
-nnoremap <leader>w :w<cr>
-nnoremap <leader>wq :wq<cr>
-nnoremap <leader>o :on<cr>
+nnoremap <leader>r :CtrlPMRUFiles<cr>
 nnoremap <leader><Space> :CtrlP<cr>
+"nnoremap <leader>b :CtrlPBuffer<cr>
+"nnoremap <leader>q :CtrlPQuickfix<cr>
+nnoremap <leader>q :wq<cr>
+nnoremap <leader>w :w<cr>
+nnoremap <leader>o :on<cr>
+nnoremap <leader>n :cnext<cr>
+nnoremap <leader>p :cprev<cr>
+nnoremap <leader>ln :lnext<cr>
+nnoremap <leader>lp :lprev<cr>
+nnoremap <leader>c :ccl<cr>
+nnoremap <leader>lc :lcl<cr>
 nmap <leader>gf :CtrlP<CR><C-\>w
 "}}}
 
@@ -291,12 +304,6 @@ NeoBundle 'scrooloose/syntastic'
 let g:syntastic_python_checkers = ['pylama']
 let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_auto_loc_list = 1
-nnoremap <leader>n :cnext<cr>
-nnoremap <leader>ln :lnext<cr>
-nnoremap <leader>p :cprev<cr>
-nnoremap <leader>lp :lprev<cr>
-nnoremap <leader>c :ccl<cr>
-nnoremap <leader>lc :lcl<cr>
 nnoremap <F4> :w\|SyntasticCheck<cr>
 let g:syntastic_mode_map = { 'mode': 'passive',
             \ 'active_filetypes': ['python', 'json'],
@@ -390,16 +397,24 @@ omap f <Plug>Sneak_f
 omap F <Plug>Sneak_F
 let g:sneak#s_next = 0
 
+"let g:stopFirstAndNotifyTimeoutLen = 0
+let g:EnhancedJumps_CaptureJumpMessages = 0
 NeoBundle 'vim-scripts/EnhancedJumps', {
     \   'depends': 'vim-scripts/ingo-library'
     \   }
 nmap <backspace> <Plug>EnhancedJumpsOlder
 nmap <C-backspace> <Plug>EnhancedJumpsRemoteOlder
 nmap <C-tab> <Plug>EnhancedJumpsRemoteNewer
+"nnoremap <backspace>    g;
+"nnoremap <tab>    g,
 
 "NeoBundle 'justinmk/vim-gtfo'
 
-NeoBundle 'PProvost/vim-ps1'
+NeoBundle 'PProvost/vim-ps1', {
+    \   'lazy': 1,
+    \   'autoload': {
+    \       'filetypes' : ['powershell', 'ps1']
+    \   }}
 
 NeoBundle 'nvie/vim-flake8', {
     \   'lazy': 1,
