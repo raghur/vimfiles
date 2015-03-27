@@ -55,7 +55,6 @@ if !empty($CONEMUBUILD)
     echom "Running in conemu"
     set termencoding=utf8
     set term=xterm
-    set t_Co=256
     let &t_AB="\e[48;5;%dm"
     let &t_AF="\e[38;5;%dm"
     " messses with console vim - extra q characters
@@ -152,8 +151,8 @@ if has('win32')
     let g:fonts='Ubuntu_Mono_derivative_Powerlin:h13,Source_Code_Pro_Light:h11,Powerline_Consolas:h11,DejaVu Sans Mono For Powerline:h11,PragmataPro_for_powerline:h10.4'
     set guifont=PragmataPro_for_powerline:h11
 else
-    let g:fonts="Meslo\ LG\ S\ for\ Powerline\ 10,Monaco\ for\ Powerline\ 10,Source\ Code\ Pro\ for\ Powerline\ 11,DejaVu\ Sans\ Mono\ for\ Powerline\ 10,Monospace\ 10,Ubuntu\ Mono\ 11"
-    set guifont=Meslo\ LG\ S\ for\ Powerline\ 10
+    let g:fonts="Meslo\ LG\ S\ for\ Powerline\ 12,Monaco\ for\ Powerline\ 12,PragmataPro\ for\ Powerline\ 13,Source\ Code\ Pro\ for\ Powerline\ 12,DejaVu\ Sans\ Mono\ for\ Powerline\ 12,Monospace\ 10,Ubuntu\ Mono\ 11"
+    set guifont=PragmataPro\ for\ Powerline\ 13
     let g:GPGExecutable="gpg2"
     let g:GPGUseAgent = 1
 endif
@@ -232,6 +231,8 @@ nnoremap <leader><Space> :CtrlP<cr>
 nnoremap <leader>q :wq<cr>
 nnoremap <leader>w :w<cr>
 nnoremap <leader>o :on<cr>
+nnoremap <leader>. @:
+nnoremap <leader><Space> :CtrlP<cr>
 nnoremap <leader>n :cnext<cr>
 nnoremap <leader>p :cprev<cr>
 nnoremap <leader>ln :lnext<cr>
@@ -442,17 +443,17 @@ NeoBundle 'python-rope/ropevim', {
 let g:pymode_run_bind = '<leader>pr'
 let g:pymode_rope = 1
 
-NeoBundle 'nacitar/terminalkeys.vim'
+"NeoBundle 'nacitar/terminalkeys.vim'
 if &term =~ '^screen'
   " Page keys http://sourceforge.net/p/tmux/tmux-code/ci/master/tree/FAQ
-  execute "set t_kP=\e[5;*~"
-  execute "set t_kN=\e[6;*~"
+  set t_kP=\e[5;*~
+  set t_kN=\e[6;*~
 
   " Arrow keys http://unix.stackexchange.com/a/34723
-  execute "set <xUp>=\e[1;*A"
-  execute "set <xDown>=\e[1;*B"
-  execute "set <xRight>=\e[1;*C"
-  execute "set <xLeft>=\e[1;*D"
+  set <xUp>=\e[1;*A
+  set <xDown>=\e[1;*B
+  set <xRight>=\e[1;*C
+  set <xLeft>=\e[1;*D
 endif
 
 NeoBundle 'xolox/vim-misc'
@@ -698,7 +699,7 @@ fun! CycleColorScheme(dir)
     let c = CycleArray(arr, g:colors_name, a:dir)
     let scheme = arr[c]
     exec "colors " scheme
-    echom "Setting colorscheme to: " scheme
+    redraw | echom "Setting colorscheme to: ".scheme
 endfun
 command! ColorsNext call CycleColorScheme(1)
 command! ColorsPrev call CycleColorScheme(-1)
@@ -708,7 +709,7 @@ fun! CycleFont(dir)
     let c = CycleArray(arr, &guifont, a:dir)
     let font = substitute(arr[c], " ", '\\ ', "g")
     exec("set guifont=".font)
-    echom "Setting font to: " &guifont
+    redraw | echom "Setting font to: " &guifont
 endfun
 command! FontNext call CycleFont(1)
 command! FontPrev call CycleFont(-1)
@@ -788,4 +789,3 @@ command! ToHtml call ToHtml()
 
 NeoBundleCheck
 "}}}
-
