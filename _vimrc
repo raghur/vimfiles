@@ -783,7 +783,7 @@ function! ToHtml()
     let file=expand("%:p")
     let outfile=fnamemodify(file, ":r") . ".html"
     let css=fnamemodify(file, ":h") . "pandoc.css"
-    exec "silent !pandoc --toc -c ". css . "  -fmarkdown_github+footnotes+implicit_header_references+auto_identifiers -i " . file . " -o " . outfile
+    exec "silent !pandoc --toc -c ". css . "  -fmarkdown_github+footnotes+implicit_header_references+auto_identifiers+superscript+subscript+fancy_lists+startnum+strikeout -i " . file . " -o " . outfile
     echom "wrote" . " " . outfile
     call openbrowser#open("file:///".substitute(outfile, "\\", "/", "g"))
 endfunction
