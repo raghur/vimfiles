@@ -278,12 +278,12 @@ function! Multiple_cursors_after()
   endif
 endfunction
 
-NeoBundle 'marijnh/tern_for_vim', {
-\            'lazy':1,
-\            'autoload': {
-\              'filetypes' : ['javascript']
-\           }
-\}
+"NeoBundle 'marijnh/tern_for_vim', {
+"\            'lazy':1,
+"\            'autoload': {
+"\              'filetypes' : ['javascript']
+"\           }
+"\}
 
 if has('python') || has('python3')
     NeoBundle 'SirVer/ultisnips'
