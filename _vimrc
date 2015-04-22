@@ -118,7 +118,7 @@ if &t_Co > 2 || has("gui_running")
     set hlsearch
 endif
 
-set foldmethod=syntax
+set foldmethod=indent
 set foldopen=block,hor,mark,percent,quickfix,search,tag,undo,jump
 set foldnestmax=5
 set foldminlines=4
