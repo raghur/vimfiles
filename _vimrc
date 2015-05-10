@@ -216,20 +216,16 @@ nnoremap <leader>bd :bd<cr>
 nnoremap <leader>d :bd!<cr>
 nnoremap <leader>m :CtrlPMixed<cr>
 nnoremap <leader>r :CtrlPMRUFiles<cr>
+nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader><Space> :CtrlP<cr>
-"nnoremap <leader>b :CtrlPBuffer<cr>
 "nnoremap <leader>q :CtrlPQuickfix<cr>
 nnoremap <leader>q :wq<cr>
 nnoremap <leader>w :w<cr>
 nnoremap <leader>o :on<cr>
 nnoremap <leader>. @:
 nnoremap <leader><Space> :CtrlP<cr>
-nnoremap <leader>n :cnext<cr>
-nnoremap <leader>p :cprev<cr>
-nnoremap <leader>ln :lnext<cr>
-nnoremap <leader>lp :lprev<cr>
-nnoremap <leader>c :ccl<cr>
-nnoremap <leader>lc :lcl<cr>
+nnoremap <leader>n :call NextErrorOrLocation("next")<cr>
+nnoremap <leader>p :call NextErrorOrLocation("prev")<cr>
 nmap <leader>gf :CtrlP<CR><C-\>w
 "}}}
 
@@ -783,5 +779,30 @@ function! ToHtml()
 endfunction
 command! ToHtml call ToHtml()
 
+function! NextErrorOrLocation(dir)
+    let old_last_winnr = winnr('$')
+    lclose
+    let cmd=""
+    if old_last_winnr != winnr('$')
+        lopen
+        let cmd=":l".a:dir
+    endif
+
+    cclose
+    if old_last_winnr != winnr('$')
+        copen
+        let cmd=":c".a:dir
+    endif
+    if cmd != ""
+        try
+            exec cmd
+        catch "E553"
+            :exe old_last_winnr . "wincmd w"
+            echom "No more items"
+        endtry
+    else
+        echom "No location or error list"
+    endif
+endfunction
 NeoBundleCheck
 "}}}
