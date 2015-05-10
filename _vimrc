@@ -296,8 +296,8 @@ let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_auto_loc_list = 1
 nnoremap <F4> :w\|SyntasticCheck<cr>
 let g:syntastic_mode_map = { 'mode': 'passive',
-            \ 'active_filetypes': ['python', 'json'],
-            \ 'passive_filetypes': ['javascript'] }
+            \ 'active_filetypes': ['python', 'json', 'javascript'],
+            \ 'passive_filetypes': [] }
 
 NeoBundle 'kchmck/vim-coffee-script'
 " colorscheme bundles and repos
