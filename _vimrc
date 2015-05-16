@@ -1,5 +1,10 @@
 " vim: fdm=marker:
 " Options {{{
+if has('nvim')
+    let g:home="~/.nvim/"
+else 
+    let g:home="~/.vim/"
+endif
 set showmode
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -20,7 +25,7 @@ set guioptions-=r
 set guioptions+=R
 set timeout timeoutlen=1000 ttimeoutlen=100
 set undofile
-set undodir=~/.vim/.vimbackups/.undo
+exec("set undodir=".g:home.".vimbackups/.undo")
 set undolevels=1000
 " required for yankstack
 set winaltkeys=no
@@ -30,8 +35,8 @@ if has('mouse')
 endif
 " Backup Options {{{
 set backup        " keep a backup file
-set backupdir=~/.vim/.vimbackups/.backup " avoids messing up folders with *.swp and file~ backups
-set directory=~/.vim/.vimbackups/.swap
+exec("set backupdir=".g:home.".vimbackups/.backup")
+exec("set directory=".g:home.".vimbackups/.swap")
 "}}}
 set switchbuf=usetab
 set matchpairs+=<:>
@@ -161,9 +166,9 @@ endif
 
 " Plugin Bundles and config {{{
 filetype off
-set rtp^=~/.vim
-set rtp+=~/.vim/bundle/neobundle.vim/
-call neobundle#begin(expand('~/.vim/bundle/'))
+exec("set rtp^=".g:home)
+exec("set rtp+=".g:home."bundle/neobundle.vim/")
+call neobundle#begin(expand(g:home.'bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'kshenoy/vim-signature'
@@ -210,26 +215,22 @@ let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|pyc)$'
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_use_caching = 1
 let g:ctrlp_clear_cache_on_exit = 1
-let g:ctrlp_cache_dir = $HOME.'/.vim/.vimbackups/ctrlp'
+let g:ctrlp_cache_dir = expand(g:home.".vimbackups/ctrlp")
 
 nnoremap <leader>bd :bd<cr>
 nnoremap <leader>d :bd!<cr>
 nnoremap <leader>m :CtrlPMixed<cr>
 nnoremap <leader>r :CtrlPMRUFiles<cr>
+nnoremap <leader>b :CtrlPBuffer<cr>
 nnoremap <leader><Space> :CtrlP<cr>
-"nnoremap <leader>b :CtrlPBuffer<cr>
 "nnoremap <leader>q :CtrlPQuickfix<cr>
 nnoremap <leader>q :wq<cr>
 nnoremap <leader>w :w<cr>
 nnoremap <leader>o :on<cr>
 nnoremap <leader>. @:
 nnoremap <leader><Space> :CtrlP<cr>
-nnoremap <leader>n :cnext<cr>
-nnoremap <leader>p :cprev<cr>
-nnoremap <leader>ln :lnext<cr>
-nnoremap <leader>lp :lprev<cr>
-nnoremap <leader>c :ccl<cr>
-nnoremap <leader>lc :lcl<cr>
+nnoremap <leader>n :call NextErrorOrLocation("next")<cr>
+nnoremap <leader>p :call NextErrorOrLocation("prev")<cr>
 nmap <leader>gf :CtrlP<CR><C-\>w
 "}}}
 
@@ -289,7 +290,7 @@ if has('python') || has('python3')
     NeoBundle 'SirVer/ultisnips'
     NeoBundle 'honza/vim-snippets'
     "let g:UltiSnipsUsePythonVersion=2
-    let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
+    let g:UltiSnipsSnippetsDir=g:home."UltiSnips"
     let g:UltiSnipsExpandTrigger="<c-cr>"
     let g:UltiSnipsListSnippets="<c-tab>"
 endif
@@ -300,8 +301,8 @@ let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_auto_loc_list = 1
 nnoremap <F4> :w\|SyntasticCheck<cr>
 let g:syntastic_mode_map = { 'mode': 'passive',
-            \ 'active_filetypes': ['python', 'json'],
-            \ 'passive_filetypes': ['javascript'] }
+            \ 'active_filetypes': ['python', 'json', 'javascript'],
+            \ 'passive_filetypes': [] }
 
 NeoBundle 'kchmck/vim-coffee-script'
 " colorscheme bundles and repos
@@ -372,7 +373,7 @@ if has('lua')
     " Use neocomplete.
     let g:neocomplete#use_vimproc = 1
     let g:neocomplete#enable_at_startup = 1
-    so ~/.vim/neocomplete-custom.vim
+    exec("so ".g:home."neocomplete-custom.vim")
 endif
 let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
 NeoBundle 'maxbrunsfeld/vim-yankstack'
@@ -452,9 +453,9 @@ endif
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'xolox/vim-session'
 if (has('win32unix'))
-    let g:session_directory="~/.vim/.vimbackups/.cygsessions"
+    let g:session_directory=g:home.".vimbackups/.cygsessions"
 else
-    let g:session_directory="~/.vim/.vimbackups/.sessions"
+    let g:session_directory=g:home.".vimbackups/.sessions"
 endif
 let g:session_command_aliases = 1
 let g:session_autosave='yes'
@@ -593,7 +594,7 @@ map <F7> :call FormatFile() <cr>
 
 " File search {{{
 let s:ackopts='\ -a\ --no-group\ -Hi '
-let s:grepopts='\ --exclude-dir=packages\ --exclude-dir=.git\ --exclude-dir=.svn\ --exclude-dir=tmp\ --exclude=*.intellisense.js\ --exclude=*-vsdoc.js\ --exclude=*.tmp\ --exclude=*.min.js\ -PHIirn\ $*'
+let s:grepopts='\ --exclude-dir=packages\ --exclude-dir=.git\ --exclude-dir=.svn\ --exclude-dir=tmp\ --exclude=*.intellisense.js\ --exclude=*-vsdoc.js\ --exclude=*.tmp\ --exclude=*.js.map\ --exclude=*.min.js\ -PHIirn\ $*'
 if has('win32')
     set nossl
     let s:ack="f:/utils/ack.bat"
@@ -783,5 +784,30 @@ function! ToHtml()
 endfunction
 command! ToHtml call ToHtml()
 
+function! NextErrorOrLocation(dir)
+    let old_last_winnr = winnr('$')
+    lclose
+    let cmd=""
+    if old_last_winnr != winnr('$')
+        lopen
+        let cmd=":l".a:dir
+    endif
+
+    cclose
+    if old_last_winnr != winnr('$')
+        copen
+        let cmd=":c".a:dir
+    endif
+    if cmd != ""
+        try
+            exec cmd
+        catch "E553"
+            :exe old_last_winnr . "wincmd w"
+            echom "No more items"
+        endtry
+    else
+        echom "No location or error list"
+    endif
+endfunction
 NeoBundleCheck
 "}}}

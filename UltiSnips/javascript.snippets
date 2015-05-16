@@ -1,3 +1,33 @@
+snippet comp "Define a react component" !b
+module.exports = $1 = React.createClass({
+	render: function(){
+		return <p>A simple component</p>
+	}
+});
+endsnippet
+
+snippet react_componentWillUpdate "" !b
+componentWillUpdate: function(nextProps, nextState){
+	$0
+}
+endsnippet
+
+snippet react_componentWillUnmount "" !b
+componentWillUnmount: function(nextProps, nextState){
+	$0
+}
+endsnippet
+
+snippet req "require a module" !b
+var $1=require("$0");
+endsnippet
+
+snippet fn "define a function" !b
+function ${1:name}(${2:arg}) {
+	${3}
+}
+endsnippet
+
 snippet class "Define a class in javascript" !b
 function ${1:TheClassName}(${2:args}) {
 	var self = this;
