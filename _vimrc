@@ -192,46 +192,92 @@ NeoBundle 'raghur/vim-helpnav', {
     \   }}
 
 NeoBundle 'vim-scripts/L9'
+NeoBundle 'shougo/unite.vim'
+let bundle = neobundle#get('unite.vim')
+function! bundle.hooks.on_source(bundle)
+    call unite#filters#matcher_default#use(['matcher_fuzzy'])
+    call unite#filters#sorter_default#use(['sorter_rank'])
+    call unite#custom#profile('default', 'context', {
+                \ 'start_insert': 1,
+                \ 'prompt': "⮁⮁⮁ ",
+                \ 'prompt-visible': 1
+                \ })
+endfunction
+let g:unite_data_directory = g:home.".vimbackups/unite"
+let g:unite_source_history_yank_enable=1
+let g:unite_source_rec_max_cache_files=5000
+let s:unite_ignores = [
+  \ '\.git', 'deploy', 'dist',
+  \ 'undo', 'tmp', 'backups',
+  \ 'generated', 'build', 'images', 'node_modules']
+if executable('ag')
+    let g:unite_source_grep_command='ag'
+    let g:unite_source_grep_default_opts='--nocolor --line-numbers --nogroup -S -C4'
+    let g:unite_source_grep_recursive_opt=''
+    let g:unite_source_rec_async_command=
+                \   'ag --nocolor --nogroup --ignore ".hg"'.
+                \   ' --ignore ".svn" --ignore ".git"'.
+                \   ' --ignore ".bzr" --hidden -g ""'
+endif
+function! s:unite_settings()
+    nmap <buffer> Q <plug>(unite_exit)
+    nmap <buffer> <esc> <plug>(unite_exit)
+    imap <buffer> <esc> <plug>(unite_exit)
+    nmap <buffer> <F5> <plug>(unite_redraw)
+    imap <buffer> <F5> <plug>(unite_redraw)
+    inoremap <silent><buffer><expr> <C-s>     unite#do_action('split')
+    inoremap <silent><buffer><expr> <C-v>     unite#do_action('right')
+endfunction
+autocmd FileType unite call s:unite_settings()
+nnoremap <silent> <leader><space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed file_mru file_rec/async:! buffer bookmark<cr><c-u>
+nnoremap <silent> <leader>r :<C-u>Unite -buffer-name=recent file_mru<cr>
+nnoremap <silent> <leader>y :<C-u>Unite -buffer-name=yanks history/yank<cr>
+nnoremap <silent> <leader>j :<C-u>Unite -buffer-name=jumps jump change<cr>
+nnoremap <silent> <leader>l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
+nnoremap <silent> <leader>b :<C-u>Unite -auto-resize -buffer-name=buffers buffer file_mru<cr>
+nnoremap <silent> <leader>/ :<C-u>Unite -no-quit -buffer-name=search grep:.<cr>
+nnoremap <silent> <leader>m :<C-u>Unite -auto-resize -buffer-name=mappings mapping<cr>
+nnoremap <silent> <leader>s :<C-u>Unite -quick-match buffer<cr>
+NeoBundleLazy 'Shougo/neomru.vim', {'autoload':{'unite_sources':'file_mru'}}
 " CtrlP{{{
-NeoBundle 'kien/ctrlp.vim', {
-    \ 'lazy': 1,
-    \ 'depends': 'FelikZ/ctrlp-py-matcher',
-    \ 'autoload': {
-    \       'commands': ['CtrlP', 'CtrlPMixed', 'CtrlPMRUFiles', 'CtrlPQuickfix', 'CtrlPBuffer']
-    \   }
-    \}
-"let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-let g:ctrlp_match_window_bottom = 0
-let g:ctrlp_match_window_reversed = 0
-let g:ctrlp_max_height = 10
-let g:ctrlp_tabpage_position = 'al'
-let g:ctrlp_open_multi = '1t'
-let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir']
-let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_cache_dir = $HOME.'/.ctrlp_cache'
-let g:ctrlp_mruf_exclude = '\(.*\\dev\\shm\\pass\..*\)|\(.*\\.git\COMMIT_EDITMSG\)' " Windows
-let g:ctrlp_mruf_case_sensitive = 0
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|pyc)$'
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_use_caching = 1
-let g:ctrlp_clear_cache_on_exit = 1
-let g:ctrlp_cache_dir = expand(g:home.".vimbackups/ctrlp")
+"NeoBundle 'kien/ctrlp.vim', {
+    "\ 'lazy': 1,
+    "\ 'depends': 'FelikZ/ctrlp-py-matcher',
+    "\ 'autoload': {
+    "\       'commands': ['CtrlP', 'CtrlPMixed', 'CtrlPMRUFiles', 'CtrlPQuickfix', 'CtrlPBuffer']
+    "\   }
+    "\}
+""let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
+"let g:ctrlp_match_window_bottom = 0
+"let g:ctrlp_match_window_reversed = 0
+"let g:ctrlp_max_height = 10
+"let g:ctrlp_tabpage_position = 'al'
+"let g:ctrlp_open_multi = '1t'
+"let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir']
+"let g:ctrlp_clear_cache_on_exit = 0
+"let g:ctrlp_cache_dir = $HOME.'/.ctrlp_cache'
+"let g:ctrlp_mruf_exclude = '\(.*\\dev\\shm\\pass\..*\)|\(.*\\.git\COMMIT_EDITMSG\)' " Windows
+"let g:ctrlp_mruf_case_sensitive = 0
+"let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|pyc)$'
+"let g:ctrlp_working_path_mode = 'ra'
+"let g:ctrlp_use_caching = 1
+"let g:ctrlp_clear_cache_on_exit = 1
+"let g:ctrlp_cache_dir = expand(g:home.".vimbackups/ctrlp")
+"nnoremap <leader>m :CtrlPMixed<cr>
+"nnoremap <leader>r :CtrlPMRUFiles<cr>
+"nnoremap <leader>b :CtrlPBuffer<cr>
+"nnoremap <leader><Space> :CtrlP<cr>
+"nnoremap <leader>q :CtrlPQuickfix<cr>
+"nnoremap <leader>gf :CtrlP<CR><C-\>w
 
 nnoremap <leader>bd :bd<cr>
 nnoremap <leader>d :bd!<cr>
-nnoremap <leader>m :CtrlPMixed<cr>
-nnoremap <leader>r :CtrlPMRUFiles<cr>
-nnoremap <leader>b :CtrlPBuffer<cr>
-nnoremap <leader><Space> :CtrlP<cr>
-"nnoremap <leader>q :CtrlPQuickfix<cr>
 nnoremap <leader>q :wq<cr>
 nnoremap <leader>w :w<cr>
 nnoremap <leader>o :on<cr>
 nnoremap <leader>. @:
-nnoremap <leader><Space> :CtrlP<cr>
 nnoremap <leader>n :call NextErrorOrLocation("next")<cr>
 nnoremap <leader>p :call NextErrorOrLocation("prev")<cr>
-nmap <leader>gf :CtrlP<CR><C-\>w
 "}}}
 
 NeoBundle 'vim-pandoc/vim-pandoc'
