@@ -1,10 +1,6 @@
 " vim: fdm=marker:
 " Options {{{
-if has('nvim')
-    let g:home="~/.nvim/"
-else 
-    let g:home="~/.vim/"
-endif
+let g:home=expand('<sfile>:p:h')."/"
 set showmode
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
