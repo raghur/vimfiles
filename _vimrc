@@ -171,8 +171,6 @@ call neobundle#begin(expand(g:home.'bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'kshenoy/vim-signature'
-nnoremap <leader>[ :call signature#GotoMark( "prev", "line", "alpha" )<CR>
-nnoremap <leader>] :call signature#GotoMark( "next", "line", "alpha" )<CR>
 NeoBundle 'jamessan/vim-gnupg', {
     \   'lazy': 1,
     \   'autoload': {
