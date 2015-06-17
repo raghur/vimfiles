@@ -12,6 +12,7 @@ set nocursorcolumn     " display incomplete commands
 set incsearch       " do incremental searching
 set encoding=utf-8
 set hidden
+set re=2    " use the new NFA engine
 set wildchar=<Tab> wildmenu
 set wildmode=longest,list
 set pastetoggle=<F11>
@@ -119,6 +120,8 @@ if &t_Co > 2 || has("gui_running")
     set hlsearch
 endif
 
+syntax sync minlines=256
+set synmaxcol=300
 set foldmethod=indent
 set foldopen=block,hor,mark,percent,quickfix,search,tag,undo,jump
 set foldnestmax=5
