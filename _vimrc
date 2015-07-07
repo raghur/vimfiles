@@ -17,6 +17,7 @@ set nocursorcolumn     " display incomplete commands
 set incsearch       " do incremental searching
 set encoding=utf-8
 set hidden
+map <space> <leader>
 set re=2    " use the new NFA engine
 set wildchar=<Tab> wildmenu
 set wildmode=longest,list
@@ -137,7 +138,6 @@ set foldnestmax=5
 set foldminlines=4
 "set relativenumber
 set nu
-map <space> <leader>
 " replace all instances in a line.
 set gdefault
 set colorcolumn=120
