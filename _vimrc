@@ -126,7 +126,7 @@ set foldmethod=indent
 set foldopen=block,hor,mark,percent,quickfix,search,tag,undo,jump
 set foldnestmax=5
 set foldminlines=4
-set relativenumber
+"set relativenumber
 set nu
 map <space> <leader>
 " replace all instances in a line.
