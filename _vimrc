@@ -238,7 +238,7 @@ function! s:unite_settings()
     inoremap <silent><buffer><expr> <C-v>     unite#do_action('right')
 endfunction
 autocmd FileType unite call s:unite_settings()
-nnoremap <silent> <leader><space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed file_mru file_rec/async:! buffer bookmark<cr><c-u>
+nnoremap <silent> <leader><space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed file_rec/async:! file_mru  buffer <cr><c-u>
 nnoremap <silent> <leader>r :<C-u>Unite -buffer-name=recent file_mru<cr>
 nnoremap <silent> <leader>y :<C-u>Unite -buffer-name=yanks history/yank<cr>
 nnoremap <silent> <leader>j :<C-u>Unite -buffer-name=jumps jump change<cr>
