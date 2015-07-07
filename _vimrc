@@ -419,6 +419,7 @@ NeoBundle 'tpope/vim-markdown', {
     \   }}
 
 NeoBundle 'airblade/vim-rooter'
+let g:rooter_silent_chdir = 1
 
 "neocomplete
 " run: nmake -f Make_msvc.mak nodebug=1
