@@ -1,6 +1,11 @@
 " vim: fdm=marker:
 " Options {{{
 let g:home=expand('<sfile>:p:h')."/"
+fun! s:createIfNotExists(dir)
+    if !isdirectory(a:dir)
+        call mkdir(a:dir, "p")
+    endif
+endfunction
 set showmode
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -22,6 +27,7 @@ set guioptions-=r
 set guioptions+=R
 set timeout timeoutlen=1000 ttimeoutlen=100
 set undofile
+call s:createIfNotExists(g:home.".vimbackups/.undo")
 exec("set undodir=".g:home.".vimbackups/.undo")
 set undolevels=1000
 " required for yankstack
@@ -32,7 +38,10 @@ if has('mouse')
 endif
 " Backup Options {{{
 set backup        " keep a backup file
+
+call s:createIfNotExists(g:home.".vimbackups/.backup")
 exec("set backupdir=".g:home.".vimbackups/.backup")
+call s:createIfNotExists(g:home.".vimbackups/.swap")
 exec("set directory=".g:home.".vimbackups/.swap")
 "}}}
 set switchbuf=usetab
