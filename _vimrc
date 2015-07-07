@@ -183,6 +183,9 @@ call neobundle#begin(expand(g:home.'bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'kshenoy/vim-signature'
+nnoremap <S-F2>  :<C-U>call signature#mark#Goto("prev", "spot", "pos") <CR> \| zz
+nnoremap <F2>  :<C-U>call signature#mark#Goto("next", "spot", "pos") <CR> \| zz
+
 NeoBundle 'jamessan/vim-gnupg', {
     \   'lazy': 1,
     \   'autoload': {
@@ -285,6 +288,7 @@ nnoremap <leader>q :wq<cr>
 nnoremap <leader>w :w<cr>
 nnoremap <leader>o :on<cr>
 nnoremap <leader>. @:
+nnoremap <leader>a :b#<cr>
 nnoremap <leader>n :call NextErrorOrLocation("next")<cr>
 nnoremap <leader>p :call NextErrorOrLocation("prev")<cr>
 "}}}
