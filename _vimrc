@@ -175,6 +175,9 @@ endif
 " Plugin Bundles and config {{{
 filetype off
 exec("set rtp^=".g:home)
+if !isdirectory(g:home."bundle/neobundle.vim") 
+    silent exec "!git clone https://github.com/shougo/neobundle.vim"." ".g:home."bundle/neobundle.vim"
+endif
 exec("set rtp+=".g:home."bundle/neobundle.vim/")
 call neobundle#begin(expand(g:home.'bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
