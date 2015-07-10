@@ -452,14 +452,14 @@ omap f <Plug>Sneak_f
 omap F <Plug>Sneak_F
 let g:sneak#s_next = 0
 
-"let g:stopFirstAndNotifyTimeoutLen = 0
-"let g:EnhancedJumps_CaptureJumpMessages = 0
-"NeoBundle 'vim-scripts/EnhancedJumps', {
-    "\   'depends': 'vim-scripts/ingo-library'
-    "\   }
-"nmap <backspace> <Plug>EnhancedJumpsOlder
-"nmap <C-backspace> <Plug>EnhancedJumpsRemoteOlder
-"nmap <C-tab> <Plug>EnhancedJumpsRemoteNewer
+let g:stopFirstAndNotifyTimeoutLen = 0
+let g:EnhancedJumps_CaptureJumpMessages = 0
+NeoBundle 'vim-scripts/EnhancedJumps', {
+    \   'depends': 'vim-scripts/ingo-library'
+    \   }
+nmap <backspace> <Plug>EnhancedJumpsOlder
+nmap <C-backspace> <Plug>EnhancedJumpsRemoteOlder
+nmap <C-tab> <Plug>EnhancedJumpsRemoteNewer
 nnoremap <backspace>    g;
 nnoremap <tab>    g,
 
