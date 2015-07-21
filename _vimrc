@@ -39,7 +39,6 @@ if has('mouse')
 endif
 " Backup Options {{{
 set backup        " keep a backup file
-
 call s:createIfNotExists(g:home.".vimbackups/.backup")
 exec("set backupdir=".g:home.".vimbackups/.backup")
 call s:createIfNotExists(g:home.".vimbackups/.swap")
@@ -136,7 +135,7 @@ set foldmethod=indent
 set foldopen=block,hor,mark,percent,quickfix,search,tag,undo,jump
 set foldnestmax=5
 set foldminlines=4
-"set relativenumber
+set relativenumber
 set nu
 " replace all instances in a line.
 set gdefault
@@ -222,6 +221,7 @@ let s:unite_ignores = [
   \ '\.git', 'deploy', 'dist',
   \ 'undo', 'tmp', 'backups',
   \ 'generated', 'build', 'images', 'node_modules']
+
 if executable('ag')
     let g:unite_source_grep_command='ag'
     let g:unite_source_grep_default_opts='--nocolor --line-numbers --nogroup -S -C4'
@@ -231,6 +231,7 @@ if executable('ag')
                 \   ' --ignore ".svn" --ignore ".git"'.
                 \   ' --ignore ".bzr" --hidden -g ""'
 endif
+
 function! s:unite_settings()
     nmap <buffer> Q <plug>(unite_exit)
     nmap <buffer> <esc> <plug>(unite_exit)
@@ -652,9 +653,18 @@ endfun
 map <F7> :call FormatFile() <cr>
 "}}}
 
-" File search {{{
 let s:ackopts='\ -a\ --no-group\ -Hi '
-let s:grepopts='\ --exclude-dir=packages\ --exclude-dir=.git\ --exclude-dir=.svn\ --exclude-dir=tmp\ --exclude=*.intellisense.js\ --exclude=*-vsdoc.js\ --exclude=*.tmp\ --exclude=*.js.map\ --exclude=*.min.js\ -PHIirn\ $*'
+let s:grepopts='\ --exclude-dir=packages'
+            \ . '\ --exclude-dir=.git'
+            \ . '\ --exclude-dir=.svn'
+            \ . '\ --exclude-dir=tmp'
+            \ . '\ --exclude=*.intellisense.js'
+            \ . '\ --exclude=*-vsdoc.js'
+            \ . '\ --exclude=*.tmp'
+            \ . '\ --exclude=*.js.map'
+            \ . '\ --exclude=*.min.js'
+            \ . '\ -PHIirn\ $*'
+" File search {{{
 if has('win32')
     set nossl
     let s:ack="f:/utils/ack.bat"
@@ -669,7 +679,6 @@ endif
 " The Silver Searcher
 if executable('ag')
   " Use ag over grep
-  set grepprg=ag\ --nogroup\ --nocolor
   let s:grep='ag'
   let s:grepopts='\ --nogroup\ --nocolor'
 
