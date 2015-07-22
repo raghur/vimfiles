@@ -248,7 +248,7 @@ nnoremap <silent> <leader>y :<C-u>Unite -buffer-name=yanks history/yank<cr>
 nnoremap <silent> <leader>j :<C-u>Unite -buffer-name=jumps jump change<cr>
 nnoremap <silent> <leader>l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
 nnoremap <silent> <leader>b :<C-u>Unite -auto-resize -buffer-name=buffers buffer file_mru<cr>
-nnoremap <silent> <leader>/ :<C-u>Unite -no-quit -buffer-name=search grep:.<cr>
+"nnoremap <silent> <leader>/ :<C-u>Unite -no-quit -buffer-name=search grep:.<cr>
 nnoremap <silent> <leader>m :<C-u>Unite -auto-resize -buffer-name=mappings mapping<cr>
 nnoremap <silent> <leader>s :<C-u>Unite -quick-match buffer<cr>
 NeoBundleLazy 'Shougo/neomru.vim', {'autoload':{'unite_sources':'file_mru'}}
@@ -731,17 +731,17 @@ vnoremap <script> <leader>* <Esc>:vimgrep /<C-R><C-R>=<SID>get_visual_selection(
 
 " vimgrep - fast but external
 " project root
-nnoremap <expr><leader>f Grep_with_args("\\b".expand("<cword>")."\\b", "")
-vnoremap <script><leader>f <Esc>:silent grep
+nnoremap <expr><leader>/ Grep_with_args("\\b".expand("<cword>")."\\b", "")
+vnoremap <script><leader>/ <Esc>:silent grep
                             \ "<C-R><C-R>=<SID>get_visual_selection()<CR>"
                             \ * \|copen
                              "\ <C-R><C-R>=Get_grep_include_opt(" --include=*.")<CR>
-" down current folder
-nnoremap <expr><leader>fd Grep_with_args("\\b".expand("<cword>")."\\b", expand("%:p:h"))
-vnoremap <script><leader>fd <Esc>:silent grep
-                            \ "<C-R><C-R>=<SID>get_visual_selection()<CR>"
-                            \ <C-R><C-R>=expand("%:p:h")<CR>\* \|copen
-                             "\ <C-R><C-R>=Get_grep_include_opt(" --include=*.")<CR>
+"" down current folder
+"nnoremap <expr><leader>fd Grep_with_args("\\b".expand("<cword>")."\\b", expand("%:p:h"))
+"vnoremap <script><leader>fd <Esc>:silent grep
+                            "\ "<C-R><C-R>=<SID>get_visual_selection()<CR>"
+                            "\ <C-R><C-R>=expand("%:p:h")<CR>\* \|copen
+                             ""\ <C-R><C-R>=Get_grep_include_opt(" --include=*.")<CR>
 "}}}
 
 " Cycle colors
