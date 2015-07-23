@@ -479,11 +479,11 @@ NeoBundle 'nvie/vim-flake8', {
     \       'filetypes' : ['python']
     \   }}
 
-NeoBundle 'nvie/vim-pyunit', {
-    \   'lazy': 1,
-    \   'autoload': {
-    \       'filetypes' : ['python']
-    \   }}
+"NeoBundle 'nvie/vim-pyunit', {
+    "\   'lazy': 1,
+    "\   'autoload': {
+    "\       'filetypes' : ['python']
+    "\   }}
 
 NeoBundle 'klen/python-mode', {
     \   'lazy': 1,
