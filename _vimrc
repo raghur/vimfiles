@@ -63,9 +63,9 @@ set listchars=tab:».,trail:░,extends:→,nbsp:.
 
 " ConEmu
 if !empty($CONEMUBUILD)
-    echom "Running in conemu"
     set termencoding=utf8
     set term=xterm
+    set t_Co=256
     let &t_AB="\e[48;5;%dm"
     let &t_AF="\e[38;5;%dm"
     " messses with console vim - extra q characters
@@ -75,6 +75,7 @@ if !empty($CONEMUBUILD)
     "let &t_SI="\e[5 q"
     "let &t_EI="\e[1 q"
     "let &t_te="\e[0 q"
+    "echom "Running in conemu"
 endif
 
 " tmux and otherwise
@@ -174,7 +175,7 @@ endif
 " Plugin Bundles and config {{{
 filetype off
 exec("set rtp^=".g:home)
-if !isdirectory(g:home."bundle/neobundle.vim") 
+if !isdirectory(g:home."bundle/neobundle.vim")
     silent exec "!git clone https://github.com/shougo/neobundle.vim"." ".g:home."bundle/neobundle.vim"
 endif
 exec("set rtp+=".g:home."bundle/neobundle.vim/")
@@ -628,7 +629,7 @@ let g:formatprg_xml="xmllint"
 let g:formatprg_args_xml=" --format --recover - 2>/dev/null"
 
 " Windows specific {{{
-if (has('win32'))
+if empty($CONEMUBUILD) && (has('win32') || has('win64'))
     set renderoptions=type:directx,gamma:1.0,contrast:0.2,level:1.0,geom:1,renmode:5,taamode:1
     let g:formatprg_cs=fnamemodify(findfile(g:formatprg_cs . ".exe", $GNUWIN."/**3"), ":p")
     let g:formatprg_html=fnamemodify(findfile(g:formatprg_html . ".exe", $GNUWIN."/**3"), ":p")
@@ -664,8 +665,8 @@ let s:grepopts='\ --exclude-dir=packages'
             \ . '\ --exclude=*.js.map'
             \ . '\ --exclude=*.min.js'
             \ . '\ -PHIirn\ $*'
-" File search {{{
-if has('win32')
+"File search {{{
+if empty($CONEMUBUILD) && (has('win32') || has('win64'))
     set nossl
     let s:ack="f:/utils/ack.bat"
     let s:find=fnamemodify(findfile("find.exe", $GNUWIN."**"), ":p")
