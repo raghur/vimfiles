@@ -63,6 +63,10 @@ set listchars=tab:».,trail:░,extends:→,nbsp:.
 
 " ConEmu
 if !empty($CONEMUBUILD)
+    imap <ESC>oA <ESC>ki
+    imap <ESC>oB <ESC>ji
+    imap <ESC>oC <ESC>li
+    imap <ESC>oD <ESC>hi
     set termencoding=utf8
     set term=xterm
     set t_Co=256
