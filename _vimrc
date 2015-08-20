@@ -209,6 +209,7 @@ NeoBundle 'raghur/vim-helpnav', {
 
 NeoBundle 'vim-scripts/L9'
 NeoBundle 'shougo/unite.vim'
+NeoBundle 'Shougo/neomru.vim'
 let bundle = neobundle#get('unite.vim')
 function! bundle.hooks.on_source(bundle)
     call unite#filters#matcher_default#use(['matcher_fuzzy'])
@@ -247,7 +248,7 @@ function! s:unite_settings()
     inoremap <silent><buffer><expr> <C-v>     unite#do_action('right')
 endfunction
 autocmd FileType unite call s:unite_settings()
-nnoremap <silent> <leader><space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed file_rec/async:! file_mru  buffer <cr><c-u>
+nnoremap <silent> <leader><space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed file_rec/async:! neomru/file  buffer <cr><c-u>
 nnoremap <silent> <leader>r :<C-u>Unite -buffer-name=recent file_mru<cr>
 nnoremap <silent> <leader>y :<C-u>Unite -buffer-name=yanks history/yank<cr>
 nnoremap <silent> <leader>j :<C-u>Unite -buffer-name=jumps jump change<cr>
@@ -256,7 +257,6 @@ nnoremap <silent> <leader>b :<C-u>Unite -auto-resize -buffer-name=buffers buffer
 "nnoremap <silent> <leader>/ :<C-u>Unite -no-quit -buffer-name=search grep:.<cr>
 nnoremap <silent> <leader>m :<C-u>Unite -auto-resize -buffer-name=mappings mapping<cr>
 nnoremap <silent> <leader>s :<C-u>Unite -quick-match buffer<cr>
-NeoBundleLazy 'Shougo/neomru.vim', {'autoload':{'unite_sources':'file_mru'}}
 " CtrlP{{{
 "NeoBundle 'kien/ctrlp.vim', {
     "\ 'lazy': 1,
