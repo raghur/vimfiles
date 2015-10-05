@@ -232,10 +232,9 @@ if executable('ag')
     let g:unite_source_grep_command='ag'
     let g:unite_source_grep_default_opts='--nocolor --line-numbers --nogroup -S -C4'
     let g:unite_source_grep_recursive_opt=''
-    let g:unite_source_rec_async_command=
-                \   'ag --nocolor --nogroup --ignore ".hg"'.
-                \   ' --ignore ".svn" --ignore ".git"'.
-                \   ' --ignore ".bzr" --hidden -g ""'
+    " Using ag as recursive command.
+    let g:unite_source_rec_async_command = ['ag', '--follow', '--nocolor', '--nogroup',
+                                                \  '--hidden', '-g', '']
 endif
 
 function! s:unite_settings()
@@ -249,6 +248,7 @@ function! s:unite_settings()
 endfunction
 autocmd FileType unite call s:unite_settings()
 nnoremap <silent> <leader><space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed file_rec/async:! neomru/file  buffer <cr><c-u>
+nnoremap <silent> <leader>f :<C-u>Unite -toggle -auto-resize -buffer-name=file file_rec/async:! <cr><c-u>
 nnoremap <silent> <leader>r :<C-u>Unite -buffer-name=recent file_mru<cr>
 nnoremap <silent> <leader>y :<C-u>Unite -buffer-name=yanks history/yank<cr>
 nnoremap <silent> <leader>j :<C-u>Unite -buffer-name=jumps jump change<cr>
