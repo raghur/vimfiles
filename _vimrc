@@ -139,7 +139,7 @@ set synmaxcol=300
 set foldmethod=indent
 set foldopen=block,hor,mark,percent,quickfix,search,tag,undo,jump
 set foldnestmax=5
-set foldminlines=4
+set foldminlines=2
 set relativenumber
 set nu
 " replace all instances in a line.
