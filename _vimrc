@@ -168,8 +168,8 @@ if has('win32')
     let g:fonts='Ubuntu_Mono_derivative_Powerlin:h13,Source_Code_Pro_Light:h11,Powerline_Consolas:h11,DejaVu Sans Mono For Powerline:h11,PragmataPro_Mono:h11'
     set guifont=PragmataPro_Mono:h11
 else
-    let g:fonts="Meslo\ LG\ S\ for\ Powerline\ 12,Monaco\ for\ Powerline\ 12,Pragmata\ Pro\ 13,Source\ Code\ Pro\ for\ Powerline\ 12,DejaVu\ Sans\ Mono\ for\ Powerline\ 12,Monospace\ 10,Ubuntu\ Mono\ 11"
-    set guifont=Pragmata\ Pro\ 13
+    let g:fonts="Meslo\ LG\ S\ for\ Powerline\ 12,Monaco\ for\ Powerline\ 12,PragmataPro\ Mono\ 13,Source\ Code\ Pro\ for\ Powerline\ 12,DejaVu\ Sans\ Mono\ for\ Powerline\ 12,Monospace\ 10,Ubuntu\ Mono\ 11"
+    set guifont=PragmataPro\ Mono\ 13
     let g:GPGExecutable="gpg2"
     let g:GPGUseAgent = 1
 endif
