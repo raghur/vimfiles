@@ -169,7 +169,7 @@ if has('win32')
     set guifont=PragmataPro_Mono:h11
 else
     let g:fonts="Meslo\ LG\ S\ for\ Powerline\ 12,Monaco\ for\ Powerline\ 12,Pragmata\ Pro\ 13,Source\ Code\ Pro\ for\ Powerline\ 12,DejaVu\ Sans\ Mono\ for\ Powerline\ 12,Monospace\ 10,Ubuntu\ Mono\ 11"
-    set guifont=Pragmata\ Pro\ 13
+    set guifont=PragmataPro\ Mono\ 11
     let g:GPGExecutable="gpg2"
     let g:GPGUseAgent = 1
 endif
@@ -855,7 +855,16 @@ function! ToHtml()
     let file=expand("%:p")
     let outfile=fnamemodify(file, ":r") . ".html"
     let css=fnamemodify(file, ":h") . "pandoc.css"
-    exec "silent !pandoc --toc -c ". css . "  -fmarkdown_github+footnotes+implicit_header_references+auto_identifiers+superscript+subscript+fancy_lists+startnum+strikeout -i " . file . " -o " . outfile
+    exec "silent !pandoc --toc  -c ". css .
+                \ "  -fmarkdown_github" .
+                \ "+footnotes" .
+                \ "+implicit_header_references".
+                \ "+auto_identifiers".
+                \ "+superscript".
+                \ "+subscript".
+                \ "+fancy_lists".
+                \ "+startnum".
+                \ "+strikeout -i " . file . " -o " . outfile
     echom "wrote" . " " . outfile
     call openbrowser#open("file:///".substitute(outfile, "\\", "/", "g"))
 endfunction
