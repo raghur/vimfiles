@@ -883,11 +883,8 @@ function! NextErrorOrLocation(dir)
     endif
 endfunction
 
-fun! GitEx()
-    let path=expand("%:p")
-    exec "silent !gitex browse " . path
-endfun
-command! Gitex call GitEx()
+command! Gitex exec "silent !gitex browse " . expand("%:p")
+
 
 NeoBundleCheck
 
