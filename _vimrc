@@ -895,5 +895,12 @@ function! NextErrorOrLocation(dir)
         echom "No location or error list"
     endif
 endfunction
+
+fun! GitEx()
+    let path=expand("%:p")
+    exec "silent !gitex browse " . path
+endfun
+command! Gitex call GitEx()
+
 NeoBundleCheck
 "}}}
