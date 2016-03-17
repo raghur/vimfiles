@@ -63,23 +63,10 @@ set listchars=tab:».,trail:░,extends:→,nbsp:.
 
 " ConEmu
 if !empty($CONEMUBUILD)
-    imap <ESC>oA <ESC>ki
-    imap <ESC>oB <ESC>ji
-    imap <ESC>oC <ESC>li
-    imap <ESC>oD <ESC>hi
-    set termencoding=utf8
-    set term=xterm
+    set term=pcansi
     set t_Co=256
     let &t_AB="\e[48;5;%dm"
     let &t_AF="\e[38;5;%dm"
-    " messses with console vim - extra q characters
-    " termcap codes for cursor shape changes on entry and exit to
-    " /from insert mode
-    "let &t_ti="\e[1 q"
-    "let &t_SI="\e[5 q"
-    "let &t_EI="\e[1 q"
-    "let &t_te="\e[0 q"
-    "echom "Running in conemu"
 endif
 
 " tmux and otherwise
@@ -903,4 +890,5 @@ endfun
 command! Gitex call GitEx()
 
 NeoBundleCheck
+
 "}}}
