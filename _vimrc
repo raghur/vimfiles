@@ -345,7 +345,7 @@ if has('python') || has('python3')
     let g:UltiSnipsSnippetsDir=g:home."UltiSnips"
     let g:UltiSnipsExpandTrigger="<c-cr>"
     if !has('gui_running')
-        let g:UltiSnipsExpandTrigger="<c-e>"
+        let g:UltiSnipsExpandTrigger="<c-space>"
     endif
     let g:UltiSnipsListSnippets="<c-tab>"
 endif
