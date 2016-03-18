@@ -288,7 +288,10 @@ nnoremap <leader>p :call NextErrorOrLocation("prev")<cr>
 
 NeoBundle 'vim-pandoc/vim-pandoc'
 NeoBundle 'vim-pandoc/vim-pandoc-syntax'
-let g:pandoc#syntax#codeblocks#embeds#langs = ["ruby","python","bash=sh","coffee", "css", "erb=eruby", "javascript", "js=javascript", "json=javascript", "ruby", "sass", "xml", "html"]
+let g:pandoc#syntax#codeblocks#embeds#langs = ["ruby","python","bash=sh",
+        \ "coffee", "css", "erb=eruby", "javascript",
+        \ "js=javascript", "json=javascript", "ruby",
+        \ "sass", "xml", "html"]
 
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-repeat'
