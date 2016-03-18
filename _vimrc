@@ -316,20 +316,20 @@ NeoBundle 'tyru/open-browser.vim'
 "let g:ycm_auto_stop_csharp_server = 1
 "nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<cr>
 
-NeoBundle 'kristijanhusak/vim-multiple-cursors'
+"NeoBundle 'kristijanhusak/vim-multiple-cursors'
 " Called once right before you start selecting multiple cursors
-function! Multiple_cursors_before()
-  if exists(':NeoCompleteLock')==2
-    exe 'NeoCompleteLock'
-  endif
-endfunction
+"function! Multiple_cursors_before()
+  "if exists(':NeoCompleteLock')==2
+    "exe 'NeoCompleteLock'
+  "endif
+"endfunction
 
 " Called once only when the multiple selection is canceled (default <Esc>)
-function! Multiple_cursors_after()
-  if exists(':NeoCompleteUnlock')==2
-    exe 'NeoCompleteUnlock'
-  endif
-endfunction
+"function! Multiple_cursors_after()
+  "if exists(':NeoCompleteUnlock')==2
+    "exe 'NeoCompleteUnlock'
+  "endif
+"endfunction
 
 "NeoBundle 'marijnh/tern_for_vim', {
 "\            'lazy':1,
