@@ -359,7 +359,7 @@ if has('python') || has('python3')
     "let g:UltiSnipsUsePythonVersion=2
     let g:UltiSnipsSnippetsDir=g:home."UltiSnips"
     let g:UltiSnipsExpandTrigger="<c-cr>"
-    if !has('gui_running') 
+    if !has('gui_running')
         let g:UltiSnipsExpandTrigger="<c-e>"
     endif
     let g:UltiSnipsListSnippets="<c-tab>"
@@ -520,6 +520,12 @@ if &term =~ '^screen'
   set <xRight>=\e[1;*C
   set <xLeft>=\e[1;*D
 endif
+
+"set term=ansi
+    "set t_ku=OA
+    "set t_kd=OB
+    "set t_kl=OD
+    "set t_kr=OC
 
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'xolox/vim-session'
