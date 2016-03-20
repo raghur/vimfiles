@@ -402,7 +402,7 @@ NeoBundle 'rstacruz/sparkup', {
 " vim-airline and fonts
 set lazyredraw
 set laststatus=2
-NeoBundle 'bling/vim-airline'
+NeoBundle 'vim-airline/vim-airline'
 " line below has a trailing space.
 NeoBundle 'Lokaltog/powerline-fonts'
 let g:airline_enable_branch=1
