@@ -553,6 +553,7 @@ inoremap <C-U> <C-G>u<C-U>
 let maplocalleader='\'
 " Search customizations
 nnoremap / /\v
+cnoremap %s/ %s/\v
 nnoremap <leader>h  :noh<cr><c-l>
 nnoremap <leader>w  :w<cr>
 nnoremap <leader>fc :lcl <cr>
