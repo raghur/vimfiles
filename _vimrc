@@ -153,8 +153,10 @@ set sessionoptions+=resize,unix,slash,winpos
 set guioptions-=t
 
 set clipboard=unnamed
-if has('unnamedplus')
+if has('unnamedplus') || has('nvim')
     set clipboard=unnamedplus
+    " Neovim-qt Guifont command, to change the font
+    command -nargs=? Guifont call rpcnotify(0, 'Gui', 'SetFont', "<args>")
 endif
 
 " colors
