@@ -63,23 +63,10 @@ set listchars=tab:».,trail:░,extends:→,nbsp:.
 
 " ConEmu
 if !empty($CONEMUBUILD)
-    imap <ESC>oA <ESC>ki
-    imap <ESC>oB <ESC>ji
-    imap <ESC>oC <ESC>li
-    imap <ESC>oD <ESC>hi
-    set termencoding=utf8
-    set term=xterm
+    set term=pcansi
     set t_Co=256
     let &t_AB="\e[48;5;%dm"
     let &t_AF="\e[38;5;%dm"
-    " messses with console vim - extra q characters
-    " termcap codes for cursor shape changes on entry and exit to
-    " /from insert mode
-    "let &t_ti="\e[1 q"
-    "let &t_SI="\e[5 q"
-    "let &t_EI="\e[1 q"
-    "let &t_te="\e[0 q"
-    "echom "Running in conemu"
 endif
 
 " tmux and otherwise
@@ -139,7 +126,7 @@ set synmaxcol=300
 set foldmethod=indent
 set foldopen=block,hor,mark,percent,quickfix,search,tag,undo,jump
 set foldnestmax=5
-set foldminlines=4
+set foldminlines=2
 set relativenumber
 set nu
 " replace all instances in a line.
@@ -167,11 +154,11 @@ else
 endif
 
 if has('win32')
-    let g:fonts='Ubuntu_Mono_derivative_Powerlin:h13,Source_Code_Pro_Light:h11,Powerline_Consolas:h11,DejaVu Sans Mono For Powerline:h11,Pragmata_Pro:h11'
-    set guifont=Pragmata_Pro:h11
+    let g:fonts='Ubuntu_Mono_derivative_Powerlin:h13,Source_Code_Pro_Light:h11,Powerline_Consolas:h11,DejaVu Sans Mono For Powerline:h11,PragmataPro_Mono:h11'
+    set guifont=PragmataPro_Mono:h11
 else
     let g:fonts="Meslo\ LG\ S\ for\ Powerline\ 12,Monaco\ for\ Powerline\ 12,Pragmata\ Pro\ 13,Source\ Code\ Pro\ for\ Powerline\ 12,DejaVu\ Sans\ Mono\ for\ Powerline\ 12,Monospace\ 10,Ubuntu\ Mono\ 11"
-    set guifont=Pragmata\ Pro\ 13
+    set guifont=PragmataPro\ Mono\ 11
     let g:GPGExecutable="gpg2"
     let g:GPGUseAgent = 1
 endif
@@ -234,10 +221,9 @@ if executable('ag')
     let g:unite_source_grep_command='ag'
     let g:unite_source_grep_default_opts='--nocolor --line-numbers --nogroup -S -C4'
     let g:unite_source_grep_recursive_opt=''
-    let g:unite_source_rec_async_command=
-                \   'ag --nocolor --nogroup --ignore ".hg"'.
-                \   ' --ignore ".svn" --ignore ".git"'.
-                \   ' --ignore ".bzr" --hidden -g ""'
+    " Using ag as recursive command.
+    let g:unite_source_rec_async_command = ['ag', '--follow', '--nocolor', '--nogroup',
+                                                \  '--hidden', '-g', '']
 endif
 
 function! s:unite_settings()
@@ -251,6 +237,7 @@ function! s:unite_settings()
 endfunction
 autocmd FileType unite call s:unite_settings()
 nnoremap <silent> <leader><space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed file_rec/async:! neomru/file  buffer <cr><c-u>
+nnoremap <silent> <leader>f :<C-u>Unite -toggle -auto-resize -buffer-name=file file_rec/async:! <cr><c-u>
 nnoremap <silent> <leader>r :<C-u>Unite -buffer-name=recent file_mru<cr>
 nnoremap <silent> <leader>y :<C-u>Unite -buffer-name=yanks history/yank<cr>
 nnoremap <silent> <leader>j :<C-u>Unite -buffer-name=jumps jump change<cr>
@@ -303,7 +290,10 @@ nnoremap <leader>p :call NextErrorOrLocation("prev")<cr>
 
 NeoBundle 'vim-pandoc/vim-pandoc'
 NeoBundle 'vim-pandoc/vim-pandoc-syntax'
-let g:pandoc#syntax#codeblocks#embeds#langs = ["ruby","python","bash=sh","coffee", "css", "erb=eruby", "javascript", "js=javascript", "json=javascript", "ruby", "sass", "xml", "html"]
+let g:pandoc#syntax#codeblocks#embeds#langs = ["ruby","python","bash=sh",
+        \ "coffee", "css", "erb=eruby", "javascript",
+        \ "js=javascript", "json=javascript", "ruby",
+        \ "sass", "xml", "html"]
 
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-repeat'
@@ -331,20 +321,20 @@ NeoBundle 'tyru/open-browser.vim'
 "let g:ycm_auto_stop_csharp_server = 1
 "nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<cr>
 
-NeoBundle 'kristijanhusak/vim-multiple-cursors'
+"NeoBundle 'kristijanhusak/vim-multiple-cursors'
 " Called once right before you start selecting multiple cursors
-function! Multiple_cursors_before()
-  if exists(':NeoCompleteLock')==2
-    exe 'NeoCompleteLock'
-  endif
-endfunction
+"function! Multiple_cursors_before()
+  "if exists(':NeoCompleteLock')==2
+    "exe 'NeoCompleteLock'
+  "endif
+"endfunction
 
 " Called once only when the multiple selection is canceled (default <Esc>)
-function! Multiple_cursors_after()
-  if exists(':NeoCompleteUnlock')==2
-    exe 'NeoCompleteUnlock'
-  endif
-endfunction
+"function! Multiple_cursors_after()
+  "if exists(':NeoCompleteUnlock')==2
+    "exe 'NeoCompleteUnlock'
+  "endif
+"endfunction
 
 "NeoBundle 'marijnh/tern_for_vim', {
 "\            'lazy':1,
@@ -414,7 +404,7 @@ NeoBundle 'rstacruz/sparkup', {
 " vim-airline and fonts
 set lazyredraw
 set laststatus=2
-NeoBundle 'bling/vim-airline'
+NeoBundle 'vim-airline/vim-airline'
 " line below has a trailing space.
 NeoBundle 'Lokaltog/powerline-fonts'
 let g:airline_enable_branch=1
@@ -571,6 +561,7 @@ inoremap <C-U> <C-G>u<C-U>
 let maplocalleader='\'
 " Search customizations
 nnoremap / /\v
+cnoremap %s/ %s/\v
 nnoremap <leader>h  :noh<cr><c-l>
 nnoremap <leader>w  :w<cr>
 nnoremap <leader>fc :lcl <cr>
@@ -628,6 +619,12 @@ augroup coffeescript
     au BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
                                     \ shiftwidth=2 expandtab
 augroup END
+
+augroup filecleanup
+    au!
+    autocmd BufWritePre *.pl,*.js,*.ps1,*.cs,*.md,*.html :%s/\s\+$//e
+augroup END
+
 "}}}
 
 " Custom code/Utils {{{
@@ -863,7 +860,16 @@ function! ToHtml()
     let file=expand("%:p")
     let outfile=fnamemodify(file, ":r") . ".html"
     let css=fnamemodify(file, ":h") . "pandoc.css"
-    exec "silent !pandoc --toc -c ". css . "  -fmarkdown_github+footnotes+implicit_header_references+auto_identifiers+superscript+subscript+fancy_lists+startnum+strikeout -i " . file . " -o " . outfile
+    exec "silent !pandoc --toc  -c ". css .
+                \ "  -fmarkdown_github" .
+                \ "+footnotes" .
+                \ "+implicit_header_references".
+                \ "+auto_identifiers".
+                \ "+superscript".
+                \ "+subscript".
+                \ "+fancy_lists".
+                \ "+startnum".
+                \ "+strikeout -i " . file . " -o " . outfile
     echom "wrote" . " " . outfile
     call openbrowser#open("file:///".substitute(outfile, "\\", "/", "g"))
 endfunction
@@ -894,5 +900,10 @@ function! NextErrorOrLocation(dir)
         echom "No location or error list"
     endif
 endfunction
+
+command! Gitex exec "silent !gitex browse " . expand("%:p")
+
+
 NeoBundleCheck
+
 "}}}
