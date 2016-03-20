@@ -610,6 +610,12 @@ augroup coffeescript
     au BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
                                     \ shiftwidth=2 expandtab
 augroup END
+
+augroup filecleanup
+    au!
+    autocmd BufWritePre *.pl,*.js,*.ps1,*.cs,*.md,*.html :%s/\s\+$//e
+augroup END
+
 "}}}
 
 " Custom code/Utils {{{
