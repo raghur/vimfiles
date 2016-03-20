@@ -511,12 +511,6 @@ if &term =~ '^screen'
   set <xLeft>=\e[1;*D
 endif
 
-"set term=ansi
-    "set t_ku=OA
-    "set t_kd=OB
-    "set t_kl=OD
-    "set t_kr=OC
-
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'xolox/vim-session'
 if (has('win32unix'))
