@@ -153,7 +153,8 @@ else
     set background=dark
 endif
 
-if has('win32')
+if has('win32') || has('win64')
+    set renderoptions=type:directx,gamma:1.0,contrast:0.2,level:1.0,geom:1,renmode:5,taamode:1
     let g:fonts='Ubuntu_Mono_derivative_Powerlin:h13,Source_Code_Pro_Light:h11,Powerline_Consolas:h11,DejaVu Sans Mono For Powerline:h11,PragmataPro_Mono:h11'
     set guifont=PragmataPro_Mono:h11
 else
@@ -618,7 +619,6 @@ augroup filecleanup
     au!
     autocmd BufWritePre *.pl,*.js,*.ps1,*.cs,*.md,*.html :%s/\s\+$//e
 augroup END
-
 "}}}
 
 " Custom code/Utils {{{
@@ -633,15 +633,6 @@ let g:formatprg_html="tidy"
 let g:formatprg_args_html=" -iq --indent-spaces 4"
 let g:formatprg_xml="xmllint"
 let g:formatprg_args_xml=" --format --recover - 2>/dev/null"
-
-" Windows specific {{{
-if empty($CONEMUBUILD) && (has('win32') || has('win64'))
-    set renderoptions=type:directx,gamma:1.0,contrast:0.2,level:1.0,geom:1,renmode:5,taamode:1
-    let g:formatprg_cs=fnamemodify(findfile(g:formatprg_cs . ".exe", $GNUWIN."/**3"), ":p")
-    let g:formatprg_html=fnamemodify(findfile(g:formatprg_html . ".exe", $GNUWIN."/**3"), ":p")
-    let g:formatprg_xml=fnamemodify(findfile(g:formatprg_xml . ".exe", $GNUWIN."/**3"), ":p")
-endif
-"}}}
 
 fun! FormatFile()
     let curline=line(".")
@@ -672,17 +663,9 @@ let s:grepopts='\ --exclude-dir=packages'
             \ . '\ --exclude=*.min.js'
             \ . '\ -PHIirn\ $*'
 "File search {{{
-if empty($CONEMUBUILD) && (has('win32') || has('win64'))
-    set nossl
-    let s:ack="f:/utils/ack.bat"
-    let s:find=fnamemodify(findfile("find.exe", $GNUWIN."**"), ":p")
-    let s:grep=fnamemodify(findfile("grep.exe", $GNUWIN."**"), ":p")
-else
-    let s:ack="ack"
-    let s:find="find"
+if executable('grep')
     let s:grep="grep"
 endif
-
 " The Silver Searcher
 if executable('ag')
   " Use ag over grep
