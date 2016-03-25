@@ -882,6 +882,7 @@ function! NextErrorOrLocation(dir)
 endfunction
 
 command! Gitex exec "silent !gitex browse " . expand("%:p")
+command! Wex exec "silent !explorer " . expand("%:p:h")
 
 
 NeoBundleCheck
