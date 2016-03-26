@@ -35,7 +35,10 @@ inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplete#close_popup()
 inoremap <expr><C-e>  neocomplete#cancel_popup()
-inoremap <expr><esc>  pumvisible() ? neocomplete#cancel_popup() : "\<esc>"
+
+" causes problems on Konsole and breaks arrow keys in insert mode.
+"inoremap <expr><esc>  pumvisible() ? neocomplete#cancel_popup() : "\<esc>"
+
 " Close popup by <Space>.
 inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() .  "\<Space>" : "\<Space>"
 
