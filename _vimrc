@@ -804,24 +804,8 @@ endf
 command! -nargs=+ -bang -complete=command R call ReadExCommandOutput(<bang>1, <q-args>)
 inoremap <c-r>R <c-o>:<up><home>R! <cr>
 
-fun! SanitizeSpaces()
-    retab
-    :%s/\s\+$//e
-    :w
-endfun
-command! Fixspaces call SanitizeSpaces()
+command! BlogSave exec ":! easyblogger file ". expand("%:p")
 
-fun! SanitizeBlogEntry()
-    call SanitizeSpaces()
-    :%s/\r$//e
-    :%s/\\$//e
-endfun
-
-fun! BlogSave()
-    call SanitizeBlogEntry()
-    :! easyblogger file %
-endfun
-command! BlogSave call BlogSave()
 function! NeatFoldText() "{{{
     let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
     let lines_count = v:foldend - v:foldstart + 1
