@@ -527,6 +527,8 @@ let g:session_autosave='yes'
 let g:session_autoload='yes'
 let g:session_default_to_last=1
 NeoBundle 'wellle/targets.vim'
+NeoBundle 'Chiel92/vim-autoformat'
+nnoremap <F7> :Autoformat<cr>
 
 set rtp+=$GOROOT/misc/vim
 call neobundle#end()
@@ -625,35 +627,6 @@ augroup END
 "}}}
 
 " Custom code/Utils {{{
-" Format file {{{
-let g:formatprg_javascript="js-beautify"
-let g:formatprg_cs="astyle"
-let g:formatprg_args_cs=" --mode=cs --style=ansi -pcHs4"
-let g:formatprg_args_javascript=" -jw 80 -f -"
-let g:formatprg_json="js-beautify"
-let g:formatprg_args_json=" -jw 80 -f -"
-let g:formatprg_html="tidy"
-let g:formatprg_args_html=" -iq --indent-spaces 4"
-let g:formatprg_xml="xmllint"
-let g:formatprg_args_xml=" --format --recover - 2>/dev/null"
-
-fun! FormatFile()
-    let curline=line(".")
-    if exists("g:formatprg_". &ft)
-        let cmd ="%!" . eval("g:formatprg_". &ft)
-        if exists("g:formatprg_args_". &ft)
-            let cmd=cmd. eval("g:formatprg_args_". &ft)
-        endif
-        echo cmd
-        exec cmd
-    else
-        exec "normal ". "gg=G"
-    endif
-    exec "normal ". curline. "G"
-endfun
-map <F7> :call FormatFile() <cr>
-"}}}
-
 let s:ackopts='\ -a\ --no-group\ -Hi '
 let s:grepopts='\ --exclude-dir=packages'
             \ . '\ --exclude-dir=.git'
