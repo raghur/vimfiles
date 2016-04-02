@@ -737,6 +737,21 @@ vnoremap <script><leader>/ <Esc>:silent grep
                              ""\ <C-R><C-R>=Get_grep_include_opt(" --include=*.")<CR>
 "}}}
 
+"{{{ Create folders on write 
+function s:MkNonExDir(file, buf)
+    if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
+        let dir=fnamemodify(a:file, ':h')
+        if !isdirectory(dir)
+            call mkdir(dir, 'p')
+        endif
+    endif
+endfunction
+augroup BWCCreateDir
+    autocmd!
+    autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
+augroup END
+"}}}
+
 " Cycle colors
 fun! CycleArray(arr, value, dir)
     let c = index(a:arr, a:value) + a:dir
