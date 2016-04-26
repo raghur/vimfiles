@@ -158,8 +158,8 @@ endif
 
 if has('win32') || has('win64')
     set renderoptions=type:directx,gamma:1.0,contrast:0.2,level:1.0,geom:1,renmode:5,taamode:1
-    let g:fonts='Ubuntu_Mono_derivative_Powerlin:h13,Source_Code_Pro_Light:h11,Powerline_Consolas:h11,DejaVu Sans Mono For Powerline:h11,PragmataPro_Mono:h11'
-    set guifont=PragmataPro_Mono:h11
+    let g:fonts='Fantasque_Sans_Mono:h14:cANSI,Ubuntu_Mono_derivative_Powerlin:h13,Source_Code_Pro_Light:h11,Powerline_Consolas:h11,DejaVu Sans Mono For Powerline:h11,PragmataPro_Mono:h11'
+    set guifont=Fantasque_Sans_Mono:h14:cANSI
 else
     let g:fonts="Meslo\ LG\ S\ for\ Powerline\ 12,Monaco\ for\ Powerline\ 12,Pragmata\ Pro\ 13,Source\ Code\ Pro\ for\ Powerline\ 12,DejaVu\ Sans\ Mono\ for\ Powerline\ 12,Monospace\ 10,Ubuntu\ Mono\ 11"
     set guifont=PragmataPro\ Mono\ 11
@@ -725,7 +725,17 @@ fun! CycleArray(arr, value, dir)
     return c
 endfunction
 
-let g:colorschemes="smyck:base16-default:base16-eighties:Monokai-Refined:monokai:molokai:github:mayansmoke:newspaper"
+let g:colorschemes="smyck"
+            \ . ":base16-default"
+            \ . ":base16-eighties"
+            \ . ":Monokai-Refined"
+            \ . ":monokai"
+            \ . ":molokai"
+            \ . ":github"
+            \ . ":mayansmoke"
+            \ . ":newspaper"
+            \ . ":greyhouse"
+
 fun! CycleColorScheme(dir)
     let arr = split(g:colorschemes, ":")
     let c = CycleArray(arr, g:colors_name, a:dir)
