@@ -361,7 +361,7 @@ endif
 
 NeoBundle 'scrooloose/syntastic'
 let g:syntastic_python_checkers = ['pylama']
-let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_auto_loc_list = 1
 nnoremap <F4> :w\|SyntasticCheck<cr>
 let g:syntastic_mode_map = { 'mode': 'passive',
@@ -708,6 +708,21 @@ vnoremap <script><leader>/ <Esc>:silent grep
                             "\ "<C-R><C-R>=<SID>get_visual_selection()<CR>"
                             "\ <C-R><C-R>=expand("%:p:h")<CR>\* \|copen
                              ""\ <C-R><C-R>=Get_grep_include_opt(" --include=*.")<CR>
+"}}}
+
+"{{{ Create folders on write 
+function! s:MkNonExDir(file, buf)
+    if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
+        let dir=fnamemodify(a:file, ':h')
+        if !isdirectory(dir)
+            call mkdir(dir, 'p')
+        endif
+    endif
+endfunction
+augroup BWCCreateDir
+    autocmd!
+    autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
+augroup END
 "}}}
 
 " Cycle colors
