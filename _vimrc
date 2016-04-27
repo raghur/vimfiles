@@ -230,6 +230,13 @@ if executable('ag')
                                                 \  '--hidden', '-g', '']
 endif
 
+if executable('sift')
+    let g:unite_source_grep_command='sift'
+    let g:unite_source_grep_default_opts='--no-color --line-number --no-group -s '
+    let g:unite_source_grep_recursive_opt=''
+    let g:unite_source_rec_async_command = ['sift', '--follow', '--no-color', '--no-group',
+                                                \ '--git', '--targets']
+endif
 function! s:unite_settings()
     nmap <buffer> Q <plug>(unite_exit)
     nmap <buffer> <esc> <plug>(unite_exit)
