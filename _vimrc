@@ -399,9 +399,10 @@ let g:vim_json_syntax_conceal = 0
 NeoBundle 'jwhitley/vim-matchit.git'
 NeoBundle 'tpope/vim-ragtag'
 
-"NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'kana/vim-textobj-user'
 "NeoBundle 'sgur/vim-textobj-parameter'
-"NeoBundle 'kana/vim-textobj-function'
+NeoBundle 'kana/vim-textobj-function'
+NeoBundle 'thinca/vim-textobj-function-javascript'
 "NeoBundle 'kana/vim-textobj-indent'
 "NeoBundle 'thinca/vim-textobj-between'
 "NeoBundle 'terryma/vim-expand-region'
