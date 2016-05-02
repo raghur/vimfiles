@@ -158,8 +158,8 @@ endif
 
 if has('win32') || has('win64')
     set renderoptions=type:directx,gamma:1.0,contrast:0.2,level:1.0,geom:1,renmode:5,taamode:1
-    let g:fonts='Ubuntu_Mono_derivative_Powerlin:h13,Source_Code_Pro_Light:h11,Powerline_Consolas:h11,DejaVu Sans Mono For Powerline:h11,PragmataPro_Mono:h11'
-    set guifont=PragmataPro_Mono:h11
+    let g:fonts='Fantasque_Sans_Mono:h14:cANSI,Ubuntu_Mono_derivative_Powerlin:h13,Source_Code_Pro_Light:h11,Powerline_Consolas:h11,DejaVu Sans Mono For Powerline:h11,PragmataPro_Mono:h11'
+    set guifont=Fantasque_Sans_Mono:h14:cANSI
 else
     let g:fonts="Meslo\ LG\ S\ for\ Powerline\ 12,Monaco\ for\ Powerline\ 12,Pragmata\ Pro\ 13,Source\ Code\ Pro\ for\ Powerline\ 12,DejaVu\ Sans\ Mono\ for\ Powerline\ 12,Monospace\ 10,Ubuntu\ Mono\ 11"
     set guifont=PragmataPro\ Mono\ 11
@@ -230,6 +230,13 @@ if executable('ag')
                                                 \  '--hidden', '-g', '']
 endif
 
+if executable('sift')
+    let g:unite_source_grep_command='sift'
+    let g:unite_source_grep_default_opts='--no-color --line-number --no-group -s '
+    let g:unite_source_grep_recursive_opt=''
+    let g:unite_source_rec_async_command = ['sift', '--follow', '--no-color', '--no-group',
+                                                \ '--git', '--targets']
+endif
 function! s:unite_settings()
     nmap <buffer> Q <plug>(unite_exit)
     nmap <buffer> <esc> <plug>(unite_exit)
@@ -392,9 +399,11 @@ let g:vim_json_syntax_conceal = 0
 NeoBundle 'jwhitley/vim-matchit.git'
 NeoBundle 'tpope/vim-ragtag'
 
-"NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'wellle/targets.vim'
+NeoBundle 'kana/vim-textobj-user'
 "NeoBundle 'sgur/vim-textobj-parameter'
-"NeoBundle 'kana/vim-textobj-function'
+NeoBundle 'kana/vim-textobj-function'
+NeoBundle 'thinca/vim-textobj-function-javascript'
 "NeoBundle 'kana/vim-textobj-indent'
 "NeoBundle 'thinca/vim-textobj-between'
 "NeoBundle 'terryma/vim-expand-region'
@@ -526,7 +535,6 @@ let g:session_command_aliases = 1
 let g:session_autosave='yes'
 let g:session_autoload='yes'
 let g:session_default_to_last=1
-NeoBundle 'wellle/targets.vim'
 NeoBundle 'Chiel92/vim-autoformat'
 nnoremap <F7> :Autoformat<cr>
 
@@ -741,7 +749,17 @@ fun! CycleArray(arr, value, dir)
     return c
 endfunction
 
-let g:colorschemes="smyck:base16-default:base16-eighties:Monokai-Refined:monokai:molokai:github:mayansmoke:newspaper"
+let g:colorschemes="smyck"
+            \ . ":base16-default"
+            \ . ":base16-eighties"
+            \ . ":Monokai-Refined"
+            \ . ":monokai"
+            \ . ":molokai"
+            \ . ":github"
+            \ . ":mayansmoke"
+            \ . ":newspaper"
+            \ . ":greyhouse"
+
 fun! CycleColorScheme(dir)
     let arr = split(g:colorschemes, ":")
     let c = CycleArray(arr, g:colors_name, a:dir)
