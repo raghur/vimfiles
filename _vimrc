@@ -568,6 +568,7 @@ nnoremap <leader>fc :lcl <cr>
 nnoremap <leader>pw :ed ~/.gnupg/passwords.txt.asc <cr>
 vnoremap > >gv
 vnoremap < <gv
+vnoremap <silent> * y:let @/=@"<cr>:set hlsearch<cr>n
 nnoremap 0 ^
 nnoremap ^ 0
 noremap <C-s> :w<cr>
