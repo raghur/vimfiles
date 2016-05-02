@@ -162,7 +162,7 @@ if has('win32') || has('win64')
     set guifont=Fantasque_Sans_Mono:h14:cANSI
 else
     let g:fonts="Meslo\ LG\ S\ for\ Powerline\ 12,Monaco\ for\ Powerline\ 12,Pragmata\ Pro\ 13,Source\ Code\ Pro\ for\ Powerline\ 12,DejaVu\ Sans\ Mono\ for\ Powerline\ 12,Monospace\ 10,Ubuntu\ Mono\ 11"
-    set guifont=PragmataPro\ Mono\ 11
+    set guifont=Fantasque\ Sans\ Mono\ 14
     let g:GPGExecutable="gpg2"
     let g:GPGUseAgent = 1
 endif
