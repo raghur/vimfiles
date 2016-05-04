@@ -535,6 +535,34 @@ let g:session_command_aliases = 1
 let g:session_autosave='yes'
 let g:session_autoload='yes'
 let g:session_default_to_last=1
+
+NeoBundle 'kana/vim-submode'
+" A message will appear in the message line when you're in a submode
+" and stay there until the mode has existed.
+let g:submode_always_show_submode = 1
+let g:submode_timeout = 0
+
+" We're taking over the default <C-w> setting. Don't worry we'll do
+" our best to put back the default functionality.
+call submode#enter_with('window', 'n', '', '<C-w>')
+
+" Note: <C-c> will also get you out to the mode without this mapping.
+" Note: <C-[> also behaves as <ESC>
+call submode#leave_with('window', 'n', '', '<ESC>')
+
+" Go through every letter
+for key in ['a','b','c','d','e','f','g','h','i','j','k','l','m',
+\           'n','o','p','q','r','s','t','u','v','w','x','y','z']
+  " maps lowercase, uppercase and <C-key>
+  call submode#map('window', 'n', '', key, '<C-w>' . key)
+  call submode#map('window', 'n', '', toupper(key), '<C-w>' . toupper(key))
+  call submode#map('window', 'n', '', '<C-' . key . '>', '<C-w>' . '<C-'.key . '>')
+endfor
+" Go through symbols. Sadly, '|', not supported in submode plugin.
+for key in ['=','_','+','-','<','>']
+  call submode#map('window', 'n', '', key, '<C-w>' . key)
+endfor
+
 NeoBundle 'Chiel92/vim-autoformat'
 nnoremap <F7> :Autoformat<cr>
 
@@ -718,7 +746,7 @@ vnoremap <script><leader>/ <Esc>:silent grep
                              ""\ <C-R><C-R>=Get_grep_include_opt(" --include=*.")<CR>
 "}}}
 
-"{{{ Create folders on write 
+"{{{ Create folders on write
 function! s:MkNonExDir(file, buf)
     if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
         let dir=fnamemodify(a:file, ':h')
@@ -727,6 +755,7 @@ function! s:MkNonExDir(file, buf)
         endif
     endif
 endfunction
+
 augroup BWCCreateDir
     autocmd!
     autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
@@ -875,7 +904,6 @@ command! Gitex exec "silent !gitex browse " . expand("%:p:h")
 command! Wex exec "silent !explorer " . expand("%:p:h")
 nnoremap <F9> :Gitex<cr>
 nnoremap <F10> :Wex<cr>
-
 
 NeoBundleCheck
 
