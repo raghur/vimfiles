@@ -172,39 +172,38 @@ endif
 " Plugin Bundles and config {{{
 filetype off
 exec("set rtp^=".g:home)
-if !isdirectory(g:home."bundle/neobundle.vim")
-    silent exec "!git clone https://github.com/shougo/neobundle.vim"." ".g:home."bundle/neobundle.vim"
+if !isdirectory(g:home."plugins/repos/github.com/Shougo/dein.vim")
+    silent exec "!git clone https://github.com/shougo/dein.vim"." ".g:home."plugins/repos/github.com/Shougo/dein.vim"
 endif
-exec("set rtp+=".g:home."bundle/neobundle.vim/")
-call neobundle#begin(expand(g:home.'bundle/'))
-NeoBundleFetch 'Shougo/neobundle.vim'
+exec("set rtp^=".g:home."plugins/repos/github.com/Shougo/dein.vim")
+call dein#begin(expand('~/.cache/dein'), [expand('<sfile>')])
 
-NeoBundle 'kshenoy/vim-signature'
+call dein#add(g:home."plugins/repos/github.com/Shougo/dein.vim")
+
+call dein#add('kshenoy/vim-signature')
 nnoremap <S-F2>  :<C-U>call signature#mark#Goto("prev", "spot", "pos") <CR> \| zz
 nnoremap <F2>  :<C-U>call signature#mark#Goto("next", "spot", "pos") <CR> \| zz
 
-NeoBundle 'jamessan/vim-gnupg', {
-    \   'lazy': 1,
-    \   'autoload': {
-    \       'filename_patterns' : ['\.gpg$', '\.asc$']
-    \   }}
+call dein#add("jamessan/vim-gnupg", {
+            \ "lazy" : 1,
+            \ "on_path": ['\.gpg$', '\.asc$']
+            \ })
 "If you have git, make sure that path does NOT point to git bash tools
 " Path for git win should point to the libexec/git-core folder
 " The default GPG should point to cygwin git
 " To check: :sh, which gpg
 let g:GPGDefaultRecipients=['Raghu Rajagopalan']
 
-NeoBundle 'raghur/vim-helpnav', {
-    \   'lazy': 1,
-    \   'autoload': {
-    \       'filetypes' : ['help']
-    \   }}
+call dein#add('raghur/vim-helpnav', {
+            \ "lazy" : 1,
+            \ "on_ft" : ['help']
+            \ })
 
-NeoBundle 'vim-scripts/L9'
-NeoBundle 'shougo/unite.vim'
-NeoBundle 'Shougo/neomru.vim'
-let bundle = neobundle#get('unite.vim')
-function! bundle.hooks.on_source(bundle)
+call dein#add( 'vim-scripts/L9')
+call dein#add( 'Shougo/neomru.vim')
+
+function! s:on_unite_source()
+    echom 'on_unite_source called'
     call unite#filters#matcher_default#use(['matcher_fuzzy'])
     call unite#filters#sorter_default#use(['sorter_rank'])
     call unite#custom#profile('default', 'context', {
@@ -213,13 +212,19 @@ function! bundle.hooks.on_source(bundle)
                 \ 'prompt-visible': 1
                 \ })
 endfunction
+
+call dein#add( 'shougo/unite.vim', {
+    \ 'lazy' : 1,
+    \ 'on_cmd': 'Unite',
+    \ 'hook_post_source': function('s:on_unite_source')
+    \ })
 let g:unite_data_directory = g:home.".vimbackups/unite"
 let g:unite_source_history_yank_enable=1
 let g:unite_source_rec_max_cache_files=5000
 let s:unite_ignores = [
-  \ '\.git', 'deploy', 'dist',
-  \ 'undo', 'tmp', 'backups',
-  \ 'generated', 'build', 'images', 'node_modules']
+            \ '\.git', 'deploy', 'dist',
+            \ 'undo', 'tmp', 'backups',
+            \ 'generated', 'build', 'images', 'node_modules']
 
 if executable('ag')
     let g:unite_source_grep_command='ag'
@@ -227,7 +232,7 @@ if executable('ag')
     let g:unite_source_grep_recursive_opt=''
     " Using ag as recursive command.
     let g:unite_source_rec_async_command = ['ag', '--follow', '--nocolor', '--nogroup',
-                                                \  '--hidden', '-g', '']
+                \  '--hidden', '-g', '']
 endif
 
 if executable('sift')
@@ -235,7 +240,7 @@ if executable('sift')
     let g:unite_source_grep_default_opts='--no-color --line-number --no-group -s '
     let g:unite_source_grep_recursive_opt=''
     let g:unite_source_rec_async_command = ['sift', '--follow', '--no-color', '--no-group',
-                                                \ '--git', '--targets']
+                \ '--git', '--targets']
 endif
 function! s:unite_settings()
     nmap <buffer> Q <plug>(unite_exit)
@@ -259,12 +264,12 @@ nnoremap <silent> <leader>m :<C-u>Unite -auto-resize -buffer-name=mappings mappi
 nnoremap <silent> <leader>s :<C-u>Unite -quick-match buffer<cr>
 " CtrlP{{{
 "NeoBundle 'kien/ctrlp.vim', {
-    "\ 'lazy': 1,
-    "\ 'depends': 'FelikZ/ctrlp-py-matcher',
-    "\ 'autoload': {
-    "\       'commands': ['CtrlP', 'CtrlPMixed', 'CtrlPMRUFiles', 'CtrlPQuickfix', 'CtrlPBuffer']
-    "\   }
-    "\}
+"\ 'lazy': 1,
+"\ 'depends': 'FelikZ/ctrlp-py-matcher',
+"\ 'autoload': {
+"\       'commands': ['CtrlP', 'CtrlPMixed', 'CtrlPMRUFiles', 'CtrlPQuickfix', 'CtrlPBuffer']
+"\   }
+"\}
 ""let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 "let g:ctrlp_match_window_bottom = 0
 "let g:ctrlp_match_window_reversed = 0
@@ -299,33 +304,35 @@ nnoremap <leader>n :call NextErrorOrLocation("next")<cr>
 nnoremap <leader>p :call NextErrorOrLocation("prev")<cr>
 "}}}
 
-NeoBundle 'vim-pandoc/vim-pandoc'
-NeoBundle 'vim-pandoc/vim-pandoc-syntax'
+call dein#add( 'vim-pandoc/vim-pandoc', {
+            \ 'on_ft': ['markdown', 'pandoc']
+            \ })
+call dein#add( 'vim-pandoc/vim-pandoc-syntax', {
+            \ 'on_ft': ['markdown', 'pandoc']
+            \ })
 let g:pandoc#syntax#codeblocks#embeds#langs = ["ruby","python","bash=sh",
-        \ "coffee", "css", "erb=eruby", "javascript",
-        \ "js=javascript", "json=javascript", "ruby",
-        \ "sass", "xml", "html"]
+            \ "coffee", "css", "erb=eruby", "javascript",
+            \ "js=javascript", "json=javascript", "ruby",
+            \ "sass", "xml", "html"]
 
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-repeat'
+call dein#add( 'tpope/vim-fugitive')
+call dein#add( 'tpope/vim-repeat')
 let g:AutoPairsShortcutToggle = '\\'
-NeoBundle 'jiangmiao/auto-pairs'
-NeoBundle 'nathanaelkane/vim-indent-guides'
+call dein#add( 'jiangmiao/auto-pairs')
+call dein#add( 'nathanaelkane/vim-indent-guides')
 let g:indent_guides_guide_size = 1
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 if has("gui_running")
     let g:indent_guides_enable_on_vim_startup = 1
 endif
 
-NeoBundle 'sjl/gundo.vim', {
-            \            'lazy':1,
-            \            'autoload': {
-            \               'commands': "GundoToggle"
-            \           }
-            \}
-NeoBundle 'gregsexton/MatchTag'
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'tyru/open-browser.vim'
+call dein#add( 'sjl/gundo.vim', {
+            \ 'lazy': 1,
+            \ 'on_cmd': "GundoToggle"
+            \ })
+call dein#add( 'gregsexton/MatchTag')
+call dein#add( 'scrooloose/nerdcommenter')
+call dein#add( 'tyru/open-browser.vim')
 "Plugin 'Valloric/YouCompleteMe'
 "let g:ycm_autoclose_preview_window_after_completion = 1
 "let g:ycm_autoclose_preview_window_after_insertion = 1
@@ -335,16 +342,16 @@ NeoBundle 'tyru/open-browser.vim'
 "NeoBundle 'kristijanhusak/vim-multiple-cursors'
 " Called once right before you start selecting multiple cursors
 "function! Multiple_cursors_before()
-  "if exists(':NeoCompleteLock')==2
-    "exe 'NeoCompleteLock'
-  "endif
+"if exists(':NeoCompleteLock')==2
+"exe 'NeoCompleteLock'
+"endif
 "endfunction
 
 " Called once only when the multiple selection is canceled (default <Esc>)
 "function! Multiple_cursors_after()
-  "if exists(':NeoCompleteUnlock')==2
-    "exe 'NeoCompleteUnlock'
-  "endif
+"if exists(':NeoCompleteUnlock')==2
+"exe 'NeoCompleteUnlock'
+"endif
 "endfunction
 
 "NeoBundle 'marijnh/tern_for_vim', {
@@ -355,8 +362,8 @@ NeoBundle 'tyru/open-browser.vim'
 "\}
 
 if has('python') || has('python3')
-    NeoBundle 'SirVer/ultisnips'
-    NeoBundle 'honza/vim-snippets'
+    call dein#add( 'SirVer/ultisnips')
+    call dein#add( 'honza/vim-snippets')
     "let g:UltiSnipsUsePythonVersion=2
     let g:UltiSnipsSnippetsDir=g:home."UltiSnips"
     let g:UltiSnipsExpandTrigger="<c-cr>"
@@ -366,7 +373,11 @@ if has('python') || has('python3')
     let g:UltiSnipsListSnippets="<c-tab>"
 endif
 
-NeoBundle 'scrooloose/syntastic'
+call dein#add( 'scrooloose/syntastic', {
+            \ 'lazy' : 1,
+            \ 'on_cmd': "SyntasticCheck",
+            \ 'on_func': 'SyntasticStatuslineFlag'
+            \ })
 let g:syntastic_python_checkers = ['pylama']
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_auto_loc_list = 1
@@ -375,88 +386,81 @@ let g:syntastic_mode_map = { 'mode': 'passive',
             \ 'active_filetypes': ['python', 'json', 'javascript'],
             \ 'passive_filetypes': [] }
 
-NeoBundle 'kchmck/vim-coffee-script'
-" colorscheme bundles and repos
-NeoBundle 'raghur/vim-colorschemes'
-NeoBundle 'vim-scripts/Colour-Sampler-Pack'
-NeoBundle 'sickill/vim-monokai'
-NeoBundle 'jaromero/vim-monokai-refined'
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'chriskempson/base16-vim'
+call dein#add( 'kchmck/vim-coffee-script', {
+            \ 'lazy': 1,
+            \ 'on_ft': 'coffeescript'
+            \ })
+call dein#add( 'raghur/vim-colorschemes')
+call dein#add( 'vim-scripts/Colour-Sampler-Pack')
+call dein#add( 'sickill/vim-monokai')
+call dein#add( 'jaromero/vim-monokai-refined')
+call dein#add( 'altercation/vim-colors-solarized')
+call dein#add( 'chriskempson/base16-vim')
 let base16colorspace=256
 let g:solarized_termcolors=256
 
-NeoBundle 'pangloss/vim-javascript', {
-    \   'lazy': 1,
-    \   'autoload': {
-    \       'filetypes' : ['javascript']
-    \   }}
-
-
-NeoBundle 'elzr/vim-json'
+call dein#add( 'pangloss/vim-javascript', {
+            \ 'lazy': 1,
+            \ 'on_ft': ['javascript']
+            \ })
+call dein#add( 'elzr/vim-json', {
+            \ 'lazy': 1,
+            \ 'on_ft': ['json']
+            \ })
 let g:vim_json_syntax_conceal = 0
 
-NeoBundle 'jwhitley/vim-matchit.git'
-NeoBundle 'tpope/vim-ragtag'
 
-NeoBundle 'wellle/targets.vim'
-NeoBundle 'kana/vim-textobj-user'
-"NeoBundle 'sgur/vim-textobj-parameter'
-NeoBundle 'kana/vim-textobj-function'
-NeoBundle 'thinca/vim-textobj-function-javascript'
-"NeoBundle 'kana/vim-textobj-indent'
-"NeoBundle 'thinca/vim-textobj-between'
-"NeoBundle 'terryma/vim-expand-region'
-NeoBundle 'rstacruz/sparkup', {
-    \   'lazy': 1,
-    \   'rtp' : 'vim',
-    \   'autoload': {
-    \       'filetypes' : ['html']
-    \   }}
+call dein#add( 'jwhitley/vim-matchit.git')
+call dein#add( 'tpope/vim-ragtag')
+
+call dein#add( 'wellle/targets.vim')
+call dein#add( 'kana/vim-textobj-user')
+"call dein#add( 'sgur/vim-textobj-parameter')
+call dein#add( 'kana/vim-textobj-function')
+call dein#add( 'thinca/vim-textobj-function-javascript')
+"call dein#add( 'kana/vim-textobj-indent')
+"call dein#add( 'thinca/vim-textobj-between')
+"call dein#add( 'terryma/vim-expand-region')
+call dein#add( 'rstacruz/sparkup', { 'rtp': 'vim' })
 
 " vim-airline and fonts
 set lazyredraw
 set laststatus=2
-NeoBundle 'vim-airline/vim-airline'
-" line below has a trailing space.
-NeoBundle 'Lokaltog/powerline-fonts'
+
+call dein#add( 'vim-airline/vim-airline')
 let g:airline_enable_branch=1
 let g:airline_enable_syntastic=1
 let g:airline_powerline_fonts=1
 let g:airline_detect_modified=1
 
-NeoBundle 'tpope/vim-dispatch'
-NeoBundle 'tpope/vim-markdown', {
-    \   'lazy': 1,
-    \   'autoload': {
-    \       'filetypes' : ['markdown']
-    \   }}
 
-NeoBundle 'airblade/vim-rooter'
+call dein#add( 'tpope/vim-dispatch')
+call dein#add( 'tpope/vim-markdown', {
+            \ 'lazy' : 1,
+            \ 'on_ft' : 'markdown'
+            \ })
+
+call dein#add( 'airblade/vim-rooter')
 let g:rooter_silent_chdir = 1
 
 "neocomplete
 " run: nmake -f Make_msvc.mak nodebug=1
-NeoBundle 'Shougo/vimproc.vim'
+call dein#add( 'Shougo/vimproc.vim', { 'build': 'make' })
 if has('lua')
-    NeoBundle 'Shougo/neocomplete', {
-        \ 'depends' : 'Shougo/context_filetype.vim',
-        \ 'disabled' : !has('lua'),
-        \ 'vim_version' : '7.3.885'
-        \ }
+    call dein#add( 'Shougo/neocomplete')
     " Use neocomplete.
     let g:neocomplete#use_vimproc = 1
     let g:neocomplete#enable_at_startup = 1
     exec("so ".g:home."neocomplete-custom.vim")
 endif
 let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
-NeoBundle 'maxbrunsfeld/vim-yankstack'
+call dein#add( 'maxbrunsfeld/vim-yankstack')
 
 " make sure this is after vim-yankstack
-NeoBundle 'tpope/vim-surround'
+call dein#add( 'tpope/vim-surround')
 
 " vim sneak; replace f/F with sneak
-NeoBundle 'justinmk/vim-sneak'
+call dein#add( 'justinmk/vim-sneak')
 "replace 'f' with 1-char Sneak
 nmap f <Plug>Sneak_f
 nmap F <Plug>Sneak_F
@@ -468,64 +472,49 @@ let g:sneak#s_next = 0
 
 let g:stopFirstAndNotifyTimeoutLen = 0
 let g:EnhancedJumps_CaptureJumpMessages = 0
-NeoBundle 'vim-scripts/EnhancedJumps', {
-    \   'depends': 'vim-scripts/ingo-library'
-    \   }
+call dein#add('vim-scripts/ingo-library')
+call dein#add( 'vim-scripts/EnhancedJumps')
+
 nmap <backspace> <Plug>EnhancedJumpsOlder
 nmap <C-backspace> <Plug>EnhancedJumpsRemoteOlder
 nmap <C-tab> <Plug>EnhancedJumpsRemoteNewer
 nnoremap <backspace>    g;
 nnoremap <tab>    g,
 
-"NeoBundle 'justinmk/vim-gtfo'
-
-NeoBundle 'PProvost/vim-ps1', {
-    \   'lazy': 1,
-    \   'autoload': {
-    \       'filetypes' : ['powershell', 'ps1']
-    \   }}
-
-NeoBundle 'nvie/vim-flake8', {
-    \   'lazy': 1,
-    \   'autoload': {
-    \       'filetypes' : ['python']
-    \   }}
-
-"NeoBundle 'nvie/vim-pyunit', {
-    "\   'lazy': 1,
-    "\   'autoload': {
-    "\       'filetypes' : ['python']
-    "\   }}
-
-NeoBundle 'klen/python-mode', {
-    \   'lazy': 1,
-    \   'autoload': {
-    \       'filetypes' : ['python']
-    \   }}
-
-NeoBundle 'python-rope/ropevim', {
-    \   'lazy': 1,
-    \   'autoload': {
-    \       'filetypes' : ['python']
-    \   }}
+call dein#add( 'PProvost/vim-ps1', {
+            \ 'lazy': 1,
+            \ 'on_ft': ['ps1', 'powershell']
+            \})
+call dein#add( 'nvie/vim-flake8', {
+            \ 'lazy': 1,
+            \ 'on_ft': 'python'
+            \})
+"call dein#add( 'nvie/vim-pyunit')
+call dein#add( 'klen/python-mode', {
+            \ 'lazy': 1,
+            \ 'on_ft': 'python'
+            \})
+call dein#add( 'python-rope/ropevim', {
+            \ 'lazy': 1,
+            \ 'on_ft': 'python'
+            \})
 let g:pymode_run_bind = '<leader>pr'
 let g:pymode_rope = 1
 
-"NeoBundle 'nacitar/terminalkeys.vim'
 if &term =~ '^screen'
-  " Page keys http://sourceforge.net/p/tmux/tmux-code/ci/master/tree/FAQ
-  set t_kP=\e[5;*~
-  set t_kN=\e[6;*~
+    " Page keys http://sourceforge.net/p/tmux/tmux-code/ci/master/tree/FAQ
+    set t_kP=\e[5;*~
+    set t_kN=\e[6;*~
 
-  " Arrow keys http://unix.stackexchange.com/a/34723
-  set <xUp>=\e[1;*A
-  set <xDown>=\e[1;*B
-  set <xRight>=\e[1;*C
-  set <xLeft>=\e[1;*D
+    " Arrow keys http://unix.stackexchange.com/a/34723
+    set <xUp>=\e[1;*A
+    set <xDown>=\e[1;*B
+    set <xRight>=\e[1;*C
+    set <xLeft>=\e[1;*D
 endif
 
-NeoBundle 'xolox/vim-misc'
-NeoBundle 'xolox/vim-session'
+call dein#add( 'xolox/vim-misc')
+call dein#add( 'xolox/vim-session')
 if (has('win32unix'))
     let g:session_directory=g:home.".vimbackups/.cygsessions"
 else
@@ -536,7 +525,7 @@ let g:session_autosave='yes'
 let g:session_autoload='yes'
 let g:session_default_to_last=1
 
-NeoBundle 'kana/vim-submode'
+call dein#add( 'kana/vim-submode')
 " A message will appear in the message line when you're in a submode
 " and stay there until the mode has existed.
 let g:submode_always_show_submode = 1
@@ -544,7 +533,7 @@ let g:submode_timeout = 0
 
 " We're taking over the default <C-w> setting. Don't worry we'll do
 " our best to put back the default functionality.
-call submode#enter_with('window', 'n', '', '<C-w>')
+call submode#enter_with('window', 'n', '', '<leader><C-w>')
 
 " Note: <C-c> will also get you out to the mode without this mapping.
 " Note: <C-[> also behaves as <ESC>
@@ -552,22 +541,25 @@ call submode#leave_with('window', 'n', '', '<ESC>')
 
 " Go through every letter
 for key in ['a','b','c','d','e','f','g','h','i','j','k','l','m',
-\           'n','o','p','q','r','s','t','u','v','w','x','y','z']
-  " maps lowercase, uppercase and <C-key>
-  call submode#map('window', 'n', '', key, '<C-w>' . key)
-  call submode#map('window', 'n', '', toupper(key), '<C-w>' . toupper(key))
-  call submode#map('window', 'n', '', '<C-' . key . '>', '<C-w>' . '<C-'.key . '>')
+            \           'n','o','p','q','r','s','t','u','v','w','x','y','z']
+    " maps lowercase, uppercase and <C-key>
+    call submode#map('window', 'n', '', key, '<C-w>' . key)
+    call submode#map('window', 'n', '', toupper(key), '<C-w>' . toupper(key))
+    call submode#map('window', 'n', '', '<C-' . key . '>', '<C-w>' . '<C-'.key . '>')
 endfor
 " Go through symbols. Sadly, '|', not supported in submode plugin.
 for key in ['=','_','+','-','<','>']
-  call submode#map('window', 'n', '', key, '<C-w>' . key)
+    call submode#map('window', 'n', '', key, '<C-w>' . key)
 endfor
 
-NeoBundle 'Chiel92/vim-autoformat'
+call dein#add( 'Chiel92/vim-autoformat', {
+            \ 'lazy': 1,
+            \ 'on_cmd': 'AutoFormat'
+            \ })
 nnoremap <F7> :Autoformat<cr>
 
 set rtp+=$GOROOT/misc/vim
-call neobundle#end()
+call dein#end()
 filetype plugin indent on
 colors Monokai-Refined
 "}}}
@@ -635,7 +627,7 @@ augroup Markdown
     au!
     autocmd FileType markdown setl wrap
                 \ linebreak
-                "\ spell spelllang=en_us
+    "\ spell spelllang=en_us
 augroup END
 augroup Html
     au!
@@ -654,7 +646,7 @@ augroup END
 augroup coffeescript
     au!
     au BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
-                                    \ shiftwidth=2 expandtab
+                \ shiftwidth=2 expandtab
 augroup END
 
 augroup filecleanup
@@ -681,18 +673,18 @@ if executable('grep')
 endif
 " The Silver Searcher
 if executable('ag')
-  " Use ag over grep
-  let s:grep='ag'
-  let s:grepopts='\ --nogroup\ --nocolor'
+    " Use ag over grep
+    let s:grep='ag'
+    let s:grepopts='\ --nogroup\ --nocolor'
 
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
-      \ --ignore .git
-      \ --ignore .svn
-      \ --ignore .hg
-      \ --ignore .DS_Store
-      \ --ignore "**/*.pyc"
-      \ -g ""'
+    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+    let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+                \ --ignore .git
+                \ --ignore .svn
+                \ --ignore .hg
+                \ --ignore .DS_Store
+                \ --ignore "**/*.pyc"
+                \ -g ""'
 endif
 
 execute "set grepprg=" . s:grep ."\\ ".s:grepopts
@@ -714,7 +706,7 @@ fun! Grep_with_args(patt, path)
     let l:cmd = l:cmd . " " . l:post
     if a:path != ""
         let l:cmd = l:cmd . " " . a:path
-    "else
+        "else
         "let l:cmd = l:cmd . "  *"
     endif
     let l:cmd = l:cmd . " " . l:pipe
@@ -736,15 +728,15 @@ vnoremap <script> <leader>* <Esc>:vimgrep /<C-R><C-R>=<SID>get_visual_selection(
 " project root
 nnoremap <expr><leader>/ Grep_with_args("\\b".expand("<cword>")."\\b", "")
 vnoremap <script><leader>/ <Esc>:silent grep
-                            \ "<C-R><C-R>=<SID>get_visual_selection()<CR>"
-                            \ * \|copen
-                             "\ <C-R><C-R>=Get_grep_include_opt(" --include=*.")<CR>
+            \ "<C-R><C-R>=<SID>get_visual_selection()<CR>"
+            \ * \|copen
+"\ <C-R><C-R>=Get_grep_include_opt(" --include=*.")<CR>
 "" down current folder
 "nnoremap <expr><leader>fd Grep_with_args("\\b".expand("<cword>")."\\b", expand("%:p:h"))
 "vnoremap <script><leader>fd <Esc>:silent grep
-                            "\ "<C-R><C-R>=<SID>get_visual_selection()<CR>"
-                            "\ <C-R><C-R>=expand("%:p:h")<CR>\* \|copen
-                             ""\ <C-R><C-R>=Get_grep_include_opt(" --include=*.")<CR>
+"\ "<C-R><C-R>=<SID>get_visual_selection()<CR>"
+"\ <C-R><C-R>=expand("%:p:h")<CR>\* \|copen
+""\ <C-R><C-R>=Get_grep_include_opt(" --include=*.")<CR>
 "}}}
 
 "{{{ Create folders on write
@@ -831,11 +823,11 @@ command! RemoveCtrlM call RemoveCtrlM()
 command! EditAsWin call RemoveCtrlM()
 
 func! ReadExCommandOutput(newbuf, cmd)
-  redir => l:message
-  silent! execute a:cmd
-  redir END
-  if a:newbuf | wincmd n | endif
-  silent put=l:message
+    redir => l:message
+    silent! execute a:cmd
+    redir END
+    if a:newbuf | wincmd n | endif
+    silent put=l:message
 endf
 command! -nargs=+ -bang -complete=command R call ReadExCommandOutput(<bang>1, <q-args>)
 inoremap <c-r>R <c-o>:<up><home>R! <cr>
@@ -906,6 +898,5 @@ command! Wex exec "silent !explorer " . expand("%:p:h")
 nnoremap <F9> :Gitex<cr>
 nnoremap <F10> :Wex<cr>
 
-NeoBundleCheck
 
 "}}}
