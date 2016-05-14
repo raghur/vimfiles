@@ -329,9 +329,9 @@ if has("gui_running")
     let g:indent_guides_enable_on_vim_startup = 1
 endif
 
-call dein#add( 'sjl/gundo.vim', {
+call dein#add( 'mbbill/undotree', {
             \ 'lazy': 1,
-            \ 'on_cmd': "GundoToggle"
+            \ 'on_cmd': ["UndotreeToggle"]
             \ })
 call dein#add( 'gregsexton/MatchTag')
 call dein#add( 'scrooloose/nerdcommenter')
@@ -604,7 +604,7 @@ nnoremap 0 ^
 nnoremap ^ 0
 noremap <C-s> :w<cr>
 nnoremap <leader>sv :ed ~/.vim/_vimrc<cr>
-nnoremap <F5> :GundoToggle<CR>
+nnoremap <F5> :UndotreeToggle<CR>
 vnoremap <leader>v "0p
 " copy a block and comment it and move to insert mode
 vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
