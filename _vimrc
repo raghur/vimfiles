@@ -251,7 +251,10 @@ function! s:unite_settings()
     inoremap <silent><buffer><expr> <C-s>     unite#do_action('split')
     inoremap <silent><buffer><expr> <C-v>     unite#do_action('right')
 endfunction
-autocmd FileType unite call s:unite_settings()
+augroup unite
+    autocmd!
+    autocmd FileType unite call s:unite_settings()
+augroup END
 nnoremap <silent> <leader><space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed file_rec/async:! neomru/file  buffer <cr><c-u>
 nnoremap <silent> <leader>f :<C-u>Unite -toggle -auto-resize -buffer-name=file file_rec/async:! <cr><c-u>
 nnoremap <silent> <leader>r :<C-u>Unite -buffer-name=recent file_mru<cr>
