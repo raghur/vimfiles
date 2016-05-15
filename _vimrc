@@ -450,11 +450,14 @@ let g:rooter_silent_chdir = 1
 " run: nmake -f Make_msvc.mak nodebug=1
 call dein#add( 'Shougo/vimproc.vim', { 'build': 'make' })
 if has('lua')
-    call dein#add( 'Shougo/neocomplete')
-    " Use neocomplete.
     let g:neocomplete#use_vimproc = 1
     let g:neocomplete#enable_at_startup = 1
-    exec("so ".g:home."neocomplete-custom.vim")
+    call dein#add( 'Shougo/neocomplete', {
+                \        'lazy': 1,
+                \ 'on_i': 1,
+                \ 'hook_post_source': 'exec("so ".g:home."neocomplete-custom.vim")'
+                \ })
+    " Use neocomplete.
 endif
 let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
 call dein#add( 'maxbrunsfeld/vim-yankstack')
