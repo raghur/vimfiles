@@ -318,7 +318,7 @@ let g:pandoc#syntax#codeblocks#embeds#langs = ["ruby","python","bash=sh",
             \ "js=javascript", "json=javascript", "ruby",
             \ "sass", "xml", "html"]
 
-call dein#add( 'tpope/vim-fugitive')
+"call dein#add( 'tpope/vim-fugitive')
 call dein#add( 'tpope/vim-repeat')
 let g:AutoPairsShortcutToggle = '\\'
 call dein#add( 'jiangmiao/auto-pairs')
@@ -420,7 +420,10 @@ call dein#add( 'wellle/targets.vim')
 call dein#add( 'kana/vim-textobj-user')
 "call dein#add( 'sgur/vim-textobj-parameter')
 call dein#add( 'kana/vim-textobj-function')
-call dein#add( 'thinca/vim-textobj-function-javascript')
+call dein#add( 'thinca/vim-textobj-function-javascript', {
+    \ 'lazy': 1,
+    \ 'on_ft': 'javascript'
+    \ })
 "call dein#add( 'kana/vim-textobj-indent')
 "call dein#add( 'thinca/vim-textobj-between')
 "call dein#add( 'terryma/vim-expand-region')
@@ -466,7 +469,10 @@ call dein#add( 'maxbrunsfeld/vim-yankstack')
 call dein#add( 'tpope/vim-surround')
 
 " vim sneak; replace f/F with sneak
-call dein#add( 'justinmk/vim-sneak')
+call dein#add( 'justinmk/vim-sneak', {
+    \ 'lazy' : 1,
+    \ 'on_map': '<Plug>Sneak'
+    \ })
 "replace 'f' with 1-char Sneak
 nmap f <Plug>Sneak_f
 nmap F <Plug>Sneak_F
