@@ -909,6 +909,8 @@ command! Gitex exec "silent !gitex browse " . expand("%:p:h")
 command! Wex exec "silent !explorer " . expand("%:p:h")
 nnoremap <F9> :Gitex<cr>
 nnoremap <F10> :Wex<cr>
-
-
+if dein#check_install()
+    call dein#install()
+    "call dein#recache_runtimepath()
+endif
 "}}}
