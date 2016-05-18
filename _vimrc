@@ -865,6 +865,7 @@ function! ToHtml()
     let outfile=fnamemodify(file, ":r") . ".html"
     let css=fnamemodify(file, ":h") . "pandoc.css"
     exec "silent !pandoc --toc  -c ". css .
+                \ " -F mermaid-filter.cmd" .
                 \ "  -fmarkdown_github" .
                 \ "+footnotes" .
                 \ "+implicit_header_references".
