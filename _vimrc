@@ -460,7 +460,6 @@ if has('lua')
                 \ 'on_i': 1,
                 \ 'hook_post_source': 'exec("so ".g:home."neocomplete-custom.vim")'
                 \ })
-    " Use neocomplete.
 endif
 let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
 call dein#add( 'maxbrunsfeld/vim-yankstack')
