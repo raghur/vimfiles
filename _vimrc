@@ -322,7 +322,7 @@ let g:pandoc#syntax#codeblocks#embeds#langs = ["ruby","python","bash=sh",
 call dein#add( 'tpope/vim-repeat')
 let g:AutoPairsShortcutToggle = '\\'
 call dein#add( 'jiangmiao/auto-pairs')
-call dein#add( 'nathanaelkane/vim-indent-guides')
+"call dein#add( 'nathanaelkane/vim-indent-guides')
 let g:indent_guides_guide_size = 1
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 if has("gui_running")
