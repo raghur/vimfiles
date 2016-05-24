@@ -314,7 +314,7 @@ call dein#add( 'vim-pandoc/vim-pandoc-syntax', {
             \ 'on_ft': ['markdown', 'pandoc']
             \ })
 let g:pandoc#syntax#codeblocks#embeds#langs = ["ruby","python","bash=sh",
-            \ "coffee", "css", "erb=eruby", "javascript",
+            \ "css", "erb=eruby", "javascript",
             \ "js=javascript", "json=javascript", "ruby",
             \ "sass", "xml", "html"]
 
