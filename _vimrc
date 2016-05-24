@@ -208,7 +208,7 @@ function! s:on_unite_source()
     call unite#filters#sorter_default#use(['sorter_rank'])
     call unite#custom#profile('default', 'context', {
                 \ 'start_insert': 1,
-                \ 'prompt': "⮁⮁⮁ ",
+                \ 'prompt': " ",
                 \ 'prompt-visible': 1
                 \ })
 endfunction
