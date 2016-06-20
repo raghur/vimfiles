@@ -334,7 +334,7 @@ call dein#add( 'mbbill/undotree', {
             \ 'on_cmd': ["UndotreeToggle"]
             \ })
 call dein#add( 'gregsexton/MatchTag')
-call dein#add( 'scrooloose/nerdcommenter')
+call dein#add( 'tpope/vim-commentary')
 call dein#add( 'tyru/open-browser.vim')
 "Plugin 'Valloric/YouCompleteMe'
 "let g:ycm_autoclose_preview_window_after_completion = 1
