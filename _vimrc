@@ -423,7 +423,7 @@ let g:rooter_silent_chdir = 1
 
 "neocomplete
 " run: nmake -f Make_msvc.mak nodebug=1
-call dein#add( 'Shougo/vimproc.vim', { 'build': 'make' })
+call dein#add( 'Shougo/vimproc.vim')
 if has('lua')
     let g:neocomplete#use_vimproc = 1
     let g:neocomplete#enable_at_startup = 1
