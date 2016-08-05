@@ -267,36 +267,6 @@ nnoremap <silent> <leader>b :<C-u>Unite -auto-resize -buffer-name=buffers buffer
 "nnoremap <silent> <leader>/ :<C-u>Unite -no-quit -buffer-name=search grep:.<cr>
 nnoremap <silent> <leader>m :<C-u>Unite -auto-resize -buffer-name=mappings mapping<cr>
 nnoremap <silent> <leader>s :<C-u>Unite -quick-match buffer<cr>
-" CtrlP{{{
-"NeoBundle 'kien/ctrlp.vim', {
-"\ 'lazy': 1,
-"\ 'depends': 'FelikZ/ctrlp-py-matcher',
-"\ 'autoload': {
-"\       'commands': ['CtrlP', 'CtrlPMixed', 'CtrlPMRUFiles', 'CtrlPQuickfix', 'CtrlPBuffer']
-"\   }
-"\}
-""let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
-"let g:ctrlp_match_window_bottom = 0
-"let g:ctrlp_match_window_reversed = 0
-"let g:ctrlp_max_height = 10
-"let g:ctrlp_tabpage_position = 'al'
-"let g:ctrlp_open_multi = '1t'
-"let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir']
-"let g:ctrlp_clear_cache_on_exit = 0
-"let g:ctrlp_cache_dir = $HOME.'/.ctrlp_cache'
-"let g:ctrlp_mruf_exclude = '\(.*\\dev\\shm\\pass\..*\)|\(.*\\.git\COMMIT_EDITMSG\)' " Windows
-"let g:ctrlp_mruf_case_sensitive = 0
-"let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|pyc)$'
-"let g:ctrlp_working_path_mode = 'ra'
-"let g:ctrlp_use_caching = 1
-"let g:ctrlp_clear_cache_on_exit = 1
-"let g:ctrlp_cache_dir = expand(g:home.".vimbackups/ctrlp")
-"nnoremap <leader>m :CtrlPMixed<cr>
-"nnoremap <leader>r :CtrlPMRUFiles<cr>
-"nnoremap <leader>b :CtrlPBuffer<cr>
-"nnoremap <leader><Space> :CtrlP<cr>
-"nnoremap <leader>q :CtrlPQuickfix<cr>
-"nnoremap <leader>gf :CtrlP<CR><C-\>w
 
 nnoremap <leader>bd :bd<cr>
 nnoremap <leader>d :bd!<cr>
