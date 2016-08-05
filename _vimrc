@@ -144,11 +144,6 @@ if has('unnamedplus')
     set clipboard=unnamedplus
 endif
 
-if has('nvim')
-    " Neovim-qt Guifont command, to change the font
-    command! -nargs=? Guifont call rpcnotify(0, 'Gui', 'SetFont', "<args>")
-endif
-
 " colors
 if has("gui_running")
     set background=light
@@ -165,6 +160,10 @@ else
     set guifont=Fantasque\ Sans\ Mono\ 14
     let g:GPGExecutable="gpg2"
     let g:GPGUseAgent = 1
+endif
+
+if has('nvim')
+    GuiFont Fantasque Sans Mono:h14
 endif
 
 "}}}
