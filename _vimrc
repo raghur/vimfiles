@@ -278,7 +278,6 @@ nnoremap <leader>. @:
 nnoremap <leader>a :b#<cr>
 nnoremap <leader>n :call NextErrorOrLocation("next")<cr>
 nnoremap <leader>p :call NextErrorOrLocation("prev")<cr>
-"}}}
 
 call dein#add( 'vim-pandoc/vim-pandoc', {
             \ 'on_ft': ['markdown', 'pandoc']
