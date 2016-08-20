@@ -64,20 +64,12 @@ set listchars=tab:».,trail:░,extends:→,nbsp:.
 " ConEmu
 if !empty($CONEMUBUILD)
     set term=pcansi
-    set t_Co=256
     let &t_AB="\e[48;5;%dm"
     let &t_AF="\e[38;5;%dm"
 endif
 
 " tmux and otherwise
 set t_Co=256
-if &term =~ '256color'
-    " disable Background Color Erase (BCE) so that color schemes
-    " render properly when inside 256-color tmux and GNU screen.
-    " see also http://snk.tuxfamily.org/log/vim-256color-bce.html
-    set t_ut=
-endif
-
 set path=.,,**,$HOME
 
 " Only do this part when compiled with support for autocommands.
