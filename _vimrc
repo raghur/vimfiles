@@ -196,6 +196,7 @@ call dein#add('raghur/vim-helpnav', {
 
 call dein#add( 'vim-scripts/L9')
 call dein#add( 'Shougo/neomru.vim')
+call dein#add( 'Shougo/neoyank.vim')
 
 function! s:on_unite_source()
     echom 'on_unite_source called'
@@ -250,7 +251,7 @@ augroup unite
     autocmd!
     autocmd FileType unite call s:unite_settings()
 augroup END
-nnoremap <silent> <leader><space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed file_rec/async:! neomru/file  buffer <cr><c-u>
+nnoremap <silent> <leader><space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed neomru/file buffer file_rec/async:! <cr><c-u>
 nnoremap <silent> <leader>f :<C-u>Unite -toggle -auto-resize -buffer-name=file file_rec/async:! <cr><c-u>
 nnoremap <silent> <leader>r :<C-u>Unite -buffer-name=recent file_mru<cr>
 nnoremap <silent> <leader>y :<C-u>Unite -buffer-name=yanks history/yank<cr>
