@@ -18,33 +18,33 @@ Format	 : markdown
 ${0}
 endsnippet
 
-snippet h1 "Heading 1" b
+snippet header1 "Heading 1" b
 ${1:${VISUAL:Heading}}
 ===============================
 
 ${0}
 endsnippet
 
-snippet h2 "Heading 2" b
+snippet header2 "Heading 2" b
 ${1:${VISUAL:Heading}}
 -------------------------------
 
 ${0}
 endsnippet
 
-snippet h3 "Heading 3" b
+snippet header3 "Heading 3" b
 ### ${1:${VISUAL:Heading}}
 
 ${0}
 endsnippet
 
-snippet h4 "Heading 3" bw
+snippet header4 "Heading 3" b
 #### ${1:${VISUAL:Heading}}
 
 ${0}
 endsnippet
 
-snippet em "italics" iw
+snippet italics "italics" iw
 _${1:${VISUAL:italic text}}_ ${0}
 endsnippet
 
@@ -52,7 +52,7 @@ snippet bold "bold" iw
 __${1:${VISUAL:italic text}}__ ${0}
 endsnippet
 
-snippet >> "blockquote" b
+snippet quote "blockquote" b
 `!p
 import re
 snip.rv = "\n" + re.sub('^', '> ', snip.v.text, 0, re.M) 
@@ -60,7 +60,7 @@ snip.rv = "\n" + re.sub('^', '> ', snip.v.text, 0, re.M)
 ${0}
 endsnippet
 
-snippet uli "unordered list" b
+snippet listu "unordered list" b
 `!p
 import re
 snip.rv = "\n" + re.sub('^', '*.  ', snip.v.text, 0, re.M) 
@@ -68,7 +68,7 @@ snip.rv = "\n" + re.sub('^', '*.  ', snip.v.text, 0, re.M)
 ${0}
 endsnippet
 
-snippet li "numbered list" b
+snippet listn "numbered list" b
 `!p
 import re
 snip.rv = "\n" + re.sub('^', '1.  ', snip.v.text, 0, re.M) 
