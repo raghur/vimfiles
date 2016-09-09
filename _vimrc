@@ -414,18 +414,26 @@ call dein#add( 'tpope/vim-markdown', {
 call dein#add( 'airblade/vim-rooter')
 let g:rooter_silent_chdir = 1
 
-"neocomplete
-" run: nmake -f Make_msvc.mak nodebug=1
 call dein#add( 'Shougo/vimproc.vim')
-if has('lua')
-    let g:neocomplete#use_vimproc = 1
-    let g:neocomplete#enable_at_startup = 1
-    call dein#add( 'Shougo/neocomplete', {
-                \        'lazy': 1,
-                \ 'on_i': 1,
-                \ 'hook_post_source': 'exec("so ".g:home."neocomplete-custom.vim")'
-                \ })
+
+if has('nvim')
+    call dein#add('Shougo/deoplete.nvim')
+    let g:deoplete#enable_at_startup = 1
+    inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+else
+    "neocomplete
+    " run: nmake -f Make_msvc.mak nodebug=1
+    if has('lua')
+        let g:neocomplete#use_vimproc = 1
+        let g:neocomplete#enable_at_startup = 1
+        call dein#add( 'Shougo/neocomplete', {
+                    \        'lazy': 1,
+                    \ 'on_i': 1,
+                    \ 'hook_post_source': 'exec("so ".g:home."neocomplete-custom.vim")'
+                    \ })
+    endif
 endif
+
 let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
 call dein#add( 'maxbrunsfeld/vim-yankstack')
 
