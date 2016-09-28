@@ -238,12 +238,20 @@ if executable('sift')
     let g:unite_source_rec_async_command = ['sift', '--follow', '--no-color', '--no-group',
                 \ '--git', '--targets']
 endif
+if executable('rg')
+    let g:unite_source_grep_command='rg'
+    let g:unite_source_grep_separator=''
+    let g:unite_source_grep_default_opts='--vimgrep -w -e'
+    let g:unite_source_grep_recursive_opt=''
+    let g:unite_source_rec_async_command = ['rg', '--files']
+endif
 function! s:unite_settings()
     nmap <buffer> Q <plug>(unite_exit)
     nmap <buffer> <esc> <plug>(unite_exit)
     imap <buffer> <esc> <plug>(unite_exit)
     nmap <buffer> <F5> <plug>(unite_redraw)
     imap <buffer> <F5> <plug>(unite_redraw)
+    imap <buffer> jk <Plug>(unite_insert_leave)
     inoremap <silent><buffer><expr> <C-s>     unite#do_action('split')
     inoremap <silent><buffer><expr> <C-v>     unite#do_action('right')
 endfunction
@@ -254,13 +262,11 @@ augroup END
 nnoremap <silent> <leader><space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed neomru/file buffer file_rec/async:! <cr><c-u>
 nnoremap <silent> <leader>f :<C-u>Unite -toggle -auto-resize -buffer-name=file file_rec/async:! <cr><c-u>
 nnoremap <silent> <leader>r :<C-u>Unite -buffer-name=recent file_mru<cr>
-nnoremap <silent> <leader>y :<C-u>Unite -buffer-name=yanks history/yank<cr>
-nnoremap <silent> <leader>j :<C-u>Unite -buffer-name=jumps jump change<cr>
+" nnoremap <silent> <leader>y :<C-u>Unite -buffer-name=yanks history/yank<cr>
+" nnoremap <silent> <leader>j :<C-u>Unite -buffer-name=jumps jump change<cr>
 nnoremap <silent> <leader>l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
 nnoremap <silent> <leader>b :<C-u>Unite -auto-resize -buffer-name=buffers buffer file_mru<cr>
-"nnoremap <silent> <leader>/ :<C-u>Unite -no-quit -buffer-name=search grep:.<cr>
-nnoremap <silent> <leader>m :<C-u>Unite -auto-resize -buffer-name=mappings mapping<cr>
-nnoremap <silent> <leader>s :<C-u>Unite -quick-match buffer<cr>
+nnoremap <silent> <leader>g :<C-u>Unite -no-quit -buffer-name=search grep:.<cr>
 
 nnoremap <leader>bd :bd<cr>
 nnoremap <leader>d :bd!<cr>
@@ -669,6 +675,11 @@ if executable('ag')
                 \ --ignore .DS_Store
                 \ --ignore "**/*.pyc"
                 \ -g ""'
+endif
+if executable('rg')
+    " Use ag over grep
+    let s:grep='rg'
+    let s:grepopts='\ --vimgrep\ -w\ -e '
 endif
 
 execute "set grepprg=" . s:grep ."\\ ".s:grepopts
