@@ -721,18 +721,10 @@ vnoremap <script> <leader>* <Esc>:vimgrep /<C-R><C-R>=<SID>get_visual_selection(
 
 " vimgrep - fast but external
 " project root
-nnoremap <expr><leader>/ Grep_with_args("\\b".expand("<cword>")."\\b", "")
+nnoremap <expr><leader>/ Grep_with_args(expand("<cword>"), "")
 vnoremap <script><leader>/ <Esc>:silent grep
             \ "<C-R><C-R>=<SID>get_visual_selection()<CR>"
             \ * \|copen
-"\ <C-R><C-R>=Get_grep_include_opt(" --include=*.")<CR>
-"" down current folder
-"nnoremap <expr><leader>fd Grep_with_args("\\b".expand("<cword>")."\\b", expand("%:p:h"))
-"vnoremap <script><leader>fd <Esc>:silent grep
-"\ "<C-R><C-R>=<SID>get_visual_selection()<CR>"
-"\ <C-R><C-R>=expand("%:p:h")<CR>\* \|copen
-""\ <C-R><C-R>=Get_grep_include_opt(" --include=*.")<CR>
-"}}}
 
 "{{{ Create folders on write
 function! s:MkNonExDir(file, buf)
