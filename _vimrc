@@ -241,7 +241,7 @@ endif
 if executable('rg')
     let g:unite_source_grep_command='rg'
     let g:unite_source_grep_separator=''
-    let g:unite_source_grep_default_opts='--vimgrep -w -e'
+    let g:unite_source_grep_default_opts='--vimgrep -g "!*.min.js" -w -e'
     let g:unite_source_grep_recursive_opt=''
     let g:unite_source_rec_async_command = ['rg', '--files']
 endif
@@ -266,7 +266,7 @@ nnoremap <silent> <leader>r :<C-u>Unite -buffer-name=recent file_mru<cr>
 " nnoremap <silent> <leader>j :<C-u>Unite -buffer-name=jumps jump change<cr>
 nnoremap <silent> <leader>l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
 nnoremap <silent> <leader>b :<C-u>Unite -auto-resize -buffer-name=buffers buffer file_mru<cr>
-nnoremap <silent> <leader>g :<C-u>Unite -no-quit -buffer-name=search grep:.<cr>
+nnoremap <silent> <leader>g :<C-u>UniteWithProjectDir -no-quit -buffer-name=search grep:.<cr>
 
 nnoremap <leader>bd :bd<cr>
 nnoremap <leader>d :bd!<cr>
