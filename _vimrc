@@ -267,10 +267,16 @@ nnoremap <silent> <leader>r :<C-u>Unite -buffer-name=recent file_mru<cr>
 nnoremap <silent> <leader>l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
 nnoremap <silent> <leader>b :<C-u>Unite -auto-resize -buffer-name=buffers buffer file_mru<cr>
 nnoremap <silent> <leader>g :<C-u>UniteWithProjectDir -no-quit -buffer-name=search grep:.<cr>
-
+function! Quitalready()
+    if &readonly
+        :q
+        return
+    endif
+    :x
+endfunction
 nnoremap <leader>bd :bd<cr>
 nnoremap <leader>d :bd!<cr>
-nnoremap <leader>q :wq<cr>
+nnoremap <leader>q :call Quitalready()<cr>
 nnoremap <leader>w :w<cr>
 nnoremap <leader>o :on<cr>
 nnoremap <leader>. @:
