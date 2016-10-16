@@ -281,8 +281,6 @@ nnoremap <leader>w :w<cr>
 nnoremap <leader>o :on<cr>
 nnoremap <leader>. @:
 nnoremap <leader>a :b#<cr>
-nnoremap <leader>n :call NextErrorOrLocation("next")<cr>
-nnoremap <leader>p :call NextErrorOrLocation("prev")<cr>
 
 call dein#add( 'vim-pandoc/vim-pandoc', {
             \ 'on_ft': ['markdown', 'pandoc']
@@ -860,32 +858,6 @@ function! ToHtml()
     call openbrowser#open("file:///".substitute(outfile, "\\", "/", "g"))
 endfunction
 command! ToHtml call ToHtml()
-
-function! NextErrorOrLocation(dir)
-    let old_last_winnr = winnr('$')
-    lclose
-    let cmd=""
-    if old_last_winnr != winnr('$')
-        lopen
-        let cmd=":l".a:dir
-    endif
-
-    cclose
-    if old_last_winnr != winnr('$')
-        copen
-        let cmd=":c".a:dir
-    endif
-    if cmd != ""
-        try
-            exec cmd
-        catch "E553"
-            :exe old_last_winnr . "wincmd w"
-            echom "No more items"
-        endtry
-    else
-        echom "No location or error list"
-    endif
-endfunction
 
 command! Gitex exec "silent !gitex browse " . expand("%:p:h")
 command! Wex exec "silent !explorer " . expand("%:p:h")
