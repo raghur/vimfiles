@@ -311,27 +311,6 @@ call dein#add( 'mbbill/undotree', {
 call dein#add( 'gregsexton/MatchTag')
 call dein#add( 'tpope/vim-commentary')
 call dein#add( 'tyru/open-browser.vim')
-"Plugin 'Valloric/YouCompleteMe'
-"let g:ycm_autoclose_preview_window_after_completion = 1
-"let g:ycm_autoclose_preview_window_after_insertion = 1
-"let g:ycm_auto_stop_csharp_server = 1
-"nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<cr>
-
-"NeoBundle 'kristijanhusak/vim-multiple-cursors'
-" Called once right before you start selecting multiple cursors
-"function! Multiple_cursors_before()
-"if exists(':NeoCompleteLock')==2
-"exe 'NeoCompleteLock'
-"endif
-"endfunction
-
-" Called once only when the multiple selection is canceled (default <Esc>)
-"function! Multiple_cursors_after()
-"if exists(':NeoCompleteUnlock')==2
-"exe 'NeoCompleteUnlock'
-"endif
-"endfunction
-
 "NeoBundle 'marijnh/tern_for_vim', {
 "\            'lazy':1,
 "\            'autoload': {
