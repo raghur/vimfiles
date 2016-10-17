@@ -25,6 +25,7 @@ set wildignore+=*.swp,*.bak,*.class,.git/*,.svn/*,.git\*,.svn\*
 set pastetoggle=<F11>
 set ignorecase smartcase
 set guioptions-=T
+set guioptions-=t
 set guioptions-=r
 set guioptions+=R
 set timeout timeoutlen=1000 ttimeoutlen=100
@@ -129,7 +130,6 @@ set colorcolumn=120
 set sessionoptions&
 set sessionoptions-=options
 set sessionoptions+=resize,unix,slash,winpos
-set guioptions-=t
 
 set clipboard=unnamed
 if has('unnamedplus')
