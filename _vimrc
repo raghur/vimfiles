@@ -19,8 +19,9 @@ set encoding=utf-8
 set hidden
 map <space> <leader>
 set re=2    " use the new NFA engine
-set wildchar=<Tab> wildmenu
-set wildmode=longest,list
+set wildchar=<Tab>
+set wildmenu
+set wildmode=longest:list
 set pastetoggle=<F11>
 set ignorecase smartcase
 set guioptions-=T
