@@ -622,8 +622,10 @@ augroup END
 "}}}
 
 " Custom code/Utils {{{
-let s:ackopts='\ -a\ --no-group\ -Hi '
-let s:grepopts='\ --exclude-dir=packages'
+"File search {{{
+if executable('grep')
+    let s:grep="grep"
+    let s:grepopts='\ --exclude-dir=packages'
             \ . '\ --exclude-dir=.git'
             \ . '\ --exclude-dir=.svn'
             \ . '\ --exclude-dir=tmp'
@@ -633,9 +635,6 @@ let s:grepopts='\ --exclude-dir=packages'
             \ . '\ --exclude=*.js.map'
             \ . '\ --exclude=*.min.js'
             \ . '\ -PHIirn\ $*'
-"File search {{{
-if executable('grep')
-    let s:grep="grep"
 endif
 " The Silver Searcher
 if executable('ag')
