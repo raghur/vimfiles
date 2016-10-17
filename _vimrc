@@ -136,13 +136,6 @@ if has('unnamedplus')
     set clipboard=unnamedplus
 endif
 
-" colors
-if has("gui_running")
-    set background=light
-else
-    set background=dark
-endif
-
 if has('directx')
     set renderoptions=type:directx,gamma:1.0,contrast:0.2,level:1.0,geom:1,renmode:5,taamode:1
 endif
