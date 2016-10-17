@@ -11,7 +11,6 @@ set showmode
 set backspace=indent,eol,start
 set history=50      " keep 50 lines of command line history
 set ruler       " show the cursor position all the time
-set noshowcmd
 set nocursorline
 set nocursorcolumn     " display incomplete commands
 set incsearch       " do incremental searching
@@ -22,6 +21,7 @@ set re=2    " use the new NFA engine
 set wildchar=<Tab>
 set wildmenu
 set wildmode=longest:list
+set wildignore+=*.swp,*.bak,*.class,.git/*,.svn/*,.git\*,.svn\*
 set pastetoggle=<F11>
 set ignorecase smartcase
 set guioptions-=T
@@ -56,7 +56,6 @@ set tabstop=4
 set softtabstop=4
 set shiftwidth=4
 set smartindent
-set wildignore+=*.swp,*.bak,*.class,.git/*,.svn/*,.git\*,.svn\*
 set visualbell
 set noerrorbells
 set list
