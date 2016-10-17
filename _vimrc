@@ -143,7 +143,7 @@ else
     set background=dark
 endif
 
-if has('renderoptions')
+if has('directx')
     set renderoptions=type:directx,gamma:1.0,contrast:0.2,level:1.0,geom:1,renmode:5,taamode:1
 endif
 
