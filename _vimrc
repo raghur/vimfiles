@@ -17,6 +17,7 @@ set incsearch       " do incremental searching
 set encoding=utf-8
 set hidden
 map <space> <leader>
+let maplocalleader='\'
 set re=2    " use the new NFA engine
 set wildchar=<Tab>
 set wildmenu
@@ -169,8 +170,6 @@ call dein#begin(expand('~/.cache/dein'), [expand('<sfile>')])
 call dein#add(g:home."plugins/repos/github.com/Shougo/dein.vim")
 
 call dein#add('kshenoy/vim-signature')
-nnoremap <S-F2>  :<C-U>call signature#mark#Goto("prev", "spot", "pos") <CR> \| zz
-nnoremap <F2>  :<C-U>call signature#mark#Goto("next", "spot", "pos") <CR> \| zz
 
 call dein#add("jamessan/vim-gnupg", {
             \ "lazy" : 1,
@@ -252,14 +251,6 @@ augroup unite
     autocmd!
     autocmd FileType unite call s:unite_settings()
 augroup END
-nnoremap <silent> <leader><space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed neomru/file buffer file_rec/async:! <cr><c-u>
-nnoremap <silent> <leader>f :<C-u>Unite -toggle -auto-resize -buffer-name=file file_rec/async:! <cr><c-u>
-nnoremap <silent> <leader>r :<C-u>Unite -buffer-name=recent file_mru<cr>
-" nnoremap <silent> <leader>y :<C-u>Unite -buffer-name=yanks history/yank<cr>
-" nnoremap <silent> <leader>j :<C-u>Unite -buffer-name=jumps jump change<cr>
-nnoremap <silent> <leader>l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
-nnoremap <silent> <leader>b :<C-u>Unite -auto-resize -buffer-name=buffers buffer file_mru<cr>
-nnoremap <silent> <leader>g :<C-u>UniteWithProjectDir -no-quit -buffer-name=search grep:.<cr>
 function! Quitalready()
     if &readonly
         :q
@@ -267,13 +258,6 @@ function! Quitalready()
     endif
     :x
 endfunction
-nnoremap <leader>bd :bd<cr>
-nnoremap <leader>d :bd!<cr>
-nnoremap <leader>q :call Quitalready()<cr>
-nnoremap <leader>w :w<cr>
-nnoremap <leader>o :on<cr>
-nnoremap <leader>. @:
-nnoremap <leader>a :b#<cr>
 
 call dein#add( 'vim-pandoc/vim-pandoc', {
             \ 'on_ft': ['markdown', 'pandoc']
@@ -331,7 +315,6 @@ call dein#add( 'scrooloose/syntastic', {
 let g:syntastic_python_checkers = ['pylama']
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_auto_loc_list = 1
-nnoremap <F4> :w\|SyntasticCheck<cr>
 let g:syntastic_mode_map = { 'mode': 'passive',
             \ 'active_filetypes': ['python', 'json', 'javascript'],
             \ 'passive_filetypes': [] }
@@ -441,11 +424,6 @@ let g:EnhancedJumps_CaptureJumpMessages = 0
 call dein#add('vim-scripts/ingo-library')
 call dein#add( 'vim-scripts/EnhancedJumps')
 
-nmap <backspace> <Plug>EnhancedJumpsOlder
-nmap <C-backspace> <Plug>EnhancedJumpsRemoteOlder
-nmap <C-tab> <Plug>EnhancedJumpsRemoteNewer
-nnoremap <backspace>    g;
-nnoremap <tab>    g,
 
 call dein#add( 'PProvost/vim-ps1', {
             \ 'lazy': 1,
@@ -522,7 +500,6 @@ call dein#add( 'Chiel92/vim-autoformat', {
             \ 'lazy': 1,
             \ 'on_cmd': 'AutoFormat'
             \ })
-nnoremap <F7> :Autoformat<cr>
 
 set rtp+=$GOROOT/misc/vim
 call dein#end()
@@ -530,62 +507,7 @@ filetype plugin indent on
 colors Monokai-Refined
 "}}}
 
-"Non Plugin specific keybindings {{{
-" disable arrow keys
-noremap   <Up>     <NOP>
-noremap   <Down>   <NOP>
-noremap   <Left>   <NOP>
-noremap   <Right>  <NOP>
-nnoremap   <c-space> :bd<cr>
-"inoremap <esc> <c-o>:echoe "use jk"<cr>
-inoremap jk <esc>
 
-map [[ ?{<CR>w99[{
-map ][ /}<CR>b99]}
-map ]] j0[[%/{<CR>
-map [] k$][%?}<CR>
-
-" Don't use Ex mode, use Q for formatting
-map Q gq
-
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U> <C-G>u<C-U>
-
-let maplocalleader='\'
-" Search customizations
-nnoremap / /\v
-cnoremap %s/ %s/\v
-nnoremap <leader>h  :noh<cr><c-l>
-nnoremap <leader>w  :w<cr>
-nnoremap <leader>fc :lcl <cr>
-nnoremap <leader>pw :ed ~/.gnupg/passwords.txt.asc <cr>
-vnoremap > >gv
-vnoremap < <gv
-vnoremap <silent> * y:let @/=@"<cr>:set hlsearch<cr>n
-nnoremap 0 ^
-nnoremap ^ 0
-noremap <C-s> :w<cr>
-nnoremap <leader>sv :ed $MYVIMRC<cr>
-nnoremap <F5> :UndotreeToggle<CR>
-vnoremap <leader>v "0p
-" copy a block and comment it and move to insert mode
-vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
-vnoremap % <space>%
-
-
-"Move lines
-nnoremap <A-j> :m+<CR>==
-nnoremap <A-k> :m-2<CR>==
-inoremap <A-j> <Esc>:m+<CR>==gi
-inoremap <A-k> <Esc>:m-2<CR>==gi
-vnoremap <A-j> :m'>+<CR>gv=gv
-vnoremap <A-k> :m-2<CR>gv=gv
-
-"Move by screen lines
-nnoremap j gj
-nnoremap k gk
-"}}}
 
 " Autocommands {{{
 
@@ -622,7 +544,6 @@ augroup END
 "}}}
 
 " Custom code/Utils {{{
-"File search {{{
 if executable('grep')
     let s:grep="grep"
     let s:grepopts='\ --exclude-dir=packages'
@@ -636,6 +557,7 @@ if executable('grep')
             \ . '\ --exclude=*.min.js'
             \ . '\ -PHIirn\ $*'
 endif
+
 " The Silver Searcher
 if executable('ag')
     " Use ag over grep
@@ -651,6 +573,7 @@ if executable('ag')
                 \ --ignore "**/*.pyc"
                 \ -g ""'
 endif
+
 if executable('rg')
     " Use ag over grep
     let s:grep='rg'
@@ -690,16 +613,6 @@ fun! s:get_visual_selection()
     return l[col1 - 1: col2 - 1]
 endfun
 
-" lvimgrep - internal - slow
-nnoremap <expr> <leader>* ":silent vimgrep /" . expand("<cword>") . "/j " .  Get_grep_include_opt("**/*.") . " \|copen"
-vnoremap <script> <leader>* <Esc>:vimgrep /<C-R><C-R>=<SID>get_visual_selection()<CR>/j <C-R><C-R>=Get_grep_include_opt("**/*.")<CR>\|copen
-
-" vimgrep - fast but external
-" project root
-nnoremap <expr><leader>/ Grep_with_args(expand("<cword>"), "")
-vnoremap <script><leader>/ <Esc>:silent grep
-            \ "<C-R><C-R>=<SID>get_visual_selection()<CR>"
-            \ * \|copen
 
 "{{{ Create folders on write
 function! s:MkNonExDir(file, buf)
@@ -832,10 +745,99 @@ command! ToHtml call ToHtml()
 
 command! Gitex exec "silent !gitex browse " . expand("%:p:h")
 command! Wex exec "silent !explorer " . expand("%:p:h")
-nnoremap <F9> :Gitex<cr>
-nnoremap <F10> :Wex<cr>
 if dein#check_install()
     call dein#install()
     "call dein#recache_runtimepath()
 endif
+
+"}}}
+
+"specific keybindings {{{
+nnoremap <F9> :Gitex<cr>
+nnoremap <F10> :Wex<cr>
+nnoremap <S-F2>  :<C-U>call signature#mark#Goto("prev", "spot", "pos") <CR> \| zz
+nnoremap <F2>  :<C-U>call signature#mark#Goto("next", "spot", "pos") <CR> \| zz
+nnoremap <silent> <leader><space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed neomru/file buffer file_rec/async:! <cr><c-u>
+nnoremap <silent> <leader>f :<C-u>Unite -toggle -auto-resize -buffer-name=file file_rec/async:! <cr><c-u>
+nnoremap <silent> <leader>r :<C-u>Unite -buffer-name=recent file_mru<cr>
+" nnoremap <silent> <leader>y :<C-u>Unite -buffer-name=yanks history/yank<cr>
+" nnoremap <silent> <leader>j :<C-u>Unite -buffer-name=jumps jump change<cr>
+nnoremap <silent> <leader>l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
+nnoremap <silent> <leader>b :<C-u>Unite -auto-resize -buffer-name=buffers buffer file_mru<cr>
+nnoremap <silent> <leader>g :<C-u>UniteWithProjectDir -no-quit -buffer-name=search grep:.<cr>
+nnoremap <leader>bd :bd<cr>
+nnoremap <leader>d :bd!<cr>
+nnoremap <leader>q :call Quitalready()<cr>
+nnoremap <leader>w :w<cr>
+nnoremap <leader>o :on<cr>
+nnoremap <leader>. @:
+nnoremap <leader>a :b#<cr>
+nnoremap <F4> :w\|SyntasticCheck<cr>
+nmap <backspace> <Plug>EnhancedJumpsOlder
+nmap <C-backspace> <Plug>EnhancedJumpsRemoteOlder
+nmap <C-tab> <Plug>EnhancedJumpsRemoteNewer
+nnoremap <backspace>    g;
+nnoremap <tab>    g,
+nnoremap <F7> :Autoformat<cr>
+" disable arrow keys
+noremap   <Up>     <NOP>
+noremap   <Down>   <NOP>
+noremap   <Left>   <NOP>
+noremap   <Right>  <NOP>
+nnoremap   <c-space> :bd<cr>
+"inoremap <esc> <c-o>:echoe "use jk"<cr>
+inoremap jk <esc>
+
+map [[ ?{<CR>w99[{
+map ][ /}<CR>b99]}
+map ]] j0[[%/{<CR>
+map [] k$][%?}<CR>
+
+" Don't use Ex mode, use Q for formatting
+map Q gq
+
+" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+" so that you can undo CTRL-U after inserting a line break.
+inoremap <C-U> <C-G>u<C-U>
+nnoremap / /\v
+cnoremap %s/ %s/\v
+nnoremap <leader>h  :noh<cr><c-l>
+nnoremap <leader>w  :w<cr>
+nnoremap <leader>fc :lcl <cr>
+nnoremap <leader>pw :ed ~/.gnupg/passwords.txt.asc <cr>
+vnoremap > >gv
+vnoremap < <gv
+vnoremap <silent> * y:let @/=@"<cr>:set hlsearch<cr>n
+nnoremap 0 ^
+nnoremap ^ 0
+noremap <C-s> :w<cr>
+nnoremap <leader>sv :ed $MYVIMRC<cr>
+nnoremap <F5> :UndotreeToggle<CR>
+vnoremap <leader>v "0p
+" copy a block and comment it and move to insert mode
+vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
+vnoremap % <space>%
+
+
+"Move lines
+nnoremap <A-j> :m+<CR>==
+nnoremap <A-k> :m-2<CR>==
+inoremap <A-j> <Esc>:m+<CR>==gi
+inoremap <A-k> <Esc>:m-2<CR>==gi
+vnoremap <A-j> :m'>+<CR>gv=gv
+vnoremap <A-k> :m-2<CR>gv=gv
+
+"Move by screen lines
+nnoremap j gj
+nnoremap k gk
+" lvimgrep - internal - slow
+nnoremap <expr> <leader>* ":silent vimgrep /" . expand("<cword>") . "/j " .  Get_grep_include_opt("**/*.") . " \|copen"
+vnoremap <script> <leader>* <Esc>:vimgrep /<C-R><C-R>=<SID>get_visual_selection()<CR>/j <C-R><C-R>=Get_grep_include_opt("**/*.")<CR>\|copen
+
+" vimgrep - fast but external
+" project root
+nnoremap <expr><leader>/ Grep_with_args(expand("<cword>"), "")
+vnoremap <script><leader>/ <Esc>:silent grep
+            \ "<C-R><C-R>=<SID>get_visual_selection()<CR>"
+            \ * \|copen
 "}}}
