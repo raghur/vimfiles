@@ -507,8 +507,6 @@ filetype plugin indent on
 colors Monokai-Refined
 "}}}
 
-
-
 " Autocommands {{{
 
 augroup Markdown
@@ -752,33 +750,8 @@ endif
 
 "}}}
 
-"specific keybindings {{{
-nnoremap <F9> :Gitex<cr>
-nnoremap <F10> :Wex<cr>
-nnoremap <S-F2>  :<C-U>call signature#mark#Goto("prev", "spot", "pos") <CR> \| zz
-nnoremap <F2>  :<C-U>call signature#mark#Goto("next", "spot", "pos") <CR> \| zz
-nnoremap <silent> <leader><space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed neomru/file buffer file_rec/async:! <cr><c-u>
-nnoremap <silent> <leader>f :<C-u>Unite -toggle -auto-resize -buffer-name=file file_rec/async:! <cr><c-u>
-nnoremap <silent> <leader>r :<C-u>Unite -buffer-name=recent file_mru<cr>
-" nnoremap <silent> <leader>y :<C-u>Unite -buffer-name=yanks history/yank<cr>
-" nnoremap <silent> <leader>j :<C-u>Unite -buffer-name=jumps jump change<cr>
-nnoremap <silent> <leader>l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
-nnoremap <silent> <leader>b :<C-u>Unite -auto-resize -buffer-name=buffers buffer file_mru<cr>
-nnoremap <silent> <leader>g :<C-u>UniteWithProjectDir -no-quit -buffer-name=search grep:.<cr>
-nnoremap <leader>bd :bd<cr>
-nnoremap <leader>d :bd!<cr>
-nnoremap <leader>q :call Quitalready()<cr>
-nnoremap <leader>w :w<cr>
-nnoremap <leader>o :on<cr>
-nnoremap <leader>. @:
-nnoremap <leader>a :b#<cr>
-nnoremap <F4> :w\|SyntasticCheck<cr>
-nmap <backspace> <Plug>EnhancedJumpsOlder
-nmap <C-backspace> <Plug>EnhancedJumpsRemoteOlder
-nmap <C-tab> <Plug>EnhancedJumpsRemoteNewer
-nnoremap <backspace>    g;
-nnoremap <tab>    g,
-nnoremap <F7> :Autoformat<cr>
+"Keybindings {{{
+
 " disable arrow keys
 noremap   <Up>     <NOP>
 noremap   <Down>   <NOP>
@@ -787,6 +760,57 @@ noremap   <Right>  <NOP>
 nnoremap   <c-space> :bd<cr>
 "inoremap <esc> <c-o>:echoe "use jk"<cr>
 inoremap jk <esc>
+vnoremap > >gv
+vnoremap < <gv
+nnoremap 0 ^
+nnoremap ^ 0
+noremap <C-s> :w<cr>
+"Move by screen lines
+nnoremap j gj
+nnoremap k gk
+
+" Function keys
+nnoremap <F2>  :<C-U>call signature#mark#Goto("next", "spot", "pos") <CR> \| zz
+nnoremap <S-F2>  :<C-U>call signature#mark#Goto("prev", "spot", "pos") <CR> \| zz
+nnoremap <F4> :w\|SyntasticCheck<cr>
+nnoremap <F5> :UndotreeToggle<CR>
+nnoremap <F7> :Autoformat<cr>
+nnoremap <F9> :Gitex<cr>
+nnoremap <F10> :Wex<cr>
+
+"unite
+nnoremap <silent> <leader><space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed neomru/file buffer file_rec/async:! <cr><c-u>
+nnoremap <silent> <leader>f :<C-u>Unite -toggle -auto-resize -buffer-name=file file_rec/async:! <cr><c-u>
+nnoremap <silent> <leader>r :<C-u>Unite -buffer-name=recent file_mru<cr>
+" nnoremap <silent> <leader>y :<C-u>Unite -buffer-name=yanks history/yank<cr>
+" nnoremap <silent> <leader>j :<C-u>Unite -buffer-name=jumps jump change<cr>
+nnoremap <silent> <leader>l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
+nnoremap <silent> <leader>b :<C-u>Unite -auto-resize -buffer-name=buffers buffer file_mru<cr>
+nnoremap <silent> <leader>g :<C-u>UniteWithProjectDir -no-quit -buffer-name=search grep:.<cr>
+
+"leader mappings
+nnoremap <leader>bd :bd<cr>
+nnoremap <leader>d :bd!<cr>
+nnoremap <leader>q :call Quitalready()<cr>
+nnoremap <leader>w :w<cr>
+nnoremap <leader>o :on<cr>
+nnoremap <leader>. @:
+nnoremap <leader>a :b#<cr>
+nnoremap <leader>h  :noh<cr><c-l>
+nnoremap <leader>w  :w<cr>
+nnoremap <leader>fc :lcl <cr>
+nnoremap <leader>pw :ed ~/.gnupg/passwords.txt.asc <cr>
+nnoremap <leader>sv :ed $MYVIMRC<cr>
+vnoremap <leader>v "0p
+" copy a block and comment it and move to insert mode
+vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
+
+" backspace and tab
+nmap <backspace> <Plug>EnhancedJumpsOlder
+nmap <C-backspace> <Plug>EnhancedJumpsRemoteOlder
+nmap <C-tab> <Plug>EnhancedJumpsRemoteNewer
+nnoremap <backspace>    g;
+nnoremap <tab>    g,
 
 map [[ ?{<CR>w99[{
 map ][ /}<CR>b99]}
@@ -801,22 +825,8 @@ map Q gq
 inoremap <C-U> <C-G>u<C-U>
 nnoremap / /\v
 cnoremap %s/ %s/\v
-nnoremap <leader>h  :noh<cr><c-l>
-nnoremap <leader>w  :w<cr>
-nnoremap <leader>fc :lcl <cr>
-nnoremap <leader>pw :ed ~/.gnupg/passwords.txt.asc <cr>
-vnoremap > >gv
-vnoremap < <gv
-vnoremap <silent> * y:let @/=@"<cr>:set hlsearch<cr>n
-nnoremap 0 ^
-nnoremap ^ 0
-noremap <C-s> :w<cr>
-nnoremap <leader>sv :ed $MYVIMRC<cr>
-nnoremap <F5> :UndotreeToggle<CR>
-vnoremap <leader>v "0p
-" copy a block and comment it and move to insert mode
-vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
 vnoremap % <space>%
+vnoremap <silent> * y:let @/=@"<cr>:set hlsearch<cr>n
 
 
 "Move lines
@@ -827,9 +837,7 @@ inoremap <A-k> <Esc>:m-2<CR>==gi
 vnoremap <A-j> :m'>+<CR>gv=gv
 vnoremap <A-k> :m-2<CR>gv=gv
 
-"Move by screen lines
-nnoremap j gj
-nnoremap k gk
+
 " lvimgrep - internal - slow
 nnoremap <expr> <leader>* ":silent vimgrep /" . expand("<cword>") . "/j " .  Get_grep_include_opt("**/*.") . " \|copen"
 vnoremap <script> <leader>* <Esc>:vimgrep /<C-R><C-R>=<SID>get_visual_selection()<CR>/j <C-R><C-R>=Get_grep_include_opt("**/*.")<CR>\|copen
