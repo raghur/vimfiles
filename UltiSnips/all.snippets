@@ -2,36 +2,31 @@
 # DATES #
 #########
 snippet date "Mon, 26-oct-2016" w
-`!p import datetime
-d=datetime.date.today()
-snip.rv=d.strftime("%a,%d-%b-%Y")
+`!p from snippethelpers import *
+snip.rv=now().strftime("%a,%d-%b-%Y")
 `
 endsnippet
 
 snippet datetime "Mon, 26-oct-2016" w
-`!p import datetime
-d=datetime.datetime.now()
-snip.rv=d.strftime("%I:%M%p, %a,%d-%b-%Y")
+`!p from snippethelpers import *
+snip.rv=now().strftime("%I:%M%p, %a,%d-%b-%Y")
 `
 endsnippet
 snippet ddate "Month DD, YYYY" w
-`!p import datetime
-d=datetime.date.today()
-snip.rv=d.strftime("%b %d,%Y")
+`!p from snippethelpers import *
+snip.rv=now().strftime("%b %d,%Y")
 `
 endsnippet
 
 snippet diso "ISO format datetime" w
-`!p import datetime
-d=datetime.datetime.now()
-snip.rv=d.strftime("%Y-%m-%d %H:%M")
+`!p from snippethelpers import *
+snip.rv=now().strftime("%Y-%m-%d %H:%M")
 `
 endsnippet
 
 snippet time "hh:mm" w
-`!p import datetime
-d=datetime.datetime.now()
-snip.rv=d.strftime("%H:%M")
+`!p from snippethelpers import *
+snip.rv=now().strftime("%H:%M")
 `
 endsnippet
 

@@ -2,3 +2,5 @@ sessions/
 .vimbackups/
 .netrwhist
 bundle/
+
+*.pyc
