@@ -1,6 +1,10 @@
 " vim: fdm=marker:
 " Options {{{
 let g:home=expand('<sfile>:p:h')."/"
+if has('nvim')
+    let g:loaded_python_provider = 1
+    let g:python3_host_prog='D:\sdks\python3\python.exe'
+endif
 fun! s:createIfNotExists(dir)
     if !isdirectory(a:dir)
         call mkdir(a:dir, "p")
@@ -159,53 +163,33 @@ endif
 "}}}
 
 " Plugin Bundles and config {{{
-filetype off
 exec("set rtp^=".g:home)
-if !isdirectory(g:home."plugins/repos/github.com/Shougo/dein.vim")
-    silent exec "!git clone https://github.com/shougo/dein.vim"." ".g:home."plugins/repos/github.com/Shougo/dein.vim"
-endif
-exec("set rtp^=".g:home."plugins/repos/github.com/Shougo/dein.vim")
-call dein#begin(expand('~/.cache/dein'), [expand('<sfile>')])
 
-call dein#add(g:home."plugins/repos/github.com/Shougo/dein.vim")
-
-call dein#add('kshenoy/vim-signature')
-
-call dein#add("jamessan/vim-gnupg", {
-            \ "lazy" : 1,
-            \ "on_path": ['\.gpg$', '\.asc$']
-            \ })
+call plug#begin(g:home.'bundle')
+Plug 'kshenoy/vim-signature'
+augroup gpg
+    au!
+    autocmd BufNewFile,BufRead *.gpg, *.asc setf gpg
+augroup END
+Plug 'jamessan/vim-gnupg', {
+            \ 'for': ['gpg']
+            \ }
 "If you have git, make sure that path does NOT point to git bash tools
 " Path for git win should point to the libexec/git-core folder
 " The default GPG should point to cygwin git
 " To check: :sh, which gpg
 let g:GPGDefaultRecipients=['Raghu Rajagopalan']
 
-call dein#add('raghur/vim-helpnav', {
-            \ "lazy" : 1,
-            \ "on_ft" : ['help']
-            \ })
+Plug 'raghur/vim-helpnav', {
+            \ 'for' : ['help']
+            \ }
 
-call dein#add( 'vim-scripts/L9')
-call dein#add( 'Shougo/neomru.vim')
-call dein#add( 'Shougo/neoyank.vim')
+Plug 'vim-scripts/L9'
+Plug  'Shougo/neomru.vim'
+Plug  'Shougo/neoyank.vim'
 
-function! s:on_unite_source()
-    echom 'on_unite_source called'
-    call unite#filters#matcher_default#use(['matcher_fuzzy'])
-    call unite#filters#sorter_default#use(['sorter_rank'])
-    call unite#custom#profile('default', 'context', {
-                \ 'start_insert': 1,
-                \ 'prompt': " ",
-                \ 'prompt-visible': 1
-                \ })
-endfunction
 
-call dein#add( 'shougo/unite.vim', {
-    \ 'lazy' : 1,
-    \ 'on_cmd': 'Unite',
-    \ 'hook_post_source': function('s:on_unite_source')
-    \ })
+Plug  'shougo/unite.vim'
 let g:unite_data_directory = g:home.".vimbackups/unite"
 let g:unite_source_history_yank_enable=1
 let g:unite_source_rec_max_cache_files=5000
@@ -259,21 +243,17 @@ function! Quitalready()
     :x
 endfunction
 
-call dein#add( 'vim-pandoc/vim-pandoc', {
-            \ 'on_ft': ['markdown', 'pandoc']
-            \ })
-call dein#add( 'vim-pandoc/vim-pandoc-syntax', {
-            \ 'on_ft': ['markdown', 'pandoc']
-            \ })
+Plug  'vim-pandoc/vim-pandoc'
+Plug  'vim-pandoc/vim-pandoc-syntax'
 let g:pandoc#syntax#codeblocks#embeds#langs = ["ruby","python","bash=sh",
             \ "css", "erb=eruby", "javascript",
             \ "js=javascript", "json=javascript", "ruby",
             \ "sass", "xml", "html"]
 
 "call dein#add( 'tpope/vim-fugitive')
-call dein#add( 'tpope/vim-repeat')
+Plug  'tpope/vim-repeat'
 let g:AutoPairsShortcutToggle = '\\'
-call dein#add( 'jiangmiao/auto-pairs')
+Plug  'jiangmiao/auto-pairs'
 "call dein#add( 'nathanaelkane/vim-indent-guides')
 let g:indent_guides_guide_size = 1
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
@@ -281,23 +261,22 @@ if has("gui_running")
     let g:indent_guides_enable_on_vim_startup = 1
 endif
 
-call dein#add( 'mbbill/undotree', {
-            \ 'lazy': 1,
-            \ 'on_cmd': ["UndotreeToggle"]
-            \ })
-call dein#add( 'gregsexton/MatchTag')
-call dein#add( 'tpope/vim-commentary')
-call dein#add( 'tyru/open-browser.vim')
+Plug  'mbbill/undotree', {
+            \ 'on': ['UndotreeToggle']
+            \ }
+Plug  'gregsexton/MatchTag'
+Plug  'tpope/vim-commentary'
+Plug  'tyru/open-browser.vim'
 "NeoBundle 'marijnh/tern_for_vim', {
 "\            'lazy':1,
 "\            'autoload': {
 "\              'filetypes' : ['javascript']
 "\           }
-"\}
+"\
 
 if has('python') || has('python3')
-    call dein#add( 'SirVer/ultisnips')
-    call dein#add( 'honza/vim-snippets')
+    Plug  'SirVer/ultisnips'
+    Plug  'honza/vim-snippets'
     "let g:UltiSnipsUsePythonVersion=2
     let g:UltiSnipsSnippetsDir=g:home."UltiSnips"
     let g:UltiSnipsExpandTrigger="<c-cr>"
@@ -307,11 +286,7 @@ if has('python') || has('python3')
     let g:UltiSnipsListSnippets="<c-tab>"
 endif
 
-call dein#add( 'scrooloose/syntastic', {
-            \ 'lazy' : 1,
-            \ 'on_cmd': "SyntasticCheck",
-            \ 'on_func': 'SyntasticStatuslineFlag'
-            \ })
+Plug  'scrooloose/syntastic'
 let g:syntastic_python_checkers = ['pylama']
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_auto_loc_list = 1
@@ -319,70 +294,56 @@ let g:syntastic_mode_map = { 'mode': 'passive',
             \ 'active_filetypes': ['python', 'json', 'javascript'],
             \ 'passive_filetypes': [] }
 
-call dein#add( 'kchmck/vim-coffee-script', {
-            \ 'lazy': 1,
-            \ 'on_ft': 'coffeescript'
-            \ })
-call dein#add( 'raghur/vim-colorschemes')
-call dein#add( 'vim-scripts/Colour-Sampler-Pack')
-call dein#add( 'sickill/vim-monokai')
-call dein#add( 'jaromero/vim-monokai-refined')
-call dein#add( 'altercation/vim-colors-solarized')
-call dein#add( 'chriskempson/base16-vim')
+Plug  'kchmck/vim-coffee-script'
+Plug  'raghur/vim-colorschemes'
+Plug  'vim-scripts/Colour-Sampler-Pack'
+Plug  'sickill/vim-monokai'
+Plug  'jaromero/vim-monokai-refined'
+Plug  'altercation/vim-colors-solarized'
+Plug  'chriskempson/base16-vim'
 let base16colorspace=256
 let g:solarized_termcolors=256
 
-call dein#add( 'pangloss/vim-javascript', {
-            \ 'lazy': 1,
-            \ 'on_ft': ['javascript']
-            \ })
-call dein#add( 'elzr/vim-json', {
-            \ 'lazy': 1,
-            \ 'on_ft': ['json']
-            \ })
+Plug  'pangloss/vim-javascript'
+Plug  'elzr/vim-json'
 let g:vim_json_syntax_conceal = 0
 
 
-call dein#add( 'jwhitley/vim-matchit.git')
-call dein#add( 'tpope/vim-ragtag')
+Plug  'vim-scripts/matchit.zip'
+Plug  'tpope/vim-ragtag'
 
-call dein#add( 'wellle/targets.vim')
-call dein#add( 'kana/vim-textobj-user')
+Plug  'wellle/targets.vim'
+Plug  'kana/vim-textobj-user'
 "call dein#add( 'sgur/vim-textobj-parameter')
-call dein#add( 'kana/vim-textobj-function')
-call dein#add( 'thinca/vim-textobj-function-javascript', {
-    \ 'lazy': 1,
-    \ 'on_ft': 'javascript'
-    \ })
-"call dein#add( 'kana/vim-textobj-indent')
-"call dein#add( 'thinca/vim-textobj-between')
-"call dein#add( 'terryma/vim-expand-region')
-call dein#add( 'rstacruz/sparkup', { 'rtp': 'vim' })
+Plug  'kana/vim-textobj-function'
+Plug  'thinca/vim-textobj-function-javascript', {
+            \ 'for': 'javascript'
+            \ }
+" Plug  'kana/vim-textobj-indent'
+" Plug  'thinca/vim-textobj-between'
+" Plug  'terryma/vim-expand-region'
+Plug  'rstacruz/sparkup', { 'rtp': 'vim' }
 
 " vim-airline and fonts
 set lazyredraw
 set laststatus=2
 
-call dein#add( 'vim-airline/vim-airline')
+Plug  'vim-airline/vim-airline'
 let g:airline_enable_branch=1
 let g:airline_enable_syntastic=1
 let g:airline_powerline_fonts=1
 let g:airline_detect_modified=1
 
 
-call dein#add( 'tpope/vim-dispatch')
-call dein#add( 'tpope/vim-markdown', {
-            \ 'lazy' : 1,
-            \ 'on_ft' : 'markdown'
-            \ })
+Plug  'tpope/vim-dispatch'
+Plug  'tpope/vim-markdown'
 
-call dein#add( 'airblade/vim-rooter')
+Plug  'airblade/vim-rooter'
 let g:rooter_silent_chdir = 1
 
-call dein#add( 'Shougo/vimproc.vim')
-
+Plug  'Shougo/vimproc.vim'
 if has('nvim')
-    call dein#add('Shougo/deoplete.nvim')
+    Plug 'Shougo/deoplete.nvim'
     let g:deoplete#enable_at_startup = 1
     inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 else
@@ -391,25 +352,20 @@ else
     if has('lua')
         let g:neocomplete#use_vimproc = 1
         let g:neocomplete#enable_at_startup = 1
-        call dein#add( 'Shougo/neocomplete', {
-                    \        'lazy': 1,
-                    \ 'on_i': 1,
-                    \ 'hook_post_source': 'exec("so ".g:home."neocomplete-custom.vim")'
-                    \ })
+        Plug  'Shougo/neocomplete'
     endif
 endif
 
 let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
-call dein#add( 'maxbrunsfeld/vim-yankstack')
+Plug  'maxbrunsfeld/vim-yankstack'
 
 " make sure this is after vim-yankstack
-call dein#add( 'tpope/vim-surround')
+Plug  'tpope/vim-surround'
 
 " vim sneak; replace f/F with sneak
-call dein#add( 'justinmk/vim-sneak', {
-    \ 'lazy' : 1,
-    \ 'on_map': '<Plug>Sneak'
-    \ })
+Plug  'justinmk/vim-sneak', {
+            \ 'on': '<Plug>Sneak'
+            \ }
 "replace 'f' with 1-char Sneak
 nmap f <Plug>Sneak_f
 nmap F <Plug>Sneak_F
@@ -421,27 +377,15 @@ let g:sneak#s_next = 0
 
 let g:stopFirstAndNotifyTimeoutLen = 0
 let g:EnhancedJumps_CaptureJumpMessages = 0
-call dein#add('vim-scripts/ingo-library')
-call dein#add( 'vim-scripts/EnhancedJumps')
+Plug 'vim-scripts/ingo-library'
+Plug  'vim-scripts/EnhancedJumps'
 
 
-call dein#add( 'PProvost/vim-ps1', {
-            \ 'lazy': 1,
-            \ 'on_ft': ['ps1', 'powershell']
-            \})
-call dein#add( 'nvie/vim-flake8', {
-            \ 'lazy': 1,
-            \ 'on_ft': 'python'
-            \})
-"call dein#add( 'nvie/vim-pyunit')
-call dein#add( 'klen/python-mode', {
-            \ 'lazy': 1,
-            \ 'on_ft': 'python'
-            \})
-call dein#add( 'python-rope/ropevim', {
-            \ 'lazy': 1,
-            \ 'on_ft': 'python'
-            \})
+Plug  'PProvost/vim-ps1'
+Plug  'nvie/vim-flake8'
+"Plug  'nvie/vim-pyunit'
+Plug  'klen/python-mode'
+Plug  'python-rope/ropevim'
 let g:pymode_run_bind = '<leader>pr'
 let g:pymode_rope = 1
 
@@ -457,8 +401,8 @@ if &term =~ '^screen'
     set <xLeft>=\e[1;*D
 endif
 
-call dein#add( 'xolox/vim-misc')
-call dein#add( 'xolox/vim-session')
+Plug  'xolox/vim-misc'
+Plug  'xolox/vim-session'
 if (has('win32unix'))
     let g:session_directory=g:home.".vimbackups/.cygsessions"
 else
@@ -469,7 +413,24 @@ let g:session_autosave='yes'
 let g:session_autoload='yes'
 let g:session_default_to_last=1
 
-call dein#add( 'kana/vim-submode')
+Plug  'kana/vim-submode'
+Plug  'Chiel92/vim-autoformat', {
+            \ 'on': 'AutoFormat'
+            \ }
+
+set rtp+=$GOROOT/misc/vim
+call plug#end()
+exec "so ".g:home."neocomplete-custom.vim"
+
+" unite settings
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+call unite#custom#profile('default', 'context', {
+            \ 'start_insert': 1,
+            \ 'prompt': " ",
+            \ 'prompt-visible': 1
+            \ })
+" submode
 " A message will appear in the message line when you're in a submode
 " and stay there until the mode has existed.
 let g:submode_always_show_submode = 1
@@ -496,13 +457,6 @@ for key in ['=','_','+','-','<','>']
     call submode#map('window', 'n', '', key, '<C-w>' . key)
 endfor
 
-call dein#add( 'Chiel92/vim-autoformat', {
-            \ 'lazy': 1,
-            \ 'on_cmd': 'AutoFormat'
-            \ })
-
-set rtp+=$GOROOT/misc/vim
-call dein#end()
 filetype plugin indent on
 colors Monokai-Refined
 "}}}
@@ -743,10 +697,10 @@ command! ToHtml call ToHtml()
 
 command! Gitex exec "silent !gitex browse " . expand("%:p:h")
 command! Wex exec "silent !explorer " . expand("%:p:h")
-if dein#check_install()
-    call dein#install()
+"if dein#check_install()
+"    call dein#install()
     "call dein#recache_runtimepath()
-endif
+"endif
 
 "}}}
 
