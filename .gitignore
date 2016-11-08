@@ -4,3 +4,4 @@ sessions/
 bundle/
 
 *.pyc
+.ropeproject/
