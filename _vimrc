@@ -417,6 +417,26 @@ Plug  'kana/vim-submode'
 Plug  'Chiel92/vim-autoformat', {
             \ 'on': 'AutoFormat'
             \ }
+Plug 'mhinz/vim-grepper'
+
+" for browsing the input history
+cnoremap <c-n> <down>
+cnoremap <c-p> <up>
+
+nmap gs <plug>(GrepperOperator)
+xmap gs <plug>(GrepperOperator)
+
+nnoremap <leader>g :Grepper -tool git<cr>
+nnoremap <leader>rg :Grepper -tool rg<cr>
+nnoremap <leader>* :Grepper -tool rg -cword -noprompt<cr>
+
+let g:grepper = {
+    \ 'tools':     ['rg', 'git', 'grep'],
+    \ 'open':      1,
+    \ 'jump':      0,
+    \ 'switch':     1,
+    \ 'next_tool': '<leader>g',
+    \ }
 
 set rtp+=$GOROOT/misc/vim
 call plug#end()
@@ -496,75 +516,6 @@ augroup END
 "}}}
 
 " Custom code/Utils {{{
-if executable('grep')
-    let s:grep="grep"
-    let s:grepopts='\ --exclude-dir=packages'
-            \ . '\ --exclude-dir=.git'
-            \ . '\ --exclude-dir=.svn'
-            \ . '\ --exclude-dir=tmp'
-            \ . '\ --exclude=*.intellisense.js'
-            \ . '\ --exclude=*-vsdoc.js'
-            \ . '\ --exclude=*.tmp'
-            \ . '\ --exclude=*.js.map'
-            \ . '\ --exclude=*.min.js'
-            \ . '\ -PHIirn\ $*'
-endif
-
-" The Silver Searcher
-if executable('ag')
-    " Use ag over grep
-    let s:grep='ag'
-    let s:grepopts='\ --nogroup\ --nocolor'
-
-    " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-    let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
-                \ --ignore .git
-                \ --ignore .svn
-                \ --ignore .hg
-                \ --ignore .DS_Store
-                \ --ignore "**/*.pyc"
-                \ -g ""'
-endif
-
-if executable('rg')
-    " Use ag over grep
-    let s:grep='rg'
-    let s:grepopts='\ --vimgrep\ -w\ -e '
-endif
-
-execute "set grepprg=" . s:grep ."\\ ".s:grepopts
-
-fun! Get_grep_include_opt(prefix)
-    let l:cmd = ""
-    if (expand("%:e") != "")
-        "let l:cmd =  " --include=*.". expand("%:e") . " "
-        let l:cmd = a:prefix . expand("%:e") . " "
-    endif
-    return l:cmd
-endfun
-
-fun! Grep_with_args(patt, path)
-    let l:cmd=":silent grep! "
-    let l:post="\"" . a:patt . "\""
-    let l:pipe =  "\| copen"
-    "let l:cmd = l:cmd .  Get_grep_include_opt(" --include=*.")
-    let l:cmd = l:cmd . " " . l:post
-    if a:path != ""
-        let l:cmd = l:cmd . " " . a:path
-        "else
-        "let l:cmd = l:cmd . "  *"
-    endif
-    let l:cmd = l:cmd . " " . l:pipe
-    return l:cmd
-endfun
-
-fun! s:get_visual_selection()
-    let l=getline("'<")
-    let [line1,col1] = getpos("'<")[1:2]
-    let [line2,col2] = getpos("'>")[1:2]
-    return l[col1 - 1: col2 - 1]
-endfun
-
 
 "{{{ Create folders on write
 function! s:MkNonExDir(file, buf)
@@ -740,7 +691,7 @@ nnoremap <silent> <leader>r :<C-u>Unite -buffer-name=recent file_mru<cr>
 " nnoremap <silent> <leader>j :<C-u>Unite -buffer-name=jumps jump change<cr>
 nnoremap <silent> <leader>l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
 nnoremap <silent> <leader>b :<C-u>Unite -auto-resize -buffer-name=buffers buffer file_mru<cr>
-nnoremap <silent> <leader>g :<C-u>UniteWithProjectDir -no-quit -buffer-name=search grep:.<cr>
+" nnoremap <silent> <leader>g :<C-u>UniteWithProjectDir -no-quit -buffer-name=search grep:.<cr>
 
 "leader mappings
 nnoremap <leader>bd :bd<cr>
@@ -791,15 +742,4 @@ inoremap <A-k> <Esc>:m-2<CR>==gi
 vnoremap <A-j> :m'>+<CR>gv=gv
 vnoremap <A-k> :m-2<CR>gv=gv
 
-
-" lvimgrep - internal - slow
-nnoremap <expr> <leader>* ":silent vimgrep /" . expand("<cword>") . "/j " .  Get_grep_include_opt("**/*.") . " \|copen"
-vnoremap <script> <leader>* <Esc>:vimgrep /<C-R><C-R>=<SID>get_visual_selection()<CR>/j <C-R><C-R>=Get_grep_include_opt("**/*.")<CR>\|copen
-
-" vimgrep - fast but external
-" project root
-nnoremap <expr><leader>/ Grep_with_args(expand("<cword>"), "")
-vnoremap <script><leader>/ <Esc>:silent grep
-            \ "<C-R><C-R>=<SID>get_visual_selection()<CR>"
-            \ * \|copen
 "}}}
