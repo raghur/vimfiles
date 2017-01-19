@@ -1,32 +1,32 @@
 #########
 # DATES #
 #########
-snippet date "Mon, 26-oct-2016" w
-`!p from snippethelpers import *
-snip.rv=now().strftime("%a,%d-%b-%Y")
-`
+
+snippet date "2017-01-26" w
+`!v strftime("%Y-%m-%d")`
 endsnippet
 
-snippet datetime "Mon, 26-oct-2016" w
-`!p from snippethelpers import *
-snip.rv=now().strftime("%I:%M%p, %a,%d-%b-%Y")
-`
-endsnippet
-snippet ddate "Month DD, YYYY" w
-`!p from snippethelpers import *
-snip.rv=now().strftime("%b %d,%Y")
-`
+snippet datetime "2017-01-26T06:20:33" w
+`!v strftime("%Y-%m-%d %H:%M:%S %z")`
 endsnippet
 
-snippet diso "ISO format datetime" w
-`!p from snippethelpers import *
-snip.rv=now().strftime("%Y-%m-%d %H:%M")
-`
+snippet datetime1 "Mon, 26-oct-2016" w
+`!v strftime("%a, %d-%b-%Y")`
 endsnippet
 
-snippet time "hh:mm" w
-`!p from snippethelpers import *
-snip.rv=now().strftime("%H:%M")
-`
+snippet datetime2 "Oct 26, 2016" w
+`!v strftime("%b %d, %Y")`
+endsnippet
+
+snippet datetime3 "2016-10-16 17:30" w
+`!v strftime("%Y-%m-%d %H:%M")`
+endsnippet
+
+snippet datetime4 "Mon 05:30pm, 26-oct-2016" w
+`!v strftime("%a %I:%M%p, %d-%b-%Y")`
+endsnippet
+
+snippet time "17:30" w
+`!v strftime("%H:%M")`
 endsnippet
 
