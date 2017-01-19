@@ -143,7 +143,7 @@ if has('directx')
 endif
 
 if exists('*GuiFont') "trigger only for neovim-qt which has this
-    GuiFont Fantasque Sans Mono:h11
+    Guifont Fantasque Sans Mono:h11
 elseif exists("&guifont")
     if has('win32') || has('win64')
         let g:fonts='Fantasque_Sans_Mono:h14:cANSI,Ubuntu_Mono_derivative_Powerlin:h13,Source_Code_Pro_Light:h11,Powerline_Consolas:h11,DejaVu Sans Mono For Powerline:h11,PragmataPro_Mono:h11'
@@ -247,11 +247,9 @@ let g:pandoc#syntax#codeblocks#embeds#langs = ["ruby","python","bash=sh",
             \ "js=javascript", "json=javascript", "ruby",
             \ "sass", "xml", "html"]
 
-"call dein#add( 'tpope/vim-fugitive')
 Plug  'tpope/vim-repeat'
 let g:AutoPairsShortcutToggle = '\\'
 Plug  'jiangmiao/auto-pairs'
-"call dein#add( 'nathanaelkane/vim-indent-guides')
 let g:indent_guides_guide_size = 1
 let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 if has("gui_running")
@@ -264,12 +262,6 @@ Plug  'mbbill/undotree', {
 Plug  'gregsexton/MatchTag'
 Plug  'tpope/vim-commentary'
 Plug  'tyru/open-browser.vim'
-"NeoBundle 'marijnh/tern_for_vim', {
-"\            'lazy':1,
-"\            'autoload': {
-"\              'filetypes' : ['javascript']
-"\           }
-"\
 
 if has('python') || has('python3')
     Plug  'SirVer/ultisnips'
@@ -277,7 +269,7 @@ if has('python') || has('python3')
     "let g:UltiSnipsUsePythonVersion=2
     let g:UltiSnipsSnippetsDir=g:home."UltiSnips"
     let g:UltiSnipsExpandTrigger="<c-cr>"
-    if !has('gui_running')
+    if !has('nvim') && !has('gui_running')
         let g:UltiSnipsExpandTrigger="<c-space>"
     endif
     let g:UltiSnipsListSnippets="<c-tab>"
@@ -309,9 +301,9 @@ let g:vim_json_syntax_conceal = 0
 Plug  'vim-scripts/matchit.zip'
 Plug  'tpope/vim-ragtag'
 
+
 Plug  'wellle/targets.vim'
 Plug  'kana/vim-textobj-user'
-"call dein#add( 'sgur/vim-textobj-parameter')
 Plug  'kana/vim-textobj-function'
 Plug  'thinca/vim-textobj-function-javascript', {
             \ 'for': 'javascript'
@@ -441,7 +433,6 @@ call plug#end()
 if !has('nvim') 
     exec "so ".g:home."neocomplete-custom.vim"
 endif
-
 
 " unite settings
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
@@ -649,11 +640,6 @@ command! ToHtml call ToHtml()
 
 command! Gitex exec "silent !gitex browse " . expand("%:p:h")
 command! Wex exec "silent !explorer " . expand("%:p:h")
-"if dein#check_install()
-"    call dein#install()
-    "call dein#recache_runtimepath()
-"endif
-
 "}}}
 
 "Keybindings {{{
