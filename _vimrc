@@ -1,10 +1,7 @@
 " vim: fdm=marker:
 " Options {{{
 let g:home=expand('<sfile>:p:h')."/"
-if has('nvim')
-    let g:loaded_python_provider = 1
-    let g:python3_host_prog='D:\sdks\python3\python.exe'
-endif
+let g:loaded_ruby_provider = 1
 fun! s:createIfNotExists(dir)
     if !isdirectory(a:dir)
         call mkdir(a:dir, "p")
@@ -68,7 +65,7 @@ set list
 set listchars=tab:».,trail:░,extends:→,nbsp:.
 
 " ConEmu
-if !empty($CONEMUBUILD)
+if !empty($CONEMUBUILD) && !has('nvim')
     set term=pcansi
     let &t_AB="\e[48;5;%dm"
     let &t_AF="\e[38;5;%dm"
@@ -440,7 +437,11 @@ let g:grepper = {
 
 set rtp+=$GOROOT/misc/vim
 call plug#end()
-exec "so ".g:home."neocomplete-custom.vim"
+
+if !has('nvim') 
+    exec "so ".g:home."neocomplete-custom.vim"
+endif
+
 
 " unite settings
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
