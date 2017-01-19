@@ -143,7 +143,7 @@ if has('directx')
 endif
 
 if exists('*GuiFont') "trigger only for neovim-qt which has this
-    GuiFont Fantasque Sans Mono:h14
+    GuiFont Fantasque Sans Mono:h11
 elseif exists("&guifont")
     if has('win32') || has('win64')
         let g:fonts='Fantasque_Sans_Mono:h14:cANSI,Ubuntu_Mono_derivative_Powerlin:h13,Source_Code_Pro_Light:h11,Powerline_Consolas:h11,DejaVu Sans Mono For Powerline:h11,PragmataPro_Mono:h11'
