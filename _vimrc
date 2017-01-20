@@ -142,19 +142,53 @@ if has('directx')
     set renderoptions=type:directx,gamma:1.0,contrast:0.2,level:1.0,geom:1,renmode:5,taamode:1
 endif
 
+function! Getfont()
+    let font=""
+    if exists('*GuiFont')
+        redir => font
+        GuiFont
+        redir END
+        return substitute(font, '\r\+\|\n\+', '','')
+    else
+        return &guifont
+    endif
+endfunction
+
+function! Setfont(font)
+    if exists('*GuiFont')
+        exec "GuiFont " . a:font
+    else
+        exec "set guifont=" . a:font
+    endif
+endfunction
+
 if exists('*GuiFont') "trigger only for neovim-qt which has this
-    Guifont Fantasque Sans Mono:h11
+    let g:fonts=
+                \ "Fantasque Sans Mono:h11,"
+                \ . "Input:h12"
 elseif exists("&guifont")
     if has('win32') || has('win64')
-        let g:fonts='Fantasque_Sans_Mono:h14:cANSI,Ubuntu_Mono_derivative_Powerlin:h13,Source_Code_Pro_Light:h11,Powerline_Consolas:h11,DejaVu Sans Mono For Powerline:h11,PragmataPro_Mono:h11'
-        set guifont=Fantasque_Sans_Mono:h14:cANSI
+        let g:fonts="Fantasque_Sans_Mono:h13:cANSI,"
+                    \ . "Ubuntu_Mono_derivative_Powerlin:h13,"
+                    \ . "Source_Code_Pro_Light:h11,"
+                    \ . "Powerline_Consolas:h11,"
+                    \ . "DejaVu Sans Mono For Powerline:h11,"
+                    \ . "PragmataPro_Mono:h11"
     else "unix
-        let g:fonts="Meslo\ LG\ S\ for\ Powerline\ 12,Monaco\ for\ Powerline\ 12,Pragmata\ Pro\ 13,Source\ Code\ Pro\ for\ Powerline\ 12,DejaVu\ Sans\ Mono\ for\ Powerline\ 12,Monospace\ 10,Ubuntu\ Mono\ 11"
-        set guifont=Fantasque\ Sans\ Mono\ 14
+        let g:fonts="Meslo\ LG\ S\ for\ Powerline\ 12,"
+                    \ . "Monaco\ for\ Powerline\ 12,"
+                    \ . "Pragmata\ Pro\ 13,"
+                    \ . "Source\ Code\ Pro\ for\ Powerline\ 12,"
+                    \ . "DejaVu\ Sans\ Mono\ for\ Powerline\ 12,"
+                    \ . "Monospace\ 10,"
+                    \ . "Ubuntu\ Mono\ 11"
         let g:GPGExecutable="gpg2"
         let g:GPGUseAgent = 1
     endif
 endif
+let g:fonts=split(g:fonts, ",")
+
+call Setfont(g:fonts[0])
 
 
 "}}}
@@ -550,11 +584,11 @@ let g:colorschemes="smyck"
             \ . ":mayansmoke"
             \ . ":newspaper"
             \ . ":greyhouse"
+let g:colorschemes = split(g:colorschemes, ":")
 
 fun! CycleColorScheme(dir)
-    let arr = split(g:colorschemes, ":")
-    let c = CycleArray(arr, g:colors_name, a:dir)
-    let scheme = arr[c]
+    let c = CycleArray(g:colorschemes, g:colors_name, a:dir)
+    let scheme = g:colorschemes[c]
     exec "colors " scheme
     redraw | echom "Setting colorscheme to: ".scheme
 endfun
@@ -562,11 +596,12 @@ command! ColorsNext call CycleColorScheme(1)
 command! ColorsPrev call CycleColorScheme(-1)
 
 fun! CycleFont(dir)
-    let arr = split(g:fonts, ",")
-    let c = CycleArray(arr, &guifont, a:dir)
-    let font = substitute(arr[c], " ", '\\ ', "g")
-    exec("set guifont=".font)
-    redraw | echom "Setting font to: " &guifont
+    let font = Getfont()
+    let c = CycleArray(g:fonts, font, a:dir)
+    "let font = substitute(arr[c], " ", '\\ ', "g")
+    echom g:fonts[c]
+    call Setfont(g:fonts[c])
+    redraw | echom "Setting font to: " . g:fonts[c]
 endfun
 command! FontNext call CycleFont(1)
 command! FontPrev call CycleFont(-1)
