@@ -142,26 +142,6 @@ if has('directx')
     set renderoptions=type:directx,gamma:1.0,contrast:0.2,level:1.0,geom:1,renmode:5,taamode:1
 endif
 
-function! Getfont()
-    let font=""
-    if exists('*GuiFont')
-        redir => font
-        GuiFont
-        redir END
-        return substitute(font, '\r\+\|\n\+', '','')
-    else
-        return &guifont
-    endif
-endfunction
-
-function! Setfont(font)
-    if exists('*GuiFont')
-        exec "GuiFont " . a:font
-    else
-        exec "set guifont=" . a:font
-    endif
-endfunction
-
 if exists('*GuiFont') "trigger only for neovim-qt which has this
     let g:fonts=
                 \ "Fantasque Sans Mono:h11,"
@@ -188,9 +168,17 @@ elseif exists("&guifont")
 endif
 let g:fonts=split(g:fonts, ",")
 
-call Setfont(g:fonts[0])
-
-
+let g:colorschemes="smyck"
+            \ . ":base16-default"
+            \ . ":base16-eighties"
+            \ . ":Monokai-Refined"
+            \ . ":monokai"
+            \ . ":molokai"
+            \ . ":github"
+            \ . ":mayansmoke"
+            \ . ":newspaper"
+            \ . ":greyhouse"
+let g:colorschemes = split(g:colorschemes, ":")
 "}}}
 
 " Plugin Bundles and config {{{
@@ -543,7 +531,6 @@ augroup END
 
 " Custom code/Utils {{{
 
-"{{{ Create folders on write
 function! s:MkNonExDir(file, buf)
     if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
         let dir=fnamemodify(a:file, ':h')
@@ -557,7 +544,27 @@ augroup BWCCreateDir
     autocmd!
     autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
 augroup END
-"}}}
+
+function! Getfont()
+    let font=""
+    if exists('*GuiFont')
+        redir => font
+        GuiFont
+        redir END
+        return substitute(font, '\r\+\|\n\+', '','')
+    else
+        return &guifont
+    endif
+endfunction
+
+function! Setfont(font)
+    if exists('*GuiFont')
+        exec "GuiFont " . a:font
+    else
+        exec "set guifont=" . a:font
+    endif
+endfunction
+
 
 " Cycle colors
 fun! CycleArray(arr, value, dir)
@@ -574,17 +581,6 @@ fun! CycleArray(arr, value, dir)
     return c
 endfunction
 
-let g:colorschemes="smyck"
-            \ . ":base16-default"
-            \ . ":base16-eighties"
-            \ . ":Monokai-Refined"
-            \ . ":monokai"
-            \ . ":molokai"
-            \ . ":github"
-            \ . ":mayansmoke"
-            \ . ":newspaper"
-            \ . ":greyhouse"
-let g:colorschemes = split(g:colorschemes, ":")
 
 fun! CycleColorScheme(dir)
     let c = CycleArray(g:colorschemes, g:colors_name, a:dir)
@@ -605,27 +601,13 @@ fun! CycleFont(dir)
 endfun
 command! FontNext call CycleFont(1)
 command! FontPrev call CycleFont(-1)
-"}}}
+call Setfont(g:fonts[0])
 
-" Commands {{{
-if has("unix")
-    command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
-endif
-
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
-if !exists(":DiffOrig")
-    command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-                \ | wincmd p | diffthis
-endif
 fun! RemoveCtrlM()
     :update
     :e ++ff=dos
     :%s/\r$//e
 endfun
-command! RemoveCtrlM call RemoveCtrlM()
-command! EditAsWin call RemoveCtrlM()
 
 func! ReadExCommandOutput(newbuf, cmd)
     redir => l:message
@@ -634,12 +616,8 @@ func! ReadExCommandOutput(newbuf, cmd)
     if a:newbuf | wincmd n | endif
     silent put=l:message
 endf
-command! -nargs=+ -bang -complete=command R call ReadExCommandOutput(<bang>1, <q-args>)
-inoremap <c-r>R <c-o>:<up><home>R! <cr>
 
-command! BlogSave exec ":! easyblogger file ". expand("%:p")
-
-function! NeatFoldText() "{{{
+function! NeatFoldText() 
     let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
     let lines_count = v:foldend - v:foldstart + 1
     let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
@@ -649,8 +627,6 @@ function! NeatFoldText() "{{{
     let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
     return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
 endfunction
-set foldtext=NeatFoldText()
-" }}}
 
 function! ToHtml()
     :w
@@ -671,10 +647,35 @@ function! ToHtml()
     echom "wrote" . " " . outfile
     call openbrowser#open("file:///".substitute(outfile, "\\", "/", "g"))
 endfunction
+
+"}}}
+
+"Commands {{{
+if has("unix")
+    command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+endif
+
+" Convenient command to see the difference between the current buffer and the
+" file it was loaded from, thus the changes you made.
+" Only define it when not defined already.
+if !exists(":DiffOrig")
+    command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+                \ | wincmd p | diffthis
+endif
+command! RemoveCtrlM call RemoveCtrlM()
+command! EditAsWin call RemoveCtrlM()
+
+command! -nargs=+ -bang -complete=command R call ReadExCommandOutput(<bang>1, <q-args>)
+inoremap <c-r>R <c-o>:<up><home>R! <cr>
+
+command! BlogSave exec ":! easyblogger file ". expand("%:p")
+
+set foldtext=NeatFoldText()
 command! ToHtml call ToHtml()
 
 command! Gitex exec "silent !gitex browse " . expand("%:p:h")
 command! Wex exec "silent !explorer " . expand("%:p:h")
+
 "}}}
 
 "Keybindings {{{
