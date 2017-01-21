@@ -155,7 +155,8 @@ elseif exists("&guifont")
                     \ . "DejaVu Sans Mono For Powerline:h11,"
                     \ . "PragmataPro_Mono:h11"
     else "unix
-        let g:fonts="Meslo\ LG\ S\ for\ Powerline\ 12,"
+        let g:fonts= "Fantasque Sans Mono 11"
+                    \ . "Meslo\ LG\ S\ for\ Powerline\ 12,"
                     \ . "Monaco\ for\ Powerline\ 12,"
                     \ . "Pragmata\ Pro\ 13,"
                     \ . "Source\ Code\ Pro\ for\ Powerline\ 12,"
@@ -560,8 +561,10 @@ endfunction
 function! Setfont(font)
     if exists('*GuiFont')
         exec "GuiFont " . a:font
-    else
+    elseif exists('+guifont')
         exec "set guifont=" . a:font
+    else
+        :silent !echom "Running in console - change your console font."
     endif
 endfunction
 
