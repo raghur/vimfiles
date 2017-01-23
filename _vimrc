@@ -453,7 +453,7 @@ let g:grepper = {
 set rtp+=$GOROOT/misc/vim
 call plug#end()
 
-if !has('nvim') 
+if !has('nvim')
     exec "so ".g:home."neocomplete-custom.vim"
 endif
 
@@ -620,7 +620,7 @@ func! ReadExCommandOutput(newbuf, cmd)
     silent put=l:message
 endf
 
-function! NeatFoldText() 
+function! NeatFoldText()
     let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
     let lines_count = v:foldend - v:foldstart + 1
     let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
