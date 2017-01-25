@@ -662,21 +662,30 @@ command! EditAsWin call RemoveCtrlM()
 
 command! -nargs=+ -bang -complete=command R call ReadExCommandOutput(<bang>1, <q-args>)
 inoremap <c-r>R <c-o>:<up><home>R! <cr>
+func! s:systemwrapper(cmd)
+    echom a:cmd
+    let output=system(a:cmd)
+    return output
+endfunction
 func! BlogSave(file)
     " to debug, replace with
     " exec "!easyblogger file " . a:file
-    let output=system("easyblogger file ". a:file)
+    let output=s:systemwrapper("easyblogger file ". a:file)
     echom output
 endfunction
+func! Conemu()
+    let cmd="\"C:/Program Files/ConEmu/ConEmu64.exe\" -run \"{cmd}\" -dir \"". expand("%:p:h"). "\""
+    call s:systemwrapper(cmd)
+endfun
 
 command! BlogSave call BlogSave(expand("%:p"))
 
 set foldtext=NeatFoldText()
 command! ToHtml call ToHtml()
 
-command! Gitex exec "silent !gitex browse " . expand("%:p:h")
-command! Wex exec "silent !explorer " . expand("%:p:h")
-
+command! Gitex call s:systemwrapper("gitex browse \"" . expand("%:p:h") . "\"")
+command! Wex call s:systemwrapper( "explorer \"" . expand("%:p:h") . "\"")
+command! Conemu call Conemu()
 "}}}
 
 "Keybindings {{{
@@ -704,6 +713,7 @@ nnoremap <S-F2>  :<C-U>call signature#mark#Goto("prev", "spot", "pos") <CR> \| z
 nnoremap <F4> :w\|SyntasticCheck<cr>
 nnoremap <F5> :UndotreeToggle<CR>
 nnoremap <F7> :Autoformat<cr>
+nnoremap <F8> :Conemu<cr>
 nnoremap <F9> :Gitex<cr>
 nnoremap <F10> :Wex<cr>
 
