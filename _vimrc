@@ -670,8 +670,14 @@ command! EditAsWin call RemoveCtrlM()
 
 command! -nargs=+ -bang -complete=command R call ReadExCommandOutput(<bang>1, <q-args>)
 inoremap <c-r>R <c-o>:<up><home>R! <cr>
+func! BlogSave(file)
+    " to debug, replace with
+    " exec "!easyblogger file " . a:file
+    let output=system("easyblogger file ". a:file)
+    echom output
+endfunction
 
-command! BlogSave exec ":! easyblogger file ". expand("%:p")
+command! BlogSave call BlogSave(expand("%:p"))
 
 set foldtext=NeatFoldText()
 command! ToHtml call ToHtml()
