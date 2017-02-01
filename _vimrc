@@ -265,6 +265,7 @@ endfunction
 
 Plug  'vim-pandoc/vim-pandoc'
 Plug  'vim-pandoc/vim-pandoc-syntax'
+let g:pandoc#formatting#mode="hA"
 let g:pandoc#syntax#codeblocks#embeds#langs = ["ruby","python","bash=sh",
             \ "css", "erb=eruby", "javascript",
             \ "js=javascript", "json=javascript", "ruby",
@@ -348,7 +349,6 @@ let g:airline_detect_modified=1
 
 
 Plug  'tpope/vim-dispatch'
-Plug  'tpope/vim-markdown'
 
 Plug  'airblade/vim-rooter'
 let g:rooter_silent_chdir = 1
