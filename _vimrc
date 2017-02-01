@@ -144,7 +144,7 @@ endif
 
 if exists('*GuiFont') "trigger only for neovim-qt which has this
     let g:fonts=
-                \ "Fantasque Sans Mono:h11,"
+                \ "Fantasque Sans Mono:h13,"
                 \ . "Input:h12"
 elseif exists("&guifont")
     if has('win32') || has('win64')
