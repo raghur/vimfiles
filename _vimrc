@@ -460,6 +460,7 @@ endif
 " unite settings
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
+call unite#custom#source('file_rec/neovim,buffer', 'sorters', 'sorter_selecta')
 call unite#custom#profile('default', 'context', {
             \ 'start_insert': 1,
             \ 'prompt': " ",
@@ -721,7 +722,7 @@ nnoremap <F10> :Wex<cr>
 nnoremap <silent> <leader><space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed neomru/file buffer file_rec/async:! <cr><c-u>
 nnoremap <silent> <leader>f :<C-u>Unite -toggle -auto-resize -buffer-name=file file_rec/async:! <cr><c-u>
 nnoremap <silent> <leader>r :<C-u>Unite -buffer-name=recent file_mru<cr>
-" nnoremap <silent> <leader>y :<C-u>Unite -buffer-name=yanks history/yank<cr>
+nnoremap <silent> <leader>o :<C-u>UniteWithBufferDir -buffer-name=children file_rec/async:!<cr><c-u>
 " nnoremap <silent> <leader>j :<C-u>Unite -buffer-name=jumps jump change<cr>
 nnoremap <silent> <leader>l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
 nnoremap <silent> <leader>b :<C-u>Unite -auto-resize -buffer-name=buffers buffer file_mru<cr>
@@ -732,7 +733,7 @@ nnoremap <leader>bd :bd<cr>
 nnoremap <leader>d :bd!<cr>
 nnoremap <leader>q :call Quitalready()<cr>
 nnoremap <leader>w :w<cr>
-nnoremap <leader>o :on<cr>
+" nnoremap <leader>o :on<cr>
 nnoremap <leader>. @:
 nnoremap <leader>a :b#<cr>
 nnoremap <leader>h  :noh<cr><c-l>
