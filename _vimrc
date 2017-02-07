@@ -265,7 +265,7 @@ endfunction
 
 Plug  'vim-pandoc/vim-pandoc'
 Plug  'vim-pandoc/vim-pandoc-syntax'
-let g:pandoc#formatting#mode="hA"
+" let g:pandoc#formatting#mode="A"
 let g:pandoc#syntax#codeblocks#embeds#langs = ["ruby","python","bash=sh",
             \ "css", "erb=eruby", "javascript",
             \ "js=javascript", "json=javascript", "ruby",
