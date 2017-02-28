@@ -1,0 +1,50 @@
+snippet post "blog post"
+////
+PostId:	
+Title    : 
+Labels   : 
+Format	 : asciidoc
+Published: true
+////
+endsnippet
+
+snippet img "block image"
+image::$1[${2:alt}]
+endsnippet
+
+snippet iimg "inline image"
+image:$1[${2:alt}]
+endsnippet
+
+snippet source "sourcecode" b
+[source,${1:lang}]
+----
+$0
+----
+endsnippet
+
+snippet qanda "Q&A" b
+[qanda]
+${1:What is Asciidoctor?}::
+	An implementation of the AsciiDoc processor in Ruby.
+endsnippet
+
+snippet sidebar "sidebar"
+.${1:title}
+**** 
+$0
+****
+endsnippet
+
+snippet admon "admonition" b
+
+${1:NOTE|TIP|IMPORTANT|WARNING|CAUTION}: $0
+
+endsnippet
+
+snippet quote "quote" b
+
+"${1:quote}"
+-- ${2:author}, ${3:citation}
+
+endsnippet
