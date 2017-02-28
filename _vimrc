@@ -2,6 +2,7 @@
 " Options {{{
 let g:home=expand('<sfile>:p:h')."/"
 let g:loaded_ruby_provider = 1
+let g:python3_host_prog="d:/sdks/python3/python.exe"
 fun! s:createIfNotExists(dir)
     if !isdirectory(a:dir)
         call mkdir(a:dir, "p")
@@ -265,7 +266,8 @@ endfunction
 
 Plug  'vim-pandoc/vim-pandoc'
 Plug  'vim-pandoc/vim-pandoc-syntax'
-" let g:pandoc#formatting#mode="A"
+let g:pandoc#formatting#mode="hA"
+" let g:pandoc#formatting#smart_autoformat_on_cursormoved = 1
 let g:pandoc#syntax#codeblocks#embeds#langs = ["ruby","python","bash=sh",
             \ "css", "erb=eruby", "javascript",
             \ "js=javascript", "json=javascript", "ruby",
@@ -430,6 +432,7 @@ Plug  'Chiel92/vim-autoformat', {
             \ 'on': 'AutoFormat'
             \ }
 Plug 'mhinz/vim-grepper'
+Plug 'Shougo/denite.nvim'
 
 " for browsing the input history
 cnoremap <c-n> <down>
@@ -460,12 +463,22 @@ endif
 " unite settings
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
+call unite#custom#profile('files', 'filters', 'sorter_rank')
 call unite#custom#source('file_rec/neovim,buffer', 'sorters', 'sorter_selecta')
 call unite#custom#profile('default', 'context', {
             \ 'start_insert': 1,
             \ 'prompt': " ",
             \ 'prompt-visible': 1
             \ })
+call denite#custom#var('file_rec', 'command',
+        \ ['rg', '--files', '--glob', '!.git', ''])
+call denite#custom#source(
+        \ 'file_rec,buffer', 'sorters', ['sorter_sublime'])
+" Change default prompt
+call denite#custom#option('default', 'prompt', '>')
+call denite#custom#map('insert', '<Up>', '<denite:move_to_previous_line>')
+call denite#custom#map('insert', '<Down>', '<denite:move_to_next_line>')
+nnoremap <silent> <C-p> :<C-u>Denite -direction=top -auto-resize file_mru file_rec buffer<cr>
 " submode
 " A message will appear in the message line when you're in a submode
 " and stay there until the mode has existed.
@@ -638,7 +651,7 @@ function! ToHtml()
     let outfile=fnamemodify(file, ":r") . ".html"
     let css=fnamemodify(file, ":h") . "pandoc.css"
     exec "silent !pandoc --toc  -c ". css .
-                \ " -F C:/Users/raghuramanr/AppData/Roaming/npm/mermaid-filter.cmd" .
+                \ " -F mermaid-filter.cmd" .
                 \ "  -fmarkdown_github" .
                 \ "+footnotes" .
                 \ "+implicit_header_references".
