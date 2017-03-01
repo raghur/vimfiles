@@ -735,7 +735,7 @@ nnoremap <F10> :Wex<cr>
 nnoremap <silent> <leader><space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed neomru/file buffer file_rec/async:! <cr><c-u>
 nnoremap <silent> <leader>f :<C-u>Unite -toggle -auto-resize -buffer-name=file file_rec/async:! <cr><c-u>
 nnoremap <silent> <leader>r :<C-u>Unite -buffer-name=recent file_mru<cr>
-nnoremap <silent> <leader>o :<C-u>UniteWithBufferDir -buffer-name=children file_rec/async:!<cr><c-u>
+nnoremap <silent> <leader>o :<C-u>UniteWithProjectDir -buffer-name=children file_rec/async:!<cr><c-u>
 " nnoremap <silent> <leader>j :<C-u>Unite -buffer-name=jumps jump change<cr>
 nnoremap <silent> <leader>l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
 nnoremap <silent> <leader>b :<C-u>Unite -auto-resize -buffer-name=buffers buffer file_mru<cr>
