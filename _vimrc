@@ -398,8 +398,7 @@ Plug  'vim-scripts/EnhancedJumps'
 Plug  'PProvost/vim-ps1'
 Plug  'nvie/vim-flake8'
 "Plug  'nvie/vim-pyunit'
-Plug  'klen/python-mode'
-Plug  'python-rope/ropevim'
+Plug  'python-mode/python-mode'
 let g:pymode_run_bind = '<leader>pr'
 let g:pymode_rope = 1
 
@@ -734,7 +733,7 @@ nnoremap <F10> :Wex<cr>
 "unite
 nnoremap <silent> <leader><space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed neomru/file buffer file_rec/async:! <cr><c-u>
 nnoremap <silent> <leader>f :<C-u>Unite -toggle -auto-resize -buffer-name=file file_rec/async:! <cr><c-u>
-nnoremap <silent> <leader>r :<C-u>Unite -buffer-name=recent file_mru<cr>
+nnoremap <silent> <leader>r :<C-u>Unite -buffer-name=recent neomru/file<cr>
 nnoremap <silent> <leader>o :<C-u>UniteWithProjectDir -buffer-name=children file_rec/async:!<cr><c-u>
 " nnoremap <silent> <leader>j :<C-u>Unite -buffer-name=jumps jump change<cr>
 nnoremap <silent> <leader>l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
@@ -746,7 +745,7 @@ nnoremap <leader>bd :bd<cr>
 nnoremap <leader>d :bd!<cr>
 nnoremap <leader>q :call Quitalready()<cr>
 nnoremap <leader>w :w<cr>
-" nnoremap <leader>o :on<cr>
+nnoremap <leader>1 :on<cr>
 nnoremap <leader>. @:
 nnoremap <leader>a :b#<cr>
 nnoremap <leader>h  :noh<cr><c-l>
