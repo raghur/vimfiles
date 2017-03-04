@@ -396,11 +396,11 @@ Plug  'vim-scripts/EnhancedJumps'
 
 
 Plug  'PProvost/vim-ps1'
-Plug  'nvie/vim-flake8'
 "Plug  'nvie/vim-pyunit'
 Plug  'python-mode/python-mode'
+Plug  'davidhalter/jedi-vim'
 let g:pymode_run_bind = '<leader>pr'
-let g:pymode_rope = 1
+let g:pymode_rope = 0
 
 if &term =~ '^screen'
     " Page keys http://sourceforge.net/p/tmux/tmux-code/ci/master/tree/FAQ
@@ -454,7 +454,15 @@ let g:grepper = {
 
 set rtp+=$GOROOT/misc/vim
 call plug#end()
-
+augroup pyjedi
+    autocmd!
+    autocmd FileType python setlocal omnifunc=jedi#completions
+    let g:jedi#completions_enabled = 0
+    let g:jedi#auto_vim_configuration = 0
+    let g:neocomplete#force_omni_input_patterns.python =
+                \ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+    " alternative pattern: '\h\w*\|[^. \t]\.\w*'
+augroup END
 if !has('nvim')
     exec "so ".g:home."neocomplete-custom.vim"
 endif
