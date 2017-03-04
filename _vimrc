@@ -18,8 +18,9 @@ set nocursorcolumn     " display incomplete commands
 set incsearch       " do incremental searching
 set encoding=utf-8
 set hidden
-map <space> <leader>
 let maplocalleader='\'
+let mapleader = "<space>"
+map <space> <leader>
 set re=2    " use the new NFA engine
 set wildchar=<Tab>
 set wildmenu
@@ -302,7 +303,7 @@ if has('python') || has('python3')
 endif
 
 Plug  'scrooloose/syntastic'
-let g:syntastic_python_checkers = ['pylama']
+let g:syntastic_python_checkers = ['pycodestyle']
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_mode_map = { 'mode': 'passive',
@@ -398,9 +399,16 @@ Plug  'vim-scripts/EnhancedJumps'
 Plug  'PProvost/vim-ps1'
 "Plug  'nvie/vim-pyunit'
 Plug  'python-mode/python-mode'
+let g:jedi#goto_command = '<localleader>g'
+let g:jedi#rename_command = '<localleader>r'
+let g:jedi#usages_command = '<localleader>u'
+let g:jedi#show_call_signatures = 2
+let g:jedi#completions_enabled = 0
+let g:jedi#auto_vim_configuration = 0
 Plug  'davidhalter/jedi-vim'
 let g:pymode_run_bind = '<leader>pr'
 let g:pymode_rope = 0
+let g:pymode_lint = 0
 
 if &term =~ '^screen'
     " Page keys http://sourceforge.net/p/tmux/tmux-code/ci/master/tree/FAQ
@@ -454,15 +462,6 @@ let g:grepper = {
 
 set rtp+=$GOROOT/misc/vim
 call plug#end()
-augroup pyjedi
-    autocmd!
-    autocmd FileType python setlocal omnifunc=jedi#completions
-    let g:jedi#completions_enabled = 0
-    let g:jedi#auto_vim_configuration = 0
-    let g:neocomplete#force_omni_input_patterns.python =
-                \ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
-    " alternative pattern: '\h\w*\|[^. \t]\.\w*'
-augroup END
 if !has('nvim')
     exec "so ".g:home."neocomplete-custom.vim"
 endif
@@ -549,6 +548,20 @@ augroup filecleanup
     au!
     autocmd BufWritePre *.pl,*.js,*.ps1,*.cs,*.md,*.html :%s/\s\+$//e
 augroup END
+
+augroup pyjedi
+    autocmd!
+    autocmd FileType python setlocal omnifunc=jedi#completions
+                                    \ textwidth=79
+                                    \ completeopt-=preview
+    if !exists('g:neocomplete#force_omni_input_patterns')
+        let g:neocomplete#force_omni_input_patterns = {}
+    endif
+    let g:neocomplete#force_omni_input_patterns.python =
+                \ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
+    " alternative pattern: '\h\w*\|[^. \t]\.\w*'
+augroup END
+
 "}}}
 
 " Custom code/Utils {{{
@@ -733,6 +746,8 @@ nnoremap <F2>  :<C-U>call signature#mark#Goto("next", "spot", "pos") <CR> \| zz
 nnoremap <S-F2>  :<C-U>call signature#mark#Goto("prev", "spot", "pos") <CR> \| zz
 nnoremap <F4> :w\|SyntasticCheck<cr>
 nnoremap <F5> :UndotreeToggle<CR>
+nnoremap <F6> :lnext<cr>
+nnoremap <S-F6> :lprev<cr>
 nnoremap <F7> :Autoformat<cr>
 nnoremap <F8> :Conemu<cr>
 nnoremap <F9> :Gitex<cr>
