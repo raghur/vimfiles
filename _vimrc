@@ -563,6 +563,7 @@ augroup pyjedi
     autocmd FileType python setlocal omnifunc=jedi#completions
                                     \ textwidth=79
                                     \ completeopt-=preview
+                                    \ formatoptions+=c
     if !exists('g:neocomplete#force_omni_input_patterns')
         let g:neocomplete#force_omni_input_patterns = {}
     endif
