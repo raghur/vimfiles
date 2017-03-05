@@ -188,6 +188,17 @@ let g:colorschemes = split(g:colorschemes, ":")
 " Plugin Bundles and config {{{
 exec("set rtp^=".g:home)
 
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+function! Cond(cond, ...)
+  let opts = get(a:000, 0, {})
+  return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
+endfunction
+
 call plug#begin(g:home.'bundle')
 Plug 'kshenoy/vim-signature'
 augroup gpg
@@ -358,19 +369,16 @@ Plug  'airblade/vim-rooter'
 let g:rooter_silent_chdir = 1
 
 Plug  'Shougo/vimproc.vim'
-if has('nvim')
-    Plug 'Shougo/deoplete.nvim'
-    let g:deoplete#enable_at_startup = 1
-    inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-else
-    "neocomplete
-    " run: nmake -f Make_msvc.mak nodebug=1
-    if has('lua')
-        let g:neocomplete#use_vimproc = 1
-        let g:neocomplete#enable_at_startup = 1
-        Plug  'Shougo/neocomplete'
-    endif
-endif
+Plug 'Shougo/deoplete.nvim', Cond(has('nvim'))
+let g:deoplete#enable_at_startup = 1
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
+
+"neocomplete
+" run: nmake -f Make_msvc.mak nodebug=1
+let g:neocomplete#use_vimproc = 1
+let g:neocomplete#enable_at_startup = 1
+Plug  'Shougo/neocomplete', Cond(!has('nvim') && has('lua'))
 
 let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
 Plug  'maxbrunsfeld/vim-yankstack'
