@@ -169,8 +169,9 @@ elseif exists("+guifont")
         let g:GPGUseAgent = 1
     endif
 endif
-let g:fonts=split(g:fonts, ",")
-
+if exists("g:fonts")
+    let g:fonts=split(g:fonts, ",")
+endif
 let g:colorschemes="smyck"
             \ . ":base16-default"
             \ . ":base16-eighties"
@@ -629,6 +630,9 @@ command! ColorsNext call CycleColorScheme(1)
 command! ColorsPrev call CycleColorScheme(-1)
 
 fun! CycleFont(dir)
+    if !exists("g:fonts")
+        return
+    endif
     let font = Getfont()
     let c = CycleArray(g:fonts, font, a:dir)
     "let font = substitute(arr[c], " ", '\\ ', "g")
@@ -638,7 +642,10 @@ fun! CycleFont(dir)
 endfun
 command! FontNext call CycleFont(1)
 command! FontPrev call CycleFont(-1)
-call Setfont(g:fonts[0])
+
+if exists("g:fonts")
+    call Setfont(g:fonts[0])
+endif
 
 fun! RemoveCtrlM()
     :update
