@@ -188,7 +188,7 @@ let g:colorschemes = split(g:colorschemes, ":")
 " Plugin Bundles and config {{{
 exec("set rtp^=".g:home)
 
-if empty(glob('~/.vim/autoload/plug.vim'))
+if empty(glob(g:home . 'autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
@@ -471,7 +471,7 @@ let g:grepper = {
 
 set rtp+=$GOROOT/misc/vim
 call plug#end()
-if !has('nvim')
+if !has('nvim') && !empty(glob(g:home . 'neocomplete-custom.vim'))
     exec "so ".g:home."neocomplete-custom.vim"
 endif
 
