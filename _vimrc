@@ -144,11 +144,7 @@ if has('directx')
     set renderoptions=type:directx,gamma:1.0,contrast:0.2,level:1.0,geom:1,renmode:5,taamode:1
 endif
 
-if exists('*GuiFont') "trigger only for neovim-qt which has this
-    let g:fonts=
-                \ "Fantasque Sans Mono:h13,"
-                \ . "Input:h12"
-elseif exists("+guifont")
+if exists("+guifont")
     if has('win32') || has('win64')
         let g:fonts="Fantasque_Sans_Mono:h13:cANSI,"
                     \ . "Ubuntu_Mono_derivative_Powerlin:h13,"
@@ -156,6 +152,7 @@ elseif exists("+guifont")
                     \ . "Powerline_Consolas:h11,"
                     \ . "DejaVu Sans Mono For Powerline:h11,"
                     \ . "PragmataPro_Mono:h11"
+        let g:fonts=split(g:fonts, ",")
     else "unix
         let g:fonts= "Fantasque Sans Mono 11"
                     \ . "Meslo\ LG\ S\ for\ Powerline\ 12,"
@@ -165,13 +162,12 @@ elseif exists("+guifont")
                     \ . "DejaVu\ Sans\ Mono\ for\ Powerline\ 12,"
                     \ . "Monospace\ 10,"
                     \ . "Ubuntu\ Mono\ 11"
+        let g:fonts=split(g:fonts, ",")
         let g:GPGExecutable="gpg2"
         let g:GPGUseAgent = 1
     endif
 endif
-if exists("g:fonts")
-    let g:fonts=split(g:fonts, ",")
-endif
+
 let g:colorschemes="smyck"
             \ . ":base16-default"
             \ . ":base16-eighties"
