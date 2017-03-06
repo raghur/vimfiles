@@ -408,6 +408,7 @@ Plug  'vim-scripts/EnhancedJumps'
 Plug  'PProvost/vim-ps1'
 "Plug  'nvie/vim-pyunit'
 Plug  'python-mode/python-mode'
+let g:jedi#force_py_version = 3
 let g:jedi#goto_command = '<localleader>g'
 let g:jedi#rename_command = '<localleader>r'
 let g:jedi#usages_command = '<localleader>u'
