@@ -1,11 +1,14 @@
 snippet post "blog post"
-////
-PostId:	
-Title    : 
-Labels   : 
-Format	 : asciidoc
-Published: true
-////
++++
+author = "Raghu Rajagopalan"
+date = "`!v strftime("%FT%H:%M:%S").strftime("%z")[:2].":" . strftime("%z")[3:]`"
+publishdate = "`!v strftime("%FT%H:%M:%S").strftime("%z")[:2].":" . strftime("%z")[3:]`"
+draft = false
+title = "${1:title}"
+tags = ["${2:untagged}"]
++++
+
+$0
 endsnippet
 
 snippet img "block image"
