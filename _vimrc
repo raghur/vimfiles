@@ -154,7 +154,7 @@ if exists("+guifont")
                     \ . "PragmataPro_Mono:h11"
         let g:fonts=split(g:fonts, ",")
     else "unix
-        let g:fonts= "Fantasque Sans Mono 11"
+        let g:fonts= "Fantasque\ Sans\ Mono\ 11"
                     \ . "Meslo\ LG\ S\ for\ Powerline\ 12,"
                     \ . "Monaco\ for\ Powerline\ 12,"
                     \ . "Pragmata\ Pro\ 13,"
