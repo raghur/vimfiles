@@ -5,6 +5,12 @@ let g:python3_host_prog="d:/sdks/python3/python.exe"
 let g:python_host_prog="c:/python27/python.exe"
 let g:ruby_host_prog="C:/tools/ruby23/bin/ruby.EXE"
 
+"force python 3 if available.
+" linux only one python can be loaded at a time.
+if exists('py2') && has('python')
+elseif has('python3')
+endif
+
 fun! s:createIfNotExists(dir)
     if !isdirectory(a:dir)
         call mkdir(a:dir, "p")
@@ -152,11 +158,11 @@ if exists("+guifont")
                     \ . "Ubuntu_Mono_derivative_Powerlin:h13,"
                     \ . "Source_Code_Pro_Light:h11,"
                     \ . "Powerline_Consolas:h11,"
-                    \ . "DejaVu Sans Mono For Powerline:h11,"
+                    \ . "DejaVu_Sans_Mono_For_Powerline:h11,"
                     \ . "PragmataPro_Mono:h11"
         let g:fonts=split(g:fonts, ",")
     else "unix
-        let g:fonts= "Fantasque\ Sans\ Mono\ 11"
+        let g:fonts= "Fantasque\ Sans\ Mono\ 11,"
                     \ . "Meslo\ LG\ S\ for\ Powerline\ 12,"
                     \ . "Monaco\ for\ Powerline\ 12,"
                     \ . "Pragmata\ Pro\ 13,"
@@ -483,8 +489,13 @@ call unite#custom#profile('default', 'context', {
             \ 'prompt': " ",
             \ 'prompt-visible': 1
             \ })
-call denite#custom#var('file_rec', 'command',
+if executable('rg')
+    call denite#custom#var('file_rec', 'command',
         \ ['rg', '--files', '--glob', '!.git', ''])
+elseif executable('sift')
+    call denite#custom#var('file_rec', 'command',
+        \ ['sift', '--targets' ])
+endif
 call denite#custom#source(
         \ 'file_rec,buffer', 'sorters', ['sorter_sublime'])
 " Change default prompt
@@ -608,10 +619,11 @@ function! Getfont()
 endfunction
 
 function! Setfont(font)
+    " echom "Setting font to: ". a:font
     if exists('*GuiFont')
         exec "GuiFont! " . a:font
     elseif exists('+guifont')
-        exec "set guifont=" . a:font
+        exec "set guifont=".substitute(a:font, " ", "\\\\ ", "g")
     else
         :silent !echom "Running in console - change your console font."
     endif
