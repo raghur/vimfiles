@@ -1,8 +1,10 @@
 " vim: fdm=marker:
 " Options {{{
 let g:home=expand('<sfile>:p:h')."/"
-let g:loaded_ruby_provider = 1
 let g:python3_host_prog="d:/sdks/python3/python.exe"
+let g:python_host_prog="c:/python27/python.exe"
+let g:ruby_host_prog="C:/tools/ruby23/bin/ruby.EXE"
+
 fun! s:createIfNotExists(dir)
     if !isdirectory(a:dir)
         call mkdir(a:dir, "p")
@@ -301,7 +303,7 @@ Plug  'tyru/open-browser.vim'
 if has('python') || has('python3')
     Plug  'SirVer/ultisnips'
     Plug  'honza/vim-snippets'
-    "let g:UltiSnipsUsePythonVersion=2
+    let g:UltiSnipsUsePythonVersion=3
     let g:UltiSnipsSnippetsDir=g:home."UltiSnips"
     let g:UltiSnipsExpandTrigger="<c-cr>"
     if !has('nvim') && !has('gui_running')
@@ -318,7 +320,6 @@ let g:syntastic_mode_map = { 'mode': 'passive',
             \ 'active_filetypes': ['python', 'json', 'javascript'],
             \ 'passive_filetypes': [] }
 
-Plug  'kchmck/vim-coffee-script'
 Plug  'raghur/vim-colorschemes'
 Plug  'vim-scripts/Colour-Sampler-Pack'
 Plug  'sickill/vim-monokai'
@@ -487,10 +488,12 @@ call denite#custom#var('file_rec', 'command',
 call denite#custom#source(
         \ 'file_rec,buffer', 'sorters', ['sorter_sublime'])
 " Change default prompt
-call denite#custom#option('default', 'prompt', '>')
+call denite#custom#option('default', 'prompt', ' ')
 call denite#custom#map('insert', '<Up>', '<denite:move_to_previous_line>')
 call denite#custom#map('insert', '<Down>', '<denite:move_to_next_line>')
-nnoremap <silent> <C-p> :<C-u>Denite -direction=top -auto-resize file_mru file_rec buffer<cr>
+nnoremap <silent> <C-p> :<C-u>Denite -direction=top -auto-resize file_rec buffer<cr>
+nnoremap <silent> <C-b> :<C-u>Denite -direction=top -auto-resize buffer file_mru<cr>
+nnoremap <silent> <C-h> :<C-u>Denite -direction=top -auto-resize help<cr>
 " submode
 " A message will appear in the message line when you're in a submode
 " and stay there until the mode has existed.
@@ -524,11 +527,22 @@ colors Monokai-Refined
 
 " Autocommands {{{
 
+"'<,'>s/lastmod\s*=\s*".*"/\="lastmod = \"". strftime("%FT%H:%M:%S").strftime("%z")[:2]. ":".strftime("%z")[3:]."\""
+
+augroup AsciiDoc
+    au!
+    autocmd FileType asciidoc setl wrap
+                \ spell spelllang=en_us
+    autocmd FileType asciidoc au BufWritePre <buffer>
+                \ :silent 1,12s/^lastmod\s*=\s*".*"/\="lastmod = \"". strftime("%FT%H:%M:%S").strftime("%z")[:2]. ":".strftime("%z")[3:]."\""/e
+augroup END
 augroup Markdown
     au!
     autocmd FileType markdown setl wrap
                 \ linebreak
-    "\ spell spelllang=en_us
+                \ spell spelllang=en_us
+    autocmd FileType markdown au BufWritePre <buffer>
+                \ :silent 1,12s/^lastmod\s*=\s*".*"/\="lastmod = \"". strftime("%FT%H:%M:%S").strftime("%z")[:2]. ":".strftime("%z")[3:]."\""/e
 augroup END
 augroup Html
     au!
@@ -542,12 +556,6 @@ augroup Moin
     au!
     au BufNewFile,BufRead *.moin setf moin
     au BufNewFile,BufRead *.wiki setf moin
-augroup END
-
-augroup coffeescript
-    au!
-    au BufNewFile,BufReadPost *.coffee setl foldmethod=indent nofoldenable
-                \ shiftwidth=2 expandtab
 augroup END
 
 augroup filecleanup
@@ -601,7 +609,7 @@ endfunction
 
 function! Setfont(font)
     if exists('*GuiFont')
-        exec "GuiFont " . a:font
+        exec "GuiFont! " . a:font
     elseif exists('+guifont')
         exec "set guifont=" . a:font
     else

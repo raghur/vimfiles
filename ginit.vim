@@ -6,3 +6,4 @@ if exists('*GuiFont') "trigger only for neovim-qt which has this
     echom "setting font"
     call Setfont(g:fonts[0])
 endif
+call GuiWindowMaximized(1)

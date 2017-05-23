@@ -3,20 +3,53 @@ snippet post "blog post"
 author = "Raghu Rajagopalan"
 date = "`!v strftime("%FT%H:%M:%S").strftime("%z")[:2].":" . strftime("%z")[3:]`"
 publishdate = "`!v strftime("%FT%H:%M:%S").strftime("%z")[:2].":" . strftime("%z")[3:]`"
+lastmod = "`!v strftime("%FT%H:%M:%S").strftime("%z")[:2].":" . strftime("%z")[3:]`"
 draft = false
 title = "${1:title}"
 tags = ["${2:untagged}"]
 +++
 
+:icons: font
+:linkattrs:
+:experimental:
+
 $0
 endsnippet
 
-snippet img "block image"
+snippet link "link"
+$1[${2:alt^}]
+endsnippet
+
+
+snippet img "image - block"
+[.left.text-center]
+image::$1[${2:alt,width,height}]
+endsnippet
+
+snippet img-title "image - block with title"
+.Title
+[.left.text-center]
 image::$1[${2:alt}]
 endsnippet
 
-snippet iimg "inline image"
-image:$1[${2:alt}]
+snippet imgi "image- inline"
+image:$1[${2:alt,width,height,role="right text-center"}]
+endsnippet
+
+snippet listn "list - numbered"
+. this is item 1
+.. nested item
++
+	complex content
+. this is item2
+endsnippet
+
+snippet listl "list - labeled"
+label::
+. this is item 1
+.. nested item
+another label::
+. item
 endsnippet
 
 snippet source "sourcecode" b
@@ -39,15 +72,41 @@ $0
 ****
 endsnippet
 
-snippet admon "admonition" b
+snippet tip "admonition block" b
 
-${1:NOTE|TIP|IMPORTANT|WARNING|CAUTION}: $0
+[${1:NOTE|TIP|IMPORTANT|WARNING|CAUTION}]
+${2:.Title}
+====
+$0
+====
 
 endsnippet
 
 snippet quote "quote" b
 
-"${1:quote}"
--- ${2:author}, ${3:citation}
+[quote,${1:author,reference}]
+${2:quote}
+endsnippet
 
+snippet embed "embed"
+
+++++
+$0
+++++
+endsnippet
+
+snippet kbd "keyboard shortcut"
+kbd:[${0:Ctrl + Shift + +}]
+endsnippet
+
+snippet menu "menu selection"
+menu:View[Zoom > Reset]
+endsnippet
+
+snippet btn "button selection"
+btn:[Ok]
+endsnippet
+
+snippet icon "fa icons"
+icon:tags[${1:2x,3x,4x,5x,lg,fw, role="color", flip="horizontal|vertial", rotate="90,180,270"}]
 endsnippet
