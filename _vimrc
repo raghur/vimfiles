@@ -509,7 +509,7 @@ call denite#custom#option('default', 'prompt', ' ')
 call denite#custom#map('insert', '<Up>', '<denite:move_to_previous_line>')
 call denite#custom#map('insert', '<Down>', '<denite:move_to_next_line>')
 nnoremap <silent> <C-p> :<C-u>Denite -direction=top -auto-resize file_rec buffer<cr>
-nnoremap <silent> <C-b> :<C-u>Denite -direction=top -auto-resize buffer file_mru<cr>
+nnoremap <silent> <C-n> :<C-u>Denite -direction=top -auto-resize buffer file_mru<cr>
 nnoremap <silent> <C-h> :<C-u>Denite -direction=top -auto-resize help<cr>
 " submode
 " A message will appear in the message line when you're in a submode
