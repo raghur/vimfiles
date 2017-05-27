@@ -1,9 +1,11 @@
 " vim: fdm=marker:
 " Options {{{
 let g:home=expand('<sfile>:p:h')."/"
-let g:python3_host_prog="d:/sdks/python3/python.exe"
-let g:python_host_prog="c:/python27/python.exe"
-let g:ruby_host_prog="C:/tools/ruby23/bin/ruby.EXE"
+if has("win32")
+    let g:python3_host_prog="d:/sdks/python3/python.exe"
+    let g:python_host_prog="c:/python27/python.exe"
+    let g:ruby_host_prog="C:/tools/ruby23/bin/ruby.EXE"
+endif
 
 "force python 3 if available.
 " linux only one python can be loaded at a time.
