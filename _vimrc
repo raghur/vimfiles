@@ -313,10 +313,7 @@ if has('python') || has('python3')
     Plug  'honza/vim-snippets'
     let g:UltiSnipsUsePythonVersion=3
     let g:UltiSnipsSnippetsDir=g:home."UltiSnips"
-    let g:UltiSnipsExpandTrigger="<c-cr>"
-    if !has('nvim') && !has('gui_running')
-        let g:UltiSnipsExpandTrigger="<c-space>"
-    endif
+    let g:UltiSnipsExpandTrigger="<c-j>"
     let g:UltiSnipsListSnippets="<c-tab>"
 endif
 
@@ -374,6 +371,8 @@ Plug  'airblade/vim-rooter'
 let g:rooter_silent_chdir = 1
 
 Plug  'Shougo/vimproc.vim'
+
+" only for neovim
 Plug 'Shougo/deoplete.nvim', Cond(has('nvim'))
 let g:deoplete#enable_at_startup = 1
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
@@ -383,8 +382,13 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 " run: nmake -f Make_msvc.mak nodebug=1
 let g:neocomplete#use_vimproc = 1
 let g:neocomplete#enable_at_startup = 1
-Plug  'Shougo/neocomplete', Cond(!has('nvim') && has('lua'))
 
+" before vim 8
+Plug  'Shougo/neocomplete', Cond(!has('nvim') && has('lua') && v:version < 800)
+
+" only for vim 8
+Plug  'maralla/completor.vim', Cond(!has('nvim') && has('python3') && v:version == 800)
+let g:completor_python_binary = '/usr/bin/python3'
 let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
 Plug  'maxbrunsfeld/vim-yankstack'
 
