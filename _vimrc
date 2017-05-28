@@ -176,17 +176,13 @@ if exists("+guifont")
     endif
 endif
 
-let g:colorschemes="smyck"
-            \ . ":base16-default"
-            \ . ":base16-eighties"
-            \ . ":Monokai-Refined"
+let g:colorschemes="Tomorrow-Night"
             \ . ":monokai"
             \ . ":molokai"
             \ . ":github"
-            \ . ":mayansmoke"
-            \ . ":newspaper"
-            \ . ":greyhouse"
+            \ . ":kalisi"
 let g:colorschemes = split(g:colorschemes, ":")
+colors Tomorrow-Night
 "}}}
 
 " Plugin Bundles and config {{{
@@ -326,13 +322,12 @@ let g:syntastic_mode_map = { 'mode': 'passive',
             \ 'active_filetypes': ['python', 'json', 'javascript'],
             \ 'passive_filetypes': [] }
 
-Plug  'raghur/vim-colorschemes'
-Plug  'vim-scripts/Colour-Sampler-Pack'
-Plug  'sickill/vim-monokai'
-Plug  'jaromero/vim-monokai-refined'
-Plug  'altercation/vim-colors-solarized'
-Plug  'chriskempson/base16-vim'
-let base16colorspace=256
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'sickill/vim-monokai'
+Plug 'altercation/vim-colors-solarized'
+Plug 'freeo/vim-kalisi'
+Plug 'rafi/awesome-vim-colorschemes'
+Plug 'chriskempson/vim-tomorrow-theme'
 let g:solarized_termcolors=256
 
 Plug  'pangloss/vim-javascript'
@@ -533,7 +528,6 @@ for key in ['=','_','+','-','<','>']
 endfor
 
 filetype plugin indent on
-colors Monokai-Refined
 "}}}
 
 " Autocommands {{{
