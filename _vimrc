@@ -1,9 +1,11 @@
 " vim: fdm=marker:
 " Options {{{
 let g:home=expand('<sfile>:p:h')."/"
-let g:python3_host_prog="d:/sdks/python3/python.exe"
-let g:python_host_prog="c:/python27/python.exe"
-let g:ruby_host_prog="C:/tools/ruby23/bin/ruby.EXE"
+if has("win32")
+    let g:python3_host_prog="d:/sdks/python3/python.exe"
+    let g:python_host_prog="c:/python27/python.exe"
+    let g:ruby_host_prog="C:/tools/ruby23/bin/ruby.EXE"
+endif
 
 "force python 3 if available.
 " linux only one python can be loaded at a time.
@@ -307,10 +309,7 @@ if has('python') || has('python3')
     Plug  'honza/vim-snippets'
     let g:UltiSnipsUsePythonVersion=3
     let g:UltiSnipsSnippetsDir=g:home."UltiSnips"
-    let g:UltiSnipsExpandTrigger="<c-cr>"
-    if !has('nvim') && !has('gui_running')
-        let g:UltiSnipsExpandTrigger="<c-space>"
-    endif
+    let g:UltiSnipsExpandTrigger="<c-j>"
     let g:UltiSnipsListSnippets="<c-tab>"
 endif
 
@@ -367,6 +366,8 @@ Plug  'airblade/vim-rooter'
 let g:rooter_silent_chdir = 1
 
 Plug  'Shougo/vimproc.vim'
+
+" only for neovim
 Plug 'Shougo/deoplete.nvim', Cond(has('nvim'))
 let g:deoplete#enable_at_startup = 1
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
@@ -376,8 +377,13 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 " run: nmake -f Make_msvc.mak nodebug=1
 let g:neocomplete#use_vimproc = 1
 let g:neocomplete#enable_at_startup = 1
-Plug  'Shougo/neocomplete', Cond(!has('nvim') && has('lua'))
 
+" before vim 8
+Plug  'Shougo/neocomplete', Cond(!has('nvim') && has('lua') && v:version < 800)
+
+" only for vim 8
+Plug  'maralla/completor.vim', Cond(!has('nvim') && has('python3') && v:version == 800)
+let g:completor_python_binary = '/usr/bin/python3'
 let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
 Plug  'maxbrunsfeld/vim-yankstack'
 
@@ -498,7 +504,7 @@ call denite#custom#option('default', 'prompt', ' ')
 call denite#custom#map('insert', '<Up>', '<denite:move_to_previous_line>')
 call denite#custom#map('insert', '<Down>', '<denite:move_to_next_line>')
 nnoremap <silent> <C-p> :<C-u>Denite -direction=top -auto-resize file_rec buffer<cr>
-nnoremap <silent> <C-b> :<C-u>Denite -direction=top -auto-resize buffer file_mru<cr>
+nnoremap <silent> <C-n> :<C-u>Denite -direction=top -auto-resize buffer file_mru<cr>
 nnoremap <silent> <C-h> :<C-u>Denite -direction=top -auto-resize help<cr>
 " submode
 " A message will appear in the message line when you're in a submode
