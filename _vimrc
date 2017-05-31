@@ -1,11 +1,14 @@
 " vim: fdm=marker:
 " Options {{{
 let g:home=expand('<sfile>:p:h')."/"
-if has("win32")
-    let g:python3_host_prog="d:/sdks/python3/python.exe"
-    let g:python_host_prog="c:/python27/python.exe"
-    let g:ruby_host_prog="C:/tools/ruby23/bin/ruby.EXE"
-endif
+function! s:machine_script() 
+    let machine_file = glob(g:home . tolower(hostname()) . '.vim')
+    if !empty(machine_file)
+        exec "so " . machine_file
+    endif
+endfun
+
+call s:machine_script()
 
 "force python 3 if available.
 " linux only one python can be loaded at a time.
@@ -155,15 +158,7 @@ if has('directx')
 endif
 
 if exists("+guifont")
-    if has('win32') || has('win64')
-        let g:fonts="Fantasque_Sans_Mono:h13:cANSI,"
-                    \ . "Ubuntu_Mono_derivative_Powerlin:h13,"
-                    \ . "Source_Code_Pro_Light:h11,"
-                    \ . "Powerline_Consolas:h11,"
-                    \ . "DejaVu_Sans_Mono_For_Powerline:h11,"
-                    \ . "PragmataPro_Mono:h11"
-        let g:fonts=split(g:fonts, ",")
-    else "unix
+    if has('unix')
         let g:fonts= "Fantasque\ Sans\ Mono\ 11,"
                     \ . "Meslo\ LG\ S\ for\ Powerline\ 12,"
                     \ . "Monaco\ for\ Powerline\ 12,"
@@ -379,8 +374,6 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 Plug  'maralla/completor.vim', Cond(has('python3'))
 if has("unix")
     let g:completor_python_binary = '/usr/bin/python3'
-elseif has("win32")
-    let g:completor_python_binary = 'd:/sdks/python36/python.exe'
 endif
 let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
 Plug  'maxbrunsfeld/vim-yankstack'
@@ -666,10 +659,6 @@ fun! CycleFont(dir)
 endfun
 command! FontNext call CycleFont(1)
 command! FontPrev call CycleFont(-1)
-
-if exists("g:fonts")
-    call Setfont(g:fonts[0])
-endif
 
 fun! RemoveCtrlM()
     :update
