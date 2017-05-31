@@ -344,7 +344,9 @@ set laststatus=2
 
 Plug  'vim-airline/vim-airline'
 let g:airline_enable_branch=1
-let g:airline_enable_syntastic=1
+call airline#parts#define_function('ALE', 'ALEGetStatusLine')
+call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
+let g:airline_section_error = airline#section#create_right(['ALE'])
 let g:airline_powerline_fonts=1
 let g:airline_detect_modified=1
 
