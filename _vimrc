@@ -356,23 +356,8 @@ Plug  'tpope/vim-dispatch'
 Plug  'airblade/vim-rooter'
 let g:rooter_silent_chdir = 1
 
-" Plug  'Shougo/vimproc.vim'
-
-" " only for neovim
-" Plug 'Shougo/deoplete.nvim', Cond(has('nvim'))
-" let g:deoplete#enable_at_startup = 1
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-
-"neocomplete
-" run: nmake -f Make_msvc.mak nodebug=1
-" let g:neocomplete#use_vimproc = 1
-" let g:neocomplete#enable_at_startup = 1
-
-" before vim 8
-" Plug  'Shougo/neocomplete', Cond(!has('nvim') && has('lua') && v:version < 800)
-
-" only for vim 8
 Plug  'maralla/completor.vim', Cond(has('python3'))
 if has("unix")
     let g:completor_python_binary = '/usr/bin/python3'
