@@ -314,7 +314,8 @@ Plug 'sickill/vim-monokai'
 Plug 'altercation/vim-colors-solarized'
 Plug 'freeo/vim-kalisi'
 Plug 'rafi/awesome-vim-colorschemes'
-Plug 'chriskempson/vim-tomorrow-theme'
+Plug 'chriskempson/base16-vim'
+let base16colorspace=256
 let g:solarized_termcolors=256
 
 Plug  'pangloss/vim-javascript'
@@ -819,6 +820,7 @@ inoremap <A-k> <Esc>:m-2<CR>==gi
 vnoremap <A-j> :m'>+<CR>gv=gv
 vnoremap <A-k> :m-2<CR>gv=gv
 
-colors Tomorrow-Night
-let g:airline_theme="tomorrow"
+set background=light
+colors base16_3024
+let g:airline_theme="base16_3024"
 "}}}
