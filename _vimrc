@@ -313,13 +313,7 @@ if has('python') || has('python3')
     let g:UltiSnipsListSnippets="<c-tab>"
 endif
 
-Plug  'scrooloose/syntastic'
-let g:syntastic_python_checkers = ['pycodestyle']
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_mode_map = { 'mode': 'passive',
-            \ 'active_filetypes': ['python', 'json', 'javascript'],
-            \ 'passive_filetypes': [] }
+Plug  'w0rp/ale'
 
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'sickill/vim-monokai'
