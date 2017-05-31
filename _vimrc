@@ -179,7 +179,6 @@ let g:colorschemes="Tomorrow-Night"
             \ . ":github"
             \ . ":kalisi"
 let g:colorschemes = split(g:colorschemes, ":")
-colors Tomorrow-Night
 "}}}
 
 " Plugin Bundles and config {{{
@@ -343,6 +342,7 @@ set lazyredraw
 set laststatus=2
 
 Plug  'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 let g:airline_enable_branch=1
 call airline#parts#define_function('ALE', 'ALEGetStatusLine')
 call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
@@ -819,4 +819,6 @@ inoremap <A-k> <Esc>:m-2<CR>==gi
 vnoremap <A-j> :m'>+<CR>gv=gv
 vnoremap <A-k> :m-2<CR>gv=gv
 
+colors Tomorrow-Night
+let g:airline_theme="tomorrow"
 "}}}
