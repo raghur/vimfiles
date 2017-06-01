@@ -824,5 +824,5 @@ vnoremap <A-k> :m-2<CR>gv=gv
 
 set background=light
 colors base16-3024
-let g:airline_theme="base16-3024"
+let g:airline_theme="base16_3024"
 "}}}
