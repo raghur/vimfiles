@@ -1,7 +1,7 @@
 " vim: fdm=marker:
 " Options {{{
 let g:home=expand('<sfile>:p:h')."/"
-function! s:machine_script() 
+function! s:machine_script()
     let machine_file = glob(g:home . tolower(hostname()) . '.vim')
     if !empty(machine_file)
         exec "so " . machine_file
@@ -292,6 +292,8 @@ if has('python') || has('python3')
 endif
 
 Plug  'w0rp/ale'
+nmap <leader>p  <Plug>(ale_previous_wrap)
+nmap <leader>n  <Plug>(ale_next_wrap)
 
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'sickill/vim-monokai'
@@ -802,6 +804,6 @@ vnoremap <A-j> :m'>+<CR>gv=gv
 vnoremap <A-k> :m-2<CR>gv=gv
 
 set background=dark
-colors base16_3024
+colors base16-3024
 let g:airline_theme="base16_3024"
 "}}}
