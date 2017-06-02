@@ -679,18 +679,22 @@ function! ToHtml()
     :w
     let file=expand("%:p")
     let outfile=fnamemodify(file, ":r") . ".html"
-    let css=fnamemodify(file, ":h") . "pandoc.css"
-    exec "silent !pandoc --toc  -c ". css .
-                \ " -F mermaid-filter.cmd" .
-                \ "  -fmarkdown_github" .
-                \ "+footnotes" .
-                \ "+implicit_header_references".
-                \ "+auto_identifiers".
-                \ "+superscript".
-                \ "+subscript".
-                \ "+fancy_lists".
-                \ "+startnum".
-                \ "+strikeout -i " . file . " -o " . outfile
+    if &ft == 'markdown'
+        let css=fnamemodify(file, ":h") . "pandoc.css"
+        exec "silent !pandoc --toc  -c ". css .
+                    \ " -F mermaid-filter.cmd" .
+                    \ "  -fmarkdown_github" .
+                    \ "+footnotes" .
+                    \ "+implicit_header_references".
+                    \ "+auto_identifiers".
+                    \ "+superscript".
+                    \ "+subscript".
+                    \ "+fancy_lists".
+                    \ "+startnum".
+                    \ "+strikeout -i " . file . " -o " . outfile
+    elseif &ft == 'asciidoc'
+        exec "silent !asciidoctor -a icons:font -a sectnums -a sectlinks ". file
+    endif
     echom "wrote" . " " . outfile
     call openbrowser#open("file:///".substitute(outfile, "\\", "/", "g"))
 endfunction
