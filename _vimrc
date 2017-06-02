@@ -157,22 +157,6 @@ if has('directx')
     set renderoptions=type:directx,gamma:1.0,contrast:0.2,level:1.0,geom:1,renmode:5,taamode:1
 endif
 
-if exists("+guifont")
-    if has('unix')
-        let g:fonts= "Fantasque\ Sans\ Mono\ 11,"
-                    \ . "Meslo\ LG\ S\ for\ Powerline\ 12,"
-                    \ . "Monaco\ for\ Powerline\ 12,"
-                    \ . "Pragmata\ Pro\ 13,"
-                    \ . "Source\ Code\ Pro\ for\ Powerline\ 12,"
-                    \ . "DejaVu\ Sans\ Mono\ for\ Powerline\ 12,"
-                    \ . "Monospace\ 10,"
-                    \ . "Ubuntu\ Mono\ 11"
-        let g:fonts=split(g:fonts, ",")
-        let g:GPGExecutable="gpg2"
-        let g:GPGUseAgent = 1
-    endif
-endif
-
 let g:colorschemes="Tomorrow-Night"
             \ . ":monokai"
             \ . ":molokai"
@@ -347,9 +331,6 @@ set laststatus=2
 Plug  'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 let g:airline_enable_branch=1
-call airline#parts#define_function('ALE', 'ALEGetStatusLine')
-call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
-let g:airline_section_error = airline#section#create_right(['ALE'])
 let g:airline_powerline_fonts=1
 let g:airline_detect_modified=1
 
@@ -362,9 +343,7 @@ let g:rooter_silent_chdir = 1
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 Plug  'maralla/completor.vim', Cond(has('python3'))
-if has("unix")
-    let g:completor_python_binary = '/usr/bin/python3'
-endif
+
 let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
 Plug  'maxbrunsfeld/vim-yankstack'
 
@@ -457,6 +436,11 @@ let g:grepper = {
 
 set rtp+=$GOROOT/misc/vim
 call plug#end()
+
+call airline#parts#define_function('ALE', 'ALEGetStatusLine')
+call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
+let g:airline_section_error = airline#section#create_right(['ALE'])
+
 if !has('nvim') && !empty(glob(g:home . 'neocomplete-custom.vim'))
     exec "so ".g:home."neocomplete-custom.vim"
 endif
@@ -702,9 +686,6 @@ endfunction
 "}}}
 
 "Commands {{{
-if has("unix")
-    command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
-endif
 command! RemoveCtrlM call RemoveCtrlM()
 command! EditAsWin call RemoveCtrlM()
 
@@ -826,7 +807,7 @@ inoremap <A-k> <Esc>:m-2<CR>==gi
 vnoremap <A-j> :m'>+<CR>gv=gv
 vnoremap <A-k> :m-2<CR>gv=gv
 
-set background=light
+set background=dark
 colors base16-3024
 let g:airline_theme="base16_3024"
 "}}}
