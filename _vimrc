@@ -88,6 +88,9 @@ endif
 
 " tmux and otherwise
 set t_Co=256
+if &term =~ '256color'
+    set t_ut=
+endif
 set path=.,,**,$HOME
 
 " Only do this part when compiled with support for autocommands.
