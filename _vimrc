@@ -312,8 +312,8 @@ let g:vim_json_syntax_conceal = 0
 Plug  'vim-scripts/matchit.zip'
 Plug  'tpope/vim-ragtag'
 
-
 Plug  'wellle/targets.vim'
+Plug  'kana/vim-textobj-line'
 Plug  'kana/vim-textobj-user'
 Plug  'kana/vim-textobj-function'
 Plug  'thinca/vim-textobj-function-javascript', {
