@@ -811,6 +811,6 @@ vnoremap <A-j> :m'>+<CR>gv=gv
 vnoremap <A-k> :m-2<CR>gv=gv
 
 set background=dark
-colors base16-3024
-let g:airline_theme="base16_3024"
+colors kalisi
+let g:airline_theme="kalisi"
 "}}}
