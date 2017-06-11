@@ -202,56 +202,7 @@ Plug 'raghur/vim-helpnav', {
             \ }
 
 Plug 'vim-scripts/L9'
-Plug  'Shougo/neomru.vim'
-Plug  'Shougo/neoyank.vim'
 
-
-Plug  'shougo/unite.vim'
-let g:unite_data_directory = g:home.".vimbackups/unite"
-let g:unite_source_history_yank_enable=1
-let g:unite_source_rec_max_cache_files=5000
-let s:unite_ignores = [
-            \ '\.git', 'deploy', 'dist',
-            \ 'undo', 'tmp', 'backups',
-            \ 'generated', 'build', 'images', 'node_modules']
-
-if executable('ag')
-    let g:unite_source_grep_command='ag'
-    let g:unite_source_grep_default_opts='--nocolor --line-numbers --nogroup -S -C4'
-    let g:unite_source_grep_recursive_opt=''
-    " Using ag as recursive command.
-    let g:unite_source_rec_async_command = ['ag', '--follow', '--nocolor', '--nogroup',
-                \  '--hidden', '-g', '']
-endif
-
-if executable('sift')
-    let g:unite_source_grep_command='sift'
-    let g:unite_source_grep_default_opts='--no-color --line-number --no-group -s '
-    let g:unite_source_grep_recursive_opt=''
-    let g:unite_source_rec_async_command = ['sift', '--follow', '--no-color', '--no-group',
-                \ '--git', '--targets']
-endif
-if executable('rg')
-    let g:unite_source_grep_command='rg'
-    let g:unite_source_grep_separator=''
-    let g:unite_source_grep_default_opts='--vimgrep -g "!*.min.js" -w -e'
-    let g:unite_source_grep_recursive_opt=''
-    let g:unite_source_rec_async_command = ['rg', '--files']
-endif
-function! s:unite_settings()
-    nmap <buffer> Q <plug>(unite_exit)
-    nmap <buffer> <esc> <plug>(unite_exit)
-    imap <buffer> <esc> <plug>(unite_exit)
-    nmap <buffer> <F5> <plug>(unite_redraw)
-    imap <buffer> <F5> <plug>(unite_redraw)
-    imap <buffer> jk <Plug>(unite_insert_leave)
-    inoremap <silent><buffer><expr> <C-s>     unite#do_action('split')
-    inoremap <silent><buffer><expr> <C-v>     unite#do_action('right')
-endfunction
-augroup unite
-    autocmd!
-    autocmd FileType unite call s:unite_settings()
-augroup END
 function! Quitalready()
     if &readonly
         :q
@@ -448,16 +399,6 @@ if !has('nvim') && !empty(glob(g:home . 'neocomplete-custom.vim'))
     exec "so ".g:home."neocomplete-custom.vim"
 endif
 
-" unite settings
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
-call unite#custom#profile('files', 'filters', 'sorter_rank')
-call unite#custom#source('file_rec/neovim,buffer', 'sorters', 'sorter_selecta')
-call unite#custom#profile('default', 'context', {
-            \ 'start_insert': 1,
-            \ 'prompt': " ",
-            \ 'prompt-visible': 1
-            \ })
 if executable('rg')
     call denite#custom#var('file_rec', 'command',
         \ ['rg', '--files', '--glob', '!.git', ''])
@@ -471,9 +412,13 @@ call denite#custom#source(
 call denite#custom#option('default', 'prompt', ' ')
 call denite#custom#map('insert', '<Up>', '<denite:move_to_previous_line>')
 call denite#custom#map('insert', '<Down>', '<denite:move_to_next_line>')
-nnoremap <silent> <C-p> :<C-u>Denite -direction=top -auto-resize file_rec buffer<cr>
-nnoremap <silent> <C-n> :<C-u>Denite -direction=top -auto-resize buffer file_mru<cr>
-nnoremap <silent> <C-h> :<C-u>Denite -direction=top -auto-resize help<cr>
+nnoremap <silent> <leader><space> :<C-u>Denite -direction=top -auto-resize file_rec buffer<cr>
+nnoremap <silent> <leader>r :<C-u>Denite -direction=top -auto-resize buffer file_mru<cr>
+nnoremap <silent> <leader>o :<C-u>DeniteProjectDir -direction=top -auto-resize file_rec<cr>
+nnoremap <silent> <leader>c :<C-u>DeniteProjectDir -direction=top -auto-resize change<cr>
+nnoremap <silent> <leader>l :<C-u>DeniteProjectDir -direction=top -auto-resize line<cr>
+nnoremap <silent> <leader>co :<C-u>DeniteProjectDir -direction=top -auto-resize colorscheme<cr>
+nnoremap <silent> <leader>: :<C-u>DeniteProjectDir -direction=top -auto-resize command<cr>
 " submode
 " A message will appear in the message line when you're in a submode
 " and stay there until the mode has existed.
@@ -750,16 +695,6 @@ nnoremap <F7> :Autoformat<cr>
 nnoremap <F8> :Conemu<cr>
 nnoremap <F9> :Gitex<cr>
 nnoremap <F10> :Wex<cr>
-
-"unite
-nnoremap <silent> <leader><space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed neomru/file buffer file_rec/async:! <cr><c-u>
-nnoremap <silent> <leader>f :<C-u>Unite -toggle -auto-resize -buffer-name=file file_rec/async:! <cr><c-u>
-nnoremap <silent> <leader>r :<C-u>Unite -buffer-name=recent neomru/file<cr>
-nnoremap <silent> <leader>o :<C-u>UniteWithProjectDir -buffer-name=children file_rec/async:!<cr><c-u>
-" nnoremap <silent> <leader>j :<C-u>Unite -buffer-name=jumps jump change<cr>
-nnoremap <silent> <leader>l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
-nnoremap <silent> <leader>b :<C-u>Unite -auto-resize -buffer-name=buffers buffer file_mru<cr>
-" nnoremap <silent> <leader>g :<C-u>UniteWithProjectDir -no-quit -buffer-name=search grep:.<cr>
 
 "leader mappings
 nnoremap <leader>bd :bd<cr>
