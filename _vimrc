@@ -405,23 +405,28 @@ elseif executable('sift')
 endif
 call denite#custom#source(
         \ 'file_rec,buffer', 'sorters', ['sorter_sublime'])
+call denite#custom#source(
+        \ 'file_mru', 'matchers', ['matcher_fuzzy'])
 " Change default prompt
 call denite#custom#option('default', 'prompt', ' ')
 call denite#custom#map('insert', '<Up>', '<denite:move_to_previous_line>')
+call denite#custom#map('insert', '<C-j>', '<denite:move_to_previous_line>')
 call denite#custom#map('insert', '<Down>', '<denite:move_to_next_line>')
+call denite#custom#map('insert', '<C-k>', '<denite:move_to_next_line>')
 
-# remove highlights
+" remove highlights
 call denite#custom#option('_', 'highlight_mode_insert', 'Search')
 call denite#custom#option('_', 'highlight_matched_range', 'None')
 call denite#custom#option('_', 'highlight_matched_char', 'None')
 
 nnoremap <silent> <leader><space> :<C-u>Denite -direction=top -auto-resize file_rec buffer<cr>
-nnoremap <silent> <leader>r :<C-u>Denite -direction=top -auto-resize buffer file_mru<cr>
+nnoremap <silent> <leader>r :<C-u>Denite -direction=top -auto-resize file_mru<cr>
 nnoremap <silent> <leader>o :<C-u>DeniteProjectDir -direction=top -auto-resize file_rec<cr>
-nnoremap <silent> <leader>c :<C-u>DeniteProjectDir -direction=top -auto-resize change<cr>
-nnoremap <silent> <leader>l :<C-u>DeniteProjectDir -direction=top -auto-resize line<cr>
-nnoremap <silent> <leader>co :<C-u>DeniteProjectDir -direction=top -auto-resize colorscheme<cr>
-nnoremap <silent> <leader>: :<C-u>DeniteProjectDir -direction=top -auto-resize command<cr>
+nnoremap <silent> <leader>c :<C-u>Denite -direction=top -auto-resize change<cr>
+nnoremap <silent> <leader>l :<C-u>Denite -direction=top -auto-resize line<cr>
+nnoremap <silent> <leader>co :<C-u>Denite -direction=top -auto-resize colorscheme<cr>
+nnoremap <silent> <leader>: :<C-u>Denite -direction=top -auto-resize command<cr>
+nnoremap <silent> <leader>j :<C-u>Denite -direction=top -auto-resize jump<cr>
 " submode
 " A message will appear in the message line when you're in a submode
 " and stay there until the mode has existed.
