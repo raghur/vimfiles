@@ -404,15 +404,19 @@ elseif executable('sift')
         \ ['sift', '--targets' ])
 endif
 call denite#custom#source(
-        \ 'file_rec,buffer', 'sorters', ['sorter_sublime'])
-call denite#custom#source(
-        \ 'file_mru', 'matchers', ['matcher_fuzzy'])
+        \ '_', 'sorters', ['sorter_sublime'])
+
+" Change ignore_globs
+call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
+            \ [ '.git/', '.ropeproject/', '__pycache__/',
+            \ '*.pyc', "*.exe", "*.jpg",
+            \   '.venv/', '.tox/', 'images/', '*.min.*', 'img/', 'fonts/'])
 " Change default prompt
 call denite#custom#option('default', 'prompt', ' ')
 call denite#custom#map('insert', '<Up>', '<denite:move_to_previous_line>')
-call denite#custom#map('insert', '<C-j>', '<denite:move_to_previous_line>')
+call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>')
 call denite#custom#map('insert', '<Down>', '<denite:move_to_next_line>')
-call denite#custom#map('insert', '<C-k>', '<denite:move_to_next_line>')
+call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>')
 
 " remove highlights
 call denite#custom#option('_', 'highlight_mode_insert', 'Search')
