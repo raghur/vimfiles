@@ -368,6 +368,7 @@ Plug  'Chiel92/vim-autoformat', {
             \ }
 Plug 'mhinz/vim-grepper'
 Plug 'Shougo/denite.nvim'
+Plug 'Shougo/neomru.vim'
 
 " for browsing the input history
 cnoremap <c-n> <down>
@@ -395,10 +396,6 @@ call airline#parts#define_function('ALE', 'ALEGetStatusLine')
 call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
 let g:airline_section_error = airline#section#create_right(['ALE'])
 
-if !has('nvim') && !empty(glob(g:home . 'neocomplete-custom.vim'))
-    exec "so ".g:home."neocomplete-custom.vim"
-endif
-
 if executable('rg')
     call denite#custom#var('file_rec', 'command',
         \ ['rg', '--files', '--glob', '!.git', ''])
@@ -412,6 +409,12 @@ call denite#custom#source(
 call denite#custom#option('default', 'prompt', ' ')
 call denite#custom#map('insert', '<Up>', '<denite:move_to_previous_line>')
 call denite#custom#map('insert', '<Down>', '<denite:move_to_next_line>')
+
+# remove highlights
+call denite#custom#option('_', 'highlight_mode_insert', 'Search')
+call denite#custom#option('_', 'highlight_matched_range', 'None')
+call denite#custom#option('_', 'highlight_matched_char', 'None')
+
 nnoremap <silent> <leader><space> :<C-u>Denite -direction=top -auto-resize file_rec buffer<cr>
 nnoremap <silent> <leader>r :<C-u>Denite -direction=top -auto-resize buffer file_mru<cr>
 nnoremap <silent> <leader>o :<C-u>DeniteProjectDir -direction=top -auto-resize file_rec<cr>
@@ -493,12 +496,6 @@ augroup pyjedi
                                     \ textwidth=79
                                     \ completeopt-=preview
                                     \ formatoptions+=c
-    if !exists('g:neocomplete#force_omni_input_patterns')
-        let g:neocomplete#force_omni_input_patterns = {}
-    endif
-    let g:neocomplete#force_omni_input_patterns.python =
-                \ '\%([^. \t]\.\|^\s*@\|^\s*from\s.\+import \|^\s*from \|^\s*import \)\w*'
-    " alternative pattern: '\h\w*\|[^. \t]\.\w*'
 augroup END
 
 "}}}
