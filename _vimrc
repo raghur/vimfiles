@@ -201,8 +201,6 @@ Plug 'raghur/vim-helpnav', {
             \ 'for' : ['help']
             \ }
 
-Plug 'vim-scripts/L9'
-
 function! Quitalready()
     if &readonly
         :q
@@ -318,9 +316,6 @@ omap F <Plug>Sneak_F
 let g:sneak#s_next = 0
 
 let g:stopFirstAndNotifyTimeoutLen = 0
-let g:EnhancedJumps_CaptureJumpMessages = 0
-Plug 'vim-scripts/ingo-library'
-Plug  'vim-scripts/EnhancedJumps'
 
 
 Plug  'PProvost/vim-ps1'
@@ -719,12 +714,11 @@ vnoremap <leader>v "0p
 " copy a block and comment it and move to insert mode
 vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
 
-" backspace and tab
-nmap <backspace> <Plug>EnhancedJumpsOlder
-nmap <C-backspace> <Plug>EnhancedJumpsRemoteOlder
-nmap <C-tab> <Plug>EnhancedJumpsRemoteNewer
-nnoremap <backspace>    g;
-nnoremap <tab>    g,
+" C-backspace and C-tab to navigate changelist
+nnoremap <C-backspace>    g;
+nnoremap <C-tab>    g,
+nnoremap <backspace>    <C-o>
+nnoremap <tab>    <C-i>
 
 map [[ ?{<CR>w99[{
 map ][ /}<CR>b99]}
