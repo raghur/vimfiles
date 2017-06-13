@@ -479,16 +479,16 @@ augroup AsciiDoc
     au!
     autocmd FileType asciidoc setl wrap
                 \ spell spelllang=en_us
-    autocmd FileType asciidoc au BufWritePre <buffer>
-                \ :silent 1,12s/^lastmod\s*=\s*".*"/\="lastmod = \"". strftime("%FT%H:%M:%S").strftime("%z")[:2]. ":".strftime("%z")[3:]."\""/e
+    " autocmd FileType asciidoc au BufWritePre <buffer>
+    "             \ :silent 1,12s/^lastmod\s*=\s*".*"/\="lastmod = \"". strftime("%FT%H:%M:%S").strftime("%z")[:2]. ":".strftime("%z")[3:]."\""/e
 augroup END
 augroup Markdown
     au!
     autocmd FileType markdown setl wrap
                 \ linebreak
                 \ spell spelllang=en_us
-    autocmd FileType markdown au BufWritePre <buffer>
-                \ :silent 1,12s/^lastmod\s*=\s*".*"/\="lastmod = \"". strftime("%FT%H:%M:%S").strftime("%z")[:2]. ":".strftime("%z")[3:]."\""/e
+    " autocmd FileType markdown au BufWritePre <buffer>
+    "             \ :silent 1,12s/^lastmod\s*=\s*".*"/\="lastmod = \"". strftime("%FT%H:%M:%S").strftime("%z")[:2]. ":".strftime("%z")[3:]."\""/e
 augroup END
 augroup Html
     au!
