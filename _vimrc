@@ -452,6 +452,21 @@ endfor
 for key in ['=','_','+','-','<','>']
     call submode#map('window', 'n', '', key, '<C-w>' . key)
 endfor
+let g:lastwh =0
+let g:lastww =0
+let g:maxwhthreshold=40
+let g:maxwwthreshold=175
+function! ZoomWindow()
+    if winheight(0) >= g:maxwhthreshold && winwidth(0) >= g:maxwwthreshold
+        exec "resize " . g:lastwh " | vertical resize ". g:lastww
+    else
+        let g:lastwh = winheight(0)
+        let g:lastww = winwidth(0)
+        wincmd _
+        wincmd |
+    endif
+endfun
+nnoremap <leader>z  :call ZoomWindow()<cr>
 
 filetype plugin indent on
 "}}}
