@@ -466,6 +466,7 @@ function! ZoomWindow()
     endif
 endfun
 nnoremap <silent> <leader>z  :call ZoomWindow()<cr>
+nnoremap <silent> <leader>=  <C-w>=
 
 filetype plugin indent on
 "}}}
