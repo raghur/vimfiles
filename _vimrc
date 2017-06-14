@@ -467,6 +467,12 @@ function! ZoomWindow()
 endfun
 nnoremap <silent> <leader>z  :call ZoomWindow()<cr>
 nnoremap <silent> <leader>=  <C-w>=
+nnoremap <silent> <leader>gi  `IA
+nnoremap <silent> <leader>l  `^
+augroup GlobalMark
+    au!
+    autocmd InsertLeave * mark I
+augroup END
 
 filetype plugin indent on
 "}}}
