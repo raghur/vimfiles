@@ -465,7 +465,7 @@ function! ZoomWindow()
         wincmd |
     endif
 endfun
-nnoremap <leader>z  :call ZoomWindow()<cr>
+nnoremap <silent> <leader>z  :call ZoomWindow()<cr>
 
 filetype plugin indent on
 "}}}
