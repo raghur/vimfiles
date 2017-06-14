@@ -454,10 +454,9 @@ for key in ['=','_','+','-','<','>']
 endfor
 let g:lastwh =0
 let g:lastww =0
-let g:maxwhthreshold=40
-let g:maxwwthreshold=175
+
 function! ZoomWindow()
-    if winheight(0) >= g:maxwhthreshold && winwidth(0) >= g:maxwwthreshold
+    if winheight(0) >= (&lines - 4) && winwidth(0) >= (&columns - 2)
         exec "resize " . g:lastwh " | vertical resize ". g:lastww
     else
         let g:lastwh = winheight(0)
