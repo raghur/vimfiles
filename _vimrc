@@ -471,8 +471,7 @@ function! ZoomWindow()
 endfun
 nnoremap <silent> <leader>z  :call ZoomWindow()<cr>
 nnoremap <silent> <leader>=  <C-w>=
-nnoremap <silent> <leader>gi  `IA
-nnoremap <silent> <leader>l  `^
+nnoremap <silent> `<space>  `I \| z.
 augroup GlobalMark
     au!
     autocmd InsertLeave * mark I
