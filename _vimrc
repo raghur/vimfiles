@@ -396,7 +396,7 @@ let g:airline_section_error = airline#section#create_right(['ALE'])
 
 if executable('rg')
     call denite#custom#var('file_rec', 'command',
-        \ ['rg', '--files', '--glob', '!.git', ''])
+        \ ['rg', '--files'])
 elseif executable('sift')
     call denite#custom#var('file_rec', 'command',
         \ ['sift', '--targets' ])
