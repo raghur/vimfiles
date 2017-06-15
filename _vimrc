@@ -364,6 +364,9 @@ Plug  'Chiel92/vim-autoformat', {
 Plug 'mhinz/vim-grepper'
 Plug 'Shougo/denite.nvim'
 Plug 'Shougo/neomru.vim'
+Plug 'alvan/vim-closetag'
+" filenames like *.xml, *.html, *.xhtml, ...
+let g:closetag_filenames = "*.html,*.xhtml,*.xml,*.htm"
 
 " for browsing the input history
 cnoremap <c-n> <down>
