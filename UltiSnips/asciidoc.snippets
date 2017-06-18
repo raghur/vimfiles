@@ -1,9 +1,11 @@
+global !p
+from snippethelpers import *
+endglobal
+
 snippet post "blog post"
 +++
 author = "Raghu Rajagopalan"
-date = "`!v strftime("%FT%H:%M:%S").strftime("%z")[:2].":" . strftime("%z")[3:]`"
-publishdate = "`!v strftime("%FT%H:%M:%S").strftime("%z")[:2].":" . strftime("%z")[3:]`"
-lastmod = "`!v strftime("%FT%H:%M:%S").strftime("%z")[:2].":" . strftime("%z")[3:]`"
+date = "`!p if not snip.c: snip.rv=rfc3339()`"
 draft = false
 title = "${1:title}"
 tags = ["${2:untagged}"]

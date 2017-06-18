@@ -1,3 +1,6 @@
+global !p
+from snippethelpers import *
+endglobal
 #########
 # DATES #
 #########
@@ -18,3 +21,6 @@ snippet datetime4 "Mon 05:30pm, 26-oct-2016" w
 `!v strftime("%a %I:%M%p, %d-%b-%Y")`
 endsnippet
 
+snippet datetime-rfc3339 "2016-10-16T17:30:342343+05:30" w
+`!p if not snip.c: snip.rv=rfc3339()`
+endsnippet
