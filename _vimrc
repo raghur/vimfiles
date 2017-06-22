@@ -365,6 +365,7 @@ Plug 'mhinz/vim-grepper'
 Plug 'Shougo/denite.nvim'
 Plug 'Shougo/neomru.vim'
 Plug 'alvan/vim-closetag'
+Plug 'othree/eregex.vim'
 " filenames like *.xml, *.html, *.xhtml, ...
 let g:closetag_filenames = "*.html,*.xhtml,*.xml,*.htm"
 
