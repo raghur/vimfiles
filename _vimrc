@@ -294,7 +294,7 @@ let g:rooter_silent_chdir = 1
 
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-Plug  'maralla/completor.vim', Cond(has('python3'))
+Plug  'roxma/nvim-completion-manager', Cond(has('python3'))
 
 let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
 Plug  'maxbrunsfeld/vim-yankstack'
