@@ -389,7 +389,6 @@ let g:grepper = {
     \ 'next_tool': '<leader>g',
     \ }
 
-set rtp+=$GOROOT/misc/vim
 call plug#end()
 
 call airline#parts#define_function('ALE', 'ALEGetStatusLine')
