@@ -78,7 +78,9 @@ set visualbell
 set noerrorbells
 set list
 set listchars=tab:».,trail:░,extends:→,nbsp:.
-
+if has('nvim')
+    set inccommand=split
+endif
 " ConEmu
 if !empty($CONEMUBUILD) && !has('nvim')
     set term=pcansi
