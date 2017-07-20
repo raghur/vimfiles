@@ -243,6 +243,8 @@ if has('python') || has('python3')
     let g:UltiSnipsListSnippets="<c-tab>"
 endif
 
+let g:ale_linters = {'go': ['gometalinter', 'gofmt']}
+let g:ale_go_metalinter_options = '--fast'
 Plug  'w0rp/ale'
 nmap <leader>p  <Plug>(ale_previous_wrap)
 nmap <leader>n  <Plug>(ale_next_wrap)
@@ -367,6 +369,7 @@ Plug 'Shougo/neomru.vim'
 Plug 'alvan/vim-closetag'
 Plug 'othree/eregex.vim'
 Plug 'fatih/vim-go'
+let g:go_highlight_types = 1
 " filenames like *.xml, *.html, *.xhtml, ...
 let g:closetag_filenames = "*.html,*.xhtml,*.xml,*.htm"
 
