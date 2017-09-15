@@ -372,6 +372,8 @@ Plug 'Shougo/neomru.vim'
 Plug 'alvan/vim-closetag'
 Plug 'othree/eregex.vim'
 Plug 'fatih/vim-go'
+Plug 'leafgarland/typescript-vim'
+
 let g:go_highlight_types = 1
 " filenames like *.xml, *.html, *.xhtml, ...
 let g:closetag_filenames = "*.html,*.xhtml,*.xml,*.htm"
@@ -774,3 +776,4 @@ set background=dark
 colors kalisi
 let g:airline_theme="kalisi"
 "}}}
+"
