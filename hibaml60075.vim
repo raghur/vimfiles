@@ -1,7 +1,8 @@
-
-let g:python3_host_prog="d:/sdks/python3/python.exe"
-let g:python_host_prog="c:/python27/python.exe"
-let g:ruby_host_prog="C:/tools/ruby23/bin/ruby.EXE"
+if !has('unix')
+    let g:python3_host_prog="d:/sdks/python36/python.exe"
+    " let g:python_host_prog="c:/python27/python.exe"
+    let g:ruby_host_prog="C:/tools/ruby24/bin/ruby.EXE"
+endif
 
 let g:fonts="Fantasque_Sans_Mono:h13:cANSI,"
             \ . "Ubuntu_Mono_derivative_Powerlin:h13,"
