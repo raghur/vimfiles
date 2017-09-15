@@ -19,19 +19,19 @@ $0
 endsnippet
 
 snippet link "link"
-$1[${2:alt^}]
+${1:url}[${2:alt}^]
 endsnippet
 
 
 snippet img "image - block"
-[.left.text-center]
-image::$1[${2:alt,width,height}]
+[.center.text-center]
+image::${1:url}[${2:alt,width,height}]
 endsnippet
 
 snippet img-title "image - block with title"
 .Title
-[.left.text-center]
-image::$1[${2:alt}]
+[.center.text-center]
+image::${1:url}[${2:alt}]
 endsnippet
 
 snippet imgi "image- inline"
@@ -97,7 +97,7 @@ $0
 ++++
 endsnippet
 
-snippet kbd "keyboard shortcut"
+snippet key "keyboard shortcut"
 kbd:[${0:Ctrl + Shift + +}]
 endsnippet
 
@@ -105,7 +105,7 @@ snippet menu "menu selection"
 menu:View[Zoom > Reset]
 endsnippet
 
-snippet btn "button selection"
+snippet button "button selection"
 btn:[Ok]
 endsnippet
 
