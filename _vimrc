@@ -251,17 +251,11 @@ Plug  'w0rp/ale'
 nmap <leader>p  <Plug>(ale_previous_wrap)
 nmap <leader>n  <Plug>(ale_next_wrap)
 
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'sickill/vim-monokai'
-Plug 'altercation/vim-colors-solarized'
-Plug 'freeo/vim-kalisi'
-Plug 'rafi/awesome-vim-colorschemes'
-Plug 'chriskempson/base16-vim'
+Plug 'flazz/vim-colorschemes'
+Plug 'sheerun/vim-polyglot'
 let base16colorspace=256
 let g:solarized_termcolors=256
 
-Plug  'pangloss/vim-javascript'
-Plug  'elzr/vim-json'
 let g:vim_json_syntax_conceal = 0
 
 
@@ -275,9 +269,6 @@ Plug  'kana/vim-textobj-function'
 Plug  'thinca/vim-textobj-function-javascript', {
             \ 'for': 'javascript'
             \ }
-" Plug  'kana/vim-textobj-indent'
-" Plug  'thinca/vim-textobj-between'
-" Plug  'terryma/vim-expand-region'
 Plug  'rstacruz/sparkup', { 'rtp': 'vim' }
 
 " vim-airline and fonts
@@ -323,9 +314,6 @@ let g:sneak#s_next = 0
 let g:stopFirstAndNotifyTimeoutLen = 0
 
 
-Plug  'PProvost/vim-ps1'
-"Plug  'nvie/vim-pyunit'
-Plug  'python-mode/python-mode'
 let g:jedi#force_py_version = 3
 let g:jedi#goto_command = '<localleader>g'
 let g:jedi#rename_command = '<localleader>r'
@@ -372,7 +360,6 @@ Plug 'Shougo/neomru.vim'
 Plug 'alvan/vim-closetag'
 Plug 'othree/eregex.vim'
 Plug 'fatih/vim-go'
-Plug 'leafgarland/typescript-vim'
 
 let g:go_highlight_types = 1
 " filenames like *.xml, *.html, *.xhtml, ...
