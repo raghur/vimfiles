@@ -298,7 +298,7 @@ let g:rooter_silent_chdir = 1
 
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-Plug  'roxma/nvim-completion-manager', Cond(has('python3'))
+Plug 'roxma/nvim-completion-manager', Cond(has('python3'))
 Plug 'roxma/vim-hug-neovim-rpc', Cond(v:version == 800)
 
 let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
@@ -715,7 +715,6 @@ nnoremap k gk
 " Function keys
 nnoremap <F2>  :<C-U>call signature#mark#Goto("next", "spot", "pos") <CR> \| zz
 nnoremap <S-F2>  :<C-U>call signature#mark#Goto("prev", "spot", "pos") <CR> \| zz
-nnoremap <F4> :w\|SyntasticCheck<cr>
 nnoremap <F5> :UndotreeToggle<CR>
 nnoremap <F6> :lnext<cr>
 nnoremap <S-F6> :lprev<cr>
