@@ -354,7 +354,6 @@ Plug  'kana/vim-submode'
 Plug  'Chiel92/vim-autoformat', {
             \ 'on': 'AutoFormat'
             \ }
-Plug 'mhinz/vim-grepper'
 Plug 'Shougo/denite.nvim'
 Plug 'Shougo/neomru.vim'
 Plug 'alvan/vim-closetag'
@@ -369,21 +368,6 @@ let g:closetag_filenames = "*.html,*.xhtml,*.xml,*.htm"
 cnoremap <c-n> <down>
 cnoremap <c-p> <up>
 
-nmap gs <plug>(GrepperOperator)
-xmap gs <plug>(GrepperOperator)
-
-nnoremap <leader>g :Grepper -tool git<cr>
-nnoremap <leader>rg :Grepper -tool rg<cr>
-nnoremap <leader>* :Grepper -tool rg -cword -noprompt<cr>
-
-let g:grepper = {
-    \ 'tools':     ['rg', 'git', 'grep'],
-    \ 'open':      1,
-    \ 'jump':      0,
-    \ 'switch':     1,
-    \ 'next_tool': '<leader>g',
-    \ }
-
 call plug#end()
 
 call airline#parts#define_function('ALE', 'ALEGetStatusLine')
@@ -393,6 +377,15 @@ let g:airline_section_error = airline#section#create_right(['ALE'])
 if executable('rg')
     call denite#custom#var('file_rec', 'command',
         \ ['rg', '--files'])
+
+	" Ripgrep command on grep source
+	call denite#custom#var('grep', 'command', ['rg'])
+	call denite#custom#var('grep', 'default_opts',
+			\ ['--vimgrep', '--no-heading'])
+	call denite#custom#var('grep', 'recursive_opts', [])
+	call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+	call denite#custom#var('grep', 'separator', ['--'])
+	call denite#custom#var('grep', 'final_opts', [])
 elseif executable('sift')
     call denite#custom#var('file_rec', 'command',
         \ ['sift', '--targets' ])
@@ -426,6 +419,7 @@ nnoremap <silent> <leader>l :<C-u>Denite -direction=top -auto-resize line<cr>
 nnoremap <silent> <leader>co :<C-u>Denite -direction=top -auto-resize colorscheme<cr>
 nnoremap <silent> <leader>: :<C-u>Denite -direction=top -auto-resize command<cr>
 nnoremap <silent> <leader>j :<C-u>Denite -direction=top -auto-resize jump<cr>
+nnoremap <silent> <leader>* :<C-u>Denite grep:::`expand('<cword>')`<cr>
 " submode
 " A message will appear in the message line when you're in a submode
 " and stay there until the mode has existed.
