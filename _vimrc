@@ -420,6 +420,8 @@ nnoremap <silent> <leader>co :<C-u>Denite -direction=top -auto-resize colorschem
 nnoremap <silent> <leader>: :<C-u>Denite -direction=top -auto-resize command<cr>
 nnoremap <silent> <leader>j :<C-u>Denite -direction=top -auto-resize jump<cr>
 nnoremap <silent> <leader>* :<C-u>Denite grep:::`expand('<cword>')`<cr>
+" interactive grep mode
+nnoremap <silent> <leader>g :<C-u>Denite grep:::!<cr>
 " submode
 " A message will appear in the message line when you're in a submode
 " and stay there until the mode has existed.
