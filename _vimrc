@@ -245,7 +245,7 @@ if has('python') || has('python3')
     let g:UltiSnipsListSnippets="<c-tab>"
 endif
 
-let g:ale_linters = {'go': ['gometalinter', 'gofmt']}
+let g:ale_linters = {'go': ['gometalinter']}
 let g:ale_go_metalinter_options = '--fast'
 Plug  'w0rp/ale'
 nmap <leader>p  <Plug>(ale_previous_wrap)
