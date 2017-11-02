@@ -223,11 +223,6 @@ let g:pandoc#syntax#codeblocks#embeds#langs = ["ruby","python","bash=sh",
 Plug  'tpope/vim-repeat'
 let g:AutoPairsShortcutToggle = '\\'
 Plug  'jiangmiao/auto-pairs'
-let g:indent_guides_guide_size = 1
-let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
-if has("gui_running")
-    let g:indent_guides_enable_on_vim_startup = 1
-endif
 
 Plug  'mbbill/undotree', {
             \ 'on': ['UndotreeToggle']
