@@ -281,9 +281,6 @@ let g:airline_enable_branch=1
 let g:airline_powerline_fonts=1
 let g:airline_detect_modified=1
 
-
-Plug  'tpope/vim-dispatch'
-
 Plug  'airblade/vim-rooter'
 let g:rooter_silent_chdir = 1
 
