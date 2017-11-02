@@ -270,13 +270,13 @@ Plug  'rstacruz/sparkup', { 'rtp': 'vim' }
 set lazyredraw
 set laststatus=2
 
-Plug  'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 let g:airline_enable_branch=1
 let g:airline_powerline_fonts=1
 let g:airline_detect_modified=1
 
-Plug  'airblade/vim-rooter'
+Plug 'airblade/vim-rooter'
 let g:rooter_silent_chdir = 1
 
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
@@ -285,13 +285,13 @@ Plug 'roxma/nvim-completion-manager', Cond(has('python3'))
 Plug 'roxma/vim-hug-neovim-rpc', Cond(v:version == 800)
 
 let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
-Plug  'maxbrunsfeld/vim-yankstack'
+Plug 'maxbrunsfeld/vim-yankstack'
 
 " make sure this is after vim-yankstack
-Plug  'tpope/vim-surround'
+Plug 'tpope/vim-surround'
 
 " vim sneak; replace f/F with sneak
-Plug  'justinmk/vim-sneak', {
+Plug 'justinmk/vim-sneak', {
             \ 'on': '<Plug>Sneak'
             \ }
 "replace 'f' with 1-char Sneak
@@ -313,7 +313,7 @@ let g:jedi#usages_command = '<localleader>u'
 let g:jedi#show_call_signatures = 2
 let g:jedi#completions_enabled = 0
 let g:jedi#auto_vim_configuration = 0
-Plug  'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim'
 let g:pymode_run_bind = '<leader>pr'
 let g:pymode_rope = 0
 let g:pymode_lint = 0
@@ -330,8 +330,8 @@ if &term =~ '^screen'
     set <xLeft>=\e[1;*D
 endif
 
-Plug  'xolox/vim-misc'
-Plug  'xolox/vim-session'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
 if (has('win32unix'))
     let g:session_directory=g:home.".vimbackups/.cygsessions"
 else
@@ -342,8 +342,8 @@ let g:session_autosave='yes'
 let g:session_autoload='yes'
 let g:session_default_to_last=1
 
-Plug  'kana/vim-submode'
-Plug  'Chiel92/vim-autoformat', {
+Plug 'kana/vim-submode'
+Plug 'Chiel92/vim-autoformat', {
             \ 'on': 'AutoFormat'
             \ }
 Plug 'Shougo/denite.nvim'
@@ -370,14 +370,14 @@ if executable('rg')
     call denite#custom#var('file_rec', 'command',
         \ ['rg', '--files'])
 
-	" Ripgrep command on grep source
-	call denite#custom#var('grep', 'command', ['rg'])
-	call denite#custom#var('grep', 'default_opts',
-			\ ['--vimgrep', '--no-heading'])
-	call denite#custom#var('grep', 'recursive_opts', [])
-	call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-	call denite#custom#var('grep', 'separator', ['--'])
-	call denite#custom#var('grep', 'final_opts', [])
+    " Ripgrep command on grep source
+    call denite#custom#var('grep', 'command', ['rg'])
+    call denite#custom#var('grep', 'default_opts',
+            \ ['--vimgrep', '--no-heading'])
+    call denite#custom#var('grep', 'recursive_opts', [])
+    call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+    call denite#custom#var('grep', 'separator', ['--'])
+    call denite#custom#var('grep', 'final_opts', [])
 elseif executable('sift')
     call denite#custom#var('file_rec', 'command',
         \ ['sift', '--targets' ])
