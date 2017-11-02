@@ -754,5 +754,6 @@ vnoremap <A-k> :m-2<CR>gv=gv
 set background=dark
 colors kalisi
 let g:airline_theme="kalisi"
+call Setfont(g:fonts[0])
 "}}}
 "
