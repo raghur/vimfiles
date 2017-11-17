@@ -21,6 +21,7 @@ fun! s:createIfNotExists(dir)
         call mkdir(a:dir, "p")
     endif
 endfunction
+set updatetime=2000
 set showmode
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -179,6 +180,24 @@ if empty(glob(g:home . 'autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+let g:deferredPlugins = []
+
+function! DeferPluginLoad(name, ...)
+    " echo a:000
+    let opts = get(a:000, 0, {})
+    let cond = 1
+    if has_key(opts, 'cond')
+        let cond = opts['cond']
+    endif
+    let opts = extend(opts, { 'on': [], 'for': [] })
+    Plug a:name, opts
+    if cond
+        let g:deferredPlugins = g:deferredPlugins + split(a:name, '/')[1:]
+    endif
+endfunction
+
+command! -nargs=* DeferPlug call DeferPluginLoad(<args>)
+
 function! Cond(cond, ...)
   let opts = get(a:000, 0, {})
   return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
@@ -222,27 +241,24 @@ let g:pandoc#syntax#codeblocks#embeds#langs = ["ruby","python","bash=sh",
 
 Plug  'tpope/vim-repeat'
 let g:AutoPairsShortcutToggle = '\\'
-Plug  'jiangmiao/auto-pairs'
+DeferPlug 'jiangmiao/auto-pairs'
 
 Plug  'mbbill/undotree', {
             \ 'on': ['UndotreeToggle']
             \ }
 Plug  'gregsexton/MatchTag'
 Plug  'tpope/vim-commentary'
-Plug  'tyru/open-browser.vim'
 
-if has('python') || has('python3')
-    Plug  'SirVer/ultisnips'
-    Plug  'honza/vim-snippets'
-    let g:UltiSnipsUsePythonVersion=3
-    let g:UltiSnipsSnippetsDir=g:home."UltiSnips"
-    let g:UltiSnipsExpandTrigger="<c-j>"
-    let g:UltiSnipsListSnippets="<c-tab>"
-endif
+DeferPlug  'SirVer/ultisnips', {'cond': has('python3')}
+DeferPlug  'honza/vim-snippets', {'cond': has('python3')}
+let g:UltiSnipsUsePythonVersion=3
+let g:UltiSnipsSnippetsDir=g:home."UltiSnips"
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsListSnippets="<c-tab>"
 
 let g:ale_linters = {'go': ['gometalinter']}
 let g:ale_go_metalinter_options = '--fast'
-Plug  'w0rp/ale'
+DeferPlug  'w0rp/ale'
 nmap <leader>p  <Plug>(ale_previous_wrap)
 nmap <leader>n  <Plug>(ale_next_wrap)
 
@@ -257,7 +273,7 @@ let g:vim_json_syntax_conceal = 0
 Plug  'vim-scripts/matchit.zip'
 Plug  'tpope/vim-ragtag'
 
-Plug  'wellle/targets.vim'
+DeferPlug  'wellle/targets.vim'
 Plug  'kana/vim-textobj-line'
 Plug  'kana/vim-textobj-user'
 Plug  'kana/vim-textobj-function'
@@ -270,8 +286,8 @@ Plug  'rstacruz/sparkup', { 'rtp': 'vim' }
 set lazyredraw
 set laststatus=2
 
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+DeferPlug 'vim-airline/vim-airline'
+DeferPlug 'vim-airline/vim-airline-themes'
 let g:airline_enable_branch=1
 let g:airline_powerline_fonts=1
 let g:airline_detect_modified=1
@@ -281,8 +297,8 @@ let g:rooter_silent_chdir = 1
 
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-Plug 'roxma/nvim-completion-manager', Cond(has('python3'))
-Plug 'roxma/vim-hug-neovim-rpc', Cond(v:version == 800)
+DeferPlug 'roxma/nvim-completion-manager', {'cond': has('python3')}
+DeferPlug 'roxma/vim-hug-neovim-rpc',  {'cond': v:version == 800 && !has('nvim')}
 
 let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
 Plug 'maxbrunsfeld/vim-yankstack'
@@ -361,10 +377,6 @@ cnoremap <c-n> <down>
 cnoremap <c-p> <up>
 
 call plug#end()
-
-call airline#parts#define_function('ALE', 'ALEGetStatusLine')
-call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
-let g:airline_section_error = airline#section#create_right(['ALE'])
 
 if executable('rg')
     call denite#custom#var('file_rec', 'command',
@@ -524,6 +536,26 @@ augroup BWCCreateDir
     autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
 augroup END
 
+augroup DeferredLoadOnIdle
+    au!
+    autocmd CursorHold,CursorHoldI * call plug#load(g:deferredPlugins)
+                \ | echom "deferred load completed for ". len(g:deferredPlugins) . " plugins"
+                \ | autocmd! DeferredLoadOnIdle
+augroup END
+
+augroup PluginInitialization
+    au!
+    au User vim-airline call LoadVimAirline()
+augroup END
+
+function! LoadVimAirline()
+    call airline#parts#define_function('ALE', 'ALEGetStatusLine')
+    call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
+    let g:airline_section_error = airline#section#create_right(['ALE'])
+    echom "loaded vim-airline"
+endfunction
+
+
 function! Getfont()
     let font=""
     if exists('*GuiFont')
@@ -633,7 +665,7 @@ function! ToHtml()
         exec "silent !asciidoctor -a icons:font -a sectnums -a sectlinks ". file
     endif
     echom "wrote" . " " . outfile
-    call openbrowser#open("file:///".substitute(outfile, "\\", "/", "g"))
+    call xolox#misc#open#url("file:///".substitute(outfile, "\\", "/", "g"))
 endfunction
 
 "}}}
