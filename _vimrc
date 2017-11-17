@@ -503,6 +503,7 @@ augroup pyjedi
                                     \ textwidth=79
                                     \ completeopt-=preview
                                     \ formatoptions+=c
+                                    \ formatprg=autopep8\ -
 augroup END
 
 "}}}
