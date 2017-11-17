@@ -249,14 +249,12 @@ Plug  'mbbill/undotree', {
 Plug  'gregsexton/MatchTag'
 Plug  'tpope/vim-commentary'
 
-if has('python') || has('python3')
-    DeferPlug  'SirVer/ultisnips'
-    DeferPlug  'honza/vim-snippets'
-    let g:UltiSnipsUsePythonVersion=3
-    let g:UltiSnipsSnippetsDir=g:home."UltiSnips"
-    let g:UltiSnipsExpandTrigger="<c-j>"
-    let g:UltiSnipsListSnippets="<c-tab>"
-endif
+DeferPlug  'SirVer/ultisnips', {'cond': has('python3')}
+DeferPlug  'honza/vim-snippets', {'cond': has('python3')}
+let g:UltiSnipsUsePythonVersion=3
+let g:UltiSnipsSnippetsDir=g:home."UltiSnips"
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsListSnippets="<c-tab>"
 
 let g:ale_linters = {'go': ['gometalinter']}
 let g:ale_go_metalinter_options = '--fast'
