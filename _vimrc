@@ -248,7 +248,6 @@ Plug  'mbbill/undotree', {
             \ }
 Plug  'gregsexton/MatchTag'
 Plug  'tpope/vim-commentary'
-Plug  'tyru/open-browser.vim'
 
 if has('python') || has('python3')
     DeferPlug  'SirVer/ultisnips'
@@ -667,7 +666,7 @@ function! ToHtml()
         exec "silent !asciidoctor -a icons:font -a sectnums -a sectlinks ". file
     endif
     echom "wrote" . " " . outfile
-    call openbrowser#open("file:///".substitute(outfile, "\\", "/", "g"))
+    call xolox#misc#open#url("file:///".substitute(outfile, "\\", "/", "g"))
 endfunction
 
 "}}}
