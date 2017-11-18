@@ -184,6 +184,9 @@ let g:deferredPlugins = []
 
 function! DeferPluginLoad(name, ...)
     " echo a:000
+    if !has("vim_starting")
+        return
+    endif
     let opts = get(a:000, 0, {})
     let cond = 1
     if has_key(opts, 'cond')
