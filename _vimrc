@@ -198,11 +198,6 @@ endfunction
 
 command! -nargs=* DeferPlug call DeferPluginLoad(<args>)
 
-function! Cond(cond, ...)
-  let opts = get(a:000, 0, {})
-  return a:cond ? opts : extend(opts, { 'on': [], 'for': [] })
-endfunction
-
 call plug#begin(g:home.'bundle')
 Plug 'kshenoy/vim-signature'
 augroup gpg
@@ -300,10 +295,6 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 DeferPlug 'roxma/nvim-completion-manager', {'cond': has('python3')}
 DeferPlug 'roxma/vim-hug-neovim-rpc',  {'cond': v:version == 800 && !has('nvim')}
 
-let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
-Plug 'maxbrunsfeld/vim-yankstack'
-
-" make sure this is after vim-yankstack
 Plug 'tpope/vim-surround'
 
 " vim sneak; replace f/F with sneak
@@ -367,6 +358,16 @@ Plug 'Shougo/neomru.vim'
 Plug 'alvan/vim-closetag'
 Plug 'othree/eregex.vim'
 Plug 'fatih/vim-go'
+Plug 'svermeulen/vim-easyclip'
+
+let g:EasyClipUseCutDefaults = 0
+nmap x <Plug>MoveMotionPlug
+xmap x <Plug>MoveMotionXPlug
+nmap xx <Plug>MoveMotionLinePlug
+
+let g:EasyClipUsePasteToggleDefaults = 0
+nmap <m-p> <plug>EasyClipSwapPasteBackwards
+nmap <m-n> <plug>EasyClipSwapPasteForward
 
 let g:go_highlight_types = 1
 " filenames like *.xml, *.html, *.xhtml, ...
