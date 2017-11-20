@@ -220,14 +220,6 @@ Plug 'raghur/vim-helpnav', {
             \ 'for' : ['help']
             \ }
 
-function! Quitalready()
-    if &readonly
-        :q
-        return
-    endif
-    :x
-endfunction
-
 Plug  'vim-pandoc/vim-pandoc'
 Plug  'vim-pandoc/vim-pandoc-syntax'
 let g:pandoc#formatting#mode="hA"
@@ -739,8 +731,7 @@ nnoremap <F10> :Wex<cr>
 "leader mappings
 nnoremap <leader>bd :bd<cr>
 nnoremap <leader>d :bd!<cr>
-nnoremap <leader>q :call Quitalready()<cr>
-nnoremap <leader>w :w<cr>
+nnoremap <leader>q :x<cr>
 nnoremap <leader>1 :on<cr>
 nnoremap <leader>. @:
 nnoremap <leader>a :b#<cr>
