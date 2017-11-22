@@ -359,9 +359,9 @@ let g:closetag_filenames = "*.html,*.xhtml,*.xml,*.htm"
 Plug 'svermeulen/vim-easyclip'
 
 let g:EasyClipUseCutDefaults = 0
-nmap x <Plug>MoveMotionPlug
-xmap x <Plug>MoveMotionXPlug
-nmap xx <Plug>MoveMotionLinePlug
+nmap gd <Plug>MoveMotionPlug
+xmap gd <Plug>MoveMotionXPlug
+nmap gdd <Plug>MoveMotionLinePlug
 
 let g:EasyClipUsePasteToggleDefaults = 0
 nmap <m-p> <plug>EasyClipSwapPasteBackwards
