@@ -356,16 +356,16 @@ Plug 'alvan/vim-closetag'
 " filenames like *.xml, *.html, *.xhtml, ...
 let g:closetag_filenames = "*.html,*.xhtml,*.xml,*.htm"
 
-Plug 'svermeulen/vim-easyclip'
+" Plug 'svermeulen/vim-easyclip'
 
-let g:EasyClipUseCutDefaults = 0
-nmap x <Plug>MoveMotionPlug
-xmap x <Plug>MoveMotionXPlug
-nmap xx <Plug>MoveMotionLinePlug
+" let g:EasyClipUseCutDefaults = 0
+" nmap gd <Plug>MoveMotionPlug
+" xmap gd <Plug>MoveMotionXPlug
+" nmap gdd <Plug>MoveMotionLinePlug
 
-let g:EasyClipUsePasteToggleDefaults = 0
-nmap <m-p> <plug>EasyClipSwapPasteBackwards
-nmap <m-n> <plug>EasyClipSwapPasteForward
+" let g:EasyClipUsePasteToggleDefaults = 0
+" nmap <m-p> <plug>EasyClipSwapPasteBackwards
+" nmap <m-n> <plug>EasyClipSwapPasteForward
 
 let g:ghost_autostart=1
 Plug 'raghur/vim-ghost', {'do': './install'}
@@ -686,7 +686,13 @@ func! BlogSave(file)
     echom output
 endfunction
 func! Conemu()
-    let cmd="\"C:/Program Files/ConEmu/ConEmu64.exe\" -run \"{cmd}\" -dir \"". expand("%:p:h"). "\""
+    if executable('ConEmu64')
+        let cmd='start ConEmu64 -dir "'. expand("%:p:h"). '" -run {cmd}'
+    elseif exists($TMUX)
+        let cmd="some tmux string"
+    else executable('konsole')
+        let cmd="konsole"
+    endif
     call s:systemwrapper(cmd)
 endfun
 
