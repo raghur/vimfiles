@@ -685,7 +685,7 @@ func! BlogSave(file)
     echom output
 endfunction
 func! Conemu()
-    let cmd="\"C:/Program Files/ConEmu/ConEmu64.exe\" -run \"{cmd}\" -dir \"". expand("%:p:h"). "\""
+    let cmd='start ConEmu64 -dir "'. expand("%:p:h"). '" -run {cmd}'
     call s:systemwrapper(cmd)
 endfun
 
