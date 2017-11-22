@@ -573,7 +573,7 @@ function! Setfont(font)
     elseif exists('+guifont')
         exec "set guifont=".substitute(a:font, " ", "\\\\ ", "g")
     else
-        :silent !echom "Running in console - change your console font."
+        :silent !echo "Running in console - change your console font."
     endif
 endfunction
 
