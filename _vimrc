@@ -91,9 +91,23 @@ endif
 
 " tmux and otherwise
 set t_Co=256
+
 if &term =~ '256color'
     set t_ut=
 endif
+
+if &term =~ '^screen'
+    " Page keys http://sourceforge.net/p/tmux/tmux-code/ci/master/tree/FAQ
+    set t_kP=\e[5;*~
+    set t_kN=\e[6;*~
+
+    " Arrow keys http://unix.stackexchange.com/a/34723
+    set <xUp>=\e[1;*A
+    set <xDown>=\e[1;*B
+    set <xRight>=\e[1;*C
+    set <xLeft>=\e[1;*D
+endif
+
 set path=.,,**,$HOME
 
 " Only do this part when compiled with support for autocommands.
@@ -203,10 +217,6 @@ command! -nargs=* DeferPlug call DeferPluginLoad(<args>)
 
 call plug#begin(g:home.'bundle')
 Plug 'kshenoy/vim-signature'
-augroup gpg
-    au!
-    autocmd BufNewFile,BufRead *.gpg, *.asc setf gpg
-augroup END
 Plug 'jamessan/vim-gnupg', {
             \ 'for': ['gpg']
             \ }
@@ -320,18 +330,6 @@ let g:pymode_run_bind = '<leader>pr'
 let g:pymode_rope = 0
 let g:pymode_lint = 0
 
-if &term =~ '^screen'
-    " Page keys http://sourceforge.net/p/tmux/tmux-code/ci/master/tree/FAQ
-    set t_kP=\e[5;*~
-    set t_kN=\e[6;*~
-
-    " Arrow keys http://unix.stackexchange.com/a/34723
-    set <xUp>=\e[1;*A
-    set <xDown>=\e[1;*B
-    set <xRight>=\e[1;*C
-    set <xLeft>=\e[1;*D
-endif
-
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
 if (has('win32unix'))
@@ -350,9 +348,14 @@ Plug 'Chiel92/vim-autoformat', {
             \ }
 Plug 'Shougo/denite.nvim'
 Plug 'Shougo/neomru.vim'
-Plug 'alvan/vim-closetag'
 Plug 'othree/eregex.vim'
 Plug 'fatih/vim-go'
+let g:go_highlight_types = 1
+
+Plug 'alvan/vim-closetag'
+" filenames like *.xml, *.html, *.xhtml, ...
+let g:closetag_filenames = "*.html,*.xhtml,*.xml,*.htm"
+
 Plug 'svermeulen/vim-easyclip'
 
 let g:EasyClipUseCutDefaults = 0
@@ -364,14 +367,7 @@ let g:EasyClipUsePasteToggleDefaults = 0
 nmap <m-p> <plug>EasyClipSwapPasteBackwards
 nmap <m-n> <plug>EasyClipSwapPasteForward
 
-let g:go_highlight_types = 1
-" filenames like *.xml, *.html, *.xhtml, ...
-let g:closetag_filenames = "*.html,*.xhtml,*.xml,*.htm"
-
-" for browsing the input history
-cnoremap <c-n> <down>
-cnoremap <c-p> <up>
-
+Plug 'raghur/vim-ghost', {'do': './install'}
 call plug#end()
 
 if executable('rg')
@@ -423,6 +419,8 @@ nnoremap <silent> <leader>j :<C-u>Denite -direction=top -auto-resize jump<cr>
 nnoremap <silent> <leader>* :<C-u>Denite grep:::`expand('<cword>')`<cr>
 " interactive grep mode
 nnoremap <silent> <leader>g :<C-u>Denite grep:::!<cr>
+
+
 " submode
 " A message will appear in the message line when you're in a submode
 " and stay there until the mode has existed.
@@ -452,28 +450,36 @@ endfor
 let g:lastwh =0
 let g:lastww =0
 
-function! ZoomWindow()
-    if winheight(0) >= (&lines - 4) && winwidth(0) >= (&columns - 2)
-        exec "resize " . g:lastwh " | vertical resize ". g:lastww
-    else
-        let g:lastwh = winheight(0)
-        let g:lastww = winwidth(0)
-        wincmd _
-        wincmd |
-    endif
-endfun
-nnoremap <silent> <leader>z  :call ZoomWindow()<cr>
-nnoremap <silent> <leader>=  <C-w>=
-nnoremap <silent> `<space>  `I \| z.
+"}}}
+
+" Autocommands {{{
+
+augroup BWCCreateDir
+    autocmd!
+    autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
+augroup END
+
+augroup DeferredLoadOnIdle
+    au!
+    autocmd CursorHold,CursorHoldI * call plug#load(g:deferredPlugins)
+                \ | echom "deferred load completed for ". len(g:deferredPlugins) . " plugins"
+                \ | autocmd! DeferredLoadOnIdle
+augroup END
+
+augroup PluginInitialization
+    au!
+    au User vim-airline call LoadVimAirline()
+augroup END
+
 augroup GlobalMark
     au!
     autocmd InsertLeave * mark I
 augroup END
 
-filetype plugin indent on
-"}}}
-
-" Autocommands {{{
+augroup gpg
+    au!
+    autocmd BufNewFile,BufRead *.gpg, *.asc setf gpg
+augroup END
 
 augroup AsciiDoc
     au!
@@ -518,6 +524,17 @@ augroup END
 
 " Custom code/Utils {{{
 
+function! ZoomWindow()
+    if winheight(0) >= (&lines - 4) && winwidth(0) >= (&columns - 2)
+        exec "resize " . g:lastwh " | vertical resize ". g:lastww
+    else
+        let g:lastwh = winheight(0)
+        let g:lastww = winwidth(0)
+        wincmd _
+        wincmd |
+    endif
+endfun
+
 function! s:MkNonExDir(file, buf)
     if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
         let dir=fnamemodify(a:file, ':h')
@@ -527,22 +544,6 @@ function! s:MkNonExDir(file, buf)
     endif
 endfunction
 
-augroup BWCCreateDir
-    autocmd!
-    autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
-augroup END
-
-augroup DeferredLoadOnIdle
-    au!
-    autocmd CursorHold,CursorHoldI * call plug#load(g:deferredPlugins)
-                \ | echom "deferred load completed for ". len(g:deferredPlugins) . " plugins"
-                \ | autocmd! DeferredLoadOnIdle
-augroup END
-
-augroup PluginInitialization
-    au!
-    au User vim-airline call LoadVimAirline()
-augroup END
 
 function! LoadVimAirline()
     call airline#parts#define_function('ALE', 'ALEGetStatusLine')
@@ -699,6 +700,15 @@ command! Conemu call Conemu()
 "}}}
 
 "Keybindings {{{
+
+nnoremap <silent> <leader>z  :call ZoomWindow()<cr>
+nnoremap <silent> <leader>=  <C-w>=
+nnoremap <silent> `<space>  `I \| z.
+
+
+" for browsing the input history
+cnoremap <c-n> <down>
+cnoremap <c-p> <up>
 
 " disable arrow keys
 noremap   <Up>     <NOP>
