@@ -632,7 +632,7 @@ nnoremap <F10> :Console<cr>
 "leader mappings
 nnoremap <leader>bd :bd<cr>
 nnoremap <leader>d :bd!<cr>
-nnoremap <leader>q :x<cr>
+nnoremap <leader>q :qall<cr>
 nnoremap <leader>1 :on<cr>
 nnoremap <leader>. @:
 nnoremap <leader>a :b#<cr>
