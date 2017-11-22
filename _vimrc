@@ -685,7 +685,13 @@ func! BlogSave(file)
     echom output
 endfunction
 func! Conemu()
-    let cmd='start ConEmu64 -dir "'. expand("%:p:h"). '" -run {cmd}'
+    if executable('ConEmu64')
+        let cmd='start ConEmu64 -dir "'. expand("%:p:h"). '" -run {cmd}'
+    elseif exists($TMUX)
+        let cmd="some tmux string"
+    else executable('konsole')
+        let cmd="konsole"
+    endif
     call s:systemwrapper(cmd)
 endfun
 
