@@ -685,13 +685,15 @@ func! BlogSave(file)
     let output=s:systemwrapper("easyblogger file ". a:file)
     echom output
 endfunction
-func! Conemu()
+func! Console()
     if executable('ConEmu64')
         let cmd='start ConEmu64 -dir "'. expand("%:p:h"). '" -run {cmd}'
-    elseif exists($TMUX)
-        let cmd="some tmux string"
-    else executable('konsole')
-        let cmd="konsole"
+    elseif exists("$TMUX")
+        let cmd="tmux splitw -h -c " . expand("%:p:h")
+    elseif executable("konsole")
+        let cmd="konsole --workdir " . expand("%:p:h"). " &"
+    else
+        let cmd="xterm"
     endif
     call s:systemwrapper(cmd)
 endfun
@@ -703,7 +705,7 @@ command! ToHtml call ToHtml()
 
 command! Gitex call s:systemwrapper("gitex browse \"" . expand("%:p:h") . "\"")
 command! Wex call s:systemwrapper( "explorer \"" . expand("%:p:h") . "\"")
-command! Conemu call Conemu()
+command! Console call Console()
 "}}}
 
 "Keybindings {{{
@@ -741,9 +743,9 @@ nnoremap <F5> :UndotreeToggle<CR>
 nnoremap <F6> :lnext<cr>
 nnoremap <S-F6> :lprev<cr>
 nnoremap <F7> :Autoformat<cr>
-nnoremap <F8> :Conemu<cr>
-nnoremap <F9> :Gitex<cr>
-nnoremap <F10> :Wex<cr>
+nnoremap <F8> :Gitex<cr>
+nnoremap <F9> :Wex<cr>
+nnoremap <F10> :Console<cr>
 
 "leader mappings
 nnoremap <leader>bd :bd<cr>
