@@ -457,7 +457,7 @@ let g:lastww =0
 
 augroup BWCCreateDir
     autocmd!
-    autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
+    autocmd BufWritePre * :call utils#MkNonExDir(expand('<afile>'), +expand('<abuf>'))
 augroup END
 
 augroup DeferredLoadOnIdle
@@ -524,35 +524,12 @@ augroup END
 "}}}
 
 " Custom code/Utils {{{
-
-function! ZoomWindow()
-    if winheight(0) >= (&lines - 4) && winwidth(0) >= (&columns - 2)
-        exec "resize " . g:lastwh " | vertical resize ". g:lastww
-    else
-        let g:lastwh = winheight(0)
-        let g:lastww = winwidth(0)
-        wincmd _
-        wincmd |
-    endif
-endfun
-
-function! s:MkNonExDir(file, buf)
-    if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
-        let dir=fnamemodify(a:file, ':h')
-        if !isdirectory(dir)
-            call mkdir(dir, 'p')
-        endif
-    endif
-endfunction
-
-
 function! LoadVimAirline()
     call airline#parts#define_function('ALE', 'ALEGetStatusLine')
     call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
     let g:airline_section_error = airline#section#create_right(['ALE'])
     echom "loaded vim-airline"
 endfunction
-
 
 function! Getfont()
     let font=""
@@ -577,60 +554,6 @@ function! Setfont(font)
     endif
 endfunction
 
-
-" Cycle colors
-fun! CycleArray(arr, value, dir)
-    let c = index(a:arr, a:value) + a:dir
-    if (a:dir > 0)
-        if (c >= len(a:arr))
-            let c = 0
-        endif
-    else
-        if (c < 0)
-            let c = len(a:arr) - 1
-        endif
-    endif
-    return c
-endfunction
-
-
-fun! CycleColorScheme(dir)
-    let c = CycleArray(g:colorschemes, g:colors_name, a:dir)
-    let scheme = g:colorschemes[c]
-    exec "colors " scheme
-    redraw | echom "Setting colorscheme to: ".scheme
-endfun
-command! ColorsNext call CycleColorScheme(1)
-command! ColorsPrev call CycleColorScheme(-1)
-
-fun! CycleFont(dir)
-    if !exists("g:fonts")
-        return
-    endif
-    let font = Getfont()
-    let c = CycleArray(g:fonts, font, a:dir)
-    "let font = substitute(arr[c], " ", '\\ ', "g")
-    echom g:fonts[c]
-    call Setfont(g:fonts[c])
-    redraw | echom "Setting font to: " . g:fonts[c]
-endfun
-command! FontNext call CycleFont(1)
-command! FontPrev call CycleFont(-1)
-
-fun! RemoveCtrlM()
-    :update
-    :e ++ff=dos
-    :%s/\r$//e
-endfun
-
-func! ReadExCommandOutput(newbuf, cmd)
-    redir => l:message
-    silent! execute a:cmd
-    redir END
-    if a:newbuf | wincmd n | endif
-    silent put=l:message
-endf
-
 function! NeatFoldText()
     let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
     let lines_count = v:foldend - v:foldstart + 1
@@ -642,75 +565,34 @@ function! NeatFoldText()
     return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
 endfunction
 
-function! ToHtml()
-    :w
-    let file=expand("%:p")
-    let outfile=fnamemodify(file, ":r") . ".html"
-    if &ft == 'markdown'
-        let css=fnamemodify(file, ":h") . "pandoc.css"
-        exec "silent !pandoc --toc  -c ". css .
-                    \ " -F mermaid-filter.cmd" .
-                    \ "  -fmarkdown_github" .
-                    \ "+footnotes" .
-                    \ "+implicit_header_references".
-                    \ "+auto_identifiers".
-                    \ "+superscript".
-                    \ "+subscript".
-                    \ "+fancy_lists".
-                    \ "+startnum".
-                    \ "+strikeout -i " . file . " -o " . outfile
-    elseif &ft == 'asciidoc'
-        exec "silent !asciidoctor -a icons:font -a sectnums -a sectlinks ". file
-    endif
-    echom "wrote" . " " . outfile
-    call xolox#misc#open#url("file:///".substitute(outfile, "\\", "/", "g"))
-endfunction
-
 "}}}
 
 "Commands {{{
-command! RemoveCtrlM call RemoveCtrlM()
-command! EditAsWin call RemoveCtrlM()
+"
+command! ColorsNext call utils#CycleColorScheme(1)
+command! ColorsPrev call utils#CycleColorScheme(-1)
 
-command! -nargs=+ -bang -complete=command R call ReadExCommandOutput(<bang>1, <q-args>)
+command! FontNext call utils#CycleFont(1)
+command! FontPrev call utils#CycleFont(-1)
+command! RemoveCtrlM call utils#RemoveCtrlM()
+command! EditAsWin call utils#RemoveCtrlM()
+
+command! -nargs=+ -bang -complete=command R call utils#ReadExCommandOutput(<bang>1, <q-args>)
 inoremap <c-r>R <c-o>:<up><home>R! <cr>
-func! s:systemwrapper(cmd)
-    echom a:cmd
-    let output=system(a:cmd)
-    return output
-endfunction
-func! BlogSave(file)
-    " to debug, replace with
-    " exec "!easyblogger file " . a:file
-    let output=s:systemwrapper("easyblogger file ". a:file)
-    echom output
-endfunction
-func! Console()
-    if executable('ConEmu64')
-        let cmd='start ConEmu64 -dir "'. expand("%:p:h"). '" -run {cmd}'
-    elseif exists("$TMUX")
-        let cmd="tmux splitw -h -c " . expand("%:p:h")
-    elseif executable("konsole")
-        let cmd="konsole --workdir " . expand("%:p:h"). " &"
-    else
-        let cmd="xterm"
-    endif
-    call s:systemwrapper(cmd)
-endfun
 
-command! BlogSave call BlogSave(expand("%:p"))
+command! BlogSave call utils#BlogSave(expand("%:p"))
 
 set foldtext=NeatFoldText()
-command! ToHtml call ToHtml()
+command! ToHtml call utils#ToHtml()
 
-command! Gitex call s:systemwrapper("gitex browse \"" . expand("%:p:h") . "\"")
-command! Wex call s:systemwrapper( "explorer \"" . expand("%:p:h") . "\"")
-command! Console call Console()
+command! Gitex call utils#systemwrapper("gitex browse \"" . expand("%:p:h") . "\"")
+command! Wex call utils#systemwrapper( "explorer \"" . expand("%:p:h") . "\"")
+command! Console call utils#Console()
 "}}}
 
 "Keybindings {{{
 
-nnoremap <silent> <leader>z  :call ZoomWindow()<cr>
+nnoremap <silent> <leader>z  :call utils#ZoomWindow()<cr>
 nnoremap <silent> <leader>=  <C-w>=
 nnoremap <silent> `<space>  `I \| z.
 
