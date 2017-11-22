@@ -367,6 +367,7 @@ let g:EasyClipUsePasteToggleDefaults = 0
 nmap <m-p> <plug>EasyClipSwapPasteBackwards
 nmap <m-n> <plug>EasyClipSwapPasteForward
 
+let g:ghost_autostart=1
 Plug 'raghur/vim-ghost', {'do': './install'}
 call plug#end()
 
