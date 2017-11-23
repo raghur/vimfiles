@@ -368,7 +368,7 @@ let g:closetag_filenames = "*.html,*.xhtml,*.xml,*.htm"
 " nmap <m-n> <plug>EasyClipSwapPasteForward
 
 let g:ghost_autostart=1
-Plug 'raghur/vim-ghost', {'do': './install'}
+Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
 call plug#end()
 
 if executable('rg')
