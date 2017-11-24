@@ -521,6 +521,10 @@ augroup pyjedi
                                     \ formatprg=autopep8\ -
 augroup END
 
+augroup watchers
+    au!
+    au BufDelete * call utils#CleanupWatcher()
+augroup END
 "}}}
 
 " Custom code/Utils {{{
@@ -588,6 +592,7 @@ command! ToHtml call utils#ToHtml()
 command! Gitex call utils#systemwrapper("gitex browse \"" . expand("%:p:h") . "\"")
 command! Wex call utils#systemwrapper( "explorer \"" . expand("%:p:h") . "\"")
 command! Console call utils#Console()
+command! -nargs=* WatchAndExec  call utils#StartWatcher(<args>)
 "}}}
 
 "Keybindings {{{

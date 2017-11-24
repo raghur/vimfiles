@@ -108,9 +108,45 @@ function utils#ZoomWindow()
     endif
 endfun
 
-func utils#BlogSave(file)
+func! utils#BlogSave(file)
     " to debug, replace with
     " exec "!easyblogger file " . a:file
     let output=utils#systemwrapper("easyblogger file ". a:file)
     echom output
 endfunction
+
+func! utils#StartWatcher(action)
+    let file=expand("%:p")
+    let action = substitute(a:action, "%[:a-z]*", "\\=expand(submatch(0))", "g")
+    " echom "'". action. "'"
+    " let action = substitute()
+    " for a in a:000
+    "     if a =~ "^%:"
+    "         let action = action. " ". expand(a)
+    "     else
+    "         let action = action. " ". a
+    "     endif
+    " endfor
+    if &ft == 'asciidoc'
+        let jobId=jobstart("chokidar ". file . " -c \"" . action . "\"")
+        let outfile = substitute(file, "\\", "/", "g")
+        let outfile = substitute(outfile, ".adoc$", ".html", "g")
+        call xolox#misc#open#url("file:///". outfile)
+        if !exists("b:jobIds")
+            let b:jobIds =[]
+        endif
+        let b:jobIds = b:jobIds + [jobId]
+        " echom "Watcher job ids: ". join(b:jobIds, ", ")
+    endif
+endfunction
+
+func! utils#CleanupWatcher()
+    if !exists("b:jobIds")
+        return
+    endif
+    for j in b:jobIds
+        call jobstop(j)
+    endfor
+    unlet b:jobIds
+    echom "Watchers cleaned"
+endfunc
