@@ -118,26 +118,38 @@ endfunction
 func! utils#StartWatcher(action)
     let file=expand("%:p")
     let action = substitute(a:action, "%[:a-z]*", "\\=expand(submatch(0))", "g")
-    " echom "'". action. "'"
-    " let action = substitute()
-    " for a in a:000
-    "     if a =~ "^%:"
-    "         let action = action. " ". expand(a)
-    "     else
-    "         let action = action. " ". a
-    "     endif
-    " endfor
+    let outfile = substitute(file, "\\", "/", "g")
     if &ft == 'asciidoc'
         let jobId=jobstart("chokidar ". file . " -c \"" . action . "\"")
-        let outfile = substitute(file, "\\", "/", "g")
         let outfile = substitute(outfile, ".adoc$", ".html", "g")
-        call xolox#misc#open#url("file:///". outfile)
-        if !exists("b:jobIds")
-            let b:jobIds =[]
-        endif
-        let b:jobIds = b:jobIds + [jobId]
-        " echom "Watcher job ids: ". join(b:jobIds, ", ")
+    elseif &ft == 'markdown' || &ft == 'pandoc'
+        let css=glob($HOME . "/pandoc.css")
+        let css = "file:///" . substitute(css, '\\', '/' , "g")
+        let outfile = substitute(outfile, '\v\.(markdown|md|rst)$', ".html", "g")
+        let pandocCmd = "pandoc -t html --toc --css " . css .
+                    \ " -F mermaid-filter.cmd" .
+                    \ " -fmarkdown_github" .
+                    \ "+footnotes" .
+                    \ "+implicit_header_references".
+                    \ "+auto_identifiers".
+                    \ "+superscript".
+                    \ "+subscript".
+                    \ "+fancy_lists".
+                    \ "+startnum".
+                    \ "+strikeout -o " . outfile . " -i "
+        let action = substitute(action, "pandoc", pandocCmd, "g")
+        let chokidarCmd = "chokidar ". file . " -c \"" . action . file. "\""
+        echom chokidarCmd
+        let jobId=jobstart(chokidarCmd)
+    else
+        return
     endif
+    call xolox#misc#open#url("file:///". outfile)
+    if !exists("b:jobIds")
+        let b:jobIds =[]
+    endif
+    let b:jobIds = b:jobIds + [jobId]
+    " echom "Watcher job ids: ". join(b:jobIds, ", ")
 endfunction
 
 func! utils#CleanupWatcher()
