@@ -1,10 +1,10 @@
-func utils#systemwrapper(cmd)
+func! utils#systemwrapper(cmd)
     echom a:cmd
     let output=system(a:cmd)
     return output
 endfunction
 
-func utils#Console()
+func! utils#Console()
     if executable('ConEmu64')
         let cmd='start ConEmu64 -dir "'. expand("%:p:h"). '" -run {cmd}'
     elseif exists("$TMUX")
@@ -17,7 +17,7 @@ func utils#Console()
     call utils#systemwrapper(cmd)
 endfun
 
-func utils#ReadExCommandOutput(newbuf, cmd)
+func! utils#ReadExCommandOutput(newbuf, cmd)
     redir => l:message
     silent! execute a:cmd
     redir END
@@ -25,7 +25,7 @@ func utils#ReadExCommandOutput(newbuf, cmd)
     silent put=l:message
 endf
 
-function utils#ToHtml()
+function! utils#ToHtml()
     :w
     let file=expand("%:p")
     let outfile=fnamemodify(file, ":r") . ".html"
@@ -55,7 +55,7 @@ fun! utils#RemoveCtrlM()
     :%s/\r$//e
 endfun
 
-fun utils#CycleFont(dir)
+fun! utils#CycleFont(dir)
     if !exists("g:fonts")
         return
     endif
@@ -67,14 +67,14 @@ fun utils#CycleFont(dir)
     redraw | echom "Setting font to: " . g:fonts[c]
 endfun
 
-fun utils#CycleColorScheme(dir)
+fun! utils#CycleColorScheme(dir)
     let c = utils#CycleArray(g:colorschemes, g:colors_name, a:dir)
     let scheme = g:colorschemes[c]
     exec "colors " scheme
     redraw | echom "Setting colorscheme to: ".scheme
 endfun
 
-fun utils#CycleArray(arr, value, dir)
+fun! utils#CycleArray(arr, value, dir)
     let c = index(a:arr, a:value) + a:dir
     if (a:dir > 0)
         if (c >= len(a:arr))
@@ -88,7 +88,7 @@ fun utils#CycleArray(arr, value, dir)
     return c
 endfunction
 
-function utils#MkNonExDir(file, buf)
+function! utils#MkNonExDir(file, buf)
     if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
         let dir=fnamemodify(a:file, ':h')
         if !isdirectory(dir)
@@ -97,7 +97,7 @@ function utils#MkNonExDir(file, buf)
     endif
 endfunction
 
-function utils#ZoomWindow()
+function! utils#ZoomWindow()
     if winheight(0) >= (&lines - 4) && winwidth(0) >= (&columns - 2)
         exec "resize " . g:lastwh " | vertical resize ". g:lastww
     else
