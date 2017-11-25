@@ -369,6 +369,16 @@ let g:closetag_filenames = "*.html,*.xhtml,*.xml,*.htm"
 
 let g:ghost_autostart=1
 Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
+
+" For development, uncomment following line
+" Delete registration from rplugin.vim and restart and run UpdateRemotePlugins
+"
+" For logging, start with 
+" NVIM_PYTHON_LOG_FILE=~/pylog NVIM_GHOSTPY_LOG_LEVEL=DEBUG nvim
+"
+" set rtp+=~/code/vim-ghost
+" set rtp+=d:/code/vim-ghost
+
 call plug#end()
 
 if executable('rg')
