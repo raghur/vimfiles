@@ -379,6 +379,8 @@ Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
 " set rtp+=~/code/vim-ghost
 " set rtp+=d:/code/vim-ghost
 
+Plug 'nixprime/cpsm'
+
 call plug#end()
 
 if executable('rg')
@@ -400,11 +402,13 @@ endif
 call denite#custom#source(
         \ '_', 'sorters', ['sorter_sublime'])
 
+call denite#custom#source(
+        \ '_', 'matchers', ['matcher_cpsm'])
 " Change ignore_globs
-call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
-            \ [ '.git/', '.ropeproject/', '__pycache__/',
-            \ '*.pyc', "*.exe", "*.jpg",
-            \   '.venv/', '.tox/', 'images/', '*.min.*', 'img/', 'fonts/'])
+" call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
+"             \ [ '.git/', '.ropeproject/', '__pycache__/',
+"             \ '*.pyc', "*.exe", "*.jpg",
+"             \   '.venv/', '.tox/', 'images/', '*.min.*', 'img/', 'fonts/'])
 " Change default prompt
 call denite#custom#option('default', 'prompt', ' ')
 call denite#custom#map('insert', '<Up>', '<denite:move_to_previous_line>')
@@ -415,7 +419,7 @@ call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>')
 " remove highlights
 call denite#custom#option('_', 'highlight_mode_insert', 'Search')
 call denite#custom#option('_', 'highlight_matched_range', 'None')
-call denite#custom#option('_', 'highlight_matched_char', 'None')
+call denite#custom#option('_', 'highlight_matched_char', 'Search')
 
 nnoremap <silent> <leader><space> :<C-u>Denite -direction=top -auto-resize file_rec buffer<cr>
 nnoremap <silent> <leader>r :<C-u>Denite -direction=top -auto-resize file_mru<cr>
