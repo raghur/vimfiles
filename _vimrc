@@ -415,6 +415,8 @@ call denite#custom#map('insert', '<Up>', '<denite:move_to_previous_line>')
 call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>')
 call denite#custom#map('insert', '<Down>', '<denite:move_to_next_line>')
 call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>')
+call denite#custom#map('insert', '<C-tab>', '<denite:move_to_next_line>')
+call denite#custom#map('insert', '<S-tab>', '<denite:move_to_previous_line>')
 
 " remove highlights
 call denite#custom#option('_', 'highlight_mode_insert', 'Search')
@@ -423,9 +425,10 @@ call denite#custom#option('_', 'highlight_matched_char', 'Search')
 
 nnoremap <silent> <leader><space> :<C-u>Denite -direction=top -auto-resize file_rec buffer<cr>
 nnoremap <silent> <leader>r :<C-u>Denite -direction=top -auto-resize file_mru<cr>
+nnoremap <silent> <c-tab> :<C-u>Denite -direction=top -auto-resize file_mru<cr>
 nnoremap <silent> <leader>o :<C-u>DeniteProjectDir -direction=top -auto-resize file_rec<cr>
 nnoremap <silent> <leader>t :<C-u>DeniteProjectDir -direction=top -auto-resize tag<cr>
-nnoremap <silent> <leader>p :<C-u>DeniteBufferDir -direction=top -auto-resize file_rec<cr>
+nnoremap <silent> <leader>, :<C-u>DeniteBufferDir -direction=top -auto-resize file_rec<cr>
 nnoremap <silent> <leader>c :<C-u>Denite -direction=top -auto-resize change<cr>
 nnoremap <silent> <leader>l :<C-u>Denite -direction=top -auto-resize line<cr>
 nnoremap <silent> <leader>co :<C-u>Denite -direction=top -auto-resize colorscheme<cr>
@@ -654,19 +657,19 @@ nnoremap <leader>d :bd!<cr>
 nnoremap <leader>q :qall<cr>
 nnoremap <leader>1 :on<cr>
 nnoremap <leader>. @:
+nnoremap <leader>p "0p
+nnoremap <leader>P "0P
+vnoremap <leader>p "0p
+vnoremap <leader>P "0P
 nnoremap <leader>a :b#<cr>
 nnoremap <leader>h  :noh<cr><c-l>
 nnoremap <leader>w  :w<cr>
 nnoremap <leader>fc :lcl <cr>
 nnoremap <leader>pw :ed ~/.gnupg/passwords.txt.asc <cr>
 nnoremap <leader>sv :ed $MYVIMRC<cr>
-vnoremap <leader>v "0p
 " copy a block and comment it and move to insert mode
 vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
 
-" C-backspace and C-tab to navigate changelist
-nnoremap <C-backspace>    g;
-nnoremap <C-tab>    g,
 nnoremap <backspace>    <C-o>
 nnoremap <tab>    <C-i>
 
