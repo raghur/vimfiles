@@ -471,6 +471,13 @@ let g:lastww =0
 "}}}
 
 " Autocommands {{{
+augroup ghosttext
+    autocmd!
+    autocmd BufNewFile,BufRead *stackexchange.com* set filetype=markdown
+    autocmd BufNewFile,BufRead *stackoverflow.com* set filetype=markdown
+    autocmd BufNewFile,BufRead *github.com* set filetype=markdown
+    autocmd BufNewFile,BufRead *reddit.com* set filetype=markdown
+augroup END
 
 augroup BWCCreateDir
     autocmd!
