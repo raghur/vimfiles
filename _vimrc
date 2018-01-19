@@ -1,14 +1,8 @@
 " vim: fdm=marker:
 " Options {{{
 let g:home=expand('<sfile>:p:h')."/"
-function! s:machine_script()
-    let machine_file = glob(g:home . tolower(hostname()) . '.vim')
-    if !empty(machine_file)
-        exec "so " . machine_file
-    endif
-endfun
-
-call s:machine_script()
+exec("set rtp^=".g:home)
+call utils#os_script(g:home)
 
 "force python 3 if available.
 " linux only one python can be loaded at a time.
@@ -16,11 +10,6 @@ if exists('py2') && has('python')
 elseif has('python3')
 endif
 
-fun! s:createIfNotExists(dir)
-    if !isdirectory(a:dir)
-        call mkdir(a:dir, "p")
-    endif
-endfunction
 set updatetime=2000
 set showmode
 " allow backspacing over everything in insert mode
@@ -48,7 +37,7 @@ set guioptions-=r
 set guioptions+=R
 set timeout timeoutlen=1000 ttimeoutlen=100
 set undofile
-call s:createIfNotExists(g:home.".vimbackups/.undo")
+call utils#createIfNotExists(g:home.".vimbackups/.undo")
 exec("set undodir=".g:home.".vimbackups/.undo")
 set undolevels=1000
 " required for yankstack
@@ -59,9 +48,9 @@ if has('mouse')
 endif
 " Backup Options {{{
 set backup        " keep a backup file
-call s:createIfNotExists(g:home.".vimbackups/.backup")
+call utils#createIfNotExists(g:home.".vimbackups/.backup")
 exec("set backupdir=".g:home.".vimbackups/.backup")
-call s:createIfNotExists(g:home.".vimbackups/.swap")
+call utils#createIfNotExists(g:home.".vimbackups/.swap")
 exec("set directory=".g:home.".vimbackups/.swap")
 "}}}
 set switchbuf=usetab
@@ -186,7 +175,6 @@ let g:colorschemes = split(g:colorschemes, ":")
 "}}}
 
 " Plugin Bundles and config {{{
-exec("set rtp^=".g:home)
 
 if empty(glob(g:home . 'autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs

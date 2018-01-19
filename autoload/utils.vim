@@ -1,3 +1,25 @@
+fun! utils#machine_script(base)
+    let machine_file = glob(a:base . tolower(hostname()) . '.vim')
+    if !empty(machine_file)
+        exec "so " . machine_file
+    endif
+endfun
+
+function! utils#os_script(base)
+    if has('win32')
+        let machine_file = glob(a:base . "base_windows.vim")
+    else
+        let machine_file = glob(a:base . "base_posix.vim")
+    endif
+    exec "so " . machine_file
+endfun
+
+fun! utils#createIfNotExists(dir)
+    if !isdirectory(a:dir)
+        call mkdir(a:dir, "p")
+    endif
+endfunction
+
 func! utils#systemwrapper(cmd)
     echom a:cmd
     let output=system(a:cmd)
