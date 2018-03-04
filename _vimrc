@@ -327,6 +327,7 @@ else
 endif
 let g:session_command_aliases = 1
 let g:session_autosave='yes'
+let g:session_lock_enabled = 0
 let g:session_autoload='yes'
 let g:session_default_to_last=1
 
@@ -373,7 +374,7 @@ call plug#end()
 
 if executable('rg')
     call denite#custom#var('file_rec', 'command',
-        \ ['rg', '--files'])
+                \ ['rg', '--files', '--glob', '!.git'])
 
     " Ripgrep command on grep source
     call denite#custom#var('grep', 'command', ['rg'])
