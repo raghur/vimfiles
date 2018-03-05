@@ -460,6 +460,13 @@ let g:lastww =0
 "}}}
 
 " Autocommands {{{
+
+augroup sparkup_types
+  " Remove ALL autocommands of the current group.
+  autocmd!
+  " Add sparkup to new filetypes
+  autocmd FileType vue,php,htmldjango runtime! ftplugin/html/sparkup.vim
+augroup END
 augroup ghosttext
     autocmd!
     autocmd BufNewFile,BufRead *stackexchange.com* set filetype=markdown
