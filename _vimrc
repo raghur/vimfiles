@@ -332,8 +332,8 @@ let g:session_autoload='yes'
 let g:session_default_to_last=1
 
 Plug 'kana/vim-submode'
-Plug 'Chiel92/vim-autoformat', {
-            \ 'on': 'AutoFormat'
+Plug 'sbdchd/NeoFormat', {
+            \ 'on': 'Neoformat'
             \ }
 Plug 'Shougo/denite.nvim'
 Plug 'Shougo/neomru.vim'
@@ -642,7 +642,7 @@ nnoremap <S-F2>  :<C-U>call signature#mark#Goto("prev", "spot", "pos") <CR> \| z
 nnoremap <F5> :UndotreeToggle<CR>
 nnoremap <F6> :lnext<cr>
 nnoremap <S-F6> :lprev<cr>
-nnoremap <F7> :Autoformat<cr>
+nnoremap <F7> :Neoformat<cr>
 nnoremap <F8> :Gitex<cr>
 nnoremap <F9> :Wex<cr>
 nnoremap <F10> :Console<cr>
