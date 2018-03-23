@@ -244,7 +244,8 @@ let g:UltiSnipsSnippetsDir=g:home."UltiSnips"
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsListSnippets="<c-tab>"
 
-" let g:ale_linters = {'go': ['gometalinter']}
+let g:ale_sign_column_always = 1
+let g:ale_linters = {'typescript': ['tsserver']}
 " let g:ale_go_metalinter_options = '--fast'
 DeferPlug  'w0rp/ale'
 nmap <leader>p  <Plug>(ale_previous_wrap)
@@ -362,7 +363,7 @@ Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
 " For development, uncomment following line
 " Delete registration from rplugin.vim and restart and run UpdateRemotePlugins
 "
-" For logging, start with 
+" For logging, start with
 " NVIM_PYTHON_LOG_FILE=~/pylog NVIM_GHOSTPY_LOG_LEVEL=DEBUG nvim
 "
 " set rtp+=~/code/vim-ghost
