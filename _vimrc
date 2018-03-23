@@ -483,11 +483,6 @@ augroup PluginInitialization
     au User vim-airline call LoadVimAirline()
 augroup END
 
-augroup GlobalMark
-    au!
-    autocmd InsertLeave * mark I
-augroup END
-
 augroup gpg
     au!
     autocmd BufNewFile,BufRead *.gpg, *.asc setf gpg
