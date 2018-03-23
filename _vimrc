@@ -344,18 +344,8 @@ let g:go_highlight_types = 1
 
 Plug 'alvan/vim-closetag'
 " filenames like *.xml, *.html, *.xhtml, ...
-let g:closetag_filenames = "*.html,*.xhtml,*.xml,*.htm"
-
-" Plug 'svermeulen/vim-easyclip'
-
-" let g:EasyClipUseCutDefaults = 0
-" nmap gd <Plug>MoveMotionPlug
-" xmap gd <Plug>MoveMotionXPlug
-" nmap gdd <Plug>MoveMotionLinePlug
-
-" let g:EasyClipUsePasteToggleDefaults = 0
-" nmap <m-p> <plug>EasyClipSwapPasteBackwards
-" nmap <m-n> <plug>EasyClipSwapPasteForward
+let g:closetag_filenames = "*.html,*.xhtml,*.xml,*.htm,*.vue,*.jsx"
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.vue'
 
 let g:ghost_autostart=1
 Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
