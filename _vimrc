@@ -348,7 +348,7 @@ let g:closetag_filenames = "*.html,*.xhtml,*.xml,*.htm,*.vue,*.jsx"
 let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.vue'
 
 let g:ghost_autostart=1
-Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
+DeferPlug 'raghur/vim-ghost', {'do': ':GhostInstall'}
 
 " For development, uncomment following line
 " Delete registration from rplugin.vim and restart and run UpdateRemotePlugins
@@ -458,8 +458,9 @@ augroup sparkup_types
   " Add sparkup to new filetypes
   autocmd FileType vue,php,htmldjango runtime! ftplugin/html/sparkup.vim
 augroup END
-augroup ghosttext
+augroup vim-ghost
     autocmd!
+    autocmd User vim-ghost GhostStart
     autocmd BufNewFile,BufRead *stackexchange.com* set filetype=markdown
     autocmd BufNewFile,BufRead *stackoverflow.com* set filetype=markdown
     autocmd BufNewFile,BufRead *github.com* set filetype=markdown
