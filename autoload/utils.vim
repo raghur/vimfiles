@@ -142,8 +142,15 @@ func! utils#StartWatcher(action)
     let action = substitute(a:action, "%[:a-z]*", "\\=expand(submatch(0))", "g")
     let outfile = substitute(file, "\\", "/", "g")
     if &ft == 'asciidoc'
-        let jobId=jobstart("chokidar ". file . " -c \"" . action . "\"")
+        " The asciidoc browser plugin does a good enough job if you don't use 
+        " other features like diagrams and such. In that, we can get rid of 
+        " this code and just open the current file in the browser.
+        "
+        " let jobId=jobstart("chokidar ". file . " -c \"" . action . "\"")
+        let cmd = "chokidar ". file . " -c \"" . "asciidoctor " . file  . "\""
+        let jobId=jobstart(cmd)
         let outfile = substitute(outfile, ".adoc$", ".html", "g")
+        echom cmd
     elseif &ft == 'markdown' || &ft == 'pandoc'
         let css=glob($HOME . "/pandoc.css")
         let css = "file:///" . substitute(css, '\\', '/' , "g")
