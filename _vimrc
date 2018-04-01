@@ -463,7 +463,7 @@ augroup sparkup_types
 augroup END
 augroup vim-ghost
     autocmd!
-    autocmd User vim-ghost GhostStart
+    autocmd User vim-ghost :call utils#GhostStart()
     autocmd BufNewFile,BufRead *stackexchange.com* set filetype=markdown
     autocmd BufNewFile,BufRead *stackoverflow.com* set filetype=markdown
     autocmd BufNewFile,BufRead *github.com* set filetype=markdown

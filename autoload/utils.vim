@@ -191,3 +191,9 @@ func! utils#CleanupWatcher()
     unlet b:jobIds
     echom "Watchers cleaned"
 endfunc
+
+fun! utils#GhostStart()
+    if exists(":GhostStart") == 2
+        GhostStart
+    endif
+endfun
