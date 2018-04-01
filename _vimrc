@@ -360,6 +360,9 @@ DeferPlug 'raghur/vim-ghost', {'do': ':GhostInstall'}
 " set rtp+=d:/code/vim-ghost
 
 Plug 'nixprime/cpsm'
+nmap - <Plug>(choosewin)
+let g:choosewin_overlay_enable=1
+Plug 't9md/vim-choosewin'
 
 call plug#end()
 
