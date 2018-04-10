@@ -204,6 +204,7 @@ endfunction
 command! -nargs=* DeferPlug call DeferPluginLoad(<args>)
 
 call plug#begin(g:home.'bundle')
+let g:SignatureIncludeMarks='ABCDEFGHIJKLMNOPQHSTUVWXYZ'
 Plug 'kshenoy/vim-signature'
 Plug 'jamessan/vim-gnupg', {
             \ 'for': ['gpg']
