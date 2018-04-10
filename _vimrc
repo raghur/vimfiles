@@ -365,6 +365,13 @@ Plug 'nixprime/cpsm'
 nmap - <Plug>(choosewin)
 let g:choosewin_overlay_enable=1
 Plug 't9md/vim-choosewin'
+
+let g:gutentags_file_list_command = {
+            \ 'markers': {
+            \ '.git': 'git ls-files',
+            \ '.hg': 'hg files',
+            \ },
+            \ }
 Plug 'ludovicchabant/vim-gutentags'
 
 call plug#end()
