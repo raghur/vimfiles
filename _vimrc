@@ -365,6 +365,7 @@ Plug 'nixprime/cpsm'
 nmap - <Plug>(choosewin)
 let g:choosewin_overlay_enable=1
 Plug 't9md/vim-choosewin'
+Plug 'ludovicchabant/vim-gutentags'
 
 call plug#end()
 
