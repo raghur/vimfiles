@@ -246,8 +246,8 @@ let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsListSnippets="<c-tab>"
 
 let g:ale_sign_column_always = 1
-let g:ale_linters = {'typescript': ['tsserver']}
-" let g:ale_go_metalinter_options = '--fast'
+let g:ale_linters = {'typescript': ['tsserver'], 'go': ['gometalinter']}
+let g:ale_go_metalinter_options = '--fast'
 DeferPlug  'w0rp/ale'
 nmap <leader>p  <Plug>(ale_previous_wrap)
 nmap <leader>n  <Plug>(ale_next_wrap)
