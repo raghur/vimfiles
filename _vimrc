@@ -286,10 +286,23 @@ Plug 'airblade/vim-rooter'
 let g:rooter_silent_chdir = 1
 
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-
-DeferPlug 'roxma/nvim-completion-manager', {'cond': has('python3')}
+DeferPlug 'autozimu/LanguageClient-neovim', {'cond': has('nvim'), 
+            \ 'do': 'powershell -File install.ps1',
+            \ 'branch': 'next' }
+let g:LanguageClient_serverCommands = {
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'python': ['pyls'],
+    \ 'go': ['go-langserver', '-gocodecompletion'],
+    \ 'vim': ['vim']
+    \ }
+if has('nvim')
+    DeferPlug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+    DeferPlug 'Shougo/deoplete.nvim'
+endif
+DeferPlug 'roxma/nvim-yarp', {'cond': v:version == 800 && !has('nvim')}
 DeferPlug 'roxma/vim-hug-neovim-rpc',  {'cond': v:version == 800 && !has('nvim')}
-
+let g:deoplete#enable_at_startup = 1
 Plug 'tpope/vim-surround'
 
 " vim sneak; replace f/F with sneak
