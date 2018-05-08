@@ -353,8 +353,16 @@ Plug 'Shougo/denite.nvim'
 Plug 'yyotti/denite-marks'
 Plug 'Shougo/neomru.vim'
 Plug 'othree/eregex.vim'
-Plug 'fatih/vim-go'
+
+Plug 'fatih/vim-go', {'tag': '*'}
+Plug 'zchee/deoplete-go', { 'do': 'make'}
+let g:go_fmt_command = "goimports"
 let g:go_highlight_types = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_build_constraints = 1
 
 Plug 'alvan/vim-closetag'
 " filenames like *.xml, *.html, *.xhtml, ...
