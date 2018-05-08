@@ -292,7 +292,6 @@ DeferPlug 'autozimu/LanguageClient-neovim', {'cond': has('nvim'),
 let g:LanguageClient_serverCommands = {
     \ 'javascript': ['javascript-typescript-stdio'],
     \ 'python': ['pyls'],
-    \ 'go': ['go-langserver', '-gocodecompletion'],
     \ 'vim': ['vim']
     \ }
 if has('nvim')
