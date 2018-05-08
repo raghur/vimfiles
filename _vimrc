@@ -350,8 +350,12 @@ Plug 'sbdchd/NeoFormat', {
             \ 'on': 'Neoformat'
             \ }
 Plug 'Shougo/denite.nvim'
+Plug 'raghur/fuzzy-denite'
 Plug 'yyotti/denite-marks'
+
 Plug 'Shougo/neomru.vim'
+let g:neomru#file_mru_limit=100
+
 Plug 'othree/eregex.vim'
 
 Plug 'fatih/vim-go', {'tag': '*'}
@@ -412,11 +416,13 @@ elseif executable('sift')
     call denite#custom#var('file_rec', 'command',
         \ ['sift', '--targets' ])
 endif
-call denite#custom#source(
-        \ '_', 'sorters', ['sorter_sublime'])
+" call denite#custom#source(
+"         \ '_', 'sorters', ['sorter_sublime'])
 
+" call denite#custom#source(
+"         \ '_', 'matchers', ['matcher_cpsm'])
 call denite#custom#source(
-        \ '_', 'matchers', ['matcher_cpsm'])
+        \ '_', 'matchers', ['matcher/gofuzzy'])
 " Change ignore_globs
 " call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
 "             \ [ '.git/', '.ropeproject/', '__pycache__/',
