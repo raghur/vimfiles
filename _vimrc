@@ -289,11 +289,12 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 DeferPlug 'autozimu/LanguageClient-neovim', {'cond': has('nvim'), 
             \ 'do': 'powershell -File install.ps1',
             \ 'branch': 'next' }
+set signcolumn=yes
 let g:LanguageClient_serverCommands = {
     \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'python': ['pyls'],
-    \ 'vim': ['vim']
+    \ 'python': ['pyls']
     \ }
+
 if has('nvim')
     DeferPlug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
