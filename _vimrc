@@ -442,18 +442,18 @@ call denite#custom#option('_', 'highlight_mode_insert', 'Search')
 call denite#custom#option('_', 'highlight_matched_range', 'None')
 call denite#custom#option('_', 'highlight_matched_char', 'Search')
 
-nnoremap <silent> <leader><space> :<C-u>Denite -direction=top -auto-resize file_rec buffer<cr>
-nnoremap <silent> <leader>r :<C-u>Denite -direction=top -auto-resize file_mru<cr>
-nnoremap <silent> <c-tab> :<C-u>Denite -direction=top -auto-resize file_mru<cr>
-nnoremap <silent> <leader>o :<C-u>DeniteProjectDir -direction=top -auto-resize file_rec<cr>
-nnoremap <silent> <leader>t :<C-u>DeniteProjectDir -direction=top -auto-resize tag<cr>
-nnoremap <silent> <leader>, :<C-u>DeniteBufferDir -direction=top -auto-resize file_rec<cr>
-nnoremap <silent> <leader>c :<C-u>Denite -direction=top -auto-resize change<cr>
-nnoremap <silent> <leader>l :<C-u>Denite -direction=top -auto-resize line<cr>
-nnoremap <silent> <leader>co :<C-u>Denite -direction=top -auto-resize colorscheme<cr>
-nnoremap <silent> <leader>: :<C-u>Denite -direction=top -auto-resize command<cr>
-nnoremap <silent> <leader>j :<C-u>Denite -direction=top -auto-resize jump<cr>
-nnoremap <silent> <leader>m :<C-u>Denite -direction=top -auto-resize marks<cr>
+nnoremap <silent> <leader><space> :<C-u>Denite -direction=dynamicbottom -auto-resize file_rec buffer<cr>
+nnoremap <silent> <leader>r :<C-u>Denite -direction=dynamicbottom -auto-resize file_mru<cr>
+nnoremap <silent> <c-tab> :<C-u>Denite -direction=dynamicbottom -auto-resize file_mru<cr>
+nnoremap <silent> <leader>o :<C-u>DeniteProjectDir -direction=dynamicbottom -auto-resize file_rec<cr>
+nnoremap <silent> <leader>t :<C-u>DeniteProjectDir -direction=dynamicbottom -auto-resize tag<cr>
+nnoremap <silent> <leader>, :<C-u>DeniteBufferDir -direction=dynamicbottom -auto-resize file_rec<cr>
+nnoremap <silent> <leader>c :<C-u>Denite -direction=dynamicbottom -auto-resize change<cr>
+nnoremap <silent> <leader>l :<C-u>Denite -direction=dynamicbottom -auto-resize line<cr>
+nnoremap <silent> <leader>co :<C-u>Denite -direction=dynamicbottom -auto-resize colorscheme<cr>
+nnoremap <silent> <leader>: :<C-u>Denite -direction=dynamicbottom -auto-resize command<cr>
+nnoremap <silent> <leader>j :<C-u>Denite -direction=dynamicbottom -auto-resize jump<cr>
+nnoremap <silent> <leader>m :<C-u>Denite -direction=dynamicbottom -auto-resize marks<cr>
 nnoremap <silent> <leader>* :<C-u>Denite grep:::`expand('<cword>')`<cr>
 " interactive grep mode
 nnoremap <silent> <leader>g :<C-u>Denite grep:::!<cr>
