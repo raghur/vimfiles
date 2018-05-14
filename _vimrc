@@ -289,11 +289,12 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 DeferPlug 'autozimu/LanguageClient-neovim', {'cond': has('nvim'), 
             \ 'do': 'powershell -File install.ps1',
             \ 'branch': 'next' }
+set signcolumn=yes
 let g:LanguageClient_serverCommands = {
     \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'python': ['pyls'],
-    \ 'vim': ['vim']
+    \ 'python': ['pyls']
     \ }
+
 if has('nvim')
     DeferPlug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 else
@@ -320,17 +321,14 @@ let g:sneak#s_next = 0
 let g:stopFirstAndNotifyTimeoutLen = 0
 
 
-let g:jedi#force_py_version = 3
-let g:jedi#goto_command = '<localleader>g'
-let g:jedi#rename_command = '<localleader>r'
-let g:jedi#usages_command = '<localleader>u'
-let g:jedi#show_call_signatures = 2
-let g:jedi#completions_enabled = 0
-let g:jedi#auto_vim_configuration = 0
-Plug 'davidhalter/jedi-vim'
-let g:pymode_run_bind = '<leader>pr'
-let g:pymode_rope = 0
-let g:pymode_lint = 0
+" let g:jedi#force_py_version = 3
+" let g:jedi#goto_command = '<localleader>g'
+" let g:jedi#rename_command = '<localleader>r'
+" let g:jedi#usages_command = '<localleader>u'
+" let g:jedi#show_call_signatures = 2
+" let g:jedi#completions_enabled = 0
+" let g:jedi#auto_vim_configuration = 0
+" Plug 'davidhalter/jedi-vim'
 
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
