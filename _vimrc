@@ -97,6 +97,11 @@ if &term =~ '^screen'
     set <xLeft>=\e[1;*D
 endif
 
+" If you have vim >=8.0 or Neovim >= 0.1.5
+if (has("termguicolors"))
+ set termguicolors
+endif
+
 set path=.,,**,$HOME
 
 " Only do this part when compiled with support for autocommands.
