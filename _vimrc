@@ -28,7 +28,7 @@ set re=2    " use the new NFA engine
 set wildchar=<Tab>
 set wildmenu
 set wildmode=longest:full,full
-set wildignore+=*.swp,*.bak,*.class,.git/*,.svn/*,.git\*,.svn\*
+set wildignore+=*.swp,*.bak,*.class,.git/*,.svn/*
 set pastetoggle=<F11>
 set ignorecase smartcase
 set guioptions-=T
