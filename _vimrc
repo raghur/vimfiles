@@ -405,7 +405,7 @@ call plug#end()
 
 if executable('rg')
     call denite#custom#var('file_rec', 'command',
-                \ ['rg', '--files', '--glob', '!.git'])
+                \ ['rg', '--hidden', '--files', '--glob', '!.git'])
 
     " Ripgrep command on grep source
     call denite#custom#var('grep', 'command', ['rg'])
