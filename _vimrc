@@ -28,7 +28,7 @@ set re=2    " use the new NFA engine
 set wildchar=<Tab>
 set wildmenu
 set wildmode=longest:full,full
-set wildignore+=*.swp,*.bak,*.class,.git/*,.svn/*,.git\*,.svn\*
+set wildignore+=*.swp,*.bak,*.class,.git/*,.svn/*
 set pastetoggle=<F11>
 set ignorecase smartcase
 set guioptions-=T
@@ -95,6 +95,11 @@ if &term =~ '^screen'
     set <xDown>=\e[1;*B
     set <xRight>=\e[1;*C
     set <xLeft>=\e[1;*D
+endif
+
+" If you have vim >=8.0 or Neovim >= 0.1.5
+if (has("termguicolors"))
+ set termguicolors
 endif
 
 set path=.,,**,$HOME
@@ -400,7 +405,7 @@ call plug#end()
 
 if executable('rg')
     call denite#custom#var('file_rec', 'command',
-                \ ['rg', '--files', '--glob', '!.git'])
+                \ ['rg', '--hidden', '--files', '--glob', '!.git'])
 
     " Ripgrep command on grep source
     call denite#custom#var('grep', 'command', ['rg'])
