@@ -296,9 +296,9 @@ let g:LanguageClient_serverCommands = {
     \ }
 
 if has('nvim')
-    DeferPlug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    DeferPlug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'tag': '*' }
 else
-    DeferPlug 'Shougo/deoplete.nvim'
+    DeferPlug 'Shougo/deoplete.nvim', {'tag': '*'}
 endif
 DeferPlug 'roxma/nvim-yarp', {'cond': v:version == 800 && !has('nvim')}
 DeferPlug 'roxma/vim-hug-neovim-rpc',  {'cond': v:version == 800 && !has('nvim')}
