@@ -224,15 +224,6 @@ Plug 'raghur/vim-helpnav', {
             \ 'for' : ['help']
             \ }
 
-Plug  'vim-pandoc/vim-pandoc'
-Plug  'vim-pandoc/vim-pandoc-syntax'
-let g:pandoc#formatting#mode="hA"
-" let g:pandoc#formatting#smart_autoformat_on_cursormoved = 1
-let g:pandoc#syntax#codeblocks#embeds#langs = ["ruby","python","bash=sh",
-            \ "css", "erb=eruby", "javascript",
-            \ "js=javascript", "json=javascript", "ruby",
-            \ "sass", "xml", "html"]
-
 Plug  'tpope/vim-repeat'
 let g:AutoPairsShortcutToggle = '\\'
 DeferPlug 'jiangmiao/auto-pairs'
