@@ -403,13 +403,11 @@ if executable('rg')
     call denite#custom#var('grep', 'default_opts',
             \ ['--vimgrep', '--no-heading'])
     call denite#custom#var('grep', 'recursive_opts', [])
-    call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+    call denite#custom#var('grep', 'pattern_opt', ['-PS', '--regexp'])
     call denite#custom#var('grep', 'separator', ['--'])
     call denite#custom#var('grep', 'final_opts', [])
-elseif executable('sift')
-    call denite#custom#var('file_rec', 'command',
-        \ ['sift', '--targets' ])
 endif
+
 " call denite#custom#source(
 "         \ '_', 'sorters', ['sorter_sublime'])
 
