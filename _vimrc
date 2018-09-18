@@ -352,7 +352,10 @@ let g:neomru#file_mru_limit=100
 
 Plug 'othree/eregex.vim'
 
-Plug 'fatih/vim-go', {'tag': '*'}
+Plug 'fatih/vim-go'
+let g:go_metalinter_autosave = 1
+let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+
 Plug 'zchee/deoplete-go', { 'do': 'make'}
 let g:go_fmt_command = "goimports"
 let g:go_highlight_types = 1
