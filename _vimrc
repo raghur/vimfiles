@@ -404,9 +404,9 @@ if executable('rg')
     " Ripgrep command on grep source
     call denite#custom#var('grep', 'command', ['rg'])
     call denite#custom#var('grep', 'default_opts',
-            \ ['--vimgrep', '--no-heading'])
+            \ ['--vimgrep', '--no-heading', '-PS'])
     call denite#custom#var('grep', 'recursive_opts', [])
-    call denite#custom#var('grep', 'pattern_opt', ['-PS', '--regexp'])
+    call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
     call denite#custom#var('grep', 'separator', ['--'])
     call denite#custom#var('grep', 'final_opts', [])
 endif
