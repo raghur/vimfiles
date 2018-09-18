@@ -413,10 +413,10 @@ endif
 " call denite#custom#source(
 "         \ '_', 'sorters', ['sorter_sublime'])
 
-" call denite#custom#source(
-"         \ '_', 'matchers', ['matcher_cpsm'])
 call denite#custom#source(
-        \ '_', 'matchers', ['matcher/gofuzzy'])
+        \ '_', 'matchers', ['matcher_cpsm'])
+" call denite#custom#source(
+"         \ '_', 'matchers', ['matcher/gofuzzy'])
 " Change ignore_globs
 " call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
 "             \ [ '.git/', '.ropeproject/', '__pycache__/',
