@@ -414,8 +414,10 @@ endif
 " call denite#custom#source(
 "         \ '_', 'sorters', ['sorter_sublime'])
 
+" call denite#custom#source(
+"         \ '_', 'matchers', ['matcher_cpsm'])
 call denite#custom#source(
-        \ '_', 'matchers', ['matcher_cpsm'])
+        \ '_', 'matchers', ['matcher/pyfuzzy'])
 " call denite#custom#source(
 "         \ '_', 'matchers', ['matcher/gofuzzy'])
 " Change ignore_globs
@@ -432,9 +434,8 @@ call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>')
 call denite#custom#map('insert', '<C-tab>', '<denite:move_to_next_line>')
 call denite#custom#map('insert', '<S-tab>', '<denite:move_to_previous_line>')
 
-" remove highlights
-call denite#custom#option('_', 'highlight_mode_insert', 'Search')
-call denite#custom#option('_', 'highlight_matched_range', 'None')
+call denite#custom#option('_', 'highlight_mode_insert', 'CursorLine')
+call denite#custom#option('_', 'highlight_matched_range', 'Underlined')
 call denite#custom#option('_', 'highlight_matched_char', 'Search')
 
 nnoremap <silent> <leader><space> :<C-u>Denite -direction=dynamicbottom -auto-resize file_rec buffer<cr>
