@@ -674,8 +674,8 @@ nnoremap <F6> :lnext<cr>
 nnoremap <S-F6> :lprev<cr>
 nnoremap <F7> :Neoformat<cr>
 nnoremap <F8> :Gitex<cr>
-nnoremap <F9> :Wex<cr>
-nnoremap <F10> :Console<cr>
+nnoremap <S-F4> :Wex<cr>
+nnoremap <F4> :Console<cr>
 
 "leader mappings
 nnoremap <leader>bd :bd<cr>
