@@ -279,8 +279,11 @@ let g:airline_enable_branch=1
 let g:airline_powerline_fonts=1
 let g:airline_detect_modified=1
 
-Plug 'airblade/vim-rooter'
-let g:rooter_silent_chdir = 1
+if !has("win32")
+    " only load on nvim since this seems to break on windows gvim
+    Plug 'airblade/vim-rooter'
+    let g:rooter_silent_chdir = 1
+endif
 
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 DeferPlug 'autozimu/LanguageClient-neovim', {'cond': has('nvim'), 
