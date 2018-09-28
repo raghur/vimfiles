@@ -348,7 +348,6 @@ Plug 'sbdchd/NeoFormat', {
             \ 'on': 'Neoformat'
             \ }
 Plug 'Shougo/denite.nvim'
-Plug 'raghur/fuzzy-denite'
 Plug 'yyotti/denite-marks'
 
 Plug 'Shougo/neomru.vim'
@@ -386,7 +385,6 @@ DeferPlug 'raghur/vim-ghost', {'do': ':GhostInstall'}
 " set rtp+=~/code/vim-ghost
 " set rtp+=d:/code/vim-ghost
 
-Plug 'nixprime/cpsm'
 nmap - <Plug>(choosewin)
 let g:choosewin_overlay_enable=1
 Plug 't9md/vim-choosewin'
@@ -398,7 +396,8 @@ let g:gutentags_file_list_command = {
             \ },
             \ }
 Plug 'ludovicchabant/vim-gutentags'
-
+Plug 'raghur/fruzzy'
+let g:fruzzy#usenative = 1
 call plug#end()
 
 if executable('rg')
@@ -415,20 +414,8 @@ if executable('rg')
     call denite#custom#var('grep', 'final_opts', [])
 endif
 
-" call denite#custom#source(
-"         \ '_', 'sorters', ['sorter_sublime'])
+call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
 
-" call denite#custom#source(
-"         \ '_', 'matchers', ['matcher_cpsm'])
-call denite#custom#source(
-        \ '_', 'matchers', ['matcher/pyfuzzy'])
-" call denite#custom#source(
-"         \ '_', 'matchers', ['matcher/gofuzzy'])
-" Change ignore_globs
-" call denite#custom#filter('matcher_ignore_globs', 'ignore_globs',
-"             \ [ '.git/', '.ropeproject/', '__pycache__/',
-"             \ '*.pyc', "*.exe", "*.jpg",
-"             \   '.venv/', '.tox/', 'images/', '*.min.*', 'img/', 'fonts/'])
 " Change default prompt
 call denite#custom#option('default', 'prompt', ' ')
 call denite#custom#map('insert', '<Up>', '<denite:move_to_previous_line>')
