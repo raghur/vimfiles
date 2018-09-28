@@ -426,8 +426,8 @@ call denite#custom#map('insert', '<C-tab>', '<denite:move_to_next_line>')
 call denite#custom#map('insert', '<S-tab>', '<denite:move_to_previous_line>')
 
 call denite#custom#option('_', 'highlight_mode_insert', 'CursorLine')
-call denite#custom#option('_', 'highlight_matched_range', 'Underlined')
-call denite#custom#option('_', 'highlight_matched_char', 'Search')
+call denite#custom#option('_', 'highlight_matched_range', 'Tag')
+call denite#custom#option('_', 'highlight_matched_char', 'Tag')
 
 nnoremap <silent> <leader><space> :<C-u>Denite -direction=dynamicbottom -auto-resize file_rec buffer<cr>
 nnoremap <silent> <leader>r :<C-u>Denite -direction=dynamicbottom -auto-resize file_mru<cr>
