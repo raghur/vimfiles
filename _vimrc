@@ -279,7 +279,7 @@ let g:airline_enable_branch=1
 let g:airline_powerline_fonts=1
 let g:airline_detect_modified=1
 
-if !has("win32")
+if has("nvim") || has("unix")
     " only load on nvim since this seems to break on windows gvim
     Plug 'airblade/vim-rooter'
     let g:rooter_silent_chdir = 1
