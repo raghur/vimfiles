@@ -623,8 +623,8 @@ command! BlogSave call utils#BlogSave(expand("%:p"))
 set foldtext=NeatFoldText()
 command! ToHtml call utils#ToHtml()
 
-command! Gitex call utils#systemwrapper("gitex browse \"" . expand("%:p:h") . "\"")
-command! Wex call utils#systemwrapper( "explorer \"" . expand("%:p:h") . "\"")
+command! Gitex call utils#GitBrowser()
+command! Wex call utils#Filemanager()
 command! Console call utils#Console()
 command! -nargs=* WatchAndExec  call utils#StartWatcher("<args>")
 "}}}

@@ -26,6 +26,26 @@ func! utils#systemwrapper(cmd)
     return output
 endfunction
 
+func! utils#GitBrowser()
+    if executable('smerge')
+        let cmd = "smerge "
+    elseif executable("gitex")
+        let cmd = "gitex "
+    endif
+    let cmd = cmd . '"' . expand("%:p:h") . '"'
+    call utils#systemwrapper(cmd)
+endfunc
+
+func! utils#Filemanager()
+    if executable('explorer')
+        let cmd = "explorer "
+    elseif executable('dolphin')
+        let cmd = "dolphin "
+    endif
+    let cmd = cmd . '"' . expand("%:p:h") . '"'
+    call utils#systemwrapper(cmd)
+endfunc
+
 func! utils#Console()
     if executable('ConEmu64')
         let cmd='start ConEmu64 -dir "'. expand("%:p:h"). '" -run {cmd}'
