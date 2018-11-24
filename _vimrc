@@ -393,8 +393,9 @@ let g:gutentags_file_list_command = {
             \ },
             \ }
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'raghur/fruzzy'
+Plug 'raghur/fruzzy', { 'do': { -> fruzzy#install()} }
 let g:fruzzy#usenative = 1
+let g:fruzzy#sortonempty = 0
 call plug#end()
 
 if executable('rg')
