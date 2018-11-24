@@ -2,6 +2,17 @@ global !p
 from snippethelpers import *
 endglobal
 
+snippet note "note"
++++
+author = "Raghu Rajagopalan"
+date = "`!p if not snip.c: snip.rv=rfc3339()`"
+draft = false
+title = "${1:title}"
+note_tags = ["${2:untagged}"]
+type = "note"
++++
+endsnippet
+
 snippet post "blog post"
 +++
 author = "Raghu Rajagopalan"
@@ -184,4 +195,15 @@ endsnippet
 
 snippet icon "fa icons"
 icon:tags[${1:2x,3x,4x,5x,lg,fw, role="color", flip="horizontal|vertial", rotate="90,180,270"}]
+endsnippet
+
+snippet table "table"
+.Table $0
+|===
+|Title 1 |Title 2 | Title 3
+
+|Row 1, col 1
+|Row 1, col 2
+|Row 1, col 3
+|===
 endsnippet
