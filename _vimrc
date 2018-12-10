@@ -346,6 +346,7 @@ Plug 'sbdchd/NeoFormat', {
 Plug 'Shougo/denite.nvim'
 Plug 'yyotti/denite-marks'
 
+Plug 'Shougo/neoyank.vim'
 Plug 'Shougo/neomru.vim'
 let g:neomru#file_mru_limit=100
 
@@ -439,6 +440,7 @@ nnoremap <silent> <leader>: :<C-u>Denite -direction=dynamicbottom -auto-resize c
 nnoremap <silent> <leader>j :<C-u>Denite -direction=dynamicbottom -auto-resize jump<cr>
 nnoremap <silent> <leader>m :<C-u>Denite -direction=dynamicbottom -auto-resize marks<cr>
 nnoremap <silent> <leader>* :<C-u>Denite grep:::`expand('<cword>')`<cr>
+nnoremap <silent> <leader>y :<C-u>Denite -direction=dynamicbottom -auto-resize neoyank<cr>
 " interactive grep mode
 nnoremap <silent> <leader>g :<C-u>Denite grep:::!<cr>
 
