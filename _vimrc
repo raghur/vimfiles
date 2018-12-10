@@ -209,8 +209,7 @@ endfunction
 command! -nargs=* DeferPlug call DeferPluginLoad(<args>)
 
 call plug#begin(g:home.'bundle')
-let g:SignatureIncludeMarks='ABCDEFGHIJKLMNOPQHSTUVWXYZ'
-Plug 'kshenoy/vim-signature'
+Plug 'MattesGroeger/vim-bookmarks'
 Plug 'jamessan/vim-gnupg', {
             \ 'for': ['gpg']
             \ }
@@ -656,8 +655,6 @@ nnoremap j gj
 nnoremap k gk
 
 " Function keys
-nnoremap <F2>  :<C-U>call signature#mark#Goto("next", "spot", "pos") <CR> \| zz
-nnoremap <S-F2>  :<C-U>call signature#mark#Goto("prev", "spot", "pos") <CR> \| zz
 nnoremap <F5> :UndotreeToggle<CR>
 nnoremap <F6> :lnext<cr>
 nnoremap <S-F6> :lprev<cr>
