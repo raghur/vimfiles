@@ -209,8 +209,7 @@ endfunction
 command! -nargs=* DeferPlug call DeferPluginLoad(<args>)
 
 call plug#begin(g:home.'bundle')
-let g:SignatureIncludeMarks='ABCDEFGHIJKLMNOPQHSTUVWXYZ'
-Plug 'kshenoy/vim-signature'
+Plug 'MattesGroeger/vim-bookmarks'
 Plug 'jamessan/vim-gnupg', {
             \ 'for': ['gpg']
             \ }
@@ -279,11 +278,8 @@ let g:airline_enable_branch=1
 let g:airline_powerline_fonts=1
 let g:airline_detect_modified=1
 
-if has("nvim") || has("unix")
-    " only load on nvim since this seems to break on windows gvim
-    Plug 'airblade/vim-rooter'
-    let g:rooter_silent_chdir = 1
-endif
+Plug 'airblade/vim-rooter'
+let g:rooter_silent_chdir = 1
 
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 DeferPlug 'autozimu/LanguageClient-neovim', {'cond': has('nvim'), 
@@ -350,6 +346,7 @@ Plug 'sbdchd/NeoFormat', {
 Plug 'Shougo/denite.nvim'
 Plug 'yyotti/denite-marks'
 
+Plug 'Shougo/neoyank.vim'
 Plug 'Shougo/neomru.vim'
 let g:neomru#file_mru_limit=100
 
@@ -396,8 +393,9 @@ let g:gutentags_file_list_command = {
             \ },
             \ }
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'raghur/fruzzy'
+Plug 'raghur/fruzzy', { 'do': { -> fruzzy#install()} }
 let g:fruzzy#usenative = 1
+let g:fruzzy#sortonempty = 0
 call plug#end()
 
 if executable('rg')
@@ -442,6 +440,7 @@ nnoremap <silent> <leader>: :<C-u>Denite -direction=dynamicbottom -auto-resize c
 nnoremap <silent> <leader>j :<C-u>Denite -direction=dynamicbottom -auto-resize jump<cr>
 nnoremap <silent> <leader>m :<C-u>Denite -direction=dynamicbottom -auto-resize marks<cr>
 nnoremap <silent> <leader>* :<C-u>Denite grep:::`expand('<cword>')`<cr>
+nnoremap <silent> <leader>y :<C-u>Denite -direction=dynamicbottom -auto-resize neoyank<cr>
 " interactive grep mode
 nnoremap <silent> <leader>g :<C-u>Denite grep:::!<cr>
 
@@ -659,8 +658,6 @@ nnoremap k gk
 
 " Function keys
 " https://github.com/neovim/neovim/issues/4862#issuecomment-282988543
-nnoremap <F2>  :<C-U>call signature#mark#Goto("next", "spot", "pos") <CR> \| zz
-nnoremap <S-F2>  :<C-U>call signature#mark#Goto("prev", "spot", "pos") <CR> \| zz
 nnoremap <F14>  :<C-U>call signature#mark#Goto("prev", "spot", "pos") <CR> \| zz
 
 nnoremap <F5> :UndotreeToggle<CR>
