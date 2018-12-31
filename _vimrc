@@ -300,8 +300,8 @@ if has('nvim')
 else
     DeferPlug 'Shougo/deoplete.nvim'
 endif
-Plug 'roxma/nvim-yarp', {'cond': v:version == 800 && !has('nvim')}
-Plug 'roxma/vim-hug-neovim-rpc',  {'cond': v:version == 800 && !has('nvim')}
+Plug 'roxma/nvim-yarp', v:version >= 800 && !has('nvim') ? {} : { 'on': [], 'for': [] }
+Plug 'roxma/vim-hug-neovim-rpc',  v:version >= 800 && !has('nvim') ? {} : { 'on': [], 'for': [] }
 let g:deoplete#enable_at_startup = 1
 Plug 'tpope/vim-surround'
 
