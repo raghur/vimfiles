@@ -658,15 +658,22 @@ nnoremap j gj
 nnoremap k gk
 
 " Function keys
+" https://github.com/neovim/neovim/issues/4862#issuecomment-282988543
 nnoremap <F2>  :<C-U>call signature#mark#Goto("next", "spot", "pos") <CR> \| zz
 nnoremap <S-F2>  :<C-U>call signature#mark#Goto("prev", "spot", "pos") <CR> \| zz
+nnoremap <F14>  :<C-U>call signature#mark#Goto("prev", "spot", "pos") <CR> \| zz
+
 nnoremap <F5> :UndotreeToggle<CR>
 nnoremap <F6> :lnext<cr>
 nnoremap <S-F6> :lprev<cr>
+nnoremap <F18> :lprev<cr>
+
 nnoremap <F7> :Neoformat<cr>
 nnoremap <F8> :Gitex<cr>
-nnoremap <S-F4> :Wex<cr>
+
 nnoremap <F4> :Console<cr>
+nnoremap <S-F4> :Wex<cr>
+nnoremap <F16> :Wex<cr>
 
 "leader mappings
 nnoremap <leader>bd :bd<cr>
