@@ -210,6 +210,8 @@ command! -nargs=* DeferPlug call DeferPluginLoad(<args>)
 
 call plug#begin(g:home.'bundle')
 Plug 'MattesGroeger/vim-bookmarks'
+highlight link BookmarkSign PreProc
+
 Plug 'jamessan/vim-gnupg', {
             \ 'for': ['gpg']
             \ }
