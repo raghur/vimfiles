@@ -298,6 +298,11 @@ if has('nvim')
 else
     DeferPlug 'Shougo/deoplete.nvim', {'tag': '4.1' }
 endif
+
+if !has('nvim') && has("win32") && $NVIM_LISTEN_ADDRESS != ""
+    " work around bug in vim-hug-neovim-rpc
+    let $NVIM_LISTEN_ADDRESS=""
+endif
 Plug 'roxma/nvim-yarp', {'cond': v:version == 800 && !has('nvim')}
 Plug 'roxma/vim-hug-neovim-rpc',  {'cond': v:version == 800 && !has('nvim')}
 let g:deoplete#enable_at_startup = 1
