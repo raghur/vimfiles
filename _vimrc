@@ -294,17 +294,17 @@ let g:LanguageClient_serverCommands = {
     \ }
 
 if has('nvim')
-    DeferPlug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'tag': '4.1' }
+    DeferPlug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
 else
-    DeferPlug 'Shougo/deoplete.nvim', {'tag': '4.1' }
+    DeferPlug 'Shougo/deoplete.nvim'
 endif
 
 if !has('nvim') && has("win32") && $NVIM_LISTEN_ADDRESS != ""
     " work around bug in vim-hug-neovim-rpc
     let $NVIM_LISTEN_ADDRESS=""
 endif
-Plug 'roxma/nvim-yarp', {'cond': v:version == 800 && !has('nvim')}
-Plug 'roxma/vim-hug-neovim-rpc',  {'cond': v:version == 800 && !has('nvim')}
+Plug 'roxma/nvim-yarp', v:version >= 800 && !has('nvim') ? {} : { 'on': [], 'for': [] }
+Plug 'roxma/vim-hug-neovim-rpc',  v:version >= 800 && !has('nvim') ? {} : { 'on': [], 'for': [] }
 let g:deoplete#enable_at_startup = 1
 Plug 'tpope/vim-surround'
 
@@ -664,13 +664,20 @@ nnoremap j gj
 nnoremap k gk
 
 " Function keys
+" https://github.com/neovim/neovim/issues/4862#issuecomment-282988543
+nnoremap <F14>  :<C-U>call signature#mark#Goto("prev", "spot", "pos") <CR> \| zz
+
 nnoremap <F5> :UndotreeToggle<CR>
 nnoremap <F6> :lnext<cr>
 nnoremap <S-F6> :lprev<cr>
+nnoremap <F18> :lprev<cr>
+
 nnoremap <F7> :Neoformat<cr>
 nnoremap <F8> :Gitex<cr>
-nnoremap <S-F4> :Wex<cr>
+
 nnoremap <F4> :Console<cr>
+nnoremap <S-F4> :Wex<cr>
+nnoremap <F16> :Wex<cr>
 
 "leader mappings
 nnoremap <leader>bd :bd<cr>
