@@ -308,21 +308,10 @@ Plug 'roxma/vim-hug-neovim-rpc',  v:version >= 800 && !has('nvim') ? {} : { 'on'
 let g:deoplete#enable_at_startup = 1
 Plug 'tpope/vim-surround'
 
-" vim sneak; replace f/F with sneak
-Plug 'justinmk/vim-sneak', {
-            \ 'on': '<Plug>Sneak'
-            \ }
-"replace 'f' with 1-char Sneak
-nmap f <Plug>Sneak_f
-nmap F <Plug>Sneak_F
-xmap f <Plug>Sneak_f
-xmap F <Plug>Sneak_F
-omap f <Plug>Sneak_f
-omap F <Plug>Sneak_F
-let g:sneak#s_next = 0
-
-let g:stopFirstAndNotifyTimeoutLen = 0
-
+Plug 'rhysd/clever-f.vim'
+let g:clever_f_ignore_case=1
+map ; <Plug>(clever-f-repeat-forward)
+map , <Plug>(clever-f-repeat-back)
 
 " let g:jedi#force_py_version = 3
 " let g:jedi#goto_command = '<localleader>g'
