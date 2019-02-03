@@ -285,7 +285,7 @@ let g:rooter_silent_chdir = 1
 
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 DeferPlug 'autozimu/LanguageClient-neovim', {'cond': has('nvim'), 
-            \ 'do': 'powershell -File install.ps1',
+            \ 'do': 'bash install.sh',
             \ 'branch': 'next' }
 set signcolumn=yes
 let g:LanguageClient_serverCommands = {
