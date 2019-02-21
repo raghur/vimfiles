@@ -10,3 +10,4 @@ if exists('*GuiFont') "trigger only for neovim-qt which has this
     call Setfont(g:fonts[0])
 endif
 call GuiWindowMaximized(1)
+GuiPopupmenu 0
