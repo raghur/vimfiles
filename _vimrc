@@ -24,7 +24,6 @@ set hidden
 let maplocalleader='\'
 let mapleader = "<space>"
 map <space> <leader>
-set re=2    " use the new NFA engine
 set wildchar=<Tab>
 set wildmenu
 set wildmode=longest:full,full
