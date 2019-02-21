@@ -299,12 +299,8 @@ else
     DeferPlug 'Shougo/deoplete.nvim'
 endif
 
-if !has('nvim') && has("win32") && $NVIM_LISTEN_ADDRESS != ""
-    " work around bug in vim-hug-neovim-rpc
-    let $NVIM_LISTEN_ADDRESS=""
-endif
 Plug 'roxma/nvim-yarp', v:version >= 800 && !has('nvim') ? {} : { 'on': [], 'for': [] }
-Plug 'roxma/vim-hug-neovim-rpc',  v:version >= 800 && !has('nvim') ? {} : { 'on': [], 'for': [] }
+Plug 'roxma/vim-hug-neovim-rpc',  v:version >= 800 && !has('nvim') ? {'branch': 'fix-39'} : { 'on': [], 'for': [] }
 let g:deoplete#enable_at_startup = 1
 Plug 'tpope/vim-surround'
 
