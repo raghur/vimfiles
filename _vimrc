@@ -679,6 +679,7 @@ nnoremap <leader>w  :w<cr>
 nnoremap <leader>fc :lcl <cr>
 nnoremap <leader>pw :ed ~/.gnupg/passwords.txt.asc <cr>
 nnoremap <leader>sv :ed $MYVIMRC<cr>
+nnoremap <leader>e :edit <C-R>=fnamemodify(@%, ':p:h')<CR>/
 " copy a block and comment it and move to insert mode
 vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
 
