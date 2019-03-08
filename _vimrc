@@ -150,8 +150,7 @@ set foldmethod=indent
 set foldopen=block,hor,mark,percent,quickfix,search,tag,undo,jump
 set foldnestmax=5
 set foldminlines=2
-set relativenumber
-set nu
+" set rnu nu
 " replace all instances in a line.
 set gdefault
 set colorcolumn=120
