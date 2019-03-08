@@ -1,7 +1,7 @@
 if exists('*GuiFont') "trigger only for neovim-qt which has this
     let g:fonts=
-                \ "Fantasque Sans Mono:h13"
-                \ . ",Input:h12"
+                \ "Input:h12"
+                \ . ",Fantasque Sans Mono:h13"
                 \ . ",Iosevka:h13"
                 \ . ",Source Code Pro:h13"
                 \ . ",Hack:h13"
