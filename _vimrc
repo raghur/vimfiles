@@ -281,21 +281,21 @@ let g:airline_detect_modified=1
 Plug 'airblade/vim-rooter'
 let g:rooter_silent_chdir = 1
 
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-DeferPlug 'autozimu/LanguageClient-neovim', {'cond': has('nvim'), 
-            \ 'do': 'bash install.sh',
-            \ 'branch': 'next' }
 set signcolumn=yes
-let g:LanguageClient_serverCommands = {
-    \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'python': ['pyls']
-    \ }
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-if has('nvim')
-    DeferPlug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
-else
-    DeferPlug 'Shougo/deoplete.nvim'
-endif
+DeferPlug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+imap <C-l> <Plug>(coc-snippets-expand)
+vmap <C-j> <Plug>(coc-snippets-select)
+let g:coc_snippet_next = '<c-j>'
+let g:coc_snippet_prev = '<c-k>'
+
+" if has('nvim')
+"     DeferPlug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
+" else
+"     DeferPlug 'Shougo/deoplete.nvim'
+" endif
+
 
 Plug 'roxma/nvim-yarp', v:version >= 800 && !has('nvim') ? {} : { 'on': [], 'for': [] }
 Plug 'roxma/vim-hug-neovim-rpc',  v:version >= 800 && !has('nvim') ? {'branch': 'fix-39'} : { 'on': [], 'for': [] }
@@ -346,7 +346,6 @@ Plug 'fatih/vim-go'
 let g:go_metalinter_autosave = 1
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 
-Plug 'zchee/deoplete-go', { 'do': 'make'}
 let g:go_fmt_command = "goimports"
 let g:go_highlight_types = 1
 let g:go_highlight_functions = 1
