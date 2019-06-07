@@ -9,6 +9,7 @@ call utils#os_script(g:home)
 if exists('py2') && has('python')
 elseif has('python3')
 endif
+set pyxversion=3
 
 set updatetime=2000
 set showmode
