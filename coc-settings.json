@@ -1,5 +1,6 @@
 {
     "suggest.enablePreview": true,
+    "coc.preferences.codeLens.enable": true,
     "suggest.snippetIndicator": " [US]",
     "languageserver": {
         "golang": {

@@ -288,6 +288,18 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 DeferPlug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 imap <C-l> <Plug>(coc-snippets-expand)
 vmap <C-j> <Plug>(coc-snippets-select)
+
+nmap <leader>jd <Plug>(coc-definition)
+nmap <leader>jc <Plug>(coc-declaration)
+nmap <leader>ji <Plug>(coc-implementation)
+nmap <leader>jt <Plug>(coc-type-definition)
+nmap <leader>jr <Plug>(coc-references)
+nmap <leader>pf <Plug>(coc-format)
+nmap <leader>pn <Plug>(coc-rename)
+nmap <leader>pn <Plug>(coc-rename)
+vmap <leader>pf <Plug>(coc-format-selected)
+vmap <leader>pc <Plug>(coc-codeaction)
+
 let g:coc_snippet_next = '<c-j>'
 let g:coc_snippet_prev = '<c-k>'
 
