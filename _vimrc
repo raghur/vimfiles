@@ -401,7 +401,7 @@ let g:fruzzy#sortonempty = 0
 call plug#end()
 
 if executable('rg')
-    call denite#custom#var('file_rec', 'command',
+    call denite#custom#var('file/rec', 'command',
                 \ ['rg', '--hidden', '--files', '--glob', '!.git'])
 
     " Ripgrep command on grep source
@@ -415,36 +415,55 @@ if executable('rg')
 endif
 
 call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
-
-" Change default prompt
-call denite#custom#option('default', 'prompt', ' ')
-call denite#custom#map('insert', '<Up>', '<denite:move_to_previous_line>')
-call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>')
-call denite#custom#map('insert', '<Down>', '<denite:move_to_next_line>')
-call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>')
-call denite#custom#map('insert', '<C-tab>', '<denite:move_to_next_line>')
-call denite#custom#map('insert', '<S-tab>', '<denite:move_to_previous_line>')
-
+call denite#custom#option('_', 'input', '')
+call denite#custom#option('default', 'prompt', ' ')
+call denite#custom#option('_', 'start_filter', v:true)
+call denite#custom#option('_', 'auto_resize', v:true)
+call denite#custom#option('_', 'highlight_mode_insert', 'CursorLine')
 call denite#custom#option('_', 'highlight_mode_insert', 'CursorLine')
 call denite#custom#option('_', 'highlight_matched_range', 'Tag')
 call denite#custom#option('_', 'highlight_matched_char', 'Tag')
+call denite#custom#option('_', 'split', 'floating')
+call denite#custom#option('_', 'winminheight', 1)
 
-nnoremap <silent> <leader><space> :<C-u>Denite -direction=dynamicbottom -auto-resize file_rec buffer<cr>
-nnoremap <silent> <leader>r :<C-u>Denite -direction=dynamicbottom -auto-resize file_mru<cr>
-nnoremap <silent> <c-tab> :<C-u>Denite -direction=dynamicbottom -auto-resize file_mru<cr>
-nnoremap <silent> <leader>o :<C-u>DeniteProjectDir -direction=dynamicbottom -auto-resize file_rec<cr>
-nnoremap <silent> <leader>t :<C-u>DeniteProjectDir -direction=dynamicbottom -auto-resize tag<cr>
-nnoremap <silent> <leader>, :<C-u>DeniteBufferDir -direction=dynamicbottom -auto-resize file_rec<cr>
-nnoremap <silent> <leader>c :<C-u>Denite -direction=dynamicbottom -auto-resize change<cr>
-nnoremap <silent> <leader>l :<C-u>Denite -direction=dynamicbottom -auto-resize line<cr>
-nnoremap <silent> <leader>co :<C-u>Denite -direction=dynamicbottom -auto-resize colorscheme<cr>
-nnoremap <silent> <leader>: :<C-u>Denite -direction=dynamicbottom -auto-resize command<cr>
-nnoremap <silent> <leader>j :<C-u>Denite -direction=dynamicbottom -auto-resize jump<cr>
-nnoremap <silent> <leader>m :<C-u>Denite -direction=dynamicbottom -auto-resize marks<cr>
+autocmd FileType denite-filter call s:denite_my_settings2()
+autocmd FileType denite call s:denite_my_settings()
+function! s:denite_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR>
+  \ denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> p
+  \ denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> q
+  \ denite#do_map('quit')
+  nnoremap <silent><buffer><expr> <Esc>
+  \ denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i
+  \ denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer> <Down> j
+  nnoremap <silent><buffer> <Up> k
+endfunction
+
+function! s:denite_my_settings2() abort
+  imap <silent><buffer><expr> <Esc> denite#do_map('quit')
+  inoremap <silent><buffer> <C-j> <Esc>:bd<cr>
+endfunction
+" Change default prompt
+nnoremap <silent> <leader><space> :<C-u>Denite file/rec buffer<cr>
+nnoremap <silent> <leader>r :<C-u>Denite file_mru<cr>
+nnoremap <silent> <c-tab> :<C-u>Denite  file_mru<cr>
+nnoremap <silent> <leader>o :<C-u>DeniteProjectDir file/rec<cr>
+nnoremap <silent> <leader>t :<C-u>DeniteProjectDir tag<cr>
+nnoremap <silent> <leader>, :<C-u>DeniteBufferDir file/rec<cr>
+nnoremap <silent> <leader>c :<C-u>Denite change<cr>
+nnoremap <silent> <leader>l :<C-u>Denite line<cr>
+nnoremap <silent> <leader>co :<C-u>Denite colorscheme<cr>
+nnoremap <silent> <leader>: :<C-u>Denite command<cr>
+" nnoremap <silent> <leader>j :<C-u>Denite jump<cr>
+nnoremap <silent> <leader>m :<C-u>Denite marks<cr>
 nnoremap <silent> <leader>* :<C-u>Denite grep:::`expand('<cword>')`<cr>
-nnoremap <silent> <leader>y :<C-u>Denite -direction=dynamicbottom -auto-resize neoyank<cr>
+nnoremap <silent> <leader>y :<C-u>Denite neoyank<cr>
 " interactive grep mode
-nnoremap <silent> <leader>g :<C-u>Denite grep:::!<cr>
+nnoremap <silent> <leader>g :<C-u>Denite -split=bottom grep:::!<cr>
 
 
 " submode
