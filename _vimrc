@@ -9,7 +9,9 @@ call utils#os_script(g:home)
 if exists('py2') && has('python')
 elseif has('python3')
 endif
-set pyxversion=3
+if exists("+pyxversion")
+    set pyxversion=3
+endif
 
 set updatetime=2000
 set showmode
@@ -414,40 +416,44 @@ if executable('rg')
     call denite#custom#var('grep', 'final_opts', [])
 endif
 
+" default options
 call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
 call denite#custom#option('_', 'input', '')
-call denite#custom#option('default', 'prompt', ' ')
+call denite#custom#option('_', 'prompt', '▶ ')
 call denite#custom#option('_', 'start_filter', v:true)
 call denite#custom#option('_', 'auto_resize', v:true)
+call denite#custom#option('_', 'split', 'floating')
+call denite#custom#option('_', 'winminheight', 1)
+
+" highlights
 call denite#custom#option('_', 'highlight_mode_insert', 'CursorLine')
 call denite#custom#option('_', 'highlight_mode_insert', 'CursorLine')
 call denite#custom#option('_', 'highlight_matched_range', 'Tag')
 call denite#custom#option('_', 'highlight_matched_char', 'Tag')
-call denite#custom#option('_', 'split', 'floating')
-call denite#custom#option('_', 'winminheight', 1)
 
-autocmd FileType denite-filter call s:denite_my_settings2()
-autocmd FileType denite call s:denite_my_settings()
-function! s:denite_my_settings() abort
-  nnoremap <silent><buffer><expr> <CR>
-  \ denite#do_map('do_action')
-  nnoremap <silent><buffer><expr> p
-  \ denite#do_map('do_action', 'preview')
-  nnoremap <silent><buffer><expr> q
-  \ denite#do_map('quit')
-  nnoremap <silent><buffer><expr> <Esc>
-  \ denite#do_map('quit')
-  nnoremap <silent><buffer><expr> i
-  \ denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer> <Down> j
-  nnoremap <silent><buffer> <Up> k
+augroup denite_custom
+  " call funcs to set options for denite list and filter windows
+  autocmd!
+  autocmd FileType denite-filter call s:denite_filter_settings()
+  autocmd FileType denite call s:denite_settings()
+augroup END
+
+function! s:denite_settings() abort
+  nnoremap <silent><buffer><expr> <CR>      denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> p         denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> q         denite#do_map('quit')
+  nnoremap <silent><buffer><expr> <Esc>     denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i         denite#do_map('open_filter_buffer')
+  nnoremap <silent><buffer> <Down>          j
+  nnoremap <silent><buffer> <Up>            k
 endfunction
 
-function! s:denite_my_settings2() abort
+function! s:denite_filter_settings() abort
   imap <silent><buffer><expr> <Esc> denite#do_map('quit')
   inoremap <silent><buffer> <C-j> <Esc>:bd<cr>
+  inoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
 endfunction
-" Change default prompt
+
 nnoremap <silent> <leader><space> :<C-u>Denite file/rec buffer<cr>
 nnoremap <silent> <leader>r :<C-u>Denite file_mru<cr>
 nnoremap <silent> <c-tab> :<C-u>Denite  file_mru<cr>
