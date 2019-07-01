@@ -9,7 +9,10 @@
             "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
             "filetypes": ["go"]
         }
-    }
+    },
+    "session.directory": ".vimbackups/.sessions",
+    "list.source.files.command": "rg",
+    "list.source.files.args": ["--files"]
 }
 
 
