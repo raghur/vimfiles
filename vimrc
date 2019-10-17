@@ -457,9 +457,18 @@ function! s:denite_settings() abort
 endfunction
 
 function! s:denite_filter_settings() abort
-  imap <silent><buffer><expr> <Esc> denite#do_map('quit')
-  inoremap <silent><buffer> <C-j> <Esc>:bd<cr>
-  inoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
+  inoremap <silent><buffer><C-c>    <Esc>:bd<cr>
+  inoremap <silent><buffer><expr><Esc>  denite#do_map('quit')
+  inoremap <silent><buffer><expr><CR>   denite#do_map('do_action')
+  inoremap <silent><buffer><expr><C-p>  denite#do_map('choose_action')
+  inoremap <silent><buffer> <C-j>
+              \ <Esc><C-w>p:call cursor(line('.')+1,0)<CR><C-w>pA
+  inoremap <silent><buffer> <C-k>
+              \ <Esc><C-w>p:call cursor(line('.')-1,0)<CR><C-w>pA
+  inoremap <silent><buffer> <Down>
+              \ <Esc><C-w>p:call cursor(line('.')+1,0)<CR><C-w>pA
+  inoremap <silent><buffer> <Up>
+              \ <Esc><C-w>p:call cursor(line('.')-1,0)<CR><C-w>pA
 endfunction
 
 nnoremap <silent> <leader><space> :<C-u>Denite file/rec buffer<cr>
