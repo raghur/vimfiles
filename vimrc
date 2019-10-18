@@ -747,6 +747,15 @@ map [] k$][%?}<CR>
 " Don't use Ex mode, use Q for formatting
 map Q gq
 
+" Center on screen after moving to next/prev match
+nnoremap n nzz
+nnoremap N Nzz
+
+"Open splits to the right by default
+set splitright
+" open help in a vert split to the right
+cabbrev h vert bo h
+
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
