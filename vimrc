@@ -408,6 +408,8 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'raghur/fruzzy', { 'do': { -> fruzzy#install()} }
 let g:fruzzy#usenative = 1
 let g:fruzzy#sortonempty = 0
+
+Plug 'junegunn/fzf', {'cond': has('unix')}
 call plug#end()
 
 if executable('rg')
@@ -612,28 +614,6 @@ function! LoadVimAirline()
     echom "loaded vim-airline"
 endfunction
 
-function! Getfont()
-    let font=""
-    if exists('*GuiFont')
-        redir => font
-        GuiFont
-        redir END
-        return substitute(font, '\r\+\|\n\+', '','')
-    else
-        return &guifont
-    endif
-endfunction
-
-function! Setfont(font)
-    " echom "Setting font to: ". a:font
-    if exists('*GuiFont')
-        exec "GuiFont! " . a:font
-    elseif exists('+guifont')
-        exec "set guifont=".substitute(a:font, " ", "\\\\ ", "g")
-    else
-        :silent !echo "Running in console - change your console font."
-    endif
-endfunction
 
 function! NeatFoldText()
     let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
@@ -653,8 +633,6 @@ endfunction
 command! ColorsNext call utils#CycleColorScheme(1)
 command! ColorsPrev call utils#CycleColorScheme(-1)
 
-command! FontNext call utils#CycleFont(1)
-command! FontPrev call utils#CycleFont(-1)
 command! RemoveCtrlM call utils#RemoveCtrlM()
 command! EditAsWin call utils#RemoveCtrlM()
 
@@ -747,9 +725,6 @@ map [] k$][%?}<CR>
 " Don't use Ex mode, use Q for formatting
 map Q gq
 
-" Center on screen after moving to next/prev match
-nnoremap n nzz
-nnoremap N Nzz
 
 "Open splits to the right by default
 set splitright
@@ -759,10 +734,15 @@ cabbrev h vert bo h
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
+
+" Search and replace related mappings
 nnoremap / /\v
 cnoremap %s/ %s/\v
 vnoremap % <space>%
 vnoremap <silent> * y:let @/=@"<cr>:set hlsearch<cr>n
+" Center on screen after moving to next/prev match
+nnoremap n nzz
+nnoremap N Nzz
 
 
 "Move lines
@@ -774,7 +754,6 @@ vnoremap <A-j> :m'>+<CR>gv=gv
 vnoremap <A-k> :m-2<CR>gv=gv
 
 set background=dark
-colors kalisi
-let g:airline_theme="kalisi"
-call Setfont(g:fonts[0])
+colors molokai
+let g:airline_theme="molokai"
 "}}}

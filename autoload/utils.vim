@@ -104,9 +104,7 @@ fun! utils#CycleFont(dir)
     let font = Getfont()
     let c = utils#CycleArray(g:fonts, font, a:dir)
     "let font = substitute(arr[c], " ", '\\ ', "g")
-    echom g:fonts[c]
     call Setfont(g:fonts[c])
-    redraw | echom "Setting font to: " . g:fonts[c]
 endfun
 
 fun! utils#CycleColorScheme(dir)
