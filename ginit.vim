@@ -11,7 +11,6 @@ function! Getfont()
 endfunction
 
 function! Setfont(font)
-    " echom "Setting font to: ". a:font
     if exists('*GuiFont')
         exec "GuiFont! " . a:font
     elseif exists('+guifont')
@@ -19,6 +18,7 @@ function! Setfont(font)
     else
         :silent !echo "Running in console - change your console font."
     endif
+    " redraw \| echo a:font
 endfunction
 command! FontNext call utils#CycleFont(1)
 command! FontPrev call utils#CycleFont(-1)
@@ -57,8 +57,8 @@ if exists('g:fvim_loaded')
           \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
           \,sm:block-blinkwait175-blinkoff150-blinkon175
 endif
-let g:fonts=
-            \ "Bitstream Vera Sans Mono:h12"
+let g:fonts= ""
+            \ . ",Bitstream Vera Sans Mono:h12"
             \ . ",iA Writer Mono:h12"
             \ . ",Input:h12"
             \ . ",Fantasque Sans Mono:h13"
@@ -66,5 +66,6 @@ let g:fonts=
             \ . ",Source Code Pro:h13"
             \ . ",Hack:h13"
             \ . ",Fira Code:h13"
+            \ . ",DejaVu Sans Mono - Bront:h12"
 let g:fonts=split(g:fonts, ",")
 call Setfont(g:fonts[1])
