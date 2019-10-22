@@ -451,6 +451,7 @@ augroup END
 function! s:denite_settings() abort
   nnoremap <silent><buffer><expr> <CR>      denite#do_map('do_action')
   nnoremap <silent><buffer><expr> p         denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> v         denite#do_map('do_action', 'vsplit')
   nnoremap <silent><buffer><expr> q         denite#do_map('quit')
   nnoremap <silent><buffer><expr> <Esc>     denite#do_map('quit')
   nnoremap <silent><buffer><expr> i         denite#do_map('open_filter_buffer')
@@ -463,6 +464,7 @@ function! s:denite_filter_settings() abort
   inoremap <silent><buffer><expr><Esc>  denite#do_map('quit')
   inoremap <silent><buffer><expr><CR>   denite#do_map('do_action')
   inoremap <silent><buffer><expr><C-p>  denite#do_map('choose_action')
+  inoremap <silent><buffer><expr><C-v>  denite#do_map('do_action', 'vsplit')
   inoremap <silent><buffer> <C-j>
               \ <Esc><C-w>p:call cursor(line('.')+1,0)<CR><C-w>pA
   inoremap <silent><buffer> <C-k>
