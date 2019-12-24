@@ -58,14 +58,14 @@ if exists('g:fvim_loaded')
           \,sm:block-blinkwait175-blinkoff150-blinkon175
 endif
 let g:fonts= ""
+            \ . ",Fantasque Sans Mono:h13"
             \ . ",Bitstream Vera Sans Mono:h12"
             \ . ",iA Writer Mono:h12"
             \ . ",Input:h12"
-            \ . ",Fantasque Sans Mono:h13"
             \ . ",Iosevka:h13"
             \ . ",Source Code Pro:h13"
             \ . ",Hack:h13"
             \ . ",Fira Code:h13"
             \ . ",DejaVu Sans Mono - Bront:h12"
 let g:fonts=split(g:fonts, ",")
-call Setfont(g:fonts[1])
+call Setfont(g:fonts[0])
