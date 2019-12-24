@@ -1,15 +1,15 @@
 {
-    "suggest.enablePreview": true,
-    "coc.preferences.codeLens.enable": true,
-    "suggest.snippetIndicator": " [US]",
-    "languageserver": {
-        "golang": {
-            "command": "bingo",
-            "args": ["--diagnostics-style=instant"],
-            "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
-            "filetypes": ["go"]
-        }
+  "suggest.enablePreview": true,
+  "suggest.snippetIndicator": " [US]",
+  "python.jediEnabled": false,
+  "languageserver": {
+    "golang": {
+      "command": "gopls",
+      "rootPatterns": [ "go.mod" ],
+      "filetypes": [ "go" ],
+      "initializationOptions": {
+        "usePlaceholders": true
+      }
     }
+  }
 }
-
-

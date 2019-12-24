@@ -306,22 +306,19 @@ nmap <leader>jt <Plug>(coc-type-definition)
 nmap <leader>jr <Plug>(coc-references)
 nmap <leader>pf <Plug>(coc-format)
 nmap <leader>pn <Plug>(coc-rename)
-nmap <leader>pn <Plug>(coc-rename)
 vmap <leader>pf <Plug>(coc-format-selected)
 vmap <leader>pc <Plug>(coc-codeaction)
 
 let g:coc_snippet_next = '<c-j>'
 let g:coc_snippet_prev = '<c-k>'
-
-" if has('nvim')
-"     DeferPlug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins'}
-" else
-"     DeferPlug 'Shougo/deoplete.nvim'
-" endif
-
+let g:coc_global_extensions=["coc-json", "coc-python", "coc-marketplace", "coc-ultisnips", "coc-tag"]
+augroup GOFMT
+    autocmd!
+    autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+augroup END
 
 Plug 'roxma/nvim-yarp', v:version >= 800 && !has('nvim') ? {} : { 'on': [], 'for': [] }
-Plug 'roxma/vim-hug-neovim-rpc',  v:version >= 800 && !has('nvim') ? {'branch': 'fix-39'} : { 'on': [], 'for': [] }
+Plug 'roxma/vim-hug-neovim-rpc',  v:version >= 800 && !has('nvim') ? {} : { 'on': [], 'for': [] }
 let g:deoplete#enable_at_startup = 1
 Plug 'tpope/vim-surround'
 
@@ -376,6 +373,9 @@ let g:go_highlight_methods = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+" let coc handle code completions
+" let g:go_code_completion_enabled = 0
+" let g:go_fmt_autosave= 0
 
 Plug 'alvan/vim-closetag'
 " filenames like *.xml, *.html, *.xhtml, ...
@@ -398,13 +398,14 @@ nmap - <Plug>(choosewin)
 let g:choosewin_overlay_enable=1
 Plug 't9md/vim-choosewin'
 let g:gutentags_define_advanced_commands=1
+let g:gutentags_disabled=1
 let g:gutentags_file_list_command = {
             \ 'markers': {
             \ '.git': 'git ls-files',
             \ '.hg': 'hg files',
             \ },
             \ }
-Plug 'ludovicchabant/vim-gutentags'
+Plug 'ludovicchabant/vim-gutentags', {'cond': executable('ctags')}
 Plug 'raghur/fruzzy', { 'do': { -> fruzzy#install()} }
 let g:fruzzy#usenative = 1
 let g:fruzzy#sortonempty = 0
