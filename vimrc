@@ -553,7 +553,7 @@ augroup END
 augroup DeferredLoadOnIdle
     au!
     autocmd CursorHold,CursorHoldI * call plug#load(g:deferredPlugins)
-                \ | echom "deferred load completed for ". len(g:deferredPlugins) . " plugins"
+                \ | silent! echom "deferred load completed for ". len(g:deferredPlugins) . " plugins"
                 \ | autocmd! DeferredLoadOnIdle
 augroup END
 
