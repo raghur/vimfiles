@@ -3,12 +3,12 @@
 " good to go. See https://www.reddit.com/r/vim/comments/3gdycs/problem_with_syncing_vimrc_between_windows_and/ctxc32m/
 " For neovim (windows), link Appdata/local/nvim --> vimfiles
 " For neovim (linux), link ~/.config/nvim --> ~/.vim
+"
+" Font ligatures
+" Test ligatures: -> != == === >= <= => 
 " Options {{{
 let g:home=expand('<sfile>:p:h')."/"
 
-" echom g:home
-" messages
-" exit
 exec("set rtp^=".g:home)
 call utils#os_script(g:home)
 

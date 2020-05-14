@@ -97,15 +97,56 @@ fun! utils#RemoveCtrlM()
     :%s/\r$//e
 endfun
 
+function! utils#Getfont()
+    let font=""
+    if exists('+GuiFont')
+        redir => font
+        GuiFont
+        redir END
+        return substitute(font, '\r\+\|\n\+', '','')
+    elseif exists('+guifont')
+        return &guifont
+    else
+        :silent !echo "Running in console - cannot get font name"
+    endif
+endfunction
+
+function! utils#Setfont(font)
+    if exists('+GuiFont')
+        exec "GuiFont! " . a:font
+    elseif exists('+guifont')
+        exec "set guifont=".substitute(a:font, " ", "\\\\ ", "g")
+    else
+        :silent !echo "Running in console - change your console font."
+    endif
+    " redraw \| echo a:font
+endfunction
+
 fun! utils#CycleFont(dir)
     if !exists("g:fonts")
         return
     endif
-    let font = Getfont()
+    let font = substitute(utils#Getfont(), ':h'.g:fontsize, '','')
     let c = utils#CycleArray(g:fonts, font, a:dir)
     "let font = substitute(arr[c], " ", '\\ ', "g")
-    call Setfont(g:fonts[c])
+    call utils#Setfont(g:fonts[c]. ":h". g:fontsize)
 endfun
+function! utils#FontSizeInt(size, inc) 
+    let g:fontsize=a:size+a:inc
+    return ":h".(a:size + a:inc)
+endfunction
+
+function! utils#FontSize(sizeInc)
+    let pattern = ':h\(\d\+\)'
+    echo pattern
+    if exists("+guifont")
+        if a:sizeInc > 0
+            let &guifont=substitute(&guifont, pattern, '\=utils#FontSizeInt(submatch(1), 1)', '')
+        else
+            let &guifont=substitute(&guifont, pattern, '\=utils#FontSizeInt(submatch(1), -1)', '')
+        endif
+    endif
+endfunction
 
 fun! utils#CycleColorScheme(dir)
     let c = utils#CycleArray(g:colorschemes, g:colors_name, a:dir)
