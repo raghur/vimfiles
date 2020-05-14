@@ -286,10 +286,11 @@ set lazyredraw
 set laststatus=2
 
 DeferPlug 'vim-airline/vim-airline'
-DeferPlug 'vim-airline/vim-airline-themes'
+Plug 'vim-airline/vim-airline-themes'
 let g:airline_enable_branch=1
 let g:airline_powerline_fonts=1
 let g:airline_detect_modified=1
+let g:airline_theme="papercolor"
 
 Plug 'airblade/vim-rooter'
 let g:rooter_silent_chdir = 1
@@ -616,7 +617,8 @@ function! LoadVimAirline()
     call airline#parts#define_function('ALE', 'ALEGetStatusLine')
     call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
     let g:airline_section_error = airline#section#create_right(['ALE'])
-    echom "loaded vim-airline"
+    AirlineRefresh
+    silent! echom "loaded vim-airline"
 endfunction
 
 
@@ -760,5 +762,4 @@ vnoremap <A-k> :m-2<CR>gv=gv
 
 set background=dark
 colors molokai
-let g:airline_theme="molokai"
 "}}}
