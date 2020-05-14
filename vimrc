@@ -436,7 +436,7 @@ call denite#custom#option('_', 'input', '')
 call denite#custom#option('_', 'prompt', '▶ ')
 call denite#custom#option('_', 'start_filter', v:true)
 call denite#custom#option('_', 'auto_resize', v:true)
-call denite#custom#option('_', 'split', 'floating')
+" call denite#custom#option('_', 'split', 'floating')
 call denite#custom#option('_', 'winminheight', 1)
 
 " highlights
