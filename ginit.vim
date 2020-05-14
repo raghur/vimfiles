@@ -38,13 +38,13 @@ if exists('g:fvim_loaded')
     nnoremap <A-CR> :FVimToggleFullScreen<CR>
     " FVimCursorSmoothMove v:true
     " FVimCursorSmoothBlink v:true
-    FVimFontAntialias v:true
-    FVimFontAutohint v:true
-    FVimFontSubpixel v:true
-    FVimFontLcdRender v:true
-    FVimFontHintLevel 'full'
-    FVimFontAutoSnap v:true
-    FVimFontLineHeight "+1.0"
+    " FVimFontAntialias v:true
+    " FVimFontAutohint v:true
+    " FVimFontSubpixel v:true
+    " FVimFontLcdRender v:true
+    " FVimFontHintLevel 'full'
+    " FVimFontAutoSnap v:true
+    " FVimFontLineHeight "+1.0"
 
     " Font weight tuning, possible valuaes are 100..900
     FVimFontNormalWeight 400
