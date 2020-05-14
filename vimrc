@@ -106,7 +106,9 @@ if &term =~ '^screen'
     set <xRight>=\e[1;*C
     set <xLeft>=\e[1;*D
 endif
-
+if !has("nvim") && exists('+term') && !has('gui_running') 
+    set term=xterm-256color
+endif
 " If you have vim >=8.0 or Neovim >= 0.1.5
 if (has("termguicolors"))
  set termguicolors
@@ -397,15 +399,15 @@ DeferPlug 'raghur/vim-ghost', {'do': ':GhostInstall'}
 nmap - <Plug>(choosewin)
 let g:choosewin_overlay_enable=1
 Plug 't9md/vim-choosewin'
-let g:gutentags_define_advanced_commands=1
-let g:gutentags_disabled=1
-let g:gutentags_file_list_command = {
-            \ 'markers': {
-            \ '.git': 'git ls-files',
-            \ '.hg': 'hg files',
-            \ },
-            \ }
-Plug 'ludovicchabant/vim-gutentags', {'cond': executable('ctags')}
+" let g:gutentags_define_advanced_commands=1
+" let g:gutentags_disabled=1
+" let g:gutentags_file_list_command = {
+"             \ 'markers': {
+"             \ '.git': 'git ls-files',
+"             \ '.hg': 'hg files',
+"             \ },
+"             \ }
+" Plug 'ludovicchabant/vim-gutentags', {'cond': executable('ctags')}
 Plug 'raghur/fruzzy', { 'do': { -> fruzzy#install()} }
 let g:fruzzy#usenative = 1
 let g:fruzzy#sortonempty = 0
