@@ -126,11 +126,13 @@ fun! utils#CycleFont(dir)
     if !exists("g:fonts")
         return
     endif
+    call utils#FontSize(0)
     let font = substitute(utils#Getfont(), ':h'.g:fontsize, '','')
     let c = utils#CycleArray(g:fonts, font, a:dir)
     "let font = substitute(arr[c], " ", '\\ ', "g")
     call utils#Setfont(g:fonts[c]. ":h". g:fontsize)
 endfun
+
 function! utils#FontSizeInt(size, inc) 
     let g:fontsize=a:size+a:inc
     return ":h".(a:size + a:inc)
@@ -138,12 +140,14 @@ endfunction
 
 function! utils#FontSize(sizeInc)
     let pattern = ':h\(\d\+\)'
-    echo pattern
     if exists("+guifont")
         if a:sizeInc > 0
             let &guifont=substitute(&guifont, pattern, '\=utils#FontSizeInt(submatch(1), 1)', '')
-        else
+        elseif a:sizeInc < 0
             let &guifont=substitute(&guifont, pattern, '\=utils#FontSizeInt(submatch(1), -1)', '')
+        else
+            " only sets global var g:fontsize
+            let &guifont=substitute(&guifont, pattern, '\=utils#FontSizeInt(submatch(1), 0)', '')
         endif
     endif
 endfunction

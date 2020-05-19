@@ -5,7 +5,7 @@
 " For neovim (linux), link ~/.config/nvim --> ~/.vim
 "
 " Font ligatures
-" Test ligatures: -> != == === >= <= => 
+" Test ligatures: -> != == === >= <= =>
 " Options {{{
 let g:home=expand('<sfile>:p:h')."/"
 
@@ -106,7 +106,7 @@ if &term =~ '^screen'
     set <xRight>=\e[1;*C
     set <xLeft>=\e[1;*D
 endif
-if !has("nvim") && exists('+term') && !has('gui_running') 
+if !has("nvim") && exists('+term') && !has('gui_running')
     set term=xterm-256color
 endif
 " If you have vim >=8.0 or Neovim >= 0.1.5
@@ -351,6 +351,7 @@ let g:session_autosave='yes'
 let g:session_lock_enabled = 0
 let g:session_autoload='yes'
 let g:session_default_to_last=1
+let g:session_persist_globals = ['&guifont', 'g:colors_name', '&background']
 
 Plug 'kana/vim-submode'
 Plug 'sbdchd/NeoFormat', {
@@ -414,6 +415,7 @@ let g:fruzzy#usenative = 1
 let g:fruzzy#sortonempty = 0
 
 Plug 'junegunn/fzf', {'cond': has('unix')}
+Plug 'junegunn/fzf.vim'
 call plug#end()
 
 if executable('rg')
@@ -436,7 +438,7 @@ call denite#custom#option('_', 'input', '')
 call denite#custom#option('_', 'prompt', '▶ ')
 call denite#custom#option('_', 'start_filter', v:true)
 call denite#custom#option('_', 'auto_resize', v:true)
-" call denite#custom#option('_', 'split', 'floating')
+call denite#custom#option('_', 'split', 'floating')
 call denite#custom#option('_', 'winminheight', 1)
 
 " highlights
@@ -760,6 +762,4 @@ inoremap <A-k> <Esc>:m-2<CR>==gi
 vnoremap <A-j> :m'>+<CR>gv=gv
 vnoremap <A-k> :m-2<CR>gv=gv
 
-set background=dark
-colors molokai
 "}}}
