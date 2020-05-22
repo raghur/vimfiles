@@ -763,3 +763,14 @@ vnoremap <A-j> :m'>+<CR>gv=gv
 vnoremap <A-k> :m-2<CR>gv=gv
 
 "}}}
+"
+function! s:SetupGhostBuffer()
+    if match(expand("%:a"), '\v/ghost-(github|reddit)\.com-')
+        set ft=markdown
+    endif
+endfunction
+
+augroup vim-ghost
+    au!
+    au User vim-ghost#connected call s:SetupGhostBuffer()
+augroup END
