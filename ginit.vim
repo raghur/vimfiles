@@ -50,3 +50,6 @@ let g:fonts= ""
 let g:fonts=split(g:fonts, ",")
 " let g:fontsize=13
 " call utils#Setfont(g:fonts[0]. ":h". g:fontsize)
+if &guifont==""
+    call utils#Setfont(g:fonts[0]. ":h15")
+endif
