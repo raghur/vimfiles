@@ -389,6 +389,12 @@ let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.vue'
 let g:ghost_autostart=1
 DeferPlug 'raghur/vim-ghost', {'do': ':GhostInstall'}
 
+function! s:SetupGhostBuffer()
+    if match(expand("%:a"), '\v/ghost-(github|reddit|stackexchange|stackoverflow)\.com-')
+        set ft=markdown
+    endif
+endfunction
+
 " For development, uncomment following line
 " Delete registration from rplugin.vim and restart and run UpdateRemotePlugins
 "
@@ -541,10 +547,7 @@ augroup END
 augroup vim-ghost
     autocmd!
     autocmd User vim-ghost :call utils#GhostStart()
-    autocmd BufNewFile,BufRead *stackexchange.com* set filetype=markdown
-    autocmd BufNewFile,BufRead *stackoverflow.com* set filetype=markdown
-    autocmd BufNewFile,BufRead *github.com* set filetype=markdown
-    autocmd BufNewFile,BufRead *reddit.com* set filetype=markdown
+    au User vim-ghost#connected call s:SetupGhostBuffer()
 augroup END
 
 augroup BWCCreateDir
@@ -611,6 +614,13 @@ augroup END
 augroup watchers
     au!
     au BufDelete * call utils#CleanupWatcher()
+augroup END
+
+
+
+augroup highlight_yank
+    autocmd!
+    autocmd TextYankPost * silent! lua require'vim.highlight'.on_yank("IncSearch", 1000)
 augroup END
 "}}}
 
@@ -764,13 +774,3 @@ vnoremap <A-k> :m-2<CR>gv=gv
 
 "}}}
 "
-function! s:SetupGhostBuffer()
-    if match(expand("%:a"), '\v/ghost-(github|reddit)\.com-')
-        set ft=markdown
-    endif
-endfunction
-
-augroup vim-ghost
-    au!
-    au User vim-ghost#connected call s:SetupGhostBuffer()
-augroup END
