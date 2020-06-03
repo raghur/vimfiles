@@ -330,15 +330,6 @@ let g:clever_f_ignore_case=1
 map ; <Plug>(clever-f-repeat-forward)
 map , <Plug>(clever-f-repeat-back)
 
-" let g:jedi#force_py_version = 3
-" let g:jedi#goto_command = '<localleader>g'
-" let g:jedi#rename_command = '<localleader>r'
-" let g:jedi#usages_command = '<localleader>u'
-" let g:jedi#show_call_signatures = 2
-" let g:jedi#completions_enabled = 0
-" let g:jedi#auto_vim_configuration = 0
-" Plug 'davidhalter/jedi-vim'
-
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
 if (has('win32unix'))
@@ -353,11 +344,11 @@ let g:session_autoload='yes'
 let g:session_default_to_last=1
 let g:session_persist_globals = ['&guifont', 'g:colors_name', '&background']
 
-Plug 'kana/vim-submode'
+" DeferPlug 'kana/vim-submode'
 Plug 'sbdchd/NeoFormat', {
             \ 'on': 'Neoformat'
             \ }
-Plug 'Shougo/denite.nvim'
+DeferPlug 'Shougo/denite.nvim', {'on': 'Denite' }
 Plug 'yyotti/denite-marks'
 
 Plug 'Shougo/neoyank.vim'
@@ -387,7 +378,7 @@ let g:closetag_filenames = "*.html,*.xhtml,*.xml,*.htm,*.vue,*.jsx"
 let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.vue'
 
 let g:ghost_autostart=1
-DeferPlug 'raghur/vim-ghost', {'do': ':GhostInstall'}
+Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
 
 function! s:SetupGhostBuffer()
     if match(expand("%:a"), '\v/ghost-(github|reddit|stackexchange|stackoverflow)\.com-')
@@ -407,58 +398,71 @@ endfunction
 nmap - <Plug>(choosewin)
 let g:choosewin_overlay_enable=1
 Plug 't9md/vim-choosewin'
-" let g:gutentags_define_advanced_commands=1
-" let g:gutentags_disabled=1
-" let g:gutentags_file_list_command = {
-"             \ 'markers': {
-"             \ '.git': 'git ls-files',
-"             \ '.hg': 'hg files',
-"             \ },
-"             \ }
-" Plug 'ludovicchabant/vim-gutentags', {'cond': executable('ctags')}
 Plug 'raghur/fruzzy', { 'do': { -> fruzzy#install()} }
 let g:fruzzy#usenative = 1
 let g:fruzzy#sortonempty = 0
 
-Plug 'junegunn/fzf', {'cond': has('unix')}
+Plug 'junegunn/fzf', {'cond': has('unix'), 'do': { -> fzf#install() }}
 Plug 'junegunn/fzf.vim'
 call plug#end()
 
-if executable('rg')
-    call denite#custom#var('file/rec', 'command',
-                \ ['rg', '--hidden', '--files', '--glob', '!.git'])
-
-    " Ripgrep command on grep source
-    call denite#custom#var('grep', 'command', ['rg'])
-    call denite#custom#var('grep', 'default_opts',
-            \ ['--vimgrep', '--no-heading', '-PS'])
-    call denite#custom#var('grep', 'recursive_opts', [])
-    call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-    call denite#custom#var('grep', 'separator', ['--'])
-    call denite#custom#var('grep', 'final_opts', [])
-endif
-
-" default options
-call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
-call denite#custom#option('_', 'input', '')
-call denite#custom#option('_', 'prompt', '▶ ')
-call denite#custom#option('_', 'start_filter', v:true)
-call denite#custom#option('_', 'auto_resize', v:true)
-call denite#custom#option('_', 'split', 'floating')
-call denite#custom#option('_', 'winminheight', 1)
-
-" highlights
-call denite#custom#option('_', 'highlight_mode_insert', 'CursorLine')
-call denite#custom#option('_', 'highlight_mode_insert', 'CursorLine')
-call denite#custom#option('_', 'highlight_matched_range', 'Tag')
-call denite#custom#option('_', 'highlight_matched_char', 'Tag')
-
-augroup denite_custom
-  " call funcs to set options for denite list and filter windows
-  autocmd!
-  autocmd FileType denite-filter call s:denite_filter_settings()
-  autocmd FileType denite call s:denite_settings()
+augroup Denite
+    au!
+    au User denite.nvim call s:DeniteInit()
+    autocmd FileType denite-filter call s:denite_filter_settings()
+    autocmd FileType denite call s:denite_settings()
 augroup END
+
+function! s:DeniteInit()
+    echom "Denite init called"
+
+    if executable('rg')
+        call denite#custom#var('file/rec', 'command',
+                    \ ['rg', '--hidden', '--files', '--glob', '!.git'])
+
+        " Ripgrep command on grep source
+        call denite#custom#var('grep', 'command', ['rg'])
+        call denite#custom#var('grep', 'default_opts',
+                \ ['--vimgrep', '--no-heading', '-PS'])
+        call denite#custom#var('grep', 'recursive_opts', [])
+        call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+        call denite#custom#var('grep', 'separator', ['--'])
+        call denite#custom#var('grep', 'final_opts', [])
+    endif
+
+    " default options
+    call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
+    call denite#custom#option('_', 'input', '')
+    call denite#custom#option('_', 'prompt', '▶ ')
+    call denite#custom#option('_', 'start_filter', v:true)
+    call denite#custom#option('_', 'auto_resize', v:true)
+    call denite#custom#option('_', 'split', 'floating')
+    call denite#custom#option('_', 'winminheight', 1)
+
+    " highlights
+    call denite#custom#option('_', 'highlight_mode_insert', 'CursorLine')
+    call denite#custom#option('_', 'highlight_mode_insert', 'CursorLine')
+    call denite#custom#option('_', 'highlight_matched_range', 'Tag')
+    call denite#custom#option('_', 'highlight_matched_char', 'Tag')
+
+    nnoremap <silent> <leader><space> :<C-u>Denite file/rec buffer<cr>
+    nnoremap <silent> <leader>r :<C-u>Denite file_mru<cr>
+    nnoremap <silent> <c-tab> :<C-u>Denite  file_mru<cr>
+    nnoremap <silent> <leader>o :<C-u>DeniteProjectDir file/rec<cr>
+    nnoremap <silent> <leader>t :<C-u>DeniteProjectDir tag<cr>
+    nnoremap <silent> <leader>, :<C-u>DeniteBufferDir file/rec<cr>
+    nnoremap <silent> <leader>l :<C-u>Denite line<cr>
+    nnoremap <silent> <leader>co :<C-u>Denite colorscheme<cr>
+    nnoremap <silent> <leader>: :<C-u>Denite command<cr>
+    nnoremap <silent> <leader>m :<C-u>Denite marks<cr>
+    nnoremap <silent> <leader>* :<C-u>Denite grep:::`expand('<cword>')`<cr>
+    nnoremap <silent> <leader>y :<C-u>Denite neoyank<cr>
+    " interactive grep mode
+    nnoremap <silent> <leader>g :<C-u>Denite -split=bottom grep:::!<cr>
+
+    " nnoremap <silent> <leader>j :<C-u>Denite jump<cr>
+    " nnoremap <silent> <leader>c :<C-u>Denite change<cr>
+endfunction
 
 function! s:denite_settings() abort
   nnoremap <silent><buffer><expr> <CR>      denite#do_map('do_action')
@@ -487,50 +491,41 @@ function! s:denite_filter_settings() abort
               \ <Esc><C-w>p:call cursor(line('.')-1,0)<CR><C-w>pA
 endfunction
 
-nnoremap <silent> <leader><space> :<C-u>Denite file/rec buffer<cr>
-nnoremap <silent> <leader>r :<C-u>Denite file_mru<cr>
-nnoremap <silent> <c-tab> :<C-u>Denite  file_mru<cr>
-nnoremap <silent> <leader>o :<C-u>DeniteProjectDir file/rec<cr>
-nnoremap <silent> <leader>t :<C-u>DeniteProjectDir tag<cr>
-nnoremap <silent> <leader>, :<C-u>DeniteBufferDir file/rec<cr>
-nnoremap <silent> <leader>c :<C-u>Denite change<cr>
-nnoremap <silent> <leader>l :<C-u>Denite line<cr>
-nnoremap <silent> <leader>co :<C-u>Denite colorscheme<cr>
-nnoremap <silent> <leader>: :<C-u>Denite command<cr>
-" nnoremap <silent> <leader>j :<C-u>Denite jump<cr>
-nnoremap <silent> <leader>m :<C-u>Denite marks<cr>
-nnoremap <silent> <leader>* :<C-u>Denite grep:::`expand('<cword>')`<cr>
-nnoremap <silent> <leader>y :<C-u>Denite neoyank<cr>
-" interactive grep mode
-nnoremap <silent> <leader>g :<C-u>Denite -split=bottom grep:::!<cr>
 
 
-" submode
-" A message will appear in the message line when you're in a submode
-" and stay there until the mode has existed.
-let g:submode_always_show_submode = 1
-let g:submode_timeout = 0
+" augroup submode
+"     au!
+"     au! User vim-submode call s:SubmodeInit()
+" augroup END
 
-" We're taking over the default <C-w> setting. Don't worry we'll do
-" our best to put back the default functionality.
-call submode#enter_with('window', 'n', '', '<leader><C-w>')
+" function! s:SubmodeInit()
+"     " submode
+"     " A message will appear in the message line when you're in a submode
+"     " and stay there until the mode has existed.
+"     let g:submode_always_show_submode = 1
+"     let g:submode_timeout = 0
 
-" Note: <C-c> will also get you out to the mode without this mapping.
-" Note: <C-[> also behaves as <ESC>
-call submode#leave_with('window', 'n', '', '<ESC>')
+"     " We're taking over the default <C-w> setting. Don't worry we'll do
+"     " our best to put back the default functionality.
+"     call submode#enter_with('window', 'n', '', '<leader><C-w>')
 
-" Go through every letter
-for key in ['a','b','c','d','e','f','g','h','i','j','k','l','m',
-            \           'n','o','p','q','r','s','t','u','v','w','x','y','z']
-    " maps lowercase, uppercase and <C-key>
-    call submode#map('window', 'n', '', key, '<C-w>' . key)
-    call submode#map('window', 'n', '', toupper(key), '<C-w>' . toupper(key))
-    call submode#map('window', 'n', '', '<C-' . key . '>', '<C-w>' . '<C-'.key . '>')
-endfor
-" Go through symbols. Sadly, '|', not supported in submode plugin.
-for key in ['=','_','+','-','<','>']
-    call submode#map('window', 'n', '', key, '<C-w>' . key)
-endfor
+"     " Note: <C-c> will also get you out to the mode without this mapping.
+"     " Note: <C-[> also behaves as <ESC>
+"     call submode#leave_with('window', 'n', '', '<ESC>')
+
+"     " Go through every letter
+"     for key in ['a','b','c','d','e','f','g','h','i','j','k','l','m',
+"                 \           'n','o','p','q','r','s','t','u','v','w','x','y','z']
+"         " maps lowercase, uppercase and <C-key>
+"         call submode#map('window', 'n', '', key, '<C-w>' . key)
+"         call submode#map('window', 'n', '', toupper(key), '<C-w>' . toupper(key))
+"         call submode#map('window', 'n', '', '<C-' . key . '>', '<C-w>' . '<C-'.key . '>')
+"     endfor
+"     " Go through symbols. Sadly, '|', not supported in submode plugin.
+"     for key in ['=','_','+','-','<','>']
+"         call submode#map('window', 'n', '', key, '<C-w>' . key)
+"     endfor
+" endfunction
 let g:lastwh =0
 let g:lastww =0
 
@@ -544,6 +539,7 @@ augroup sparkup_types
   " Add sparkup to new filetypes
   autocmd FileType vue,php,htmldjango runtime! ftplugin/html/sparkup.vim
 augroup END
+
 augroup vim-ghost
     autocmd!
     autocmd User vim-ghost :call utils#GhostStart()
@@ -558,7 +554,7 @@ augroup END
 augroup DeferredLoadOnIdle
     au!
     autocmd CursorHold,CursorHoldI * call plug#load(g:deferredPlugins)
-                \ | silent! echom "deferred load completed for ". len(g:deferredPlugins) . " plugins"
+                \ | echom "deferred load completed for ". len(g:deferredPlugins) . " plugins"
                 \ | autocmd! DeferredLoadOnIdle
 augroup END
 
@@ -577,12 +573,14 @@ augroup AsciiDoc
     autocmd FileType asciidoc setl wrap
                 \ spell spelllang=en_us
 augroup END
+
 augroup Markdown
     au!
     autocmd FileType markdown setl wrap
                 \ linebreak
                 \ spell spelllang=en_us
 augroup END
+
 augroup Html
     au!
     au BufNewFile,BufRead *.aspx setl filetype=html
@@ -591,32 +589,10 @@ augroup Html
     au FileType html setl foldmethod=indent
 augroup END
 
-augroup Moin
-    au!
-    au BufNewFile,BufRead *.moin setf moin
-    au BufNewFile,BufRead *.wiki setf moin
-augroup END
-
 augroup filecleanup
     au!
     autocmd BufWritePre *.pl,*.js,*.ps1,*.cs,*.md,*.html :%s/\s\+$//e
 augroup END
-
-augroup pyjedi
-    autocmd!
-    autocmd FileType python setlocal omnifunc=jedi#completions
-                                    \ textwidth=79
-                                    \ completeopt-=preview
-                                    \ formatoptions+=c
-                                    \ formatprg=autopep8\ -
-augroup END
-
-augroup watchers
-    au!
-    au BufDelete * call utils#CleanupWatcher()
-augroup END
-
-
 
 augroup highlight_yank
     autocmd!
