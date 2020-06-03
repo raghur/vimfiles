@@ -343,12 +343,6 @@ let g:session_persist_globals = ['&guifont', 'g:colors_name', '&background']
 Plug 'sbdchd/NeoFormat', {
             \ 'on': 'Neoformat'
             \ }
-DeferPlug 'Shougo/denite.nvim', {'on': 'Denite' }
-Plug 'yyotti/denite-marks'
-
-Plug 'Shougo/neoyank.vim'
-Plug 'Shougo/neomru.vim'
-let g:neomru#file_mru_limit=100
 
 Plug 'othree/eregex.vim'
 
@@ -397,132 +391,39 @@ Plug 'raghur/fruzzy', { 'do': { -> fruzzy#install()} }
 let g:fruzzy#usenative = 1
 let g:fruzzy#sortonempty = 0
 
-Plug 'junegunn/fzf', {'cond': has('unix'), 'do': { -> fzf#install() }}
+let g:fzf_buffers_jump = 1
+let g:fzf_preview_window=''
+Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
 Plug 'junegunn/fzf.vim'
 call plug#end()
 
-augroup Denite
+function! RipgrepFzf(query, fullscreen)
+    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+    let initial_command = printf(command_fmt, shellescape(a:query))
+    let reload_command = printf(command_fmt, '{q}')
+    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+    call fzf#vim#grep(initial_command, 1, fzf#wrap(spec), a:fullscreen)
+endfunction
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+nnoremap <silent> <leader><space> :Files<cr>
+nnoremap <silent> <leader>r :History<cr>
+nnoremap <silent> <c-tab> :History<cr>
+nnoremap <silent> <leader>t :Tags<cr>
+nnoremap <silent> <leader>, :exe "Files ".expand("%:p:h")<cr>
+nnoremap <silent> <leader>l :BLines<cr>
+nnoremap <silent> <leader>co :Colors<cr>
+nnoremap <silent> <leader>: :Commands<cr>
+nnoremap <silent> <leader>m :Marks<cr>
+nnoremap <silent> <leader>* :exe "RG ".expand('<cword>')<cr>
+" interactive grep mode
+nnoremap <silent> <leader>g :RG<cr>
+
+augroup FZF
     au!
-    au User denite.nvim call s:DeniteInit()
-    autocmd FileType denite-filter call s:denite_filter_settings()
-    autocmd FileType denite call s:denite_settings()
+    " hide terminal window status line
+    autocmd! FileType fzf set laststatus=0 noshowmode noruler
+      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
-
-function! s:DeniteInit()
-    echom "Denite init called"
-
-    if executable('rg')
-        call denite#custom#var('file/rec', 'command',
-                    \ ['rg', '--hidden', '--files', '--glob', '!.git'])
-
-        " Ripgrep command on grep source
-        call denite#custom#var('grep', 'command', ['rg'])
-        call denite#custom#var('grep', 'default_opts',
-                \ ['--vimgrep', '--no-heading', '-PS'])
-        call denite#custom#var('grep', 'recursive_opts', [])
-        call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-        call denite#custom#var('grep', 'separator', ['--'])
-        call denite#custom#var('grep', 'final_opts', [])
-    endif
-
-    " default options
-    call denite#custom#source('_', 'matchers', ['matcher/fruzzy'])
-    call denite#custom#option('_', 'input', '')
-    call denite#custom#option('_', 'prompt', '▶ ')
-    call denite#custom#option('_', 'start_filter', v:true)
-    call denite#custom#option('_', 'auto_resize', v:true)
-    call denite#custom#option('_', 'split', 'floating')
-    call denite#custom#option('_', 'winminheight', 1)
-
-    " highlights
-    call denite#custom#option('_', 'highlight_mode_insert', 'CursorLine')
-    call denite#custom#option('_', 'highlight_mode_insert', 'CursorLine')
-    call denite#custom#option('_', 'highlight_matched_range', 'Tag')
-    call denite#custom#option('_', 'highlight_matched_char', 'Tag')
-
-    nnoremap <silent> <leader><space> :<C-u>Denite file/rec buffer<cr>
-    nnoremap <silent> <leader>r :<C-u>Denite file_mru<cr>
-    nnoremap <silent> <c-tab> :<C-u>Denite  file_mru<cr>
-    nnoremap <silent> <leader>o :<C-u>DeniteProjectDir file/rec<cr>
-    nnoremap <silent> <leader>t :<C-u>DeniteProjectDir tag<cr>
-    nnoremap <silent> <leader>, :<C-u>DeniteBufferDir file/rec<cr>
-    nnoremap <silent> <leader>l :<C-u>Denite line<cr>
-    nnoremap <silent> <leader>co :<C-u>Denite colorscheme<cr>
-    nnoremap <silent> <leader>: :<C-u>Denite command<cr>
-    nnoremap <silent> <leader>m :<C-u>Denite marks<cr>
-    nnoremap <silent> <leader>* :<C-u>Denite grep:::`expand('<cword>')`<cr>
-    nnoremap <silent> <leader>y :<C-u>Denite neoyank<cr>
-    " interactive grep mode
-    nnoremap <silent> <leader>g :<C-u>Denite -split=bottom grep:::!<cr>
-
-    " nnoremap <silent> <leader>j :<C-u>Denite jump<cr>
-    " nnoremap <silent> <leader>c :<C-u>Denite change<cr>
-endfunction
-
-function! s:denite_settings() abort
-  nnoremap <silent><buffer><expr> <CR>      denite#do_map('do_action')
-  nnoremap <silent><buffer><expr> p         denite#do_map('do_action', 'preview')
-  nnoremap <silent><buffer><expr> v         denite#do_map('do_action', 'vsplit')
-  nnoremap <silent><buffer><expr> q         denite#do_map('quit')
-  nnoremap <silent><buffer><expr> <Esc>     denite#do_map('quit')
-  nnoremap <silent><buffer><expr> i         denite#do_map('open_filter_buffer')
-  nnoremap <silent><buffer> <Down>          j
-  nnoremap <silent><buffer> <Up>            k
-endfunction
-
-function! s:denite_filter_settings() abort
-  inoremap <silent><buffer><C-c>    <Esc>:bd<cr>
-  inoremap <silent><buffer><expr><Esc>  denite#do_map('quit')
-  inoremap <silent><buffer><expr><CR>   denite#do_map('do_action')
-  inoremap <silent><buffer><expr><C-p>  denite#do_map('choose_action')
-  inoremap <silent><buffer><expr><C-v>  denite#do_map('do_action', 'vsplit')
-  inoremap <silent><buffer> <C-j>
-              \ <Esc><C-w>p:call cursor(line('.')+1,0)<CR><C-w>pA
-  inoremap <silent><buffer> <C-k>
-              \ <Esc><C-w>p:call cursor(line('.')-1,0)<CR><C-w>pA
-  inoremap <silent><buffer> <Down>
-              \ <Esc><C-w>p:call cursor(line('.')+1,0)<CR><C-w>pA
-  inoremap <silent><buffer> <Up>
-              \ <Esc><C-w>p:call cursor(line('.')-1,0)<CR><C-w>pA
-endfunction
-
-
-
-" augroup submode
-"     au!
-"     au! User vim-submode call s:SubmodeInit()
-" augroup END
-
-" function! s:SubmodeInit()
-"     " submode
-"     " A message will appear in the message line when you're in a submode
-"     " and stay there until the mode has existed.
-"     let g:submode_always_show_submode = 1
-"     let g:submode_timeout = 0
-
-"     " We're taking over the default <C-w> setting. Don't worry we'll do
-"     " our best to put back the default functionality.
-"     call submode#enter_with('window', 'n', '', '<leader><C-w>')
-
-"     " Note: <C-c> will also get you out to the mode without this mapping.
-"     " Note: <C-[> also behaves as <ESC>
-"     call submode#leave_with('window', 'n', '', '<ESC>')
-
-"     " Go through every letter
-"     for key in ['a','b','c','d','e','f','g','h','i','j','k','l','m',
-"                 \           'n','o','p','q','r','s','t','u','v','w','x','y','z']
-"         " maps lowercase, uppercase and <C-key>
-"         call submode#map('window', 'n', '', key, '<C-w>' . key)
-"         call submode#map('window', 'n', '', toupper(key), '<C-w>' . toupper(key))
-"         call submode#map('window', 'n', '', '<C-' . key . '>', '<C-w>' . '<C-'.key . '>')
-"     endfor
-"     " Go through symbols. Sadly, '|', not supported in submode plugin.
-"     for key in ['=','_','+','-','<','>']
-"         call submode#map('window', 'n', '', key, '<C-w>' . key)
-"     endfor
-" endfunction
-let g:lastwh =0
-let g:lastww =0
 
 "}}}
 
@@ -733,7 +634,6 @@ vnoremap <silent> * y:let @/=@"<cr>:set hlsearch<cr>n
 nnoremap n nzz
 nnoremap N Nzz
 
-
 "Move lines
 nnoremap <A-j> :m+<CR>==
 nnoremap <A-k> :m-2<CR>==
@@ -741,5 +641,4 @@ inoremap <A-j> <Esc>:m+<CR>==gi
 inoremap <A-k> <Esc>:m-2<CR>==gi
 vnoremap <A-j> :m'>+<CR>gv=gv
 vnoremap <A-k> :m-2<CR>gv=gv
-
 "}}}
