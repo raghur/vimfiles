@@ -214,12 +214,14 @@ function! utils#MkNonExDir(file, buf)
     endif
 endfunction
 
+let s:lastwh=0
+let s:lastww=0
 function! utils#ZoomWindow()
     if winheight(0) >= (&lines - 4) && winwidth(0) >= (&columns - 2)
-        exec "resize " . g:lastwh " | vertical resize ". g:lastww
+        exec "resize " . s:lastwh " | vertical resize ". s:lastww
     else
-        let g:lastwh = winheight(0)
-        let g:lastww = winwidth(0)
+        let s:lastwh = winheight(0)
+        let s:lastww = winwidth(0)
         wincmd _
         wincmd |
     endif
