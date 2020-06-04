@@ -317,7 +317,7 @@ augroup END
 
 Plug 'roxma/nvim-yarp', v:version >= 800 && !has('nvim') ? {} : { 'on': [], 'for': [] }
 Plug 'roxma/vim-hug-neovim-rpc',  v:version >= 800 && !has('nvim') ? {} : { 'on': [], 'for': [] }
-let g:deoplete#enable_at_startup = 1
+" let g:deoplete#enable_at_startup = 1
 Plug 'tpope/vim-surround'
 
 Plug 'rhysd/clever-f.vim'
@@ -387,9 +387,9 @@ endfunction
 nmap - <Plug>(choosewin)
 let g:choosewin_overlay_enable=1
 Plug 't9md/vim-choosewin'
-Plug 'raghur/fruzzy', { 'do': { -> fruzzy#install()} }
-let g:fruzzy#usenative = 1
-let g:fruzzy#sortonempty = 0
+" Plug 'raghur/fruzzy', { 'do': { -> fruzzy#install()} }
+" let g:fruzzy#usenative = 1
+" let g:fruzzy#sortonempty = 0
 
 let g:fzf_buffers_jump = 1
 let g:fzf_preview_window=''
