@@ -111,11 +111,17 @@ function! utils#Getfont()
     endif
 endfunction
 
-function! utils#Setfont(font)
+let s:fontsep=" "
+if has("nvim") || has("win32") || has("win64")
+    let s:fontsep=":h"
+endif
+
+function! utils#Setfont(font, size)
     if exists('+GuiFont')
         exec "GuiFont! " . a:font
     elseif exists('+guifont')
-        exec "set guifont=".substitute(a:font, " ", "\\\\ ", "g")
+        let fontspec=a:font. s:fontsep . a:size
+        exec "set guifont=".substitute(fontspec, " ", "\\\\ ", "g")
     else
         :silent !echo "Running in console - change your console font."
     endif
@@ -127,29 +133,29 @@ fun! utils#CycleFont(dir)
         return
     endif
     call utils#FontSize(0)
-    let font = substitute(utils#Getfont(), ':h'.g:fontsize, '','')
+    let pattern=s:fontsep.g:fontsize
+    let font = trim(substitute(utils#Getfont(), pattern,"","g"))
     let c = utils#CycleArray(g:fonts, font, a:dir)
-    "let font = substitute(arr[c], " ", '\\ ', "g")
-    call utils#Setfont(g:fonts[c]. ":h". g:fontsize)
+    call utils#Setfont(g:fonts[c], g:fontsize)
 endfun
 
-function! utils#FontSizeInt(size, inc) 
+function! utils#FontSizeInt(size, inc)
     let g:fontsize=a:size+a:inc
-    return ":h".(a:size + a:inc)
+    return g:fontsize
 endfunction
 
 function! utils#FontSize(sizeInc)
-    let pattern = ':h\(\d\+\)'
-    if exists("+guifont")
-        if a:sizeInc > 0
-            let &guifont=substitute(&guifont, pattern, '\=utils#FontSizeInt(submatch(1), 1)', '')
-        elseif a:sizeInc < 0
-            let &guifont=substitute(&guifont, pattern, '\=utils#FontSizeInt(submatch(1), -1)', '')
-        else
-            " only sets global var g:fontsize
-            let &guifont=substitute(&guifont, pattern, '\=utils#FontSizeInt(submatch(1), 0)', '')
-        endif
+    let pattern = '.\{-}\(\d\+\)'
+    let font=utils#Getfont()
+    let fontname=substitute(font, '\(:h\)\=\(\d\+\)', '', '')
+    if a:sizeInc > 0
+        let size=substitute(font, pattern, '\=utils#FontSizeInt(submatch(1), 1)', '')
+    elseif a:sizeInc < 0
+        let size=substitute(font, pattern, '\=utils#FontSizeInt(submatch(1), -1)', '')
+    else
+        let size=substitute(font, pattern, '\=utils#FontSizeInt(submatch(1), 0)', '')
     endif
+    call utils#Setfont(fontname, size)
 endfunction
 
 fun! utils#CycleColorScheme(dir)
