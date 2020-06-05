@@ -162,7 +162,6 @@ endfunction
 
 let s:colorschemes={}
 function utils#SetColors(...)
-    echo a:000
     for kv in a:000
         let p = split(kv, ",")
         let cname=p[0]
