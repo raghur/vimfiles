@@ -1,9 +1,12 @@
-nnoremap <silent> <C-ScrollWheelUp> :call utils#FontSize(1)<CR>
-nnoremap <silent> <C-=> :call utils#FontSize(1)<CR>
-nnoremap <silent> <C-ScrollWheelDown> :call utils#FontSize(-1)<CR>
-nnoremap <silent> <C--> :call utils#FontSize(-1)<CR>
-nnoremap <silent> <C-+> :call utils#CycleFont(1)<CR>
-nnoremap <silent> <C-_> :call utils#CycleFont(-1)<CR>
+nnoremap <silent> <M-ScrollWheelUp> :call utils#FontSize(1)<CR>
+nnoremap <silent> <M-ScrollWheelDown> :call utils#FontSize(-1)<CR>
+
+nnoremap <silent> <M-=> :call utils#FontSize(1)<CR>
+nnoremap <silent> <M--> :call utils#FontSize(-1)<CR>
+
+nnoremap <silent> <M-+> :call utils#CycleFont(1)<CR>
+nnoremap <silent> <M-_> :call utils#CycleFont(-1)<CR>
+
 if exists("g:neovide")
     let g:neovide_cursor_animation_length=0
 endif

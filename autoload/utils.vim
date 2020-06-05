@@ -125,7 +125,9 @@ function! utils#Setfont(font, size)
     else
         :silent !echo "Running in console - change your console font."
     endif
-    " redraw \| echo a:font
+    if !has("vim_starting")
+        redraw | echo utils#Getfont()
+    endif
 endfunction
 
 fun! utils#CycleFont(dir)
