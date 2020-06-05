@@ -160,11 +160,33 @@ function! utils#FontSize(sizeInc)
     call utils#Setfont(fontname, size)
 endfunction
 
+let s:colorschemes={}
+function utils#SetColors(...)
+    echo a:000
+    for kv in a:000
+        let p = split(kv, ",")
+        let cname=p[0]
+        let bg = ""
+        if len(p) == 2
+            let bg = p[1]
+        endif
+        let s:colorschemes[cname] = bg
+    endfor
+endfunction
+
 fun! utils#CycleColorScheme(dir)
-    let c = utils#CycleArray(g:colorschemes, g:colors_name, a:dir)
-    let scheme = g:colorschemes[c]
-    exec "colors " scheme
-    redraw | echom "Setting colorscheme to: ".scheme
+    let bg = &background
+    let arr = keys(s:colorschemes)
+    let c = utils#CycleArray(arr, g:colors_name, a:dir)
+    let scheme = arr[c]
+    let bgScheme = s:colorschemes[l:scheme]
+    if bgScheme == ""
+        exec "set background=".bg
+    else
+        exec "set background=". bgScheme
+    endif
+    exec "colors ". scheme
+    redraw | echom scheme &background
 endfun
 
 fun! utils#CycleArray(arr, value, dir)

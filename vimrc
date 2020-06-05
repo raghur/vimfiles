@@ -182,12 +182,7 @@ if has('directx')
     set renderoptions=type:directx,gamma:1.0,contrast:0.2,level:1.0,geom:1,renmode:5,taamode:1
 endif
 
-let g:colorschemes="Tomorrow-Night"
-            \ . ":monokai"
-            \ . ":molokai"
-            \ . ":github"
-            \ . ":kalisi"
-let g:colorschemes = split(g:colorschemes, ":")
+call utils#SetColors("Tomorrow-Night", "Monokai", "molokai", "github", "kalisi,dark", "gruvbox,dark")
 "}}}
 
 " Plugin Bundles and config {{{
@@ -625,8 +620,6 @@ endfunction
 
 "Commands {{{
 "
-command! ColorsNext call utils#CycleColorScheme(1)
-command! ColorsPrev call utils#CycleColorScheme(-1)
 
 command! RemoveCtrlM call utils#RemoveCtrlM()
 command! EditAsWin call utils#RemoveCtrlM()
