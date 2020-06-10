@@ -122,6 +122,9 @@ function! utils#Setfont(font, size)
     elseif exists('+guifont')
         let fontspec=a:font. s:fontsep . a:size
         exec "set guifont=".substitute(fontspec, " ", "\\\\ ", "g")
+        if !has("vim_starting")
+            redraw | echo utils#Getfont()
+        endif
     else
         :silent !echo "Running in console - change your console font."
     endif

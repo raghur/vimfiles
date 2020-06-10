@@ -8,13 +8,15 @@ nnoremap <silent> <M-+> :call utils#CycleFont(1)<CR>
 nnoremap <silent> <M-_> :call utils#CycleFont(-1)<CR>
 
 if exists("g:neovide")
-    let g:neovide_cursor_animation_length=0
+    let g:neovide_cursor_animation_length=0.075
+    let g:neovide_cursor_vfx_mode="railgun"
 endif
 
 if exists('*GuiFont') "trigger only for neovim-qt which has this
     call GuiWindowMaximized(1)
     GuiPopupmenu 0
 endif
+
 if exists('g:fvim_loaded')
     nnoremap <A-CR> :FVimToggleFullScreen<CR>
     " FVimCursorSmoothMove v:true
@@ -35,16 +37,18 @@ if exists('g:fvim_loaded')
     " FVimFontDrawBounds v:true
     FVimUIPopupMenu v:true
 
-    if exists("+guicursor")
-        set guicursor=n-v-c:block,i-ci-ve:hor100,r-cr:hor20,o:hor50
-                    \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
-                    \,sm:block-blinkwait175-blinkoff150-blinkon175
-    endif
 endif
+
+" if exists("+guicursor")
+"     set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor25,o:hor25
+"                 \,a:blinkon0-Cursor/lCursor
+"                 \,sm:block-blinkwait175-blinkoff10-blinkon175
+" endif
 
 let g:fonts= ""
             \ . ",Fantasque Sans Mono"
             \ . ",Iosevka Term Curly"
+            \ . ",mononoki"
             \ . ",Fira Code"
             \ . ",Bitstream Vera Sans Mono"
             \ . ",Source Code Pro"
