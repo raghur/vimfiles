@@ -7,10 +7,12 @@
 " Font ligatures
 " Test ligatures: -> != == === >= <= =>
 " Options {{{
-let g:home=expand('<sfile>:p:h')."/"
 
-exec("set rtp^=".g:home)
-call utils#os_script(g:home)
+
+" temporary to avoid 'hit enter' messages
+set cmdheight=2
+let g:home=expand('<sfile>:p:h')."/"
+call utils#os_script()
 
 "force python 3 if available.
 " linux only one python can be loaded at a time.
@@ -21,6 +23,11 @@ if exists("+pyxversion")
     set pyxversion=3
 endif
 
+set guioptions^=c
+set guioptions-=T
+set guioptions-=t
+set guioptions-=r
+set guioptions+=R
 set updatetime=2000
 set showmode
 " allow backspacing over everything in insert mode
@@ -41,10 +48,6 @@ set wildmode=longest:full,full
 set wildignore+=*.swp,*.bak,*.class,.git/*,.svn/*
 set pastetoggle=<F11>
 set ignorecase smartcase
-set guioptions-=T
-set guioptions-=t
-set guioptions-=r
-set guioptions+=R
 set timeout timeoutlen=1000 ttimeoutlen=100
 set undofile
 call utils#createIfNotExists(g:home.".vimbackups/.undo")
@@ -641,4 +644,5 @@ inoremap <A-j> <Esc>:m+<CR>==gi
 inoremap <A-k> <Esc>:m-2<CR>==gi
 vnoremap <A-j> :m'>+<CR>gv=gv
 vnoremap <A-k> :m-2<CR>gv=gv
+set cmdheight=1
 "}}}

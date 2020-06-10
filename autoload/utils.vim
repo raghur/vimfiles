@@ -1,17 +1,14 @@
-fun! utils#machine_script(base)
-    let machine_file = glob(a:base . tolower(hostname()) . '.vim')
-    if !empty(machine_file)
-        exec "so " . machine_file
-    endif
+fun! utils#machine_script()
+    let machine_file = tolower(hostname()) . '.vim'
+    exe "runtime " . machine_file
 endfun
 
-function! utils#os_script(base)
+function! utils#os_script()
+    let machine_file = "base_posix.vim"
     if has('win32')
-        let machine_file = glob(a:base . "base_windows.vim")
-    else
-        let machine_file = glob(a:base . "base_posix.vim")
+        let machine_file = "base_windows.vim"
     endif
-    exec "so " . machine_file
+    exec "runtime " . machine_file
 endfun
 
 fun! utils#createIfNotExists(dir)
