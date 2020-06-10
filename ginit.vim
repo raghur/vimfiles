@@ -39,24 +39,13 @@ if exists('g:fvim_loaded')
 
 endif
 
-" if exists("+guicursor")
-"     set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor25,o:hor25
-"                 \,a:blinkon0-Cursor/lCursor
-"                 \,sm:block-blinkwait175-blinkoff10-blinkon175
-" endif
+if exists("+guicursor")
+    set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor25,o:hor25
+                \,a:blinkon0-Cursor/lCursor
+                \,sm:block-blinkwait175-blinkoff10-blinkon175
+endif
 
-let g:fonts= ""
-            \ . ",Fantasque Sans Mono"
-            \ . ",Iosevka Term Curly"
-            \ . ",mononoki"
-            \ . ",Fira Code"
-            \ . ",Bitstream Vera Sans Mono"
-            \ . ",Source Code Pro"
-            \ . ",Hack"
-            \ . ",DejaVu Sans Mono - Bront"
-let g:fonts=split(g:fonts, ",")
-" let g:fontsize=13
-" call utils#Setfont(g:fonts[0]. ":h". g:fontsize)
 if &guifont==""
     call utils#Setfont(g:fonts[0], 15)
 endif
+" echom "sourced ginit.vim"

@@ -186,6 +186,14 @@ if has('directx')
 endif
 
 call utils#SetColors("Tomorrow-Night", "Monokai", "molokai", "github", "kalisi,dark", "gruvbox,dark")
+call utils#SetFonts("Fantasque Sans Mono",
+            \ "Iosevka Term Curly",
+            \ "mononoki",
+            \ "Fira Code",
+            \ "Bitstream Vera Sans Mono",
+            \ "Source Code Pro",
+            \ "Hack",
+            \ "DejaVu Sans Mono - Bront")
 "}}}
 
 " Plugin Bundles and config {{{

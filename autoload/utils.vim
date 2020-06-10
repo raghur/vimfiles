@@ -160,6 +160,12 @@ function! utils#FontSize(sizeInc)
     call utils#Setfont(fontname, size)
 endfunction
 
+let g:fonts=[]
+function utils#SetFonts(...)
+    for f in a:000
+        let g:fonts = g:fonts + [f]
+    endfor
+endfunction
 let s:colorschemes={}
 function utils#SetColors(...)
     for kv in a:000
