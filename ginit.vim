@@ -8,8 +8,8 @@ nnoremap <silent> <M-+> :call utils#CycleFont(1)<CR>
 nnoremap <silent> <M-_> :call utils#CycleFont(-1)<CR>
 
 if exists("g:neovide")
-    let g:neovide_cursor_animation_length=0.075
-    let g:neovide_cursor_vfx_mode="railgun"
+    let g:neovide_cursor_animation_length=0
+    let g:neovide_cursor_vfx_mode=""
 endif
 
 if exists('*GuiFont') "trigger only for neovim-qt which has this

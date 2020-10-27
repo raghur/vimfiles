@@ -190,10 +190,9 @@ call utils#SetFonts("Fantasque Sans Mono",
             \ "Iosevka Term Curly",
             \ "mononoki",
             \ "Fira Code",
-            \ "Bitstream Vera Sans Mono",
             \ "Source Code Pro",
             \ "Hack",
-            \ "DejaVu Sans Mono - Bront")
+            \ "DejaVuSansMono Nerd Font Mono")
 "}}}
 
 " Plugin Bundles and config {{{
@@ -229,6 +228,7 @@ call plug#begin(g:home.'bundle')
 Plug 'MattesGroeger/vim-bookmarks'
 highlight link BookmarkSign PreProc
 
+Plug 'jceb/vim-orgmode'
 Plug 'jamessan/vim-gnupg', {
             \ 'for': ['gpg']
             \ }
@@ -304,7 +304,7 @@ let g:rooter_silent_chdir = 1
 set signcolumn=yes
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-DeferPlug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+DeferPlug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}
 imap <C-l> <Plug>(coc-snippets-expand)
 vmap <C-j> <Plug>(coc-snippets-select)
 
