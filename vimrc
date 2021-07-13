@@ -6,6 +6,7 @@
 "
 " Font ligatures
 " Test ligatures: -> != == === >= <= =>
+"
 " Options {{{
 
 
@@ -23,6 +24,7 @@ if exists("+pyxversion")
     set pyxversion=3
 endif
 
+set completeopt=menuone,noselect
 set guioptions^=c
 set guioptions-=T
 set guioptions-=t
@@ -195,6 +197,32 @@ call utils#SetFonts("Fantasque Sans Mono",
             \ "DejaVuSansMono Nerd Font Mono")
 "}}}
 
+" Autocommands {{{
+augroup telescope
+    autocmd!
+    autocmd User telescope.nvim :call s:telescopeInit()
+augroup END
+
+augroup nvimcompe
+    autocmd!
+    autocmd User nvim-compe exec "source ". g:home . "plugins/nvim-compe.vim"
+augroup END
+
+augroup nvim-lspconfig
+    autocmd!
+    autocmd User nvim-lspconfig exec "source ". g:home . "plugins/lspconfig.vim"
+augroup END
+
+augroup fzf
+    autocmd!
+    " autocmd User fzf :call s:fzfInit()
+    "             \ | echom "loaded fzf init"
+    autocmd User fzf echom "loaded fzf init"
+    autocmd! FileType fzf set laststatus=0 noshowmode noruler
+      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+augroup END
+" }}}
+
 " Plugin Bundles and config {{{
 
 if empty(glob(g:home . 'autoload/plug.vim'))
@@ -204,6 +232,18 @@ if empty(glob(g:home . 'autoload/plug.vim'))
 endif
 
 let g:deferredPlugins = []
+
+function! UnloadPlug(name, ...)
+    let name = split(a:name, '/')[1]
+    let idx = index(g:deferredPlugins, name)
+    if idx != -1 
+        call remove(g:deferredPlugins, idx)
+    endif
+
+    if has_key(g:plugs, name)
+        let r = remove(g:plugs, name)
+    endif
+endfunction
 
 function! DeferPluginLoad(name, ...)
     " echo a:000
@@ -223,12 +263,15 @@ function! DeferPluginLoad(name, ...)
 endfunction
 
 command! -nargs=* DeferPlug call DeferPluginLoad(<args>)
+command! -nargs=* Unplug call UnloadPlug(<args>)
+" command! -nargs=* UndeferPlug call echo args
 
 call plug#begin(g:home.'bundle')
 Plug 'MattesGroeger/vim-bookmarks'
 highlight link BookmarkSign PreProc
+Plug 'vhyrro/neorg'
 
-Plug 'jceb/vim-orgmode'
+" Plug 'jceb/vim-orgmode'
 Plug 'jamessan/vim-gnupg', {
             \ 'for': ['gpg']
             \ }
@@ -252,12 +295,9 @@ Plug  'mbbill/undotree', {
 Plug  'gregsexton/MatchTag'
 Plug  'tpope/vim-commentary'
 
-DeferPlug  'SirVer/ultisnips', {'cond': has('python3')}
-DeferPlug  'honza/vim-snippets', {'cond': has('python3')}
-let g:UltiSnipsUsePythonVersion=3
-let g:UltiSnipsSnippetsDir=g:home."UltiSnips"
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsListSnippets="<c-tab>"
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'rafamadriz/friendly-snippets'
 
 let g:ale_sign_column_always = 1
 let g:ale_linters = {'typescript': ['tsserver']}
@@ -302,29 +342,29 @@ Plug 'airblade/vim-rooter'
 let g:rooter_silent_chdir = 1
 
 set signcolumn=yes
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+" inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-DeferPlug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}
-imap <C-l> <Plug>(coc-snippets-expand)
-vmap <C-j> <Plug>(coc-snippets-select)
+" DeferPlug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}
+" imap <C-l> <Plug>(coc-snippets-expand)
+" vmap <C-j> <Plug>(coc-snippets-select)
 
-nmap <leader>jd <Plug>(coc-definition)
-nmap <leader>jc <Plug>(coc-declaration)
-nmap <leader>ji <Plug>(coc-implementation)
-nmap <leader>jt <Plug>(coc-type-definition)
-nmap <leader>jr <Plug>(coc-references)
-nmap <leader>pf <Plug>(coc-format)
-nmap <leader>pn <Plug>(coc-rename)
-vmap <leader>pf <Plug>(coc-format-selected)
-vmap <leader>pc <Plug>(coc-codeaction)
+" nmap <leader>jd <Plug>(coc-definition)
+" nmap <leader>jc <Plug>(coc-declaration)
+" nmap <leader>ji <Plug>(coc-implementation)
+" nmap <leader>jt <Plug>(coc-type-definition)
+" nmap <leader>jr <Plug>(coc-references)
+" nmap <leader>pf <Plug>(coc-format)
+" nmap <leader>pn <Plug>(coc-rename)
+" vmap <leader>pf <Plug>(coc-format-selected)
+" vmap <leader>pc <Plug>(coc-codeaction)
 
-let g:coc_snippet_next = '<c-j>'
-let g:coc_snippet_prev = '<c-k>'
-let g:coc_global_extensions=["coc-json", "coc-python", "coc-marketplace", "coc-ultisnips", "coc-tag"]
-augroup GOFMT
-    autocmd!
-    autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
-augroup END
+" let g:coc_snippet_next = '<c-j>
+" let g:coc_snippet_prev = '<c-k>'
+" let g:coc_global_extensions=["coc-json", "coc-python", "coc-marketplace", "coc-ultisnips", "coc-tag"]
+" augroup GOFMT
+"     autocmd!
+"     autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+" augroup END
 
 Plug 'roxma/nvim-yarp', v:version >= 800 && !has('nvim') ? {} : { 'on': [], 'for': [] }
 Plug 'roxma/vim-hug-neovim-rpc',  v:version >= 800 && !has('nvim') ? {} : { 'on': [], 'for': [] }
@@ -402,11 +442,60 @@ Plug 't9md/vim-choosewin'
 " let g:fruzzy#usenative = 1
 " let g:fruzzy#sortonempty = 0
 
-let g:fzf_buffers_jump = 1
-let g:fzf_preview_window=''
+" let g:fzf_buffers_jump = 1
+" let g:fzf_preview_window=''
 Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
-Plug 'junegunn/fzf.vim'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'tag': '0.1.161',
+    \ 'do': 'bash install.sh',
+    \ }
+Plug 'ionide/Ionide-vim', {
+      \ 'do':  'make fsautocomplete',
+      \}
+
+" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+" nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+if has("nvim")
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-treesitter/playground'
+    DeferPlug 'neovim/nvim-lspconfig'
+    Plug 'kabouzeid/nvim-lspinstall'
+    Plug 'hrsh7th/nvim-compe'
+    " dependencies
+    Plug 'nvim-lua/popup.nvim'
+    Plug 'nvim-lua/plenary.nvim'
+    " telescope
+    DeferPlug 'nvim-telescope/telescope.nvim'
+"   from - Disabling a plugin https://github.com/junegunn/vim-plug/issues/469
+    Unplug 'junegunn/fzf'
+    Unplug 'neoclide/coc.nvim'
+endif
+
 call plug#end()
+
+exec "source " . g:home. "plugins/nvim-compe.vim"
+
+" lua << EOF
+" require'lspconfig'.fsautocomplete.setup{
+"   cmd = {'dotnet', '/home/raghu/code/fsharp/fsac/fsautocomplete.dll', '--background-service-enabled'}
+" }
+" EOF
+"
+"
+"
+function s:telescopeInit()
+" telescope
+    echom "initializing mappings for telescope"
+    nnoremap <leader><space> <Cmd>Telescope find_files<CR>
+    nnoremap <leader>*  <Cmd>Telescope live_grep<CR>
+    nnoremap <leader>b  <Cmd>Telescope buffers<CR>
+    nnoremap <leader>h  <Cmd>Telescope help_tags<CR>
+    nnoremap <leader>r  <Cmd>Telescope oldfiles<CR>
+    nnoremap <leader>t  <Cmd>Telescope tags<CR>
+    nnoremap <leader>co <Cmd>Telescope colorscheme<CR>
+    nnoremap <leader>:  <Cmd>Telescope commands<CR>
+endfunction
 
 function! RipgrepFzf(query, fullscreen)
     let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
@@ -415,26 +504,24 @@ function! RipgrepFzf(query, fullscreen)
     let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
     call fzf#vim#grep(initial_command, 1, fzf#wrap(spec), a:fullscreen)
 endfunction
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-nnoremap <silent> <leader><space> :Files<cr>
-nnoremap <silent> <leader>r :History<cr>
-nnoremap <silent> <c-tab> :History<cr>
-nnoremap <silent> <leader>t :Tags<cr>
-nnoremap <silent> <leader>, :exe "Files ".expand("%:p:h")<cr>
-nnoremap <silent> <leader>l :BLines<cr>
-nnoremap <silent> <leader>co :Colors<cr>
-nnoremap <silent> <leader>: :Commands<cr>
-nnoremap <silent> <leader>m :Marks<cr>
-nnoremap <silent> <leader>* :exe "RG ".expand('<cword>')<cr>
-" interactive grep mode
-nnoremap <silent> <leader>g :RG<cr>
+"only if we loaded fzf
+function s:fzfInit() 
+    echom "fzf init called"
+    command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+    nnoremap <silent> <leader><space> :Files<cr>
+    nnoremap <silent> <leader>r :History<cr>
+    nnoremap <silent> <c-tab> :History<cr>
+    nnoremap <silent> <leader>t :Tags<cr>
+    nnoremap <silent> <leader>, :exe "Files ".expand("%:p:h")<cr>
+    nnoremap <silent> <leader>l :BLines<cr>
+    nnoremap <silent> <leader>co :Colors<cr>
+    nnoremap <silent> <leader>: :Commands<cr>
+    nnoremap <silent> <leader>m :Marks<cr>
+    nnoremap <silent> <leader>* :exe "RG ".expand('<cword>')<cr>
+    " interactive grep mode
+    nnoremap <silent> <leader>g :RG<cr>
 
-augroup FZF
-    au!
-    " hide terminal window status line
-    autocmd! FileType fzf set laststatus=0 noshowmode noruler
-      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-augroup END
+endfunction
 
 "}}}
 
@@ -449,7 +536,8 @@ augroup END
 
 augroup vim-ghost
     autocmd!
-    autocmd User vim-ghost :call utils#GhostStart()
+    " autocmd User vim-ghost :call utils#GhostStart() | echom "ghost start called"
+    autocmd User vim-ghost echom "ghost start called"
     au User vim-ghost#connected call s:SetupGhostBuffer()
 augroup END
 
@@ -548,6 +636,8 @@ command! Gitex call utils#GitBrowser()
 command! Wex call utils#Filemanager()
 command! Console call utils#Console()
 command! -nargs=* WatchAndExec  call utils#StartWatcher("<args>")
+
+command! -bar W exe 'w !sudo tee >/dev/null %:p:S' | setl nomod
 "}}}
 
 "Keybindings {{{
