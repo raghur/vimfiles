@@ -2,6 +2,7 @@ function s:plugins()
 	call plug#begin(g:home.'bundle')
 	Plug 'tpope/vim-surround'
 	Plug 'wellle/targets.vim'
+	Plug 'sheerun/vim-polyglot'
 	call plug#end()
 	echom "loaded plugins"
 endfunction
@@ -31,6 +32,9 @@ if exists("g:vscode")
 	let mapleader=" "
 	nnoremap <leader>r <Cmd>:Tabfind<CR>
 	nnoremap <leader>w <Cmd>:Write<CR>
+	nnoremap <leader>t <Cmd>call VSCodeNotify('workbench.action.showAllSymbols')<CR>
+	nnoremap <leader>[ <Cmd>call VSCodeNotify('editor.action.marker.next')<CR>
+	nnoremap <leader>] <Cmd>call VSCodeNotify('editor.action.marker.prev')<CR>
 
 	xmap gc  <Plug>VSCodeCommentary
 	nmap gc  <Plug>VSCodeCommentary
