@@ -495,6 +495,24 @@ function s:telescopeInit()
     nnoremap <leader>t  <Cmd>Telescope tags<CR>
     nnoremap <leader>co <Cmd>Telescope colorscheme<CR>
     nnoremap <leader>:  <Cmd>Telescope commands<CR>
+    lua << EOF
+        local actions = require('telescope.actions')
+        local sorters = require('telescope.sorters')
+        -- Global remapping
+        ------------------------------
+        require('telescope').setup{
+          defaults = {
+            mappings = {
+              i = {
+                ["<esc>"] = actions.close,
+              },
+            },
+            sorters = {
+                sorters.get_fzy_sorter
+            }
+          }
+        }
+EOF
 endfunction
 
 function! RipgrepFzf(query, fullscreen)
