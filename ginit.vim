@@ -28,7 +28,7 @@ if exists('g:fvim_loaded')
     FVimBackgroundOpacity 0.95
     FVimBackgroundAltOpacity 0.95
     FVimBackgroundComposition 'acrylic'
-    FVimCursorSmoothMove v:true
+    FVimCursorSmoothMove v:false
     FVimCursorSmoothBlink v:true
     FVimFontAntialias v:true
     FVimFontAutohint v:true
@@ -46,7 +46,6 @@ if exists('g:fvim_loaded')
     " Font debugging -- draw bounds around each glyph
     " FVimFontDrawBounds v:true
     FVimUIPopupMenu v:true
-
 endif
 
 
