@@ -203,15 +203,15 @@ augroup telescope
     autocmd User telescope.nvim :call s:telescopeInit()
 augroup END
 
-augroup nvimcompe
-    autocmd!
-    autocmd User nvim-compe exec "source ". g:home . "plugins/nvim-compe.vim"
-augroup END
+" augroup nvimcompe
+"     autocmd!
+"     autocmd User nvim-compe exec "source ". g:home . "plugins/nvim-compe.vim"
+" augroup END
 
-augroup nvim-lspconfig
-    autocmd!
-    autocmd User nvim-lspconfig exec "source ". g:home . "plugins/lspconfig.vim"
-augroup END
+" augroup nvim-lspconfig
+"     autocmd!
+"     autocmd User nvim-lspconfig exec "source ". g:home . "plugins/lspconfig.vim"
+" augroup END
 
 augroup fzf
     autocmd!
@@ -474,7 +474,10 @@ endif
 
 call plug#end()
 
+let g:vsnip_snippet_dir=g:home . ".vsnip"
 exec "source " . g:home. "plugins/nvim-compe.vim"
+" the following doesn't seem to be required anymore?
+" exec "source " . g:home. "plugins/lspconfig.vim"
 
 " lua << EOF
 " require'lspconfig'.fsautocomplete.setup{
@@ -762,3 +765,4 @@ vnoremap <A-j> :m'>+<CR>gv=gv
 vnoremap <A-k> :m-2<CR>gv=gv
 set cmdheight=1
 "}}}
+
