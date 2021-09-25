@@ -5,15 +5,21 @@
       "+++",
       "aliases = []",
       "date = ${CURRENT_YEAR}-${CURRENT_MONTH}-${CURRENT_DATE}T${CURRENT_HOUR}:${CURRENT_MINUTE}:${CURRENT_SECOND}+05:30",
-      "title = \"Learning Vim\"",
-      "tags = [ \"HOWTO\", \"Tips\", \"vim\",]",
+      "title = \"${1:title}\"",
+      "tags = [${2:tag}]",
       "",
       "+++",
       ":icons: font",
       ":experimental: true",
-      ""
+      "",
+      "${0:Your content}"
     ],
     "description": "Blog post header"
+  },
+  "tag": {
+    "prefix": ["tag"],
+    "body": [ "\"${1:tag}\", $0" ],
+    "description": "tag - toml string"
   },
   "Admonition": {
     "prefix": ["adm"],
