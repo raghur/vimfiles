@@ -198,29 +198,6 @@ call utils#SetFonts("Fantasque Sans Mono",
 "}}}
 
 " Autocommands {{{
-augroup telescope
-    autocmd!
-    autocmd User telescope.nvim :call s:telescopeInit()
-augroup END
-
-" augroup nvimcompe
-"     autocmd!
-"     autocmd User nvim-compe exec "source ". g:home . "plugins/nvim-compe.vim"
-" augroup END
-
-" augroup nvim-lspconfig
-"     autocmd!
-"     autocmd User nvim-lspconfig exec "source ". g:home . "plugins/lspconfig.vim"
-" augroup END
-
-augroup fzf
-    autocmd!
-    " autocmd User fzf :call s:fzfInit()
-    "             \ | echom "loaded fzf init"
-    autocmd User fzf echom "loaded fzf init"
-    autocmd! FileType fzf set laststatus=0 noshowmode noruler
-      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-augroup END
 " }}}
 
 " Plugin Bundles and config {{{
@@ -444,7 +421,8 @@ Plug 't9md/vim-choosewin'
 
 " let g:fzf_buffers_jump = 1
 " let g:fzf_preview_window=''
-Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
+DeferPlug 'junegunn/fzf', {'on': 'Vimenter', 'do': { -> fzf#install() }}
+DeferPlug 'junegunn/fzf.vim', {'on': 'Vimenter'}
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'tag': '0.1.161',
@@ -459,26 +437,23 @@ Plug 'ionide/Ionide-vim', {
 if has("nvim")
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'nvim-treesitter/playground'
-    Plug 'neovim/nvim-lspconfig'
-    Plug 'kabouzeid/nvim-lspinstall'
-    Plug 'hrsh7th/nvim-compe'
+    DeferPlug 'kabouzeid/nvim-lspinstall', {'on': 'Vimenter'}
+    DeferPlug 'neovim/nvim-lspconfig', {'on': 'Vimenter'}
+    DeferPlug 'hrsh7th/nvim-compe', {'cond': has('nvim')}
     " dependencies
     Plug 'nvim-lua/popup.nvim'
     Plug 'nvim-lua/plenary.nvim'
     " telescope
-    DeferPlug 'nvim-telescope/telescope.nvim'
-"   from - Disabling a plugin https://github.com/junegunn/vim-plug/issues/469
-    Unplug 'junegunn/fzf'
+    " Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+    " DeferPlug 'nvim-telescope/telescope.nvim', {'cond': has('nvim')}
+
+    " from - Disabling a plugin https://github.com/junegunn/vim-plug/issues/469
     Unplug 'neoclide/coc.nvim'
 endif
 
 call plug#end()
 
 let g:vsnip_snippet_dir=g:home . ".vsnip"
-if has('nvim')
-    exec "luafile " . g:home. "plugins/lspconfig.lua"
-    exec "source " . g:home. "plugins/nvim-compe.vim"
-endif
 
 " lua << EOF
 " require'lspconfig'.fsautocomplete.setup{
@@ -486,65 +461,6 @@ endif
 " }
 " EOF
 "
-function s:telescopeInit()
-" telescope
-    echom "initializing mappings for telescope"
-    nnoremap <leader><space> <Cmd>Telescope find_files<CR>
-    nnoremap <leader>*  <Cmd>Telescope live_grep<CR>
-    nnoremap <leader>b  <Cmd>Telescope buffers<CR>
-    nnoremap <leader>h  <Cmd>Telescope help_tags<CR>
-    nnoremap <leader>r  <Cmd>Telescope oldfiles<CR>
-    nnoremap <leader>t  <Cmd>Telescope tags<CR>
-    nnoremap <leader>co <Cmd>Telescope colorscheme<CR>
-    nnoremap <leader>:  <Cmd>Telescope commands<CR>
-    lua << EOF
-        local actions = require('telescope.actions')
-        local sorters = require('telescope.sorters')
-        -- Global remapping
-        ------------------------------
-        require('telescope').setup{
-          defaults = {
-            mappings = {
-              i = {
-                ["<esc>"] = actions.close,
-              },
-            },
-            sorters = {
-                sorters.get_fzy_sorter
-            }
-          }
-        }
-EOF
-endfunction
-
-function! RipgrepFzf(query, fullscreen)
-    let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
-    let initial_command = printf(command_fmt, shellescape(a:query))
-    let reload_command = printf(command_fmt, '{q}')
-    let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
-    call fzf#vim#grep(initial_command, 1, fzf#wrap(spec), a:fullscreen)
-endfunction
-"only if we loaded fzf
-function s:fzfInit() 
-    echom "fzf init called"
-    command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-    nnoremap <silent> <leader><space> :Files<cr>
-    nnoremap <silent> <leader>r :History<cr>
-    nnoremap <silent> <c-tab> :History<cr>
-    nnoremap <silent> <leader>t :Tags<cr>
-    nnoremap <silent> <leader>, :exe "Files ".expand("%:p:h")<cr>
-    nnoremap <silent> <leader>l :BLines<cr>
-    nnoremap <silent> <leader>co :Colors<cr>
-    nnoremap <silent> <leader>: :Commands<cr>
-    nnoremap <silent> <leader>m :Marks<cr>
-    nnoremap <silent> <leader>* :exe "RG ".expand('<cword>')<cr>
-    " interactive grep mode
-    nnoremap <silent> <leader>g :RG<cr>
-
-endfunction
-
-"}}}
-
 " Autocommands {{{
 
 augroup sparkup_types
@@ -566,17 +482,32 @@ augroup BWCCreateDir
     autocmd BufWritePre * :call utils#MkNonExDir(expand('<afile>'), +expand('<abuf>'))
 augroup END
 
+command! Vimenter echom "Vimenter triggered"
+augroup PluginLoadTriggerUserAu
+    au!
+    autocmd VimEnter * Vimenter 
+augroup end
 augroup DeferredLoadOnIdle
     au!
     autocmd CursorHold,CursorHoldI * call plug#load(g:deferredPlugins)
-                \ | echom "deferred load completed for ". len(g:deferredPlugins) . " plugins"
+                \ | echom "deferred load completed for " g:deferredPlugins
                 \ | autocmd! DeferredLoadOnIdle
 augroup END
 
-augroup PluginInitialization
-    au!
-    au User vim-airline call LoadVimAirline()
+augroup Plugins
+    autocmd!
+    autocmd User nvim-compe :call utils#configurePlugin("nvim-compe.vim")
+    autocmd User telescope.nvim :call utils#configurePlugin("telescope.vim")
+    autocmd User nvim-lspconfig :call utils#configurePlugin("lspconfig.vim")
+    autocmd User vim-airline call LoadVimAirline()
+
+    " fzf
+    autocmd User fzf :call utils#configurePlugin("fzf.vim")
+    autocmd! FileType fzf set laststatus=0 noshowmode noruler
+      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
+
+
 
 augroup gpg
     au!

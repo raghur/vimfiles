@@ -3,6 +3,11 @@ fun! utils#machine_script()
     exe "runtime " . machine_file
 endfun
 
+function! utils#configurePlugin(name)
+    let filepath = g:home . "plugins/" . a:name
+    exec "source " . filepath
+    echom "sourced " filepath
+endfun
 function! utils#os_script()
     let machine_file = "base_posix.vim"
     if has('win32')
