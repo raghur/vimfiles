@@ -459,7 +459,7 @@ Plug 'ionide/Ionide-vim', {
 if has("nvim")
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'nvim-treesitter/playground'
-    DeferPlug 'neovim/nvim-lspconfig'
+    Plug 'neovim/nvim-lspconfig'
     Plug 'kabouzeid/nvim-lspinstall'
     Plug 'hrsh7th/nvim-compe'
     " dependencies
@@ -475,17 +475,16 @@ endif
 call plug#end()
 
 let g:vsnip_snippet_dir=g:home . ".vsnip"
-exec "source " . g:home. "plugins/nvim-compe.vim"
-" the following doesn't seem to be required anymore?
-" exec "source " . g:home. "plugins/lspconfig.vim"
+if has('nvim')
+    exec "luafile " . g:home. "plugins/lspconfig.lua"
+    exec "source " . g:home. "plugins/nvim-compe.vim"
+endif
 
 " lua << EOF
 " require'lspconfig'.fsautocomplete.setup{
 "   cmd = {'dotnet', '/home/raghu/code/fsharp/fsac/fsautocomplete.dll', '--background-service-enabled'}
 " }
 " EOF
-"
-"
 "
 function s:telescopeInit()
 " telescope
