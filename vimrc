@@ -197,9 +197,6 @@ call utils#SetFonts("Fantasque Sans Mono",
             \ "DejaVuSansMono Nerd Font Mono")
 "}}}
 
-" Autocommands {{{
-" }}}
-
 " Plugin Bundles and config {{{
 
 if empty(glob(g:home . 'autoload/plug.vim'))
@@ -423,17 +420,7 @@ Plug 't9md/vim-choosewin'
 " let g:fzf_preview_window=''
 DeferPlug 'junegunn/fzf', {'on': 'Vimenter', 'do': { -> fzf#install() }}
 DeferPlug 'junegunn/fzf.vim', {'on': 'Vimenter'}
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'tag': '0.1.161',
-    \ 'do': 'bash install.sh',
-    \ }
-Plug 'ionide/Ionide-vim', {
-      \ 'do':  'make fsautocomplete',
-      \}
 
-" Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-" nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
 if has("nvim")
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'nvim-treesitter/playground'
@@ -450,17 +437,15 @@ if has("nvim")
     " from - Disabling a plugin https://github.com/junegunn/vim-plug/issues/469
     Unplug 'neoclide/coc.nvim'
 endif
+Plug 'ionide/Ionide-vim', {
+      \ 'do':  'make fsautocomplete'
+      \}
 
 call plug#end()
 
 let g:vsnip_snippet_dir=g:home . ".vsnip"
+"}}}
 
-" lua << EOF
-" require'lspconfig'.fsautocomplete.setup{
-"   cmd = {'dotnet', '/home/raghu/code/fsharp/fsac/fsautocomplete.dll', '--background-service-enabled'}
-" }
-" EOF
-"
 " Autocommands {{{
 
 augroup sparkup_types
