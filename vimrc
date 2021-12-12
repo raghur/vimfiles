@@ -48,6 +48,7 @@ set wildchar=<Tab>
 set wildmenu
 set wildmode=longest:full,full
 set wildignore+=*.swp,*.bak,*.class,.git/*,.svn/*
+set wildignorecase
 set pastetoggle=<F11>
 set ignorecase smartcase
 set timeout timeoutlen=1000 ttimeoutlen=100
@@ -424,7 +425,7 @@ DeferPlug 'junegunn/fzf.vim', {'on': 'Vimenter'}
 if has("nvim")
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
     Plug 'nvim-treesitter/playground'
-    DeferPlug 'kabouzeid/nvim-lspinstall', {'on': 'Vimenter'}
+    DeferPlug 'williamboman/nvim-lsp-installer', {'on': 'VimEnter'}
     DeferPlug 'neovim/nvim-lspconfig', {'on': 'Vimenter'}
     DeferPlug 'hrsh7th/nvim-compe', {'cond': has('nvim')}
     " dependencies
@@ -484,6 +485,7 @@ augroup Plugins
     autocmd User nvim-compe :call utils#configurePlugin("nvim-compe.vim")
     autocmd User telescope.nvim :call utils#configurePlugin("telescope.vim")
     autocmd User nvim-lspconfig :call utils#configurePlugin("lspconfig.vim")
+    autocmd User nvim-lsp-installer :call utils#configurePlugin("lsp-installer.vim")
     autocmd User vim-airline call LoadVimAirline()
 
     " fzf
@@ -661,6 +663,7 @@ cabbrev h vert bo h
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
+
 " make shift insert work in modes
 inoremap <S-Insert> <c-r>+
 vnoremap <S-Insert> "0p
