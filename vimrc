@@ -24,7 +24,7 @@ if exists("+pyxversion")
     set pyxversion=3
 endif
 
-set completeopt=menuone,noselect
+set completeopt=menu,menuone,noselect
 set guioptions^=c
 set guioptions-=T
 set guioptions-=t
@@ -456,11 +456,11 @@ augroup Plugins
     autocmd! FileType fzf set laststatus=0 noshowmode noruler
       \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
+
 let g:vsnip_snippet_dir=g:home . ".vsnip"
 "}}}
 
 " Autocommands {{{
-
 augroup sparkup_types
   " Remove ALL autocommands of the current group.
   autocmd!
@@ -673,4 +673,3 @@ vnoremap <A-j> :m'>+<CR>gv=gv
 vnoremap <A-k> :m-2<CR>gv=gv
 set cmdheight=1
 "}}}
-
