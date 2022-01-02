@@ -434,10 +434,25 @@ if has("nvim")
     " telescope
     " Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
     " DeferPlug 'nvim-telescope/telescope.nvim', {'cond': has('nvim')}
+    " DeferPlug 'hrsh7th/cmp-nvim-lsp', {'on' : 'VimEnter'}
+    " DeferPlug 'hrsh7th/nvim-cmp', {'on' : 'VimEnter'}
+    " DeferPlug 'hrsh7th/cmp-buffer', {'on' : 'VimEnter'}
+    " DeferPlug 'hrsh7th/cmp-path', {'on' : 'VimEnter'}
+    " DeferPlug 'hrsh7th/cmp-cmdline', {'on' : 'VimEnter'}
+    " DeferPlug 'hrsh7th/cmp-vsnip', {'on' : 'VimEnter'}
+    " DeferPlug 'hrsh7th/vim-vsnip', {'on' : 'VimEnter'}
+    Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'hrsh7th/nvim-cmp'
+    Plug 'hrsh7th/cmp-buffer'
+    Plug 'hrsh7th/cmp-path'
+    Plug 'hrsh7th/cmp-cmdline'
+    Plug 'hrsh7th/cmp-vsnip'
+    Plug 'hrsh7th/vim-vsnip'
 
     " from - Disabling a plugin https://github.com/junegunn/vim-plug/issues/469
     Unplug 'neoclide/coc.nvim'
 endif
+
 Plug 'ionide/Ionide-vim', {
       \ 'do':  'make fsautocomplete'
       \}
