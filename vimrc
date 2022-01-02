@@ -482,11 +482,6 @@ augroup BWCCreateDir
     autocmd BufWritePre * :call utils#MkNonExDir(expand('<afile>'), +expand('<abuf>'))
 augroup END
 
-command! Vimenter echom "Vimenter triggered"
-augroup PluginLoadTriggerUserAu
-    au!
-    autocmd VimEnter * Vimenter 
-augroup end
 augroup DeferredLoadOnIdle
     au!
     autocmd CursorHold,CursorHoldI * call plug#load(g:deferredPlugins)
