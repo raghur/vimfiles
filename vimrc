@@ -246,16 +246,6 @@ Plug 'MattesGroeger/vim-bookmarks'
 highlight link BookmarkSign PreProc
 Plug 'vhyrro/neorg'
 
-" Plug 'jceb/vim-orgmode'
-Plug 'jamessan/vim-gnupg', {
-            \ 'for': ['gpg']
-            \ }
-"If you have git, make sure that path does NOT point to git bash tools
-" Path for git win should point to the libexec/git-core folder
-" The default GPG should point to cygwin git
-" To check: :sh, which gpg
-let g:GPGDefaultRecipients=['Raghu Rajagopalan']
-
 Plug 'raghur/vim-helpnav', {
             \ 'for' : ['help']
             \ }
@@ -427,13 +417,6 @@ if has("nvim")
     Plug 'nvim-treesitter/playground'
     DeferPlug 'williamboman/nvim-lsp-installer', {'on': 'VimEnter'}
     DeferPlug 'neovim/nvim-lspconfig', {'on': 'Vimenter'}
-    DeferPlug 'hrsh7th/nvim-compe', {'cond': has('nvim')}
-    " dependencies
-    Plug 'nvim-lua/popup.nvim'
-    Plug 'nvim-lua/plenary.nvim'
-    " telescope
-    " Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-    " DeferPlug 'nvim-telescope/telescope.nvim', {'cond': has('nvim')}
     " DeferPlug 'hrsh7th/cmp-nvim-lsp', {'on' : 'VimEnter'}
     " DeferPlug 'hrsh7th/nvim-cmp', {'on' : 'VimEnter'}
     " DeferPlug 'hrsh7th/cmp-buffer', {'on' : 'VimEnter'}
