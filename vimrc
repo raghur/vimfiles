@@ -444,6 +444,20 @@ Plug 'ionide/Ionide-vim', {
 
 call plug#end()
 
+augroup Plugins
+    autocmd!
+    autocmd User nvim-lsp-installer :call utils#configurePlugin("lsp-installer")
+    autocmd User nvim-lspconfig :call utils#configurePlugin("lspconfig")
+                                    \ | :call utils#configurePlugin("nvim-cmp")
+    " autocmd User nvim-cmp :call utils#configurePlugin("nvim-cmp.vim")
+    " autocmd VimEnter * :call utils#configurePlugin("nvim-cmp.vim")
+    autocmd User vim-airline call LoadVimAirline()
+
+    " fzf
+    autocmd User fzf :call utils#configurePlugin("fzf.vim")
+    autocmd! FileType fzf set laststatus=0 noshowmode noruler
+      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+augroup END
 let g:vsnip_snippet_dir=g:home . ".vsnip"
 "}}}
 
@@ -478,27 +492,6 @@ augroup DeferredLoadOnIdle
     autocmd CursorHold,CursorHoldI * call plug#load(g:deferredPlugins)
                 \ | echom "deferred load completed for " g:deferredPlugins
                 \ | autocmd! DeferredLoadOnIdle
-augroup END
-
-augroup Plugins
-    autocmd!
-    autocmd User nvim-compe :call utils#configurePlugin("nvim-compe.vim")
-    autocmd User telescope.nvim :call utils#configurePlugin("telescope.vim")
-    autocmd User nvim-lspconfig :call utils#configurePlugin("lspconfig.vim")
-    autocmd User nvim-lsp-installer :call utils#configurePlugin("lsp-installer.vim")
-    autocmd User vim-airline call LoadVimAirline()
-
-    " fzf
-    autocmd User fzf :call utils#configurePlugin("fzf.vim")
-    autocmd! FileType fzf set laststatus=0 noshowmode noruler
-      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-augroup END
-
-
-
-augroup gpg
-    au!
-    autocmd BufNewFile,BufRead *.gpg, *.asc setf gpg
 augroup END
 
 augroup AsciiDoc

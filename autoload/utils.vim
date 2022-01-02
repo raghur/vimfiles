@@ -4,10 +4,19 @@ fun! utils#machine_script()
 endfun
 
 function! utils#configurePlugin(name)
-    let filepath = g:home . "plugins/" . a:name
-    exec "source " . filepath
-    echom "sourced " filepath
+    let filepath = g:home . "plugins/" . a:name . ".vim"
+    if (filereadable(filepath)) 
+        exec "source " . filepath
+        echom "sourced " filepath
+    else 
+        let filepath = g:home . "plugins/" . a:name . ".lua"
+        if (filereadable(filepath) && has('nvim')) 
+            exec "luafile " . filepath
+            echom "sourced " filepath
+        endif
+    endif
 endfun
+
 function! utils#os_script()
     let machine_file = "base_posix.vim"
     if has('win32')
