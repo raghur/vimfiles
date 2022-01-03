@@ -409,8 +409,8 @@ Plug 't9md/vim-choosewin'
 
 " let g:fzf_buffers_jump = 1
 " let g:fzf_preview_window=''
-DeferPlug 'junegunn/fzf', {'on': 'Vimenter', 'do': { -> fzf#install() }}
-DeferPlug 'junegunn/fzf.vim', {'on': 'Vimenter'}
+DeferPlug 'junegunn/fzf', {'on': 'VimEnter', 'do': { -> fzf#install() }}
+DeferPlug 'junegunn/fzf.vim', {'on': 'VimEnter'}
 
 if has("nvim")
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -452,7 +452,7 @@ augroup Plugins
     autocmd User vim-airline call LoadVimAirline()
 
     " fzf
-    autocmd User fzf :call utils#configurePlugin("fzf.vim")
+    autocmd User fzf :call utils#configurePlugin("fzf")
     autocmd! FileType fzf set laststatus=0 noshowmode noruler
       \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 augroup END
