@@ -252,7 +252,7 @@ Plug 'raghur/vim-helpnav', {
 
 Plug  'tpope/vim-repeat'
 let g:AutoPairsShortcutToggle = '\\'
-DeferPlug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 
 Plug  'mbbill/undotree', {
             \ 'on': ['UndotreeToggle']
