@@ -9,8 +9,20 @@ end
 
 -- Setup nvim-cmp.
 local cmp = require'cmp'
-
+local lspkind = require('lspkind')
 cmp.setup({
+  formatting = {
+    format = lspkind.cmp_format({
+        maxwidth = 50,
+        preset = "codicons",
+        menu = ({
+            buffer = "[Buffer]",
+            nvim_lsp = "[LSP]",
+            luasnip = "[LuaSnip]",
+            nvim_lua = "[Lua]",
+          }),
+      })
+  },
   snippet = {
     -- REQUIRED - you must specify a snippet engine
     expand = function(args)

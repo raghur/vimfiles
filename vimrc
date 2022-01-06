@@ -425,6 +425,7 @@ if has("nvim")
     " DeferPlug 'hrsh7th/cmp-vsnip', {'on' : 'VimEnter'}
     " DeferPlug 'hrsh7th/vim-vsnip', {'on' : 'VimEnter'}
     Plug 'hrsh7th/cmp-nvim-lsp'
+    Plug 'onsails/lspkind-nvim'
     Plug 'hrsh7th/nvim-cmp'
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'
