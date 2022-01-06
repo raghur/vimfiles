@@ -7,15 +7,6 @@ nnoremap <silent> <M--> :call utils#FontSize(-1)<CR>
 nnoremap <silent> <M-+> :call utils#CycleFont(1)<CR>
 nnoremap <silent> <M-_> :call utils#CycleFont(-1)<CR>
 
-if exists("g:neovide")
-    let g:neovide_cursor_animation_length=0
-    let g:neovide_cursor_vfx_mode=""
-    if exists('*GuiFont') "trigger only for neovim-qt which has this
-        call GuiWindowMaximized(1)
-        GuiPopupmenu 0
-    endif
-endif
-
 if exists("+guicursor")
     set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor25,o:hor25
                 \,a:blinkon0-Cursor/lCursor
