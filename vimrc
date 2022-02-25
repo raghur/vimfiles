@@ -189,12 +189,21 @@ endif
 
 call utils#SetColors("Tomorrow-Night", "Monokai", "molokai", "github", "kalisi,dark", "gruvbox,dark")
 call utils#SetFonts("Fantasque Sans Mono",
-            \ "Iosevka Term Curly",
+            \ "Iosevka Curly",
+            \ "Courier New",
+            \ "Cousine",
+            \ "DejaVu Sans Mono",
+            \ "Envy Code R",
+            \ "Inconsolata",
+            \ "Iosevka Term",
+            \ "Liberation Mono",
             \ "mononoki",
-            \ "Fira Code",
-            \ "Source Code Pro",
-            \ "Hack",
-            \ "DejaVuSansMono Nerd Font Mono")
+            \ "Nimbus Mono L",
+            \ "Noto Mono",
+            \ "Noto Sans Mono",
+            \ "PT Mono",
+            \ "Ubuntu Mono",
+            \ "Hack")
 "}}}
 
 " Plugin Bundles and config {{{
