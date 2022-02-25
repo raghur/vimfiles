@@ -7,7 +7,6 @@ function! RipgrepFzf(query, fullscreen)
     call fzf#vim#grep(initial_command, 1, fzf#wrap(spec), a:fullscreen)
 endfunction
 
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 nnoremap <silent> <leader><space> :Files<cr>
 nnoremap <silent> <leader>r :History<cr>
 nnoremap <silent> <c-tab> :History<cr>
@@ -17,6 +16,6 @@ nnoremap <silent> <leader>l :BLines<cr>
 nnoremap <silent> <leader>co :Colors<cr>
 nnoremap <silent> <leader>: :Commands<cr>
 nnoremap <silent> <leader>m :Marks<cr>
-nnoremap <silent> <leader>* :exe "RG ".expand('<cword>')<cr>
+nnoremap <silent> <leader>* :exe "Rg ".expand('<cword>')<cr>
 " interactive grep mode
-nnoremap <silent> <leader>g :RG<cr>
+nnoremap <silent> <leader>g :Rg<cr>
