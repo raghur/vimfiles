@@ -308,28 +308,6 @@ let g:rooter_silent_chdir = 1
 set signcolumn=yes
 " inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-" DeferPlug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}
-" imap <C-l> <Plug>(coc-snippets-expand)
-" vmap <C-j> <Plug>(coc-snippets-select)
-
-" nmap <leader>jd <Plug>(coc-definition)
-" nmap <leader>jc <Plug>(coc-declaration)
-" nmap <leader>ji <Plug>(coc-implementation)
-" nmap <leader>jt <Plug>(coc-type-definition)
-" nmap <leader>jr <Plug>(coc-references)
-" nmap <leader>pf <Plug>(coc-format)
-" nmap <leader>pn <Plug>(coc-rename)
-" vmap <leader>pf <Plug>(coc-format-selected)
-" vmap <leader>pc <Plug>(coc-codeaction)
-
-" let g:coc_snippet_next = '<c-j>
-" let g:coc_snippet_prev = '<c-k>'
-" let g:coc_global_extensions=["coc-json", "coc-python", "coc-marketplace", "coc-ultisnips", "coc-tag"]
-" augroup GOFMT
-"     autocmd!
-"     autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
-" augroup END
-
 Plug 'roxma/nvim-yarp', v:version >= 800 && !has('nvim') ? {} : { 'on': [], 'for': [] }
 Plug 'roxma/vim-hug-neovim-rpc',  v:version >= 800 && !has('nvim') ? {} : { 'on': [], 'for': [] }
 " let g:deoplete#enable_at_startup = 1
