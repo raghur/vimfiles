@@ -11,7 +11,6 @@
 
 
 " temporary to avoid 'hit enter' messages
-set cmdheight=2
 let g:home=expand('<sfile>:p:h')."/"
 call utils#os_script()
 
@@ -672,5 +671,4 @@ inoremap <A-j> <Esc>:m+<CR>==gi
 inoremap <A-k> <Esc>:m-2<CR>==gi
 vnoremap <A-j> :m'>+<CR>gv=gv
 vnoremap <A-k> :m-2<CR>gv=gv
-set cmdheight=1
 "}}}

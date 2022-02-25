@@ -43,4 +43,5 @@ endif
 if &guifont==""
     call utils#Setfont(g:fonts[0], 15)
 endif
+set cmdheight=1
 " echom "sourced ginit.vim"
