@@ -399,26 +399,22 @@ DeferPlug 'junegunn/fzf', {'on': 'VimEnter', 'do': { -> fzf#install() }}
 DeferPlug 'junegunn/fzf.vim', {'on': 'VimEnter'}
 
 if has("nvim")
-    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'nvim-treesitter/nvim-treesitter'
     Plug 'nvim-treesitter/playground'
-    DeferPlug 'williamboman/nvim-lsp-installer', {'on': 'VimEnter'}
-    DeferPlug 'neovim/nvim-lspconfig', {'on': 'Vimenter'}
-    " DeferPlug 'hrsh7th/cmp-nvim-lsp', {'on' : 'VimEnter'}
-    " DeferPlug 'hrsh7th/nvim-cmp', {'on' : 'VimEnter'}
-    " DeferPlug 'hrsh7th/cmp-buffer', {'on' : 'VimEnter'}
-    " DeferPlug 'hrsh7th/cmp-path', {'on' : 'VimEnter'}
-    " DeferPlug 'hrsh7th/cmp-cmdline', {'on' : 'VimEnter'}
-    " DeferPlug 'hrsh7th/cmp-vsnip', {'on' : 'VimEnter'}
-    " DeferPlug 'hrsh7th/vim-vsnip', {'on' : 'VimEnter'}
-    Plug 'hrsh7th/cmp-nvim-lsp'
+    " very ordering sensitive here
+    DeferPlug 'williamboman/nvim-lsp-installer', { 'on': 'VimEnter' }
     Plug 'onsails/lspkind-nvim'
-    Plug 'hrsh7th/nvim-cmp'
+    Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-emoji'
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/cmp-cmdline'
     Plug 'hrsh7th/cmp-vsnip'
     Plug 'hrsh7th/vim-vsnip'
+    " DO NOT lazy load - won't work
+    Plug 'hrsh7th/nvim-cmp'
+
+    DeferPlug 'neovim/nvim-lspconfig', { 'on': 'VimEnter' }
 
     " from - Disabling a plugin https://github.com/junegunn/vim-plug/issues/469
     Unplug 'neoclide/coc.nvim'
@@ -443,6 +439,7 @@ augroup Plugins
     autocmd User fzf :call utils#configurePlugin("fzf")
     autocmd! FileType fzf set laststatus=0 noshowmode noruler
       \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+    autocmd VimEnter * VimEnter
 augroup END
 
 let g:vsnip_snippet_dir=g:home . ".vsnip"
