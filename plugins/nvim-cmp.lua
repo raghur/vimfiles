@@ -14,7 +14,7 @@ cmp.setup({
   formatting = {
     format = lspkind.cmp_format({
         maxwidth = 50,
-        preset = "codicons",
+        preset = "default",
         menu = ({
             buffer = "[Buffer]",
             nvim_lsp = "[LSP]",

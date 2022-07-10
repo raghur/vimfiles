@@ -188,7 +188,7 @@ if has('directx')
 endif
 
 call utils#SetColors("Tomorrow-Night", "Monokai", "molokai", "github", "kalisi,dark", "gruvbox,dark")
-call utils#SetFonts("Fantasque Sans Mono",
+call utils#SetFonts("FantasqueSansMono NF",
             \ "Iosevka Curly",
             \ "Courier New",
             \ "Cousine",
@@ -426,6 +426,7 @@ Plug 'ionide/Ionide-vim', {
 
 call plug#end()
 
+command! VimEnter :echo "firing VimEnter"
 augroup Plugins
     autocmd!
     autocmd User nvim-lsp-installer :call utils#configurePlugin("lsp-installer")
