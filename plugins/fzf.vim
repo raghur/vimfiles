@@ -6,7 +6,7 @@ function! RipgrepFzf(query, fullscreen)
     let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
     call fzf#vim#grep(initial_command, 1, fzf#wrap(spec), a:fullscreen)
 endfunction
-
+let $FZF_DEFAULT_COMMAND='find . \! \( -type d -path ./.git -prune \) \! -type d \! -name ''*.tags'' -printf ''%P\n'''
 nnoremap <silent> <leader><space> :Files<cr>
 nnoremap <silent> <leader>r :History<cr>
 nnoremap <silent> <c-tab> :History<cr>
