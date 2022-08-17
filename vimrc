@@ -415,6 +415,7 @@ if has("nvim")
     Plug 'hrsh7th/nvim-cmp'
 
     DeferPlug 'neovim/nvim-lspconfig', { 'on': 'VimEnter' }
+    Plug 'glepnir/lspsaga.nvim', {'branch': 'main'}
 
     " from - Disabling a plugin https://github.com/junegunn/vim-plug/issues/469
     Unplug 'neoclide/coc.nvim'
@@ -432,8 +433,7 @@ augroup Plugins
     autocmd User nvim-lsp-installer :call utils#configurePlugin("lsp-installer")
     autocmd User nvim-lspconfig :call utils#configurePlugin("lspconfig")
                                     \ | :call utils#configurePlugin("nvim-cmp")
-    " autocmd User nvim-cmp :call utils#configurePlugin("nvim-cmp.vim")
-    " autocmd VimEnter * :call utils#configurePlugin("nvim-cmp.vim")
+                                    \ | :call utils#configurePlugin("lspsaga")
     autocmd User vim-airline call LoadVimAirline()
 
     " fzf
