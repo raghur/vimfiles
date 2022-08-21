@@ -402,7 +402,7 @@ if has("nvim")
     Plug 'nvim-treesitter/nvim-treesitter'
     Plug 'nvim-treesitter/playground'
     " very ordering sensitive here
-    DeferPlug 'williamboman/nvim-lsp-installer', { 'on': 'VimEnter' }
+    Plug 'williamboman/mason.nvim'
     Plug 'onsails/lspkind-nvim'
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-buffer'
@@ -430,7 +430,7 @@ call plug#end()
 command! VimEnter :echo "firing VimEnter"
 augroup Plugins
     autocmd!
-    autocmd User nvim-lsp-installer :call utils#configurePlugin("lsp-installer")
+    "autocmd User nvim-lsp-installer :call utils#configurePlugin("lsp-installer")
     autocmd User nvim-lspconfig :call utils#configurePlugin("lspconfig")
                                     \ | :call utils#configurePlugin("nvim-cmp")
                                     \ | :call utils#configurePlugin("lspsaga")
