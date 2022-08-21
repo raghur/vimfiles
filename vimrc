@@ -597,7 +597,6 @@ nnoremap <F16> :Wex<cr>
 "leader mappings
 nnoremap <leader>. @:
 nnoremap <leader>1 :on<cr>
-nnoremap <leader>P "0P
 nnoremap <leader>a :b#<cr>
 nnoremap <leader>bd :bd<cr>
 nnoremap <leader>c :call utils#CycleColorScheme(1)<cr>
@@ -605,13 +604,17 @@ nnoremap <leader>d :bd!<cr>
 nnoremap <leader>e :edit <C-R>=fnamemodify(@%, ':p:h')<CR>/
 nnoremap <leader>fc :lcl <cr>
 nnoremap <leader>h  :noh<cr><c-l>
-nnoremap <leader>p "0p
 nnoremap <leader>pw :ed ~/.gnupg/passwords.txt.asc <cr>
 nnoremap <leader>q :qall<cr>
 nnoremap <leader>sv :ed $MYVIMRC<cr>
 nnoremap <leader>w  :w<cr>
-vnoremap <leader>P "0P
-vnoremap <leader>p "0p
+" delete without yanking
+nnoremap <leader>d "_d
+vnoremap <leader>d "_d
+"
+" replace currently selected text with default register
+" without yanking it
+vnoremap <leader>p "_dP
 " copy a block and comment it and move to insert mode
 vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
 
