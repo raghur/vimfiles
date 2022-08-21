@@ -16,12 +16,12 @@ saga.init_lsp_saga({
 
   })
 vim.keymap.set("n", "gd", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
-vim.keymap.set("n", ",ca", "<cmd>Lspsaga code_action<CR>", { silent = true })
+vim.keymap.set("n", "<space>.", "<cmd>Lspsaga code_action<CR>", { silent = true })
 vim.keymap.set("v", ",ca", "<cmd><C-U>Lspsaga range_code_action<CR>", { silent = true })
 vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
 vim.keymap.set("n", "gs", "<Cmd>Lspsaga signature_help<CR>", { silent = true })
 vim.keymap.set("n", "gr", "<cmd>Lspsaga rename<CR>", { silent = true })
-vim.keymap.set("n", "g.", "<cmd>Lspsaga preview_definition<CR>", { silent = true })
+vim.keymap.set("n", "g<space>", "<cmd>Lspsaga preview_definition<CR>", { silent = true })
 
 -- -- change the lsp symbol kind
 -- local kind = require('lspsaga.lspkind')
