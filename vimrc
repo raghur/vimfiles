@@ -417,8 +417,7 @@ if has("nvim")
     DeferPlug 'neovim/nvim-lspconfig', { 'on': 'VimEnter' }
     Plug 'glepnir/lspsaga.nvim', {'branch': 'main'}
 
-    " from - Disabling a plugin https://github.com/junegunn/vim-plug/issues/469
-    Unplug 'neoclide/coc.nvim'
+    Plug 'gbprod/yanky.nvim'
 endif
 
 Plug 'ionide/Ionide-vim', {
@@ -432,8 +431,10 @@ augroup Plugins
     autocmd!
     "autocmd User nvim-lsp-installer :call utils#configurePlugin("lsp-installer")
     autocmd User nvim-lspconfig :call utils#configurePlugin("lspconfig")
+    autocmd User nvim-lspconfig :call utils#configurePlugin("lspconfig")
                                     \ | :call utils#configurePlugin("nvim-cmp")
                                     \ | :call utils#configurePlugin("lspsaga")
+                                    \ | :call utils#configurePlugin("yanky")
     autocmd User vim-airline call LoadVimAirline()
 
     " fzf
@@ -608,13 +609,6 @@ nnoremap <leader>pw :ed ~/.gnupg/passwords.txt.asc <cr>
 nnoremap <leader>q :qall<cr>
 nnoremap <leader>sv :ed $MYVIMRC<cr>
 nnoremap <leader>w  :w<cr>
-" delete without yanking
-nnoremap <leader>d "_d
-vnoremap <leader>d "_d
-"
-" replace currently selected text with default register
-" without yanking it
-vnoremap <leader>p "_dP
 " copy a block and comment it and move to insert mode
 vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
 
