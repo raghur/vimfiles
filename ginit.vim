@@ -15,7 +15,7 @@ endif
 
 if exists("g:neovide")
     " Put anything you want to happen only in Neovide here
-    let g:neovide_remember_window_size = v:true
+    " let g:neovide_remember_window_size = v:true
     let g:neovide_underline_automatic_scaling = v:true
     let g:neovide_cursor_animation_length = 0.01
     let g:neovide_cursor_trail_length=0.01

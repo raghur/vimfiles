@@ -252,7 +252,7 @@ command! -nargs=* Unplug call UnloadPlug(<args>)
 call plug#begin(g:home.'bundle')
 Plug 'MattesGroeger/vim-bookmarks'
 highlight link BookmarkSign PreProc
-Plug 'vhyrro/neorg'
+" Plug 'nvim-neorg/neorg' | Plug 'nvim-lua/plenary.nvim'
 
 Plug 'raghur/vim-helpnav', {
             \ 'for' : ['help']
@@ -401,6 +401,7 @@ DeferPlug 'junegunn/fzf.vim', {'on': 'VimEnter'}
 if has("nvim")
     Plug 'nvim-treesitter/nvim-treesitter'
     Plug 'nvim-treesitter/playground'
+    Plug 'nvim-orgmode/orgmode'
     " very ordering sensitive here
     Plug 'williamboman/mason.nvim'
     Plug 'onsails/lspkind-nvim'
@@ -420,11 +421,34 @@ if has("nvim")
     Plug 'gbprod/yanky.nvim'
 endif
 
-Plug 'ionide/Ionide-vim', {
-      \ 'do':  'make fsautocomplete'
-      \}
-
 call plug#end()
+
+lua << EOF
+ -- Load custom treesitter grammar for org filetype
+ require('orgmode').setup_ts_grammar()
+
+ -- Treesitter configuration
+ require('nvim-treesitter.configs').setup {
+   -- If TS highlights are not enabled at all, or disabled via `disable` prop,
+   -- highlighting will fallback to default Vim syntax highlighting
+   highlight = {
+     enable = true,
+     -- Required for spellcheck, some LaTex highlights and
+     -- code block highlights that do not have ts grammar
+     additional_vim_regex_highlighting = {'org'},
+   },
+   ensure_installed = {'org'}, -- Or run :TSUpdate org
+ }
+
+ require('orgmode').setup({
+   org_agenda_files = {'~/Sync/org/*'},
+   org_default_notes_file = '~/Sync/todo.org',
+   org_todo_keywords = {'TODO', 'BLOCKED', '|', 'DONE'},
+   mappings = {
+       prefix = ","
+       }
+ })
+EOF
 
 command! VimEnter :echo "firing VimEnter"
 augroup Plugins
@@ -655,3 +679,18 @@ inoremap <A-k> <Esc>:m-2<CR>==gi
 vnoremap <A-j> :m'>+<CR>gv=gv
 vnoremap <A-k> :m-2<CR>gv=gv
 "}}}
+
+" if ($WAYLAND_DISPLAY != "")
+"     let g:clipboard = {
+"                 \   'name': 'wl-clipboard-override',
+"                 \   'copy': {
+"                 \      '+': ['xclip'],
+"                 \      '*': ['xclip'],
+"                 \    },
+"                 \   'paste': {
+"                 \      '+': ['xclip', '-o'],
+"                 \      '*': ['xclip', '-o'],
+"                 \   },
+"                 \   'cache_enabled': 1,
+"                 \ }
+" endif
