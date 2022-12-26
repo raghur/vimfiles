@@ -404,6 +404,7 @@ if has("nvim")
     Plug 'nvim-orgmode/orgmode'
     " very ordering sensitive here
     Plug 'williamboman/mason.nvim'
+    Plug 'williamboman/mason-lspconfig.nvim'
     Plug 'onsails/lspkind-nvim'
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-buffer'
@@ -415,7 +416,7 @@ if has("nvim")
     " DO NOT lazy load - won't work
     Plug 'hrsh7th/nvim-cmp'
 
-    DeferPlug 'neovim/nvim-lspconfig', { 'on': 'VimEnter' }
+    Plug 'neovim/nvim-lspconfig'
     Plug 'glepnir/lspsaga.nvim', {'branch': 'main'}
 
     Plug 'gbprod/yanky.nvim'
@@ -429,6 +430,10 @@ lua << EOF
 
  -- Treesitter configuration
  require('nvim-treesitter.configs').setup {
+   ensure_installed = {'org', 'yaml', 'json', 'bash', 'cpp', 'c_sharp', 
+   'dockerfile', 'dot',  'gitcommit', 'gitattributes',
+   'gitcommit', 'graphql', 'hcl', 'javascript', 'lua', 'markdown', 'vim', 'make', 'cmake'
+   }, -- Or run :TSUpdate org
    -- If TS highlights are not enabled at all, or disabled via `disable` prop,
    -- highlighting will fallback to default Vim syntax highlighting
    highlight = {
@@ -437,7 +442,6 @@ lua << EOF
      -- code block highlights that do not have ts grammar
      additional_vim_regex_highlighting = {'org'},
    },
-   ensure_installed = {'org'}, -- Or run :TSUpdate org
  }
 
  require('orgmode').setup({
@@ -453,19 +457,22 @@ EOF
 command! VimEnter :echo "firing VimEnter"
 augroup Plugins
     autocmd!
-    "autocmd User nvim-lsp-installer :call utils#configurePlugin("lsp-installer")
-    autocmd User nvim-lspconfig :call utils#configurePlugin("lspconfig")
-    autocmd User nvim-lspconfig :call utils#configurePlugin("lspconfig")
-                                    \ | :call utils#configurePlugin("nvim-cmp")
-                                    \ | :call utils#configurePlugin("lspsaga")
-                                    \ | :call utils#configurePlugin("yanky")
+    " autocmd User nvim-lspconfig :call utils#configurePlugin("lspconfig")
+    " autocmd User nvim-lspconfig :call utils#configurePlugin("lspconfig")
+    "                                 \ | :call utils#configurePlugin("nvim-cmp")
+    "                                 \ | :call utils#configurePlugin("lspsaga")
+    "                                 \ | :call utils#configurePlugin("yanky")
     autocmd User vim-airline call LoadVimAirline()
-
     " fzf
     autocmd User fzf :call utils#configurePlugin("fzf")
     autocmd! FileType fzf set laststatus=0 noshowmode noruler
       \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
     autocmd VimEnter * VimEnter
+    autocmd VimEnter * :call utils#configurePlugin("lspconfig")
+                        \ | :call utils#configurePlugin("nvim-cmp")
+                        \ | :call utils#configurePlugin("lspsaga")
+                        \ | :call utils#configurePlugin("yanky")
+
 augroup END
 
 let g:vsnip_snippet_dir=g:home . ".vsnip"

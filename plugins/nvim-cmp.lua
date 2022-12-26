@@ -71,11 +71,12 @@ cmp.setup({
     { name = 'orgmode' },
     { name = 'nvim_lsp' },
     { name = 'emoji' },
-    { name = 'vsnip' }, -- For vsnip users.
+    { name = 'path' },
+    { name = 'vsnip' }, 
+    -- For vsnip users.
     -- { name = 'luasnip' }, -- For luasnip users.
     -- { name = 'ultisnips' }, -- For ultisnips users.
     -- { name = 'snippy' }, -- For snippy users.
-  }, {
     { name = 'buffer' },
   })
 })
