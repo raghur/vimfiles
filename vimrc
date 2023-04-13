@@ -417,7 +417,7 @@ if has("nvim")
     Plug 'hrsh7th/nvim-cmp'
 
     Plug 'neovim/nvim-lspconfig'
-    Plug 'glepnir/lspsaga.nvim', {'branch': 'main'}
+    Plug 'nvimdev/lspsaga.nvim', {'branch': 'main'}
 
     Plug 'gbprod/yanky.nvim'
 endif
@@ -455,6 +455,11 @@ lua << EOF
 EOF
 
 command! VimEnter :echo "firing VimEnter"
+augroup floating_windows
+    autocmd!
+    autocmd FileType nofile setlocal nofoldenable
+augroup END
+
 augroup Plugins
     autocmd!
     " autocmd User nvim-lspconfig :call utils#configurePlugin("lspconfig")

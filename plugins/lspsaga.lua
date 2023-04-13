@@ -2,7 +2,7 @@ local keymap = vim.keymap.set
 local saga = require 'lspsaga'
 
 -- use default config
-saga.init_lsp_saga({
+saga.setup({
     rename_action_quit = ";",
     rename_in_select = false,
     finder_action_keys = {
