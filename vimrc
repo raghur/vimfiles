@@ -406,9 +406,13 @@ if has("nvim")
     Plug 'hrsh7th/nvim-cmp'
     Plug 'stevearc/aerial.nvim'
     Plug 'nvim-lualine/lualine.nvim'
+    Plug 'folke/tokyonight.nvim'
+    Plug 'echasnovski/mini.nvim'
 
     Plug 'neovim/nvim-lspconfig'
+    Plug 'nvim-tree/nvim-web-devicons'
     Plug 'nvimdev/lspsaga.nvim', {'branch': 'main'}
+    Plug 'ggandor/leap.nvim'
 
     Plug 'gbprod/yanky.nvim'
 endif
@@ -416,45 +420,50 @@ endif
 call plug#end()
 
 lua << EOF
- -- Load custom treesitter grammar for org filetype
- require('orgmode').setup_ts_grammar()
-
- -- Treesitter configuration
- require('nvim-treesitter.configs').setup {
-     ensure_installed = {'org', 'yaml', 'json', 'bash', 'cpp', 'c_sharp', 
-     'dockerfile', 'dot',  'gitcommit', 'gitattributes',
-     'gitcommit', 'graphql', 'hcl', 'javascript', 'lua', 'markdown', 'vim', 'make', 'cmake'
-     }, -- Or run :TSUpdate org
-     -- If TS highlights are not enabled at all, or disabled via `disable` prop,
-     -- highlighting will fallback to default Vim syntax highlighting
-     highlight = {
-         enable = true,
-         -- Required for spellcheck, some LaTex highlights and
-         -- code block highlights that do not have ts grammar
-         additional_vim_regex_highlighting = {'org'},
-     },
-     incremental_selection = {
-         enable = true,
-         keymaps = {
-             init_selection = "<CR>",
-             node_incremental = "<CR>",
-             scope_incremental = "g<CR>",
-             node_decremental = "<BS>",
-         },
-     },
-     indent = {
-         enable = true
-     }
- }
- require('orgmode').setup({
-   org_agenda_files = {'~/Sync/org/*'},
-   org_default_notes_file = '~/Sync/todo.org',
-   org_todo_keywords = {'TODO', 'BLOCKED', '|', 'DONE'},
-   mappings = {
-       prefix = ","
-       }
- })
+-- Load custom treesitter grammar for org filetype
+require('orgmode').setup_ts_grammar()
 require('lualine').setup()
+require('leap').add_default_mappings()
+require('mini.indentscope').setup({
+    symbol = '│',
+    mappings = {
+        goto_top='git',
+        goto_bottom='gib'
+    },
+    options = {
+        try_as_border = true -- let's you stay on func header and select body as scope
+    }
+
+})
+    -- Treesitter configuration
+require('nvim-treesitter.configs').setup {
+    ensure_installed = {'org', 'yaml', 'json', 'bash', 'cpp', 'c_sharp', 
+        'dockerfile', 'dot',  'gitcommit', 'gitattributes',
+        'gitcommit', 'graphql', 'hcl', 'javascript', 'lua', 'markdown', 'vim', 'make', 'cmake'
+    }, 
+    -- Or run :TSUpdate org
+    -- If TS highlights are not enabled at all, or disabled via `disable` prop,
+    -- highlighting will fallback to default Vim syntax highlighting
+    highlight = {
+        enable = true,
+        -- Required for spellcheck, some LaTex highlights and
+        -- code block highlights that do not have ts grammar
+        additional_vim_regex_highlighting = {'org'},
+    },
+    incremental_selection = {
+        enable = true,
+        keymaps = {
+            init_selection = "<CR>",
+            node_incremental = "<CR>",
+            scope_incremental = "g<CR>",
+            node_decremental = "<BS>",
+        },
+    },
+    indent = {
+        enable = true
+    }
+}
+
 require('aerial').setup({
     -- optionally use on_attach to set keymaps when aerial has attached to a buffer
     on_attach = function(bufnr)
@@ -463,8 +472,16 @@ require('aerial').setup({
     vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', {buffer = bufnr})
     end
 })
-EOF
 
+require('orgmode').setup({
+    org_agenda_files = {'~/Sync/org/*'},
+    org_default_notes_file = '~/Sync/todo.org',
+    org_todo_keywords = {'TODO', 'BLOCKED', '|', 'DONE'},
+    mappings = {
+        prefix = ","
+    }
+})
+EOF
 nmap <silent> <leader>ds <cmd>call aerial#fzf()<cr>
 command! VimEnter :echo "firing VimEnter"
 augroup floating_windows
@@ -548,7 +565,6 @@ augroup END
 "}}}
 
 " Custom code/Utils {{{
-
 
 function! NeatFoldText()
     let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
