@@ -404,6 +404,7 @@ if has("nvim")
     Plug 'hrsh7th/vim-vsnip'
     " DO NOT lazy load - won't work
     Plug 'hrsh7th/nvim-cmp'
+    Plug 'stevearc/aerial.nvim'
     Plug 'nvim-lualine/lualine.nvim'
 
     Plug 'neovim/nvim-lspconfig'
@@ -454,6 +455,14 @@ lua << EOF
        }
  })
 require('lualine').setup()
+require('aerial').setup({
+    -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+    on_attach = function(bufnr)
+    -- Jump forwards/backwards with '{' and '}'
+    vim.keymap.set('n', '{', '<cmd>AerialPrev<CR>', {buffer = bufnr})
+    vim.keymap.set('n', '}', '<cmd>AerialNext<CR>', {buffer = bufnr})
+    end
+})
 EOF
 
 nmap <silent> <leader>ds <cmd>call aerial#fzf()<cr>
