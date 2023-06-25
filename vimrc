@@ -300,17 +300,6 @@ Plug  'thinca/vim-textobj-function-javascript', {
             \ }
 Plug  'rstacruz/sparkup', { 'rtp': 'vim' }
 
-" vim-airline and fonts
-set lazyredraw
-set laststatus=2
-
-DeferPlug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-let g:airline_enable_branch=1
-let g:airline_powerline_fonts=1
-let g:airline_detect_modified=1
-let g:airline_theme="papercolor"
-
 Plug 'airblade/vim-rooter'
 let g:rooter_silent_chdir = 1
 
@@ -415,6 +404,7 @@ if has("nvim")
     Plug 'hrsh7th/vim-vsnip'
     " DO NOT lazy load - won't work
     Plug 'hrsh7th/nvim-cmp'
+    Plug 'nvim-lualine/lualine.nvim'
 
     Plug 'neovim/nvim-lspconfig'
     Plug 'nvimdev/lspsaga.nvim', {'branch': 'main'}
@@ -463,8 +453,10 @@ lua << EOF
        prefix = ","
        }
  })
+require('lualine').setup()
 EOF
 
+nmap <silent> <leader>ds <cmd>call aerial#fzf()<cr>
 command! VimEnter :echo "firing VimEnter"
 augroup floating_windows
     autocmd!
@@ -473,13 +465,6 @@ augroup END
 
 augroup Plugins
     autocmd!
-    " autocmd User nvim-lspconfig :call utils#configurePlugin("lspconfig")
-    " autocmd User nvim-lspconfig :call utils#configurePlugin("lspconfig")
-    "                                 \ | :call utils#configurePlugin("nvim-cmp")
-    "                                 \ | :call utils#configurePlugin("lspsaga")
-    "                                 \ | :call utils#configurePlugin("yanky")
-    autocmd User vim-airline call LoadVimAirline()
-    " fzf
     autocmd User fzf :call utils#configurePlugin("fzf")
     autocmd! FileType fzf set laststatus=0 noshowmode noruler
       \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
@@ -554,13 +539,6 @@ augroup END
 "}}}
 
 " Custom code/Utils {{{
-function! LoadVimAirline()
-    call airline#parts#define_function('ALE', 'ALEGetStatusLine')
-    call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
-    let g:airline_section_error = airline#section#create_right(['ALE'])
-    AirlineRefresh
-    silent! echom "loaded vim-airline"
-endfunction
 
 
 function! NeatFoldText()
