@@ -3,26 +3,32 @@ local saga = require 'lspsaga'
 
 -- use default config
 saga.setup({
-    rename_action_quit = ";",
-    rename_in_select = false,
-    finder_action_keys = {
-      open = "<CR>",
-      vsplit = "s",
-      split = "i",
-      tabe = "t",
-      quit = "q",
-      scroll_down = "<C-f>",
-      scroll_up = "<C-b>", -- quit can be a table
-    },
-
-  })
+  rename_action_quit = "<C-c>",
+  rename_in_select = false,
+  finder_action_keys = {
+    open = "<CR>",
+    vsplit = "s",
+    split = "i",
+    tabe = "t",
+    quit = "q",
+    scroll_down = "<C-f>",
+    scroll_up = "<C-b>", -- quit can be a table
+  },
+  code_action_keys = {
+    quit = "<C-c>",
+    exec = "<CR>",
+  },
+})
 keymap("n", "gd", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
 keymap("n", "<space>.", "<cmd>Lspsaga code_action<CR>", { silent = true })
-keymap("n", "gr", "<cmd>Lspsaga rename<CR>", { silent = true })
+keymap("n", "<F2>", "<cmd>Lspsaga rename<CR>", { silent = true })
 keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
 keymap("n", "g<space>", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
 keymap("n","go", "<cmd>Lspsaga outline<CR>",{ silent = true })
-
+-- Show buffer diagnostics
+keymap("n", "<leader>sb", "<cmd>Lspsaga show_buf_diagnostics<CR>")
+keymap("n", "<leader>]", "<cmd>Lspsaga diagnostic_jump_next<CR>")
+keymap("n", "<leader>[", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
 -- -- change the lsp symbol kind
 -- local kind = require('lspsaga.lspkind')
 -- kind[type_number][2] = icon -- see lua/lspsaga/lspkind.lua
