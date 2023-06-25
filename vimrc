@@ -304,6 +304,7 @@ Plug 'airblade/vim-rooter'
 let g:rooter_silent_chdir = 1
 
 set signcolumn=yes
+set number
 " inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 Plug 'roxma/nvim-yarp', v:version >= 800 && !has('nvim') ? {} : { 'on': [], 'for': [] }
@@ -413,6 +414,7 @@ if has("nvim")
     Plug 'nvim-tree/nvim-web-devicons'
     Plug 'nvimdev/lspsaga.nvim', {'branch': 'main'}
     Plug 'ggandor/leap.nvim'
+    Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 
     Plug 'gbprod/yanky.nvim'
 endif
