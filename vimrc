@@ -268,8 +268,6 @@ Plug  'mbbill/undotree', {
 Plug  'gregsexton/MatchTag'
 Plug  'tpope/vim-commentary'
 
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'rafamadriz/friendly-snippets'
 
 let g:ale_sign_column_always = 1
@@ -387,7 +385,6 @@ Plug 't9md/vim-choosewin'
 " let g:fzf_preview_window=''
 DeferPlug 'junegunn/fzf', {'on': 'VimEnter', 'do': { -> fzf#install() }}
 DeferPlug 'junegunn/fzf.vim', {'on': 'VimEnter'}
-
 if has("nvim")
     Plug 'nvim-treesitter/nvim-treesitter'
     Plug 'nvim-treesitter/playground'
@@ -401,8 +398,9 @@ if has("nvim")
     Plug 'hrsh7th/cmp-emoji'
     Plug 'hrsh7th/cmp-path'
     Plug 'hrsh7th/cmp-cmdline'
-    Plug 'hrsh7th/cmp-vsnip'
-    Plug 'hrsh7th/vim-vsnip'
+    " follow latest release and install jsregexp.
+    Plug 'L3MON4D3/LuaSnip', {'tag': 'v1.*', 'do': 'make install_jsregexp'} " Replace <CurrentMajor> by the latest released major (first number of latest release)
+    Plug 'saadparwaiz1/cmp_luasnip'
     " DO NOT lazy load - won't work
     Plug 'hrsh7th/nvim-cmp'
     Plug 'stevearc/aerial.nvim'
@@ -485,26 +483,11 @@ require('orgmode').setup({
 })
 EOF
 nmap <silent> <leader>ds <cmd>call aerial#fzf()<cr>
-command! VimEnter :echo "firing VimEnter"
 augroup floating_windows
     autocmd!
     autocmd FileType nofile setlocal nofoldenable
 augroup END
 
-augroup Plugins
-    autocmd!
-    autocmd User fzf :call utils#configurePlugin("fzf")
-    autocmd! FileType fzf set laststatus=0 noshowmode noruler
-      \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
-    autocmd VimEnter * VimEnter
-    autocmd VimEnter * :call utils#configurePlugin("lspconfig")
-                        \ | :call utils#configurePlugin("nvim-cmp")
-                        \ | :call utils#configurePlugin("lspsaga")
-                        \ | :call utils#configurePlugin("yanky")
-
-augroup END
-
-let g:vsnip_snippet_dir=g:home . ".vsnip"
 "}}}
 
 " Autocommands {{{

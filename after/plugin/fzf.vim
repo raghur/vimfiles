@@ -8,6 +8,7 @@ function! RipgrepFzf(query, fullscreen)
 endfunction
 let $FZF_DEFAULT_COMMAND='find . \! \( -type d -path ./.git -prune \) \! -type d \! -name ''*.tags'' -printf ''%P\n'''
 nnoremap <silent> <leader><space> :Files<cr>
+nnoremap <silent> <leader>f :Files<cr>
 nnoremap <silent> <leader>r :History<cr>
 nnoremap <silent> <c-tab> :History<cr>
 nnoremap <silent> <leader>t :Tags<cr>
@@ -19,3 +20,4 @@ nnoremap <silent> <leader>m :Marks<cr>
 nnoremap <silent> <leader>* :exe "Rg ".expand('<cword>')<cr>
 " interactive grep mode
 nnoremap <silent> <leader>g :Rg<cr>
+echomsg "sourced fzf.vim"
