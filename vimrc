@@ -164,7 +164,7 @@ endif
 
 syntax sync minlines=256
 set synmaxcol=300
-set foldmethod=indent
+" set foldmethod=indent
 set foldopen=block,hor,mark,percent,quickfix,search,tag,undo,jump
 set foldnestmax=5
 set foldminlines=2
@@ -381,11 +381,14 @@ Plug 't9md/vim-choosewin'
 " let g:fruzzy#usenative = 1
 " let g:fruzzy#sortonempty = 0
 
-" let g:fzf_buffers_jump = 1
-" let g:fzf_preview_window=''
-DeferPlug 'junegunn/fzf', {'on': 'VimEnter', 'do': { -> fzf#install() }}
-DeferPlug 'junegunn/fzf.vim', {'on': 'VimEnter'}
+" " let g:fzf_buffers_jump = 1
+" " let g:fzf_preview_window=''
+" DeferPlug 'junegunn/fzf', {'on': 'VimEnter', 'do': { -> fzf#install() }}
+" DeferPlug 'junegunn/fzf.vim', {'on': 'VimEnter'}
 if has("nvim")
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
+    Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
     Plug 'nvim-treesitter/nvim-treesitter'
     Plug 'nvim-treesitter/playground'
     Plug 'nvim-orgmode/orgmode'
@@ -482,7 +485,7 @@ require('orgmode').setup({
     }
 })
 EOF
-nmap <silent> <leader>ds <cmd>call aerial#fzf()<cr>
+" nmap <silent> <leader>ds <cmd>call aerial#fzf()<cr>
 augroup floating_windows
     autocmd!
     autocmd FileType nofile setlocal nofoldenable

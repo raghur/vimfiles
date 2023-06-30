@@ -9,6 +9,7 @@ end
 
 -- Setup nvim-cmp.
 local cmp = require'cmp'
+local luasnip = require('luasnip')
 local lspkind = require('lspkind')
 cmp.setup({
   matching = {
@@ -77,8 +78,8 @@ cmp.setup({
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
-      elseif vim.fn["vsnip#available"](1) == 1 then
-        feedkey("<Plug>(vsnip-expand-or-jump)", "")
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
       elseif has_words_before() then
         cmp.complete()
       else
@@ -138,4 +139,6 @@ require('lspconfig')['yamlls'].setup {
 require('lspconfig')['bashls'].setup {
   capabilities = capabilities
 }
-print ("sourced nvm-cmp.lua")
+if vim.env.NVIM_DBG then
+  print('sourced ', vim.fn.expand('<sfile>'))
+end

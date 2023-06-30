@@ -10,3 +10,6 @@ vim.keymap.set({"n","x"}, "gP", "<Plug>(YankyGPutBefore)")
 vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
 vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
 vim.keymap.set("n", "<leader>p", ":YankyRingHistory<cr>")
+if vim.env.NVIM_DBG then
+  print('sourced ', vim.fn.expand('<sfile>'))
+end

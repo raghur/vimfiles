@@ -122,3 +122,6 @@ keymap("n", "<leader>[", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
 ---- the related filetypes into this table
 ---- like server_filetype_map = { metals = { "sbt", "scala" } }
 --server_filetype_map = {},
+if vim.env.NVIM_DBG then
+  print('sourced ', vim.fn.expand('<sfile>'))
+end
