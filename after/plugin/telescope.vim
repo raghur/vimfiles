@@ -8,7 +8,7 @@ nnoremap <leader>b  <Cmd>:lua require("telescope.builtin").buffers({sort_mru=tru
 nnoremap <leader>h  <Cmd>Telescope help_tags<CR>
 nnoremap <leader>lw <Cmd>:lua require("telescope.builtin").lsp_workspace_symbols()<CR>
 nnoremap <leader>lo <Cmd>:lua require("telescope.builtin").lsp_document_symbols()<CR>
-nnoremap <leader>ld <Cmd>:lua require("telescope.builtin").lsp_definitions()<CR>
+nnoremap <leader>ld <Cmd>:lua require("telescope.builtin").lsp_definitions() <cr>:normal('zz')<CR>
 nnoremap <leader>ll <Cmd>:lua require("telescope.builtin").diagnostics()<CR>
 nnoremap <leader>lr <Cmd>:lua require("telescope.builtin").lsp_references()<CR>
 nnoremap <leader>co <Cmd>Telescope colorscheme<CR>
