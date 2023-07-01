@@ -408,10 +408,10 @@ if has('nvim')
     Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
 
     Plug 'gbprod/yanky.nvim'
+    Plug 'dstein64/vim-startuptime'
 endif
 
 call plug#end()
-
 lua << EOF
 -- Load custom treesitter grammar for org filetype
 require('orgmode').setup_ts_grammar()
