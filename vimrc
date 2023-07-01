@@ -106,10 +106,10 @@ if &term =~ '^screen'
     set t_kN=\e[6;*~
 
     " Arrow keys http://unix.stackexchange.com/a/34723
-    set <xUp>=\e[1;*A
-    set <xDown>=\e[1;*B
-    set <xRight>=\e[1;*C
-    set <xLeft>=\e[1;*D
+    " set <xUp>=\e[1;*A
+    " set <xDown>=\e[1;*B
+    " set <xRight>=\e[1;*C
+    " set <xLeft>=\e[1;*D
 endif
 if !has("nvim") && exists('+term') && !has('gui_running')
     set term=xterm-256color
@@ -395,6 +395,8 @@ if has("nvim")
     " very ordering sensitive here
     Plug 'williamboman/mason.nvim'
     Plug 'williamboman/mason-lspconfig.nvim'
+    Plug 'jose-elias-alvarez/null-ls.nvim'
+    Plug 'jay-babu/mason-null-ls.nvim'
     Plug 'onsails/lspkind-nvim'
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'hrsh7th/cmp-buffer'
@@ -425,6 +427,7 @@ call plug#end()
 lua << EOF
 -- Load custom treesitter grammar for org filetype
 require('orgmode').setup_ts_grammar()
+require('null-ls').setup()
 require('lualine').setup()
 require('leap').add_default_mappings()
 require('mini.indentscope').setup({
