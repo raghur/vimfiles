@@ -4,23 +4,24 @@ nnoremap <silent> <M-ScrollWheelDown> :call utils#FontSize(-1)<CR>
 nnoremap <silent> <M-=> :call utils#FontSize(1)<CR>
 nnoremap <silent> <M--> :call utils#FontSize(-1)<CR>
 
-nnoremap <silent> <M-+> :call utils#CycleFont(1)<CR>
-nnoremap <silent> <M-_> :call utils#CycleFont(-1)<CR>
+nnoremap <silent> <M-]> :call utils#CycleFont(1)<CR>
+nnoremap <silent> <M-[> :call utils#CycleFont(-1)<CR>
 
-if exists("+guicursor")
+if exists('+guicursor')
     set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor25,o:hor25
                 \,a:blinkon0-Cursor/lCursor
                 \,sm:block-blinkwait175-blinkoff10-blinkon175
 endif
 
-if exists("g:neovide")
+if exists('g:neovide')
     " Put anything you want to happen only in Neovide here
     " let g:neovide_remember_window_size = v:true
     let g:neovide_underline_automatic_scaling = v:true
     let g:neovide_cursor_animation_length = 0.01
     let g:neovide_cursor_trail_length=0.01
+    let g:neovide_remember_window_size=v:true
     let g:neovide_cursor_antialiasing=v:true
-    let g:neovide_cursor_vfx_mode = ""
+    let g:neovide_cursor_vfx_mode = ''
 endif
 if exists('g:fvim_loaded')
     nnoremap <A-CR> :FVimToggleFullScreen<CR>
@@ -49,7 +50,7 @@ if exists('g:fvim_loaded')
 endif
 
 
-if &guifont==""
+if &guifont ==? ''
     call utils#Setfont(g:fonts[0], 15)
 endif
 set cmdheight=1
