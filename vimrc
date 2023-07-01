@@ -11,17 +11,17 @@
 
 
 " temporary to avoid 'hit enter' messages
-let g:home=expand('<sfile>:p:h')."/"
+let g:home=expand('<sfile>:p:h').'/'
 call utils#os_script()
 
 "force python 3 if available.
 " linux only one python can be loaded at a time.
-if exists('py2') && has('python')
-elseif has('python3')
-endif
-if exists("+pyxversion")
-    set pyxversion=3
-endif
+" if exists('py2') && has('python')
+" elseif has('python3')
+" endif
+" if exists('+pyxversion')
+"     set pyxversion=3
+" endif
 
 set completeopt=menu,menuone,noselect
 set guioptions^=c
@@ -41,7 +41,7 @@ set incsearch       " do incremental searching
 set encoding=utf-8
 set hidden
 let maplocalleader='\'
-let mapleader = "<space>"
+let mapleader = '<space>'
 map <space> <leader>
 set wildchar=<Tab>
 set wildmenu
@@ -52,8 +52,8 @@ set pastetoggle=<F11>
 set ignorecase smartcase
 set timeout timeoutlen=1000 ttimeoutlen=100
 set undofile
-call utils#createIfNotExists(g:home.".vimbackups/.undo")
-exec("set undodir=".g:home.".vimbackups/.undo")
+call utils#createIfNotExists(g:home.'.vimbackups/.undo')
+exec('set undodir='.g:home.'.vimbackups/.undo')
 set undolevels=1000
 " required for yankstack
 set winaltkeys=no
@@ -63,10 +63,10 @@ if has('mouse')
 endif
 " Backup Options {{{
 set backup        " keep a backup file
-call utils#createIfNotExists(g:home.".vimbackups/.backup")
-exec("set backupdir=".g:home.".vimbackups/.backup")
-call utils#createIfNotExists(g:home.".vimbackups/.swap")
-exec("set directory=".g:home.".vimbackups/.swap")
+call utils#createIfNotExists(g:home.'.vimbackups/.backup')
+exec('set backupdir='.g:home.'.vimbackups/.backup')
+call utils#createIfNotExists(g:home.'.vimbackups/.swap')
+exec('set directory='.g:home.'.vimbackups/.swap')
 "}}}
 set switchbuf=usetab
 set matchpairs+=<:>
@@ -111,18 +111,18 @@ if &term =~ '^screen'
     " set <xRight>=\e[1;*C
     " set <xLeft>=\e[1;*D
 endif
-if !has("nvim") && exists('+term') && !has('gui_running')
+if !has('nvim') && exists('+term') && !has('gui_running')
     set term=xterm-256color
 endif
 " If you have vim >=8.0 or Neovim >= 0.1.5
-if (has("termguicolors"))
+if (has('termguicolors'))
  set termguicolors
 endif
 
 set path=.,,**,$HOME
 
 " Only do this part when compiled with support for autocommands.
-if has("autocmd")
+if has('autocmd')
 
     " Enable file type detection.
     " Use the default filetype settings, so that mail gets 'tw' set to 72,
@@ -157,7 +157,7 @@ endif " has("autocmd")
 
 " Switch syntax highlighting on, when the terminal has colors
 " Also switch on highlighting the last used search pattern.
-if &t_Co > 2 || has("gui_running")
+if &t_Co > 2 || has('gui_running')
     syntax on
     set hlsearch
 endif
@@ -187,23 +187,23 @@ if has('directx')
     set renderoptions=type:directx,gamma:1.0,contrast:0.2,level:1.0,geom:1,renmode:5,taamode:1
 endif
 
-call utils#SetColors("Tomorrow-Night", "Monokai", "molokai", "github", "kalisi,dark", "gruvbox,dark")
-call utils#SetFonts("FantasqueSansMono NF",
-            \ "Iosevka Curly",
-            \ "Courier New",
-            \ "Cousine",
-            \ "DejaVu Sans Mono",
-            \ "Envy Code R",
-            \ "Inconsolata",
-            \ "Iosevka Term",
-            \ "Liberation Mono",
-            \ "mononoki",
-            \ "Nimbus Mono L",
-            \ "Noto Mono",
-            \ "Noto Sans Mono",
-            \ "PT Mono",
-            \ "Ubuntu Mono",
-            \ "Hack")
+call utils#SetColors('Tomorrow-Night', 'Monokai', 'molokai', 'github', 'kalisi,dark', 'gruvbox,dark')
+call utils#SetFonts('FantasqueSansMono NF',
+            \ 'Iosevka Curly',
+            \ 'Courier New',
+            \ 'Cousine',
+            \ 'DejaVu Sans Mono',
+            \ 'Envy Code R',
+            \ 'Inconsolata',
+            \ 'Iosevka Term',
+            \ 'Liberation Mono',
+            \ 'mononoki',
+            \ 'Nimbus Mono L',
+            \ 'Noto Mono',
+            \ 'Noto Sans Mono',
+            \ 'PT Mono',
+            \ 'Ubuntu Mono',
+            \ 'Hack')
 "}}}
 
 " Plugin Bundles and config {{{
@@ -230,7 +230,7 @@ endfunction
 
 function! DeferPluginLoad(name, ...)
     " echo a:000
-    if !has("vim_starting")
+    if !has('vim_starting')
         return
     endif
     let opts = get(a:000, 0, {})
@@ -318,9 +318,9 @@ map , <Plug>(clever-f-repeat-back)
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
 if (has('win32unix'))
-    let g:session_directory=g:home.".vimbackups/.cygsessions"
+    let g:session_directory=g:home.'.vimbackups/.cygsessions'
 else
-    let g:session_directory=g:home.".vimbackups/.sessions"
+    let g:session_directory=g:home.'.vimbackups/.sessions'
 endif
 let g:session_command_aliases = 1
 let g:session_autosave='yes'
@@ -340,7 +340,7 @@ Plug 'fatih/vim-go'
 let g:go_metalinter_autosave = 1
 let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
 
-let g:go_fmt_command = "goimports"
+let g:go_fmt_command = 'goimports'
 let g:go_highlight_types = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -353,14 +353,14 @@ let g:go_highlight_build_constraints = 1
 
 Plug 'alvan/vim-closetag'
 " filenames like *.xml, *.html, *.xhtml, ...
-let g:closetag_filenames = "*.html,*.xhtml,*.xml,*.htm,*.vue,*.jsx"
+let g:closetag_filenames = '*.html,*.xhtml,*.xml,*.htm,*.vue,*.jsx'
 let g:closetag_xhtml_filenames = '*.xhtml,*.jsx,*.vue'
 
 let g:ghost_autostart=1
 Plug 'raghur/vim-ghost', {'do': ':GhostInstall'}
 
 function! s:SetupGhostBuffer()
-    if match(expand("%:a"), '\v/ghost-(github|reddit|stackexchange|stackoverflow)\.com-')
+    if match(expand('%:a'), '\v/ghost-(github|reddit|stackexchange|stackoverflow)\.com-')
         set ft=markdown
     endif
 endfunction
@@ -385,7 +385,7 @@ Plug 't9md/vim-choosewin'
 " " let g:fzf_preview_window=''
 " DeferPlug 'junegunn/fzf', {'on': 'VimEnter', 'do': { -> fzf#install() }}
 " DeferPlug 'junegunn/fzf.vim', {'on': 'VimEnter'}
-if has("nvim")
+if has('nvim')
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
     Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
@@ -560,7 +560,7 @@ augroup END
 function! NeatFoldText()
     let line = ' ' . substitute(getline(v:foldstart), '^\s*"\?\s*\|\s*"\?\s*{{' . '{\d*\s*', '', 'g') . ' '
     let lines_count = v:foldend - v:foldstart + 1
-    let lines_count_text = '| ' . printf("%10s", lines_count . ' lines') . ' |'
+    let lines_count_text = '| ' . printf('%10s', lines_count . ' lines') . ' |'
     let foldchar = matchstr(&fillchars, 'fold:\zs.')
     let foldtextstart = strpart('+' . repeat(foldchar, v:foldlevel*2) . line, 0, (winwidth(0)*2)/3)
     let foldtextend = lines_count_text . repeat(foldchar, 8)
