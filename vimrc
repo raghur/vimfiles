@@ -187,7 +187,7 @@ if has('directx')
     set renderoptions=type:directx,gamma:1.0,contrast:0.2,level:1.0,geom:1,renmode:5,taamode:1
 endif
 
-call utils#SetColors('Tomorrow-Night', 'Monokai', 'molokai', 'github', 'kalisi,dark', 'gruvbox,dark')
+call utils#SetColors('Catppuccin', 'Tomorrow-Night', 'Monokai', 'molokai', 'github', 'kalisi,dark', 'gruvbox,dark')
 call utils#SetFonts('FantasqueSansMono NF',
             \ 'Iosevka Curly',
             \ 'Courier New',
@@ -195,7 +195,7 @@ call utils#SetFonts('FantasqueSansMono NF',
             \ 'DejaVu Sans Mono',
             \ 'Envy Code R',
             \ 'Inconsolata',
-            \ 'Iosevka Term',
+            \ 'Iosevka Term Curly',
             \ 'Liberation Mono',
             \ 'mononoki',
             \ 'Nimbus Mono L',
@@ -203,6 +203,7 @@ call utils#SetFonts('FantasqueSansMono NF',
             \ 'Noto Sans Mono',
             \ 'PT Mono',
             \ 'Ubuntu Mono',
+            \ 'JetbrainsMonoNL Nerd Font Propo',
             \ 'Hack')
 "}}}
 
@@ -252,7 +253,6 @@ command! -nargs=* Unplug call UnloadPlug(<args>)
 call plug#begin(g:home.'bundle')
 Plug 'MattesGroeger/vim-bookmarks'
 highlight link BookmarkSign PreProc
-" Plug 'nvim-neorg/neorg' | Plug 'nvim-lua/plenary.nvim'
 
 Plug 'raghur/vim-helpnav', {
             \ 'for' : ['help']
@@ -309,11 +309,6 @@ Plug 'roxma/nvim-yarp', v:version >= 800 && !has('nvim') ? {} : { 'on': [], 'for
 Plug 'roxma/vim-hug-neovim-rpc',  v:version >= 800 && !has('nvim') ? {} : { 'on': [], 'for': [] }
 " let g:deoplete#enable_at_startup = 1
 Plug 'tpope/vim-surround'
-
-Plug 'rhysd/clever-f.vim'
-let g:clever_f_ignore_case=1
-map ; <Plug>(clever-f-repeat-forward)
-map , <Plug>(clever-f-repeat-back)
 
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
@@ -377,14 +372,7 @@ endfunction
 nmap - <Plug>(choosewin)
 let g:choosewin_overlay_enable=1
 Plug 't9md/vim-choosewin'
-" Plug 'raghur/fruzzy', { 'do': { -> fruzzy#install()} }
-" let g:fruzzy#usenative = 1
-" let g:fruzzy#sortonempty = 0
 
-" " let g:fzf_buffers_jump = 1
-" " let g:fzf_preview_window=''
-" DeferPlug 'junegunn/fzf', {'on': 'VimEnter', 'do': { -> fzf#install() }}
-" DeferPlug 'junegunn/fzf.vim', {'on': 'VimEnter'}
 if has('nvim')
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim', { 'branch': '0.1.x' }
