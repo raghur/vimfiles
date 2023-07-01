@@ -1,8 +1,8 @@
 local keymap = vim.keymap.set
-local saga = require 'lspsaga'
+local lspsaga = require 'lspsaga'
 
 -- use default config
-saga.setup({
+lspsaga.setup({
   rename_action_quit = "<C-c>",
   rename_in_select = false,
   finder_action_keys = {
@@ -27,6 +27,7 @@ keymap("n", "g<space>", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
 keymap("n","go", "<cmd>Lspsaga outline<CR>",{ silent = true })
 -- Show buffer diagnostics
 keymap("n", "<leader>sb", "<cmd>Lspsaga show_buf_diagnostics<CR>")
+keymap("n", "<leader>sw", "<cmd>Lspsaga show_workspace_diagnostics<CR>")
 keymap("n", "<leader>]", "<cmd>Lspsaga diagnostic_jump_next<CR>")
 keymap("n", "<leader>[", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
 -- -- change the lsp symbol kind
