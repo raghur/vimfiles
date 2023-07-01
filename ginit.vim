@@ -1,8 +1,8 @@
-nnoremap <silent> <M-ScrollWheelUp> :call utils#FontSize(1)<CR>
-nnoremap <silent> <M-ScrollWheelDown> :call utils#FontSize(-1)<CR>
+nnoremap <silent> <M-ScrollWheelUp> :call utils#AdjustFontSize(1)<CR>
+nnoremap <silent> <M-ScrollWheelDown> :call utils#AdjustFontSize(-1)<CR>
 
-nnoremap <silent> <M-=> :call utils#FontSize(1)<CR>
-nnoremap <silent> <M--> :call utils#FontSize(-1)<CR>
+nnoremap <silent> <M-=> :call utils#AdjustFontSize(1)<CR>
+nnoremap <silent> <M--> :call utils#AdjustFontSize(-1)<CR>
 
 nnoremap <silent> <M-]> :call utils#CycleFont(1)<CR>
 nnoremap <silent> <M-[> :call utils#CycleFont(-1)<CR>
