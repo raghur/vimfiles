@@ -583,7 +583,10 @@ command! -bar W exe 'w !sudo tee >/dev/null %:p:S' | setl nomod
 "}}}
 
 "Keybindings {{{
-
+" source the current file
+nmap <leader>vs :source %<CR>
+" source a visual range
+vmap <leader>vs y:@"<CR>
 nnoremap <silent> <leader>z  :call utils#ZoomWindow()<cr>
 nnoremap <silent> <leader>=  <C-w>=
 
