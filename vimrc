@@ -414,6 +414,8 @@ endif
 call plug#end()
 lua << EOF
 -- Load custom treesitter grammar for org filetype
+require('mini.files').setup()
+require('mini.jump').setup()
 require('orgmode').setup_ts_grammar()
 require('null-ls').setup()
 require('lualine').setup()
@@ -584,7 +586,9 @@ command! -bar W exe 'w !sudo tee >/dev/null %:p:S' | setl nomod
 
 nnoremap <silent> <leader>z  :call utils#ZoomWindow()<cr>
 nnoremap <silent> <leader>=  <C-w>=
-nnoremap <silent> `<space>  `I \| z.
+
+" file explorer
+nnoremap <silent> `<space>  <cmd>:lua MiniFiles.open()<cr>
 
 
 " for browsing the input history
