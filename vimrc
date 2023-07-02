@@ -715,3 +715,4 @@ vnoremap <A-k> :m-2<CR>gv=gv
 "                 \   'cache_enabled': 1,
 "                 \ }
 " endif
+call utils#SetColors()

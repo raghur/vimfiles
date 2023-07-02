@@ -269,4 +269,3 @@ function! utils#ZoomWindow() abort
         wincmd |
     endif
 endfun
-call utils#SetColors()
