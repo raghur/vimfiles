@@ -257,15 +257,10 @@ function! utils#MkNonExDir(file, buf) abort
     endif
 endfunction
 
-let s:lastwh=0
-let s:lastww=0
-function! utils#ZoomWindow() abort
-    if winheight(0) >= (&lines - 4) && winwidth(0) >= (&columns - 2)
-        exec 'resize ' . s:lastwh ' | vertical resize '. s:lastww
-    else
-        let s:lastwh = winheight(0)
-        let s:lastww = winwidth(0)
-        wincmd _
-        wincmd |
+function! utils#toggleZoom() abort
+    if tabpagewinnr(tabpagenr(), '$') > 1
+        :tab split
+    else 
+        :tabclose
     endif
 endfun

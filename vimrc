@@ -591,8 +591,7 @@ command! -bar W exe 'w !sudo tee >/dev/null %:p:S' | setl nomod
 nmap <leader>vs :source %<CR>
 " source a visual range
 vmap <leader>vs y:@"<CR>
-nnoremap <silent> <leader>z  :call utils#ZoomWindow()<cr>
-nnoremap <silent> <leader>=  <C-w>=
+nnoremap <silent> <leader>z  :call utils#toggleZoom()<cr>
 
 " file explorer
 nnoremap <silent> `<space>  <cmd>:lua MiniFiles.open()<cr>
