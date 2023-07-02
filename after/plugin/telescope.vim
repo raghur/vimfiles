@@ -11,6 +11,7 @@ nnoremap <leader>lo <Cmd>:lua require("telescope.builtin").lsp_document_symbols(
 nnoremap <leader>ld <Cmd>:lua require("telescope.builtin").lsp_definitions() <cr>:normal('zz')<CR>
 nnoremap <leader>ll <Cmd>:lua require("telescope.builtin").diagnostics()<CR>
 nnoremap <leader>lr <Cmd>:lua require("telescope.builtin").lsp_references()<CR>
+nnoremap <leader>lp <Cmd>:lua require("telescope.builtin").loclist()<CR>
 nnoremap <leader>co <Cmd>Telescope colorscheme<CR>
 nnoremap <leader>:  <Cmd>Telescope commands<CR>
 lua << EOF
@@ -30,4 +31,5 @@ require('telescope').setup{
   }
 }
 require('telescope').load_extension('fzf')
+info('sourced', vim.fn.expand('<sfile>'))
 EOF

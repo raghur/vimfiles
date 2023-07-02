@@ -3,13 +3,12 @@ require("yanky").setup({
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
   })
+require("telescope").load_extension("yank_history")
 vim.keymap.set({"n","x"}, "p", "<Plug>(YankyPutAfter)")
 vim.keymap.set({"n","x"}, "P", "<Plug>(YankyPutBefore)")
 vim.keymap.set({"n","x"}, "gp", "<Plug>(YankyGPutAfter)")
 vim.keymap.set({"n","x"}, "gP", "<Plug>(YankyGPutBefore)")
 vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
 vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
-vim.keymap.set("n", "<leader>p", ":YankyRingHistory<cr>")
-if vim.env.NVIM_DBG then
-  print('sourced ', vim.fn.expand('<sfile>'))
-end
+vim.keymap.set("n", "<leader>p", ":Telescope yank_history<cr>")
+info('sourced', vim.fn.expand('<sfile>'))
