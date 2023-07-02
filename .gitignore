@@ -2,7 +2,7 @@ sessions/
 .vimbackups/
 .netrwhist
 bundle/
-
+.nobackup
 *.pyc
 .ropeproject/
 tags
