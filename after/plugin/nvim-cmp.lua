@@ -139,6 +139,4 @@ require('lspconfig')['yamlls'].setup {
 require('lspconfig')['bashls'].setup {
   capabilities = capabilities
 }
-if vim.env.NVIM_DBG then
-  print('sourced ', vim.fn.expand('<sfile>'))
-end
+info('sourced', vim.fn.expand('<sfile>'))

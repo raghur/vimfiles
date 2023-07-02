@@ -187,8 +187,8 @@ if has('directx')
     set renderoptions=type:directx,gamma:1.0,contrast:0.2,level:1.0,geom:1,renmode:5,taamode:1
 endif
 
-call utils#SetColors('Catppuccin', 'Tomorrow-Night', 'Monokai', 'molokai', 'github', 'kalisi,dark', 'gruvbox,dark')
-call utils#SetFonts('FantasqueSansMono NF',
+let g:colors=['catppuccin-latte', 'Tomorrow-Night', 'Monokai', 'molokai', 'github', 'kalisi,dark', 'gruvbox,dark']
+let g:fonts= ['FantasqueSansMono NF',
             \ 'Iosevka Curly',
             \ 'Courier New',
             \ 'Cousine',
@@ -204,7 +204,7 @@ call utils#SetFonts('FantasqueSansMono NF',
             \ 'PT Mono',
             \ 'Ubuntu Mono',
             \ 'JetbrainsMonoNL Nerd Font Propo',
-            \ 'Hack')
+            \ 'Hack']
 "}}}
 
 " Plugin Bundles and config {{{
@@ -413,6 +413,10 @@ endif
 
 call plug#end()
 lua << EOF
+
+-- globals
+dbg, info=vim.fn['utils#dbg'], vim.fn['utils#info']
+
 -- Load custom treesitter grammar for org filetype
 require('mini.files').setup()
 require('mini.jump').setup()

@@ -1,9 +1,25 @@
 let s:level=0
-fun! s:debug(...) abort
-    if s:level
-        echo 'debug: '. join(a:000, ' ')
+fun! s:log(lvl, ...) abort
+    let levels = ['', 'DBG', 'INFO']
+    let targetLvl = s:level
+    if has_key(environ(), 'NVIM_DBG')
+        let targetLvl = $NVIM_DBG
+    endif
+    if a:lvl <= targetLvl
+        if has('vim_starting')
+            " record to history for inspection
+            echom levels[a:lvl].': '. join(a:000[0], ' ')
+        else
+            echo levels[a:lvl].': '.join(a:000[0], ' ')
+        endif
     endif
 endfun
+fun! utils#dbg(...) abort
+    call s:log(1, a:000)
+endfunction
+fun! utils#info(...) abort
+    call s:log(2, a:000)
+endfunction
 fun! utils#machine_script() abort
     let machine_file = tolower(hostname()) . '.vim'
     exe 'runtime ' . machine_file
@@ -134,16 +150,16 @@ if has('nvim') || has('win32') || has('win64')
 endif
 
 function! utils#Setfont(font, size) abort 
-    call s:debug('inputs', a:font , 'size:', a:size)
+    call utils#dbg('inputs', a:font , 'size:', a:size)
     if exists('+GuiFont')
         exec 'GuiFont! ' . a:font
     elseif exists('+guifont')
         let fontspec=a:font. s:fontsep . a:size
         let newfont = substitute(fontspec, ' ', '\\ ', 'g')
-        call s:debug ('Setting to:',newfont)
+        call utils#info('Setting to',newfont)
         exec 'set guifont='.newfont
         echom newfont
-        call s:debug('set font done')
+        call utils#dbg('set font done')
     else
         :silent !echo 'Running in console - change your console font.'
     endif
@@ -174,7 +190,7 @@ endfun
     function! utils#FontSize(sizeInc) abort
     let pattern = '.\{-}:h\(\d\+\)'
     let font=utils#Getfont()
-    call s:debug('font',font)
+    call utils#dbg('font',font)
     let fontname=substitute(font, '\(:h\)\=\(\d\+\)', '', '')
     if a:sizeInc > 0
         let size=substitute(font, pattern, '\=utils#FontSizeInt(submatch(1), 1)', '')
@@ -183,20 +199,14 @@ endfun
     else
         let size=substitute(font, pattern, '\=utils#FontSizeInt(submatch(1), 0)', '')
     endif
-    call s:debug('size',size)
+    call utils#dbg('size',size)
     return size
 endfunction
 
-let g:fonts=[]
-function utils#SetFonts(...) abort
-    for f in a:000
-        let g:fonts = g:fonts + [f]
-    endfor
-endfunction
 
 let s:colorschemes={}
-function utils#SetColors(...) abort
-    for kv in a:000
+function utils#SetColors() abort
+    for kv in g:colors
         let p = split(kv, ',')
         let cname=p[0]
         let bg = ''
@@ -210,8 +220,7 @@ endfunction
 fun! utils#CycleColorScheme(dir) abort
     let bg = &background
     let arr = keys(s:colorschemes)
-    let c = utils#CycleArray(arr, g:colors_name, a:dir)
-    let scheme = arr[c]
+    let scheme = utils#CycleArray(arr, g:colors_name, a:dir)
     let bgScheme = s:colorschemes[l:scheme]
     if bgScheme == ''
         exec 'set background='.bg
@@ -219,15 +228,15 @@ fun! utils#CycleColorScheme(dir) abort
         exec 'set background='. bgScheme
     endif
     exec 'colors '. scheme
-    redraw | echom scheme &background
+    call utils#info('set colors', scheme, bgScheme)
 endfun
 
 function! utils#CycleArray(arr, value, dir) abort
-    call s:debug('inputs:', a:value,'dir:',a:dir)
+    call utils#dbg('inputs:', a:value,'dir:',a:dir)
     let c = index(a:arr, a:value) + a:dir
-    call s:debug('found c:',c)
+    call utils#dbg('found c:',c)
     let _size = len(a:arr)
-    call s:debug('size',_size)
+    call utils#dbg('size',_size)
 
     if c < 0
         let c = _size - 1
@@ -260,3 +269,4 @@ function! utils#ZoomWindow() abort
         wincmd |
     endif
 endfun
+call utils#SetColors()
