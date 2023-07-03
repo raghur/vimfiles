@@ -677,8 +677,8 @@ inoremap <S-Insert> <c-r>+
 vnoremap <S-Insert> "0p
 vnoremap p "0p
 vnoremap P "0P
-nnoremap p "0p
-nnoremap P "0P
+" nnoremap p "0p
+" nnoremap P "0P
 inoremap <S-Insert> <c-r>+
 cnoremap <S-Insert> <c-r>+
 
