@@ -20,8 +20,16 @@ local sorters = require('telescope.sorters')
 -- Global remapping
 ------------------------------
 require('telescope').setup{
+  pickers = {
+    live_grep = {
+        additional_args = function(opts)
+        return { "--hidden" }
+        end
+    }
+  },
   defaults = {
     -- layout_strategy = 'cursor',
+    file_ignore_patterns = {'node_modules', '.git'},
     mappings = {
       i = {
         ["<esc>"] = actions.close,
