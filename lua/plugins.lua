@@ -1,7 +1,14 @@
 
 local keymap = vim.keymap.set
 return {
-    'MattesGroeger/vim-bookmarks',
+    {'MattesGroeger/vim-bookmarks',
+        config = function ()
+            vim.g.bookmarks_auto_save_file=vim.fn.stdpath('state') .. "/.vim-bookmarks"
+            vim.g.bookmark_center = 1
+            vim.g.bookmark_highlight_lines = 1
+            vim.g.bookmark_auto_save = 1
+        end,
+    },
     {'raghur/vim-helpnav', ft='help' },
     {  'tpope/vim-repeat'},
     { 'jiangmiao/auto-pairs'},
@@ -10,7 +17,7 @@ return {
     {'tpope/vim-commentary'},
 
     { 'flazz/vim-colorschemes'},
-    { 'sheerun/vim-polyglot'},
+    { 'sheerun/vim-polyglot', lazy=true},
     {  'vim-scripts/matchit.zip'},
     {  'tpope/vim-ragtag'},
     {  'wellle/targets.vim'},
@@ -47,7 +54,8 @@ return {
         end,
         dependencies = {
             { 'xolox/vim-misc'}
-        }
+        },
+        -- cmd = {'OpenSession', 'SaveSession'}
     },
     {
         'alvan/vim-closetag',
@@ -82,57 +90,52 @@ return {
                 'nvim-telescope/telescope-fzf-native.nvim',
                 build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
             },
+            { 'reaz1995/telescope-vim-bookmarks.nvim' },
+            { 'stevearc/aerial.nvim' },
             { 'nvim-lua/plenary.nvim' },
-        config = function ()
-                require('telescope').setup{
-                    pickers = {
-                        live_grep = {
-                            additional_args = function(opts)
-                                return { "--hidden" }
-                            end
-                        }
-                    },
-                    defaults = {
-                        -- layout_strategy = 'cursor',
-                        file_ignore_patterns = {'node_modules/', '.git/'},
-                        mappings = {
-                            i = {
-                                ["<esc>"] = actions.close,
-                                ["<C-h>"] = "which_key"
-                            }
-                        }
-                    }
-                }
-        end
     }
     },
-    { 'nvim-orgmode/orgmode' },
+    { 'nvim-orgmode/orgmode', ft='org' },
     { 'williamboman/mason.nvim' },
     { 'williamboman/mason-lspconfig.nvim' },
     { 'jose-elias-alvarez/null-ls.nvim' },
     { 'jay-babu/mason-null-ls.nvim' },
-    { 'onsails/lspkind-nvim' },
-    { 'hrsh7th/cmp-nvim-lsp' },
-    { 'hrsh7th/cmp-buffer' },
-    { 'hrsh7th/cmp-emoji' },
-    { 'hrsh7th/cmp-path' },
-    { 'hrsh7th/cmp-cmdline' },
-    -- follow latest release and install jsregexp.
-    { 'L3MON4D3/LuaSnip',
-        version = 'v1.*',
-        build =  'make install_jsregexp'
+    {
+        'hrsh7th/nvim-cmp',
+        event = "VeryLazy",
+        dependencies = {
+            { 'hrsh7th/cmp-nvim-lsp' },
+            { 'hrsh7th/cmp-buffer' },
+            { 'hrsh7th/cmp-emoji' },
+            { 'hrsh7th/cmp-path' },
+            { 'hrsh7th/cmp-cmdline' },
+            {
+                'saadparwaiz1/cmp_luasnip',
+                dependencies = {
+                    { 'L3MON4D3/LuaSnip',
+                        -- follow latest release and install jsregexp.
+                        version = 'v1.*',
+                        build =  'make install_jsregexp'
+                    },
+
+                }
+            },
+        },
+        -- global funciton :()
+        config = function()
+            Info("setting up Cmp")
+            Setupcmp()
+        end
     },
-    { 'saadparwaiz1/cmp_luasnip' },
-    -- DO NOT lazy load - won't work
-    { 'hrsh7th/nvim-cmp' },
-    { 'stevearc/aerial.nvim' },
     { 'nvim-lualine/lualine.nvim' },
     { 'folke/tokyonight.nvim' },
     { 'echasnovski/mini.nvim' },
-
     { 'neovim/nvim-lspconfig' },
     { 'nvim-tree/nvim-web-devicons', lazy = true},
     { 'nvimdev/lspsaga.nvim',
+        dependencies = {
+            { 'onsails/lspkind-nvim' },
+        },
         branch = 'main' },
     { 'ggandor/leap.nvim' },
     { 'catppuccin/nvim',  name = 'catppuccin', priority = 1000  },
