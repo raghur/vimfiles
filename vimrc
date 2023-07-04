@@ -594,7 +594,7 @@ vmap <leader>vs y:@"<CR>
 nnoremap <silent> <leader>z  :call utils#toggleZoom()<cr>
 
 " file explorer
-nnoremap <silent> `<space>  <cmd>:lua MiniFiles.open()<cr>
+nnoremap <silent> <leader>ex  <cmd>:lua MiniFiles.open()<cr>
 
 
 " for browsing the input history
