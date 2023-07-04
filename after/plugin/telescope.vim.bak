@@ -1,4 +1,5 @@
 " telescope
+nvim.cmd([[
 nnoremap <expr><leader><space> ':Telescope find_files hidden=true cwd='.FindRootDirectory().'/<cr>'
 nnoremap <expr><leader>f ':Telescope find_files hidden=true no_ignore=true cwd='.FindRootDirectory().'/<cr>'
 nnoremap <leader>gf <Cmd>Telescope git_files<CR>
@@ -14,30 +15,34 @@ nnoremap <leader>lr <Cmd>:lua require("telescope.builtin").lsp_references()<CR>
 nnoremap <leader>lp <Cmd>:lua require("telescope.builtin").loclist()<CR>
 nnoremap <leader>co <Cmd>Telescope colorscheme<CR>
 nnoremap <leader>:  <Cmd>Telescope commands<CR>
-lua << EOF
-local actions = require('telescope.actions')
-local sorters = require('telescope.sorters')
--- Global remapping
-------------------------------
-require('telescope').setup{
-  pickers = {
-    live_grep = {
-        additional_args = function(opts)
-        return { "--hidden" }
-        end
-    }
-  },
-  defaults = {
-    -- layout_strategy = 'cursor',
-    file_ignore_patterns = {'node_modules/', '.git/'},
-    mappings = {
-      i = {
-        ["<esc>"] = actions.close,
-        ["<C-h>"] = "which_key"
-      }
-    }
-  }
-}
-require('telescope').load_extension('fzf')
-info('sourced', vim.fn.expand('<sfile>'))
-EOF
+
+]]
+)
+call utils#dbg("sourced telescope.vim")
+" lua << EOF
+" local actions = require('telescope.actions')
+" local sorters = require('telescope.sorters')
+" -- Global remapping
+" ------------------------------
+" require('telescope').setup{
+"   pickers = {
+"     live_grep = {
+"         additional_args = function(opts)
+"         return { "--hidden" }
+"         end
+"     }
+"   },
+"   defaults = {
+"     -- layout_strategy = 'cursor',
+"     file_ignore_patterns = {'node_modules/', '.git/'},
+"     mappings = {
+"       i = {
+"         ["<esc>"] = actions.close,
+"         ["<C-h>"] = "which_key"
+"       }
+"     }
+"   }
+" }
+" require('telescope').load_extension('fzf')
+" info('sourced', vim.fn.expand('<sfile>'))
+" EOF
