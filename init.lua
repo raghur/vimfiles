@@ -18,23 +18,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins", {})
 
-require('mini.files').setup()
-require('mini.jump').setup()
-require('orgmode').setup_ts_grammar()
-require('null-ls').setup()
-require('lualine').setup()
-require('leap').add_default_mappings()
-require('mini.indentscope').setup({
-    symbol = '│',
-    mappings = {
-        goto_top='git',
-        goto_bottom='gib'
-    },
-    options = {
-        try_as_border = true -- let's you stay on func header and select body as scope
-    }
-
-})
     -- Treesitter configuration
 require('nvim-treesitter.configs').setup {
     ensure_installed = {'org', 'yaml', 'json', 'bash', 'cpp', 'c_sharp',
@@ -60,9 +43,7 @@ require('nvim-treesitter.configs').setup {
             node_decremental = "<BS>",
         },
     },
-    indent = {
-        enable = true
-    }
+    indent = { enable = true }
 }
 
 require('aerial').setup({
