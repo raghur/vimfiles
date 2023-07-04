@@ -1,11 +1,11 @@
 " telescope
-nnoremap <leader><space> <Cmd>Telescope find_files<CR>
-nnoremap <leader>f <Cmd>Telescope git_files<CR>
-nnoremap <leader>gf <Cmd>:Telescope find_files hidden=true no_ignore=true<CR>
+nnoremap <expr><leader><space> ':Telescope find_files hidden=true cwd='.FindRootDirectory().'/<cr>'
+nnoremap <expr><leader>f ':Telescope find_files hidden=true no_ignore=true cwd='.FindRootDirectory().'/<cr>'
+nnoremap <leader>gf <Cmd>Telescope git_files<CR>
 nnoremap <leader>/  <Cmd>Telescope live_grep<CR>
 nnoremap <leader>r  <Cmd>:lua require("telescope.builtin").buffers({sort_mru=true, ignore_current_buffer=true})<CR>
 nnoremap <leader>b  <Cmd>:lua require("telescope.builtin").buffers({sort_mru=true, ignore_current_buffer=true})<CR>
-nnoremap <leader>h  <Cmd>Telescope help_tags<CR>
+nnoremap <leader>gh  <Cmd>Telescope help_tags<CR>
 nnoremap <leader>lw <Cmd>:lua require("telescope.builtin").lsp_workspace_symbols()<CR>
 nnoremap <leader>lo <Cmd>:lua require("telescope.builtin").lsp_document_symbols()<CR>
 nnoremap <leader>ld <Cmd>:lua require("telescope.builtin").lsp_definitions() <cr>:normal('zz')<CR>
@@ -29,7 +29,7 @@ require('telescope').setup{
   },
   defaults = {
     -- layout_strategy = 'cursor',
-    file_ignore_patterns = {'node_modules', '.git'},
+    file_ignore_patterns = {'node_modules/', '.git/'},
     mappings = {
       i = {
         ["<esc>"] = actions.close,
