@@ -48,7 +48,7 @@ M.config = function()
     nnoremap <leader>ll <Cmd>:lua require("telescope.builtin").diagnostics()<CR>
     nnoremap <leader>lf <Cmd>:lua require("telescope.builtin").current_buffer_fuzzy_find()<CR>
     nnoremap <leader>lr <Cmd>:lua require("telescope.builtin").lsp_references()<CR>
-    nnoremap <leader>lb <Cmd>:lua show_bookmarks()<CR>
+    nnoremap <leader><F2> <Cmd>:lua show_bookmarks()<CR>
     nnoremap <leader>la <Cmd>Telescope aerial<CR>
     nnoremap <leader>co <Cmd>Telescope colorscheme<CR>
     nnoremap <leader>:  <Cmd>Telescope commands<CR>

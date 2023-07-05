@@ -1,4 +1,3 @@
-
 local set=vim.opt
 set.completeopt="menu,menuone,noselect"
 -- set.guioptions^=c
@@ -17,6 +16,8 @@ set.cursorcolumn=false -- display incomplete commands
 set.incsearch=true  -- " do incremental searching
 set.encoding='utf-8'
 set.hidden=true
+set.number=true
+set.signcolumn='number'
 -- set.wildchar='<Tab>'
 set.wildmenu=true
 set.wildmode='longest,list:longest'
