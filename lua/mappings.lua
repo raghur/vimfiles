@@ -66,6 +66,7 @@ nnoremap <leader>pw :ed ~/.gnupg/passwords.txt.asc <cr>
 nnoremap <leader>q :qall<cr>
 nnoremap <leader>sv :ed $MYVIMRC<cr>
 nnoremap <leader>w  :w<cr>
+nnoremap <leader>= :lua vim.lsp.buf.format()<cr>
 " copy a block and comment it and move to insert mode
 vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
 
@@ -83,15 +84,16 @@ cabbrev h vert bo h
 " so that you can undo CTRL-U after inserting a line break.
 inoremap <C-U> <C-G>u<C-U>
 
-" make shift insert work in modes
 inoremap <S-Insert> <c-r>+
+inoremap <S-Insert> <c-r>+
+cnoremap <S-Insert> <c-r>+
+
+" Paste sanity
 vnoremap <S-Insert> "0p
 vnoremap p "0p
 vnoremap P "0P
-" nnoremap p "0p
-" nnoremap P "0P
-inoremap <S-Insert> <c-r>+
-cnoremap <S-Insert> <c-r>+
+nnoremap c "_c
+nnoremap C "_C
 
 " Search and replace related mappings
 nnoremap / /\v
