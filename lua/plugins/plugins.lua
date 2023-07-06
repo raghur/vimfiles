@@ -87,7 +87,7 @@ return {
         build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
       },
       { "reaz1995/telescope-vim-bookmarks.nvim" },
-      { "stevearc/aerial.nvim" },
+      { "stevearc/aerial.nvim", config = myconfig.configurePlugin },
       { "nvim-lua/plenary.nvim" },
     },
     config = myconfig.configurePlugin
@@ -95,9 +95,7 @@ return {
   {
     "nvim-orgmode/orgmode",
     ft = "org",
-    config = function()
-      require("orgmode").setup_ts_grammar()
-    end,
+    config = myconfig.configurePlugin
   },
   { "williamboman/mason.nvim" },
   { "williamboman/mason-lspconfig.nvim" },
@@ -158,5 +156,5 @@ return {
   },
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
 
-  { "gbprod/yanky.nvim" },
+  { "gbprod/yanky.nvim" , config = myconfig.configurePlugin},
 }
