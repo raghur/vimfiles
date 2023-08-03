@@ -21,7 +21,7 @@ M.config = function()
       exec = "<CR>",
     },
   })
-  keymap("n", "gd", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
+  keymap("n", "gd", "<cmd>Lspsaga finder<CR>", { silent = true })
   keymap("n", "<space>.", "<cmd>Lspsaga code_action<CR>", { silent = true })
   keymap("n", "<F2>", "<cmd>Lspsaga rename<CR>", { silent = true })
   keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true })

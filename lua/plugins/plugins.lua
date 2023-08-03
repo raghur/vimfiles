@@ -99,8 +99,6 @@ return {
   },
   { "williamboman/mason.nvim" },
   { "williamboman/mason-lspconfig.nvim" },
-  { "jose-elias-alvarez/null-ls.nvim" },
-  { "jay-babu/mason-null-ls.nvim" },
   {
     "hrsh7th/nvim-cmp",
     event = "VeryLazy",

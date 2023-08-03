@@ -12,7 +12,7 @@ M.config = function()
     },
     defaults = {
       -- layout_strategy = 'cursor',
-      file_ignore_patterns = { 'node_modules/', '.git/' },
+      file_ignore_patterns = { 'node_modules/', '.git/', '.npm/'},
       mappings = {
         i = {
           ["<esc>"] = actions.close,
