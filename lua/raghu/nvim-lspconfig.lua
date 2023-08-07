@@ -68,7 +68,7 @@ M.config = function()
   --   }
   -- end
 
-  require("mason-lspconfig").setup_handlers({
+  local handlers = {
     -- The first entry (without a key) will be the default handler
     -- and will be called for each installed server that doesn't have
     -- a dedicated handler.
@@ -82,6 +82,14 @@ M.config = function()
     -- ["rust_analyzer"] = function ()
     --     require("rust-tools").setup {}
     -- end
+    ["bashls"] = function()
+      local settings = {
+        bashIde = {
+          shellcheckPath = ""
+        }
+      }
+      require('lspconfig').bashls.setup(settings)
+    end,
     ["lua_ls"] = function()
       -- Configure lua language server for neovim development
       local lua_settings = {
@@ -108,7 +116,8 @@ M.config = function()
       require("lspconfig").lua_ls.setup(lua_settings)
       -- print ('mason-lspconfig:lua_ls',vim.fn.expand('<sfile>'))
     end,
-  })
+  }
+  require("mason-lspconfig").setup_handlers(handlers)
 
   Info("sourced", vim.fn.expand("<sfile>"))
 end
