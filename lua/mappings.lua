@@ -6,9 +6,6 @@ let maplocalleader='\'
 let mapleader = '<space>'
 map <space> <leader>
 
-nmap <leader>vs :source %<CR>
-" source a visual range
-vmap <leader>vs y:@"<CR>
 nnoremap <silent> <leader>z  :call utils#toggleZoom()<cr>
 
 " file explorer
@@ -62,10 +59,11 @@ nnoremap <leader>fc :lcl <cr>
 nnoremap <leader>h  :noh<cr><c-l>
 nnoremap <leader>pw :ed ~/.gnupg/passwords.txt.asc <cr>
 nnoremap <leader>q :qall<cr>
-nnoremap <leader>sv :ed $MYVIMRC<cr>
 nnoremap <leader>w  :w<cr>
 nnoremap <leader>= :lua vim.lsp.buf.format()<cr>
 " copy a block and comment it and move to insert mode
+
+
 vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
 
 nnoremap <backspace>    <C-o>
@@ -110,4 +108,15 @@ inoremap <A-k> <Esc>:m-2<CR>==gi
 vnoremap <A-j> :m'>+<CR>gv=gv
 vnoremap <A-k> :m-2<CR>gv=gv
 
+" more leader mappings for editing vim and lua config
+nnoremap <leader>ii :ed $MYVIMRC<cr>
+nnoremap <leader>im <Cmd>lua require('raghu.utils').editConfig('mappings.lua')<cr>
+nnoremap <leader>is <Cmd>lua require('raghu.utils').editConfig('settings.lua')<cr>
+nnoremap <leader>ip <Cmd>lua require('raghu.utils').editConfig('plugins.lua')<cr>
+nnoremap <leader>ic <Cmd>lua require('raghu.utils').editConfigFolder('raghu')<cr>
+
+nmap <leader>vs :source %<CR>
+" source a visual range
+vmap <leader>vs y:@"<CR>
 ]])
+
