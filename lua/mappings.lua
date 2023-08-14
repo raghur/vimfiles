@@ -9,7 +9,7 @@ map <space> <leader>
 nnoremap <silent> <leader>z  :call utils#toggleZoom()<cr>
 
 " file explorer
-nnoremap <silent> <leader>ex  <cmd>:lua MiniFiles.open()<cr>
+nnoremap <silent> <leader>ex  <cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>
 
 
 " for browsing the input history
