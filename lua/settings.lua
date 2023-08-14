@@ -65,18 +65,21 @@ set.inccommand='split'
 set.hlsearch=true
 set.gdefault=true
 set.colorcolumn='120'
-vim.g.clipboard = {
-        name = "xsel",
-        copy = {
-            ["+"] = "xsel --nodetach -i -b",
-            ["*"] = "xsel --nodetach -i -p",
-        },
-        paste = {
-            ["+"] = "xsel -o -b",
-            ["*"] = "xsel -o -b",
-        },
-        cache_enabled = 1,
-    }
+if vim.fn.has('linux') > 0 then
+  vim.g.clipboard = {
+    name = "xsel",
+    copy = {
+      ["+"] = "xsel --nodetach -i -b",
+      ["*"] = "xsel --nodetach -i -p",
+    },
+    paste = {
+      ["+"] = "xsel -o -b",
+      ["*"] = "xsel -o -b",
+    },
+    cache_enabled = 1,
+  }
+end
+
 set.clipboard='unnamedplus'
 
 -- Open splits to the right by default
