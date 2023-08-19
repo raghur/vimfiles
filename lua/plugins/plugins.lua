@@ -10,13 +10,11 @@ return {
     ft = "help",
   },
   { "tpope/vim-repeat" },
-  { "jiangmiao/auto-pairs" },
   {
     "mbbill/undotree",
     cmd = "UndotreeToggle",
   },
   { "gregsexton/MatchTag" },
-  { "tpope/vim-commentary" },
 
   { "flazz/vim-colorschemes" },
   { "sheerun/vim-polyglot", lazy = true },
@@ -43,7 +41,6 @@ return {
       vim.g.rooter_silent_chdir = 1
     end,
   },
-  { "tpope/vim-surround" },
   {
     "xolox/vim-session",
     config = myconfig.configurePlugin,
@@ -84,7 +81,6 @@ return {
     dependencies = {
       {
         "nvim-telescope/telescope-fzf-native.nvim",
-        -- build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build",
         build = "make"
       },
       { "reaz1995/telescope-vim-bookmarks.nvim" },
