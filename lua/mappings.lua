@@ -1,5 +1,5 @@
 
-
+vim.keymap.set('v', '<leader>=', vim.lsp.buf.format)
 vim.cmd([[
 
 let maplocalleader='\'
@@ -60,7 +60,7 @@ nnoremap <leader>h  :noh<cr><c-l>
 nnoremap <leader>pw :ed ~/.gnupg/passwords.txt.asc <cr>
 nnoremap <leader>q :qall<cr>
 nnoremap <leader>w  :w<cr>
-nnoremap <leader>= :lua vim.lsp.buf.format()<cr>
+nnoremap <leader>= <cmd>lua vim.lsp.lsp.buf.formatting({async=true})<cr>
 " copy a block and comment it and move to insert mode
 
 

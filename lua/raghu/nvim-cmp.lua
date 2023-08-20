@@ -100,16 +100,12 @@ M.config = function()
       --    end, { "i", "s" }),
     },
     sources = cmp.config.sources({
-      { name = 'orgmode' },
       { name = 'nvim_lsp' },
+      { name = 'buffer' },
       { name = 'emoji' },
       { name = 'path' },
       { name = 'luasnip' },
-      -- For vsnip users.
-      -- { name = 'luasnip' }, -- For luasnip users.
-      -- { name = 'ultisnips' }, -- For ultisnips users.
-      -- { name = 'snippy' }, -- For snippy users.
-      { name = 'buffer' },
+      { name = 'orgmode' },
     })
   })
 
@@ -125,8 +121,7 @@ M.config = function()
   cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
-      { name = 'path' }
-    }, {
+      { name = 'path' },
       { name = 'cmdline' }
     })
   })
