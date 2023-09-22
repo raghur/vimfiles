@@ -17,7 +17,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins", {})
 if (vim.fn.has('linux') > 0 or vim.fn.has('mac')) then
-  vim.fn.serverstart('/var/tmp/nvim.'.. vim.env.USER .. '.sock')
+  vim.fn.serverstart(vim.fn.stdpath('run') .. '/nvim.sock')
 end
 
 Info("sourced init.lua")
