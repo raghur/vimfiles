@@ -148,8 +148,11 @@ return {
   },
   {
     "ggandor/leap.nvim",
+    keys= {
+      { "f", '<Plug>(leap-forward-to)', "nxo", desc='Leap forward'},
+      { "F", '<Plug>(leap-backward-to)', "nxo", desc='Leap backward'}
+    },
     config = function()
-      require("leap").add_default_mappings()
     end,
   },
   { "catppuccin/nvim", name = "catppuccin", priority = 1000 },

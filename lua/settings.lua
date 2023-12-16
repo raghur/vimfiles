@@ -84,3 +84,24 @@ set.clipboard='unnamedplus'
 
 -- Open splits to the right by default
 set.splitright=true
+vim.g.colors = {
+  'catppuccin-latte',
+  'Tomorrow-Night', 'Monokai', 'molokai', 'github', 'kalisi,dark', 'gruvbox,dark'}
+vim.g.fonts = {
+  'FantasqueSansMono NF',
+  'Iosevka Curly',
+  'Courier New',
+  'Cousine',
+  'DejaVu Sans Mono',
+  'Envy Code R',
+  'Inconsolata',
+  'Iosevka Term Curly',
+  'Liberation Mono',
+  'mononoki',
+  'Nimbus Mono L',
+  'Noto Mono',
+  'Noto Sans Mono',
+  'PT Mono',
+  'Ubuntu Mono',
+  'JetbrainsMonoNL Nerd Font Propo',
+  'Hack'}
