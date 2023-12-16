@@ -1,6 +1,7 @@
 require("settings")
 require("commands")
 require("mappings")
+
 local utils = require("raghu.utils")
 Info, Dbg = utils.info, utils.dbg
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -20,4 +21,7 @@ if (vim.fn.has('linux') > 0 or vim.fn.has('mac')) then
   vim.fn.serverstart(vim.fn.stdpath('run') .. '/nvim.sock')
 end
 
+if vim.g.neovide then
+  vim.cmd("source ".. vim.fn.stdpath('config').. "/ginit.vim")
+end
 Info("sourced init.lua")
