@@ -144,6 +144,7 @@ return {
   { "folke/tokyonight.nvim", lazy = true },
   {
     "echasnovski/mini.nvim",
+    version='*',
     config = myconfig.configurePlugin,
   },
   { "neovim/nvim-lspconfig",
