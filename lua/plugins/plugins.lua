@@ -75,8 +75,19 @@ return {
   },
 
   {
+    "nvim-telescope/telescope-ui-select.nvim",
+    dependencies = {
+      {
+        "nvim-telescope/telescope.nvim",
+        branch = "0.1.x",
+        tag = "0.1.5",
+      }
+    }
+  },
+  {
     "nvim-telescope/telescope.nvim",
     branch = "0.1.x",
+    tag = "0.1.5",
     cmd = "Telescope",
     dependencies = {
       {

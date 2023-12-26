@@ -3,6 +3,13 @@ local M = {}
 M.config = function()
   local actions = require('telescope.actions')
   require('telescope').setup {
+    extensions = {
+      ["ui-select"] = {
+        specific_opts = {
+          codeactions = false
+        }
+      }
+    },
     pickers = {
       live_grep = {
         additional_args = function(opts)
@@ -10,7 +17,7 @@ M.config = function()
         end
       }
     },
-    defaults = {
+    defaults =  require("telescope.themes").get_dropdown({
       -- layout_strategy = 'cursor',
       file_ignore_patterns = { 'node_modules/', '.git/', '.npm/'},
       mappings = {
@@ -19,11 +26,12 @@ M.config = function()
           ["<C-h>"] = "which_key"
         }
       }
-    }
+    })
   }
   require('telescope').load_extension('fzf')
   require('telescope').load_extension('aerial')
   require('telescope').load_extension('vim_bookmarks')
+  require('telescope').load_extension('ui-select')
   local bookmark_actions = require('telescope').extensions.vim_bookmarks.actions
   show_bookmarks = function()
     require("telescope").extensions.vim_bookmarks.all({
