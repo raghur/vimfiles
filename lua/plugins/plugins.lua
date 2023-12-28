@@ -2,10 +2,6 @@ local keymap = vim.keymap.set
 local myconfig = require("raghu")
 return {
   {
-    "MattesGroeger/vim-bookmarks",
-    config = myconfig.configurePlugin,
-  },
-  {
     "raghur/vim-helpnav",
     ft = "help",
   },
@@ -15,6 +11,18 @@ return {
     cmd = "UndotreeToggle",
   },
   { "gregsexton/MatchTag" },
+  {
+    'crusj/bookmarks.nvim',
+    keys = {
+      { "<tab><tab>", mode = { "n" } },
+    },
+    branch = 'main',
+    dependencies = { 'nvim-web-devicons' },
+    config = function()
+      require("bookmarks").setup()
+      require("telescope").load_extension("bookmarks")
+    end
+  },
 
   { "flazz/vim-colorschemes" },
   { "sheerun/vim-polyglot", lazy = true },
