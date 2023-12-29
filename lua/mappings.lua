@@ -21,46 +21,30 @@ noremap   <Up>     <NOP>
 noremap   <Down>   <NOP>
 noremap   <Left>   <NOP>
 noremap   <Right>  <NOP>
-nnoremap   <c-space> :bd<cr>
-"inoremap <esc> <c-o>:echoe "use jk"<cr>
 inoremap jk <esc>
 vnoremap > >gv
 vnoremap < <gv
 nnoremap 0 ^
 nnoremap ^ 0
-noremap <C-s> :w<cr>
+
 "Move by screen lines
 nnoremap j gj
 nnoremap k gk
 
 " Function keys
 " https://github.com/neovim/neovim/issues/4862#issuecomment-282988543
-" nnoremap <F2> :BookmarkToggle<CR>
-" nnoremap <leader><F2> :BookmarkShowAll<CR>
-nnoremap <F4> :Console<cr>
 nnoremap <F5> :UndotreeToggle<CR>
-nnoremap <F6> :lnext<cr>
 nnoremap <F7> :Neoformat<cr>
-nnoremap <F8> :Gitex<cr>
 nnoremap <S-F4> :Wex<cr>
-nnoremap <S-F6> :lprev<cr>
-nnoremap <F14>  :<C-U>call signature#mark#Goto("prev", "spot", "pos") <CR> \| zz
-nnoremap <F16> :Wex<cr>
-nnoremap <F18> :lprev<cr>
 
 "leader mappings
-nnoremap <leader>. @:
 nnoremap <leader>1 :on<cr>
 nnoremap <leader>a :b#<cr>
-nnoremap <leader>bd :bd<cr>
-nnoremap <leader>c :call utils#CycleColorScheme(1)<cr>
 nnoremap <leader>d :bd!<cr>
 nnoremap <leader>e :edit <C-R>=fnamemodify(@%, ':p:h')<CR>/
-nnoremap <leader>fc :lcl <cr>
-nnoremap <leader>h  :noh<cr><c-l>
-nnoremap <leader>pw :ed ~/.gnupg/passwords.txt.asc <cr>
+nnoremap <leader>h :noh<cr><c-l>
 nnoremap <leader>q :qall<cr>
-nnoremap <leader>w  :w<cr>
+nnoremap <leader>w :w<cr>
 nnoremap <leader>= <cmd>lua vim.lsp.lsp.buf.formatting({async=true})<cr>
 " copy a block and comment it and move to insert mode
 
@@ -76,6 +60,7 @@ nnoremap <silent> <F3> :redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR>
 
 " open help in a vert split to the right
 cabbrev h vert bo h
+cabbrev map verb map<space>
 
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
@@ -116,9 +101,9 @@ nnoremap <leader>is <Cmd>lua require('raghu.utils').editConfig('settings.lua')<c
 nnoremap <leader>ip <Cmd>lua require('raghu.utils').editConfig('plugins.lua')<cr>
 nnoremap <leader>ic <Cmd>lua require('raghu.utils').editConfigFolder('raghu')<cr>
 
-nmap <leader>vs :source %<CR>
+nnoremap <leader>vs <Cmd>source %<cr>
+vnoremap <leader>vs :'<'>so<CR>
 " source a visual range
-vmap <leader>vs y:@"<CR>
 ]])
 
 local font = require('raghu.font')
