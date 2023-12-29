@@ -1,9 +1,9 @@
 let s:level=0
 fun! s:log(lvl, ...) abort
-    let levels = ['', 'DBG', 'INFO']
+    let levels = ['', 'INFO', 'DBG']
     let targetLvl = s:level
-    if has_key(environ(), 'NVIM_DBG')
-        let targetLvl = $NVIM_DBG
+    if has_key(environ(), 'NVIM_LOG')
+        let targetLvl = $NVIM_LOG
     endif
     if a:lvl <= targetLvl
         if has('vim_starting')
@@ -23,12 +23,12 @@ fun! utils#info(...) abort
 endfunction
 
 fun! utils#loglvl(lvl) abort
-    if a:lvl == 'DBG'
-        let $NVIM_DBG=1
-    elseif a:lvl == 'INFO'
-        let $NVIM_DBG=2
+    if a:lvl == 'INFO'
+        let $NVIM_LOG=1
+    elseif a:lvl == 'DBG'
+        let $NVIM_LOG=2
     else
-        let $NVIM_DBG=0
+        let $NVIM_LOG=0
     endif
 endfunction
 
