@@ -17,6 +17,17 @@ instance.editConfigFolder = function(folder)
     editConfig(folder, 'directory')
   end
 
+instance.cycle = function (items, index, dir)
+  if dir >= 0 then
+    index = index + 1
+    if index > #items then index = 1 end
+  else
+    index = index - 1
+    if index < 0 then index = #items end
+  end
+  return items[index]
+end
+
 local dbg, info=vim.fn['utils#dbg'], vim.fn['utils#info']
 instance.dbg = dbg
 instance.info = info

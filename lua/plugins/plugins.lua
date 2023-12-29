@@ -23,7 +23,6 @@ return {
       require("telescope").load_extension("bookmarks")
     end
   },
-
   { "flazz/vim-colorschemes" },
   { "sheerun/vim-polyglot", lazy = true },
   { "vim-scripts/matchit.zip" },

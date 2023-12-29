@@ -17,9 +17,21 @@ endfun
 fun! utils#dbg(...) abort
     call s:log(1, a:000)
 endfunction
+
 fun! utils#info(...) abort
     call s:log(2, a:000)
 endfunction
+
+fun! utils#loglvl(lvl) abort
+    if a:lvl == 'DBG'
+        let $NVIM_DBG=1
+    elseif a:lvl == 'INFO'
+        let $NVIM_DBG=2
+    else
+        let $NVIM_DBG=0
+    endif
+endfunction
+
 fun! utils#machine_script() abort
     let machine_file = tolower(hostname()) . '.vim'
     exe 'runtime ' . machine_file
