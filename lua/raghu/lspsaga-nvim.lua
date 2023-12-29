@@ -29,8 +29,7 @@ M.config = function()
   keymap("n", "g<space>", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
   keymap("n", "go", "<cmd>Lspsaga outline<CR>", { silent = true })
   -- Show buffer diagnostics
-  keymap("n", "<leader>sb", "<cmd>Lspsaga show_buf_diagnostics<CR>")
-  keymap("n", "<leader>sw", "<cmd>Lspsaga show_workspace_diagnostics<CR>")
+  keymap("n", "<leader>p", "<cmd>Lspsaga show_workspace_diagnostics<CR>")
   keymap("n", "<leader>]", "<cmd>Lspsaga diagnostic_jump_next<CR>")
   keymap("n", "<leader>[", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
   -- -- change the lsp symbol kind

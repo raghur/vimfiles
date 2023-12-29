@@ -13,7 +13,7 @@ M.config = function()
   vim.keymap.set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
   vim.keymap.set("n", "<c-n>", "<Plug>(YankyCycleForward)")
   vim.keymap.set("n", "<c-p>", "<Plug>(YankyCycleBackward)")
-  vim.keymap.set("n", "<leader>p", ":Telescope yank_history<cr>")
+  vim.keymap.set("n", "<leader>P", ":Telescope yank_history<cr>")
   Info('sourced', vim.fn.expand('<sfile>'))
 end
 return M

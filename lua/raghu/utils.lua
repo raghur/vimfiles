@@ -28,7 +28,7 @@ instance.cycle = function (items, index, dir)
   return items[index]
 end
 
-local dbg, info=vim.fn['utils#dbg'], vim.fn['utils#info']
-instance.dbg = dbg
-instance.info = info
+instance.dbg = vim.fn['utils#dbg']
+instance.info = vim.fn['utils#info']
+instance.loglvl = vim.fn['utils#loglvl']
 return instance

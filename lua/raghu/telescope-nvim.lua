@@ -30,19 +30,7 @@ M.config = function()
   }
   require('telescope').load_extension('fzf')
   require('telescope').load_extension('aerial')
-  require('telescope').load_extension('vim_bookmarks')
   require('telescope').load_extension('ui-select')
-  local bookmark_actions = require('telescope').extensions.vim_bookmarks.actions
-  show_bookmarks = function()
-    require("telescope").extensions.vim_bookmarks.all({
-      attach_mappings = function(_, map)
-        map('i', '``', bookmark_actions.delete_selected_or_at_cursor)
-
-        return true
-      end
-    })
-  end
-  vim.keymap.set('n', '<leader>lb', show_bookmarks, {})
   vim.cmd([[
     nnoremap <expr><leader><space> ':Telescope find_files hidden=true cwd='.FindRootDirectory().'/<cr>'
     nnoremap <expr><leader>f ':Telescope find_files hidden=true no_ignore=true cwd='.FindRootDirectory().'/<cr>'

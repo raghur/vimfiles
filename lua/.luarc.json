@@ -61,5 +61,10 @@
         "/home/raghu/.vim/after",
         "/home/raghu/.local/state/nvim/lazy/readme",
         "${3rd}/luassert/library"
+    ],
+    "diagnostics.globals": [
+        "vim",
+        "require",
+        "Info"
     ]
 }
