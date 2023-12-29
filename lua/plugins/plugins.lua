@@ -6,11 +6,12 @@ return {
     ft = "help",
   },
   { "tpope/vim-repeat" },
+  { "andymass/vim-matchup",
+  },
   {
     "mbbill/undotree",
     cmd = "UndotreeToggle",
   },
-  { "gregsexton/MatchTag" },
   {
     'crusj/bookmarks.nvim',
     keys = {
@@ -29,7 +30,6 @@ return {
   },
   { "flazz/vim-colorschemes" },
   { "sheerun/vim-polyglot", lazy = true },
-  { "vim-scripts/matchit.zip" },
   { "tpope/vim-ragtag" },
   { "wellle/targets.vim" },
   {
