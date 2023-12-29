@@ -2,13 +2,13 @@
 local utils = require('raghu.utils')
 
 local instance = {}
-instance.font = function(newFont)
+instance.family = function(newFont)
   if (vim.env.TERM) then return end
   if newFont then
     if string.find(newFont, ":h") then
       vim.o.guifont = newFont
     else
-      local size = instance.fontSize()
+      local size = instance.size()
       vim.opt.guifont = {newFont, ":h" .. size}
     end
   else
@@ -22,8 +22,8 @@ instance.font = function(newFont)
   end
 end
 
-instance.fontSize = function(size)
-  local fontname = instance.font()
+instance.size = function(size)
+  local fontname = instance.family()
   if (not fontname) then return end
   if (size) then
     vim.opt.guifont = {fontname, ":h" .. size}
@@ -35,6 +35,11 @@ instance.fontSize = function(size)
     utils.dbg(idx, font, size)
     return size
   end
+end
+
+instance.adjust = function(step)
+  local newSize = instance.size() + step
+  instance.size(newSize)
 end
 
 return instance

@@ -1,9 +1,3 @@
-nnoremap <silent> <M-ScrollWheelUp> :call utils#AdjustFontSize(1)<CR>
-nnoremap <silent> <M-ScrollWheelDown> :call utils#AdjustFontSize(-1)<CR>
-
-nnoremap <silent> <M-=> :call utils#AdjustFontSize(1)<CR>
-nnoremap <silent> <M--> :call utils#AdjustFontSize(-1)<CR>
-
 nnoremap <silent> <M-]> :call utils#CycleFont(1)<CR>
 nnoremap <silent> <M-[> :call utils#CycleFont(-1)<CR>
 
@@ -23,6 +17,7 @@ if exists('g:neovide')
     let g:neovide_cursor_antialiasing=v:true
     let g:neovide_cursor_vfx_mode = ''
 endif
+
 if exists('g:fvim_loaded')
     nnoremap <A-CR> :FVimToggleFullScreen<CR>
     FVimBackgroundComposition 'acrylic'
@@ -49,9 +44,4 @@ if exists('g:fvim_loaded')
     FVimUIPopupMenu v:true
 endif
 
-
-if &guifont ==? ''
-    call utils#Setfont(g:fonts[0], 15)
-endif
-set cmdheight=1
 " echom "sourced ginit.vim"

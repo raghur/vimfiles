@@ -1,8 +1,9 @@
 require("settings")
-require("commands")
 require("mappings")
-
+require("commands")
 local utils = require("raghu.utils")
+-- or set env var NVIM_LOG=1, 2 etc 0/unset - disabled, 1=INFO, 2=DBG
+-- utils.loglvl('DBG')
 Info, Dbg = utils.info, utils.dbg
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -23,5 +24,7 @@ end
 
 if vim.g.neovide then
   vim.cmd("source ".. vim.fn.stdpath('config').. "/ginit.vim")
+  vim.g.neovide_input_macos_alt_is_meta=true
 end
-Info("sourced init.lua")
+
+utils.info("sourced init.lua")

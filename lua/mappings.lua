@@ -35,8 +35,8 @@ nnoremap k gk
 
 " Function keys
 " https://github.com/neovim/neovim/issues/4862#issuecomment-282988543
-nnoremap <F2> :BookmarkToggle<CR>
-nnoremap <leader><F2> :BookmarkShowAll<CR>
+" nnoremap <F2> :BookmarkToggle<CR>
+" nnoremap <leader><F2> :BookmarkShowAll<CR>
 nnoremap <F4> :Console<cr>
 nnoremap <F5> :UndotreeToggle<CR>
 nnoremap <F6> :lnext<cr>
@@ -121,3 +121,6 @@ nmap <leader>vs :source %<CR>
 vmap <leader>vs y:@"<CR>
 ]])
 
+local font = require('raghu.font')
+vim.keymap.set("n", "<M-=>", function() font.adjust(1) end, { silent = true })
+vim.keymap.set("n", "<M-->", function() font.adjust(-1) end, { silent = true })
