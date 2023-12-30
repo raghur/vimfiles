@@ -3,8 +3,8 @@ vim.keymap.set('v', '<leader>=', vim.lsp.buf.format)
 vim.cmd([[
 
 let maplocalleader='\'
-let mapleader = '<space>'
-map <space> <leader>
+let mapleader = ' '
+" map <space> <leader>
 
 nnoremap <silent> <leader>z  :call utils#toggleZoom()<cr>
 
