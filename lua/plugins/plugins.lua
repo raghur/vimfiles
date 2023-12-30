@@ -6,8 +6,6 @@ return {
     ft = "help",
   },
   { "tpope/vim-repeat" },
-  { "andymass/vim-matchup",
-  },
   {
     "mbbill/undotree",
     keys = "<F5>",
@@ -35,7 +33,7 @@ return {
     "andymass/vim-matchup",
     event = "BufReadPost",
     init = function()
-      vim.g.matchup_matchparen_offscreen = { method = "popup" }
+      vim.g.matchup_matchparen_offscreen = { method = "status" }
       vim.g.matchup_surround_enabled = 1
     end,
   },
