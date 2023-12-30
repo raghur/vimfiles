@@ -19,12 +19,6 @@ inoremap <c-r>R <c-o>:<up><home>R! <cr>
 command! BlogSave call utils#BlogSave(expand("%:p"))
 
 set foldtext=NeatFoldText()
-command! ToHtml call utils#ToHtml()
-
-command! Gitex call utils#GitBrowser()
-command! Wex call utils#Filemanager()
-command! Console call utils#Console()
 command! -nargs=* WatchAndExec  call utils#StartWatcher("<args>")
-
 command! -bar W exe 'w !sudo tee >/dev/null %:p:S' | setl nomod
 ]])

@@ -10,6 +10,7 @@ local editConfig = function(file, type)
   print(vim.inspect(targetfiles))
   vim.cmd.edit(targetfiles)
 end
+
 instance.editConfig = function(file)
     editConfig(file, 'file')
   end
@@ -28,6 +29,7 @@ instance.cycle = function (items, index, dir)
   return items[index]
 end
 
+instance.mkdir = vim.fn['utils#createIfNotExists']
 instance.dbg = vim.fn['utils#dbg']
 instance.info = vim.fn['utils#info']
 instance.loglvl = vim.fn['utils#loglvl']
