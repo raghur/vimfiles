@@ -19,7 +19,11 @@ end
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins", {})
 if (vim.fn.has('linux') > 0 or vim.fn.has('mac')) then
-  vim.fn.serverstart(vim.fn.stdpath('run') .. '/nvim.sock')
+  if (not vim.v.servername) then
+    vim.fn.serverstart(vim.fn.stdpath('run') .. '/nvim.sock')
+  end
+  -- vim.cmd('echom "server running at '..vim.v.servername .. '"')
+  Info('Server running at ', vim.v.servername)
 end
 
 if vim.g.neovide then
