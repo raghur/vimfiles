@@ -10,6 +10,7 @@ return {
   },
   {
     "mbbill/undotree",
+    keys = "<F5>",
     cmd = "UndotreeToggle",
   },
   {
@@ -30,7 +31,14 @@ return {
   },
   { "flazz/vim-colorschemes" },
   { "sheerun/vim-polyglot", lazy = true },
-  { "tpope/vim-ragtag" },
+  {
+    "andymass/vim-matchup",
+    event = "BufReadPost",
+    init = function()
+      vim.g.matchup_matchparen_offscreen = { method = "popup" }
+      vim.g.matchup_surround_enabled = 1
+    end,
+  },
   { "wellle/targets.vim" },
   {
     "nvim-treesitter/nvim-treesitter-textobjects",

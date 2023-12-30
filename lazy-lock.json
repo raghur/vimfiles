@@ -43,7 +43,6 @@
   "vim-matchup": { "branch": "master", "commit": "2550178c43464134ce65328da458905f70dbe041" },
   "vim-misc": { "branch": "master", "commit": "3e6b8fb6f03f13434543ce1f5d24f6a5d3f34f0b" },
   "vim-polyglot": { "branch": "master", "commit": "bc8a81d3592dab86334f27d1d43c080ebf680d42" },
-  "vim-ragtag": { "branch": "master", "commit": "51b313e8a2e3a44f37b9d625bc0d461e9066b7e9" },
   "vim-repeat": { "branch": "master", "commit": "24afe922e6a05891756ecf331f39a1f6743d3d5a" },
   "vim-rooter": { "branch": "master", "commit": "1353fa47ee3a81083c284e28ff4f7d92655d7c9e" },
   "vim-session": { "branch": "master", "commit": "9e9a6088f0554f6940c19889d0b2a8f39d13f2bb" },

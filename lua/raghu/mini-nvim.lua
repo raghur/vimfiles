@@ -1,22 +1,23 @@
 local M = {}
 M.config = function()
   require("mini.files").setup()
-  -- require("mini.jump").setup()
   require("mini.comment").setup()
   require("mini.pairs").setup()
   require("mini.surround").setup({
     mappings = {
-          add = 'sa', -- Add surrounding in Normal and Visual modes
-          delete = 'sd', -- Delete surrounding
-          find = 'sf', -- Find surrounding (to the right)
-          find_left = 'sF', -- Find surrounding (to the left)
-          highlight = 'sh', -- Highlight surrounding
-          replace = 'sr', -- Replace surrounding
-          update_n_lines = 'sn', -- Update `n_lines`
+          add = 'ys', -- Add surrounding in Normal and Visual modes
+          delete = 'ds', -- Delete surrounding
+          find = '', -- Find surrounding (to the right)
+          find_left = '', -- Find surrounding (to the left)
+          highlight = 'hs', -- Highlight surrounding
+          replace = 'cs', -- Change surrounding
+          update_n_lines = '', -- Update `n_lines`
 
-          suffix_last = 'l', -- Suffix to search with "prev" method
-          suffix_next = 'n', -- Suffix to search with "next" method
+          suffix_last = '', -- Suffix to search with "prev" method
+          suffix_next = '', -- Suffix to search with "next" method
         },
+    n_lines = 100,
+    search_method = 'cover_or_next'
   })
 
   require("mini.indentscope").setup({
