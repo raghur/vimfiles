@@ -1,4 +1,4 @@
-
+local M = {}
 vim.keymap.set('v', '<leader>=', vim.lsp.buf.format)
 vim.cmd([[
 
@@ -94,18 +94,45 @@ inoremap <A-k> <Esc>:m-2<CR>==gi
 vnoremap <A-j> :m'>+<CR>gv=gv
 vnoremap <A-k> :m-2<CR>gv=gv
 
-" more leader mappings for editing vim and lua config
-nnoremap <leader>ii :ed $MYVIMRC<cr>
-nnoremap <leader>im <Cmd>lua require('raghu.utils').editConfig('mappings.lua')<cr>
-nnoremap <leader>is <Cmd>lua require('raghu.utils').editConfig('settings.lua')<cr>
-nnoremap <leader>ip <Cmd>lua require('raghu.utils').editConfig('plugins.lua')<cr>
-nnoremap <leader>ic <Cmd>lua require('raghu.utils').editConfigFolder('raghu')<cr>
-
-nnoremap <leader>vs <Cmd>source %<cr>
-vnoremap <leader>vs :'<'>so<CR>
+" vnoremap <leader>vs :'<,'>so<CR>
 " source a visual range
 ]])
+M.mapKeys = function()
+  local wk = require('which-key')
+  local utils = require('raghu.utils')
+  local font = require('raghu.font')
+  local mappings = {
+    i = {
+      name = '+Config',
+      m = { function () utils.editConfig('mappings.lua') end, 'Mappings'},
+      i = { "<Cmd>ed $MYVIMRC<cr>", 'init.lua'},
+      s = { function () utils.editConfig('settings.lua') end, 'Settings'},
+      p = { function () utils.editConfig('plugins.lua') end, 'Plugins'},
+      c = { function () utils.editConfigFolder('raghu') end, 'Plugin Config Folder'},
+      [","] = { "<cmd>source %<cr>", 'Source file'},
+    }
+  }
+  wk.register(mappings, {prefix = "<leader>"})
 
-local font = require('raghu.font')
-vim.keymap.set("n", "<M-=>", function() font.adjust(1) end, { silent = true })
-vim.keymap.set("n", "<M-->", function() font.adjust(-1) end, { silent = true })
+  local vMappings = {
+    i = {
+      name="+Config",
+      [","] = {function ()
+        local start  = vim.fn.getpos("v")[2]
+        local fin = vim.fn.line(".")
+        local cmd =start..","..fin.."so"
+        print("Sourced: "..cmd)
+        vim.cmd(cmd)
+      end, 'Source lines'}
+    }
+  }
+  wk.register(vMappings, {mode = 'v', prefix = "<leader>"})
+
+  mappings = {
+      name = "Guifont",
+      ["<M-=>"] = {function() font.adjust(1) end, 'Increase Font'},
+      ["<M-->"] = {function() font.adjust(-1) end, 'Decrease Font'}
+  }
+  wk.register(mappings, {})
+end
+return M
