@@ -19,13 +19,10 @@ instance.editConfigFolder = function(folder)
   end
 
 instance.cycle = function (items, index, dir)
-  if dir >= 0 then
-    index = index + 1
-    if index > #items then index = 1 end
-  else
-    index = index - 1
-    if index < 0 then index = #items end
-  end
+  if dir >= 0 then dir = 1 else dir = -1 end
+  index = index + dir
+  if index > #items then index = 1 end
+  if index < 1 then index = #items end
   return items[index]
 end
 

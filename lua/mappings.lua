@@ -73,24 +73,24 @@ M.mapKeys = function()
   local utils = require('raghu.utils')
   local font = require('raghu.font')
   local mappings = {
-    ["1"] = {"<cmd>on<cr>", "Only"},
-    a =  {":b#<cr>", "alt buffer"},
-    d = { ":bd!<cr>", 'close buffer'},
-    e = {":edit <C-R>=fnamemodify(@%, ':p:h')<CR>/", 'edit file'},
-    h = { ":noh<cr><c-l>", "remove search highlights"},
-    q = { ":qall<cr>", "quit"},
-    w = {":w<cr>", 'save'},
-    ["="] =  {"<cmd>lua vim.lsp.lsp.buf.formatting({async=true})<cr>", 'format'},
+    ["1"] = {"<cmd>on<cr>", "which_key_ignore"},
+    a =  {":b#<cr>", "which_key_ignore"},
+    d = { ":bd!<cr>", "which_key_ignore"},
+    e = {":edit <C-R>=fnamemodify(@%, ':p:h')<CR>/", "edit file"},
+    h = { ":noh<cr><c-l>", "which_key_ignore"},
+    q = { ":qall<cr>", "which_key_ignore"},
+    w = {":w<cr>", "which_key_ignore"},
+    ["="] =  {"<cmd>lua vim.lsp.lsp.buf.formatting({async=true})<cr>", "format"},
     z = {":call utils#toggleZoom()<cr>", "Zoom"},
-    ex = {"<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", 'Open directory'},
+    ex = {"<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", "Open directory"},
     i = {
       name = '+Config',
-      m = { function () utils.editConfig('mappings.lua') end, 'Mappings'},
-      i = { "<Cmd>ed $MYVIMRC<cr>", 'init.lua'},
-      s = { function () utils.editConfig('settings.lua') end, 'Settings'},
-      p = { function () utils.editConfig('plugins.lua') end, 'Plugins'},
-      c = { function () utils.editConfigFolder('raghu') end, 'Plugin Config Folder'},
-      [","] = { "<cmd>source %<cr>", 'Source file'},
+      m = { function () utils.editConfig("mappings.lua") end, 'Mappings'},
+      i = { "<Cmd>ed $MYVIMRC<cr>", "init.lua"},
+      s = { function () utils.editConfig("settings.lua") end, "Settings"},
+      p = { function () utils.editConfig("plugins.lua") end, "Plugins"},
+      c = { function () utils.editConfigFolder("raghu") end, "Plugin Config Folder"},
+      [","] = { "<cmd>source %<cr>", "Source file"},
     }
   }
   wk.register(mappings, {prefix = "<leader>"})
