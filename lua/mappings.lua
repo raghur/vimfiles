@@ -9,7 +9,7 @@ let mapleader = ' '
 nnoremap <silent> <leader>z  :call utils#toggleZoom()<cr>
 
 " file explorer
-nnoremap <silent> <leader>ex  <cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>
+" nnoremap <silent> <leader>ex  <cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>
 
 
 " for browsing the input history
@@ -31,24 +31,7 @@ nnoremap ^ 0
 nnoremap j gj
 nnoremap k gk
 
-" Function keys
-" https://github.com/neovim/neovim/issues/4862#issuecomment-282988543
-nnoremap <F5> :UndotreeToggle<CR>
-nnoremap <F7> :Neoformat<cr>
-nnoremap <S-F4> :Wex<cr>
-
-"leader mappings
-nnoremap <leader>1 :on<cr>
-nnoremap <leader>a :b#<cr>
-nnoremap <leader>d :bd!<cr>
-nnoremap <leader>e :edit <C-R>=fnamemodify(@%, ':p:h')<CR>/
-nnoremap <leader>h :noh<cr><c-l>
-nnoremap <leader>q :qall<cr>
-nnoremap <leader>w :w<cr>
-nnoremap <leader>= <cmd>lua vim.lsp.lsp.buf.formatting({async=true})<cr>
 " copy a block and comment it and move to insert mode
-
-
 vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
 
 nnoremap <backspace>    <C-o>
@@ -71,9 +54,9 @@ inoremap <S-Insert> <c-r>+
 cnoremap <S-Insert> <c-r>+
 
 " Paste sanity
-vnoremap <S-Insert> "0p
-vnoremap p "0p
-vnoremap P "0P
+" vnoremap <S-Insert> "0p
+" vnoremap p "0p
+" vnoremap P "0P
 nnoremap c "_c
 nnoremap C "_C
 
@@ -102,6 +85,16 @@ M.mapKeys = function()
   local utils = require('raghu.utils')
   local font = require('raghu.font')
   local mappings = {
+    ["1"] = {"<cmd>on<cr>", "Only"},
+    a =  {":b#<cr>", "alt buffer"},
+    d = { ":bd!<cr>", 'close buffer'},
+    e = {":edit <C-R>=fnamemodify(@%, ':p:h')<CR>/", 'edit file'},
+    h = { ":noh<cr><c-l>", "remove search highlights"},
+    q = { ":qall<cr>", "quit"},
+    w = {":w<cr>", 'save'},
+    ["="] =  {"<cmd>lua vim.lsp.lsp.buf.formatting({async=true})<cr>", 'format'},
+    z = {":call utils#toggleZoom()<cr>", "Zoom"},
+    ex = {"<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", 'Open directory'},
     i = {
       name = '+Config',
       m = { function () utils.editConfig('mappings.lua') end, 'Mappings'},
@@ -114,7 +107,7 @@ M.mapKeys = function()
   }
   wk.register(mappings, {prefix = "<leader>"})
 
-  local vMappings = {
+  mappings = {
     i = {
       name="+Config",
       [","] = {function ()
@@ -126,12 +119,20 @@ M.mapKeys = function()
       end, 'Source lines'}
     }
   }
-  wk.register(vMappings, {mode = 'v', prefix = "<leader>"})
+  wk.register(mappings, {mode = 'v', prefix = "<leader>"})
 
   mappings = {
-      name = "Guifont",
-      ["<M-=>"] = {function() font.adjust(1) end, 'Increase Font'},
-      ["<M-->"] = {function() font.adjust(-1) end, 'Decrease Font'}
+    ["<S-insert>"] = {'"0p', 'paste'},
+    p = { '"0p', 'paste'},
+    P = { '"0P', 'paste before'},
+  }
+  wk.register(mappings, {mode = 'v'})
+
+  mappings = {
+    ["<F3>"] = {"<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", 'Open directory'},
+    ["<F9>"] = {"<Cmd>YankyRingHistory<cr>", 'Yanky'},
+    ["<M-=>"] = {function() font.adjust(1) end, 'Increase Font'},
+    ["<M-->"] = {function() font.adjust(-1) end, 'Decrease Font'}
   }
   wk.register(mappings, {})
 end

@@ -8,7 +8,9 @@ return {
   { "tpope/vim-repeat" },
   {
     "mbbill/undotree",
-    keys = "<F5>",
+    keys = {
+      {"<F5>", "<cmd>UndotreeToggle<cr>", desc = 'Undotree'},
+    },
     cmd = "UndotreeToggle",
   },
   {
