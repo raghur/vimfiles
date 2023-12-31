@@ -5,11 +5,13 @@ local instance = {}
 instance.family = function(newFont)
   if (vim.env.TERM) then return end
   if newFont then
+    -- if size spec is provided, then directly apply
     if string.find(newFont, ":h") then
       vim.o.guifont = newFont
     else
+      -- extract size
       local size = instance.size()
-      vim.opt.guifont = {newFont, ":h" .. size}
+      vim.o.guifont = newFont.. ":h" .. size
     end
   else
     local fontName = vim.o.guifont
@@ -26,7 +28,7 @@ instance.size = function(size)
   local fontname = instance.family()
   if (not fontname) then return end
   if (size) then
-    vim.opt.guifont = {fontname, ":h" .. size}
+    vim.o.guifont = fontname .. ":h" .. size
   else
     local font = vim.o.guifont
     local idx = string.find(font, ":h")
