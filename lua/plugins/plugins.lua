@@ -104,6 +104,24 @@ return {
     }
   },
   {
+    'kevinhwang91/nvim-ufo',
+    dependencies = {
+      {"kevinhwang91/promise-async"},
+      { "nvim-treesitter/nvim-treesitter"}
+    },
+
+    config = function (plugin, opts)
+      vim.o.foldcolumn = '1'
+      vim.o.foldlevel = 99
+      vim.o.foldlevelstart = 99
+      require('ufo').setup({
+        provider_selector = function(bufnr, filetype, buftype)
+          return {'treesitter', 'indent'}
+        end
+      })
+    end
+  },
+  {
     "nvim-telescope/telescope.nvim",
     branch = "0.1.x",
     tag = "0.1.5",
@@ -167,9 +185,14 @@ return {
     version='*',
     config = myconfig.configurePlugin,
   },
-  { "neovim/nvim-lspconfig",
-    config = myconfig.configurePlugin},
-  { "nvim-tree/nvim-web-devicons", lazy = true },
+  {
+    "neovim/nvim-lspconfig",
+    config = myconfig.configurePlugin
+  },
+  {
+    "nvim-tree/nvim-web-devicons",
+    lazy = true,
+  },
   {
     "nvimdev/lspsaga.nvim",
     dependencies = {
@@ -187,7 +210,13 @@ return {
     config = function()
     end,
   },
-  { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
-
-  { "gbprod/yanky.nvim" , config = myconfig.configurePlugin},
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+  },
+  {
+    "gbprod/yanky.nvim",
+    config = myconfig.configurePlugin,
+  },
 }
