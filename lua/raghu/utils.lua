@@ -29,6 +29,11 @@ instance.cycle = function (items, index, dir)
   return items[index]
 end
 
+--  global require
+Require = function (name)
+  package.loaded[name] = nil
+  return require(name)
+end
 instance.mkdir = vim.fn['utils#createIfNotExists']
 instance.dbg = vim.fn['utils#dbg']
 instance.info = vim.fn['utils#info']

@@ -2,11 +2,31 @@ local M = {}
 
 M.config = function ()
   -- Treesitter configuration
-  require('nvim-treesitter.configs').setup {
-    ensure_installed = {'org', 'yaml', 'json', 'bash', 'cpp', 'c_sharp',
-      'dockerfile', 'dot',  'gitcommit', 'gitattributes',
-      'gitcommit', 'graphql', 'hcl', 'javascript', 'lua', 'markdown', 'vim', 'make', 'cmake',
-      'typescript'
+  require('nvim-treesitter.configs').setup ({
+    sync_install = false,
+    auto_install = true,
+    ignore_install = {},
+    ensure_installed = {
+      'org',
+      'yaml',
+      'json',
+      'bash',
+      'cpp',
+      'c_sharp',
+      'dockerfile',
+      'dot',
+      'gitcommit',
+      'gitattributes',
+      'gitcommit',
+      'graphql',
+      'hcl',
+      'javascript',
+      'lua',
+      'markdown',
+      'vim',
+      'make',
+      'cmake',
+      'typescript',
     },
     -- Or run :TSUpdate org
     -- If TS highlights are not enabled at all, or disabled via `disable` prop,
@@ -27,7 +47,7 @@ M.config = function ()
       },
     },
     indent = { enable = true }
-  }
+  })
 end
 
 return M
