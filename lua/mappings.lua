@@ -1,17 +1,6 @@
 local M = {}
 vim.keymap.set('v', '<leader>=', vim.lsp.buf.format)
 vim.cmd([[
-
-let maplocalleader='\'
-let mapleader = ' '
-" map <space> <leader>
-
-nnoremap <silent> <leader>z  :call utils#toggleZoom()<cr>
-
-" file explorer
-" nnoremap <silent> <leader>ex  <cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>
-
-
 " for browsing the input history
 cnoremap <c-n> <down>
 cnoremap <c-p> <up>
@@ -39,7 +28,6 @@ nnoremap <tab>    <C-i>
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
-nnoremap <silent> <F3> :redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR>
 
 " open help in a vert split to the right
 cabbrev h vert bo h
@@ -129,7 +117,8 @@ M.mapKeys = function()
   wk.register(mappings, {mode = 'v'})
 
   mappings = {
-    ["<F3>"] = {"<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", 'Open directory'},
+    ["<F3>"] = {":redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR>", 'Copy last search to buffer'},
+    ["<F4>"] = {"<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", 'Open directory'},
     ["<F9>"] = {"<Cmd>YankyRingHistory<cr>", 'Yanky'},
     ["<M-=>"] = {function() font.adjust(1) end, 'Increase Font'},
     ["<M-->"] = {function() font.adjust(-1) end, 'Decrease Font'}

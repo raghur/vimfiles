@@ -10,15 +10,11 @@ function! NeatFoldText()
     let foldtextlength = strlen(substitute(foldtextstart . foldtextend, '.', 'x', 'g')) + &foldcolumn
     return foldtextstart . repeat(foldchar, winwidth(0)-foldtextlength) . foldtextend
 endfunction
-command! RemoveCtrlM call utils#RemoveCtrlM()
-command! EditAsWin call utils#RemoveCtrlM()
-
 command! -nargs=+ -bang -complete=command R call utils#ReadExCommandOutput(<bang>1, <q-args>)
 inoremap <c-r>R <c-o>:<up><home>R! <cr>
 
 command! BlogSave call utils#BlogSave(expand("%:p"))
 
 set foldtext=NeatFoldText()
-command! -nargs=* WatchAndExec  call utils#StartWatcher("<args>")
 command! -bar W exe 'w !sudo tee >/dev/null %:p:S' | setl nomod
 ]])

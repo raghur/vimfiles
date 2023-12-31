@@ -1,6 +1,8 @@
 require("settings")
-local maps = require("mappings")
 require("commands")
+vim.g.maplocalleader = "\\"
+vim.g.mapleader = ' '
+local maps = require("mappings")
 local utils = require("raghu.utils")
 -- or set env var NVIM_LOG=1, 2 etc 0/unset - disabled, 1=INFO, 2=DBG
 -- utils.loglvl('DBG')
