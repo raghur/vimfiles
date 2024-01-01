@@ -133,16 +133,23 @@ M.mapKeys = function()
     ["<M-->"] = {function() font.adjust(-1) end, 'Decrease Font'}
   }
   wk.register(mappings, {})
-
+  -- prompt for a refactor to apply when the remap is triggered
+  vim.keymap.set(
+    {"n", "x"},
+    "<leader>.",
+    function() require('refactoring').select_refactor() end,
+    {desc = "Refactor"}
+  )
+  -- Note that not all refactor support both normal and visual mode
   -- various LSP mappings under <leader>l
   mappings = {
     ["="] =  {vim.lsp.buf.format, "format"},
+    ["["] = { "<cmd>Lspsaga diagnostic_jump_prev<cr>", "prev problem" },
+    ["]"] = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "next problem" },
     l = {
       name = "+language server",
       [" "] = { "<cmd>Lspsaga rename<cr>", "rename" },
       ["."] = { "<cmd>Lspsaga code_action<cr>", "code actions" },
-      ["["] = { "<cmd>Lspsaga diagnostic_jump_prev<cr>", "prev problem" },
-      ["]"] = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "next problem" },
       a = { "<cmd>Telescope aerial<cr>", 'anything' },
       d = { tele.lsp_definitions, "defintions" },
       f = { tele.current_buffer_fuzzy_find, "fuzzy find" },
