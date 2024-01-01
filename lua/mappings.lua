@@ -86,6 +86,7 @@ M.mapKeys = function()
     i = {
       name = '+Config',
       m = { function () utils.editConfig("mappings.lua") end, 'Mappings'},
+      r = { ReloadConfig, 'Reload'},
       i = { "<Cmd>ed $MYVIMRC<cr>", "init.lua"},
       s = { function () utils.editConfig("settings.lua") end, "Settings"},
       p = { function () utils.editConfig("plugins.lua") end, "Plugins"},

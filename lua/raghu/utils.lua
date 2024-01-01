@@ -1,5 +1,5 @@
 
-local instance = {}
+local M = {}
 local editConfig = function(file, type)
   local configHome = vim.fs.dirname(vim.env.MYVIMRC)
 
@@ -11,14 +11,37 @@ local editConfig = function(file, type)
   vim.cmd.edit(targetfiles)
 end
 
-instance.editConfig = function(file)
+M.editConfig = function(file)
     editConfig(file, 'file')
   end
-instance.editConfigFolder = function(folder)
+M.editConfigFolder = function(folder)
     editConfig(folder, 'directory')
   end
 
-instance.cycle = function (items, index, dir)
+ReloadConfig = function ()
+  Require('mappings').mapKeys()
+  Require('settings')
+  Require('commands')
+  vim.notify('Config reloaded!', vim.log.levels.INFO)
+end
+-- M.reloadconfig = function()
+--   local luacache = (_G.__luacache or {}).cache
+--   -- TODO unload commands, mappings + ?symbols?
+--   for pkg, _ in pairs(package.loaded) do
+--     if pkg:match '^my_.+'
+--     then
+--       print(pkg)
+--       package.loaded[pkg] = nil
+--       if luacache then
+--         lucache[pkg] = nil
+--       end
+--     end
+--   end
+--   dofile(vim.env.MYVIMRC)
+--   vim.notify('Config reloaded!', vim.log.levels.INFO)
+-- end
+
+M.cycle = function (items, index, dir)
   if dir >= 0 then dir = 1 else dir = -1 end
   index = index + dir
   if index > #items then index = 1 end
@@ -31,8 +54,8 @@ Require = function (name)
   package.loaded[name] = nil
   return require(name)
 end
-instance.mkdir = vim.fn['utils#createIfNotExists']
-instance.dbg = vim.fn['utils#dbg']
-instance.info = vim.fn['utils#info']
-instance.loglvl = vim.fn['utils#loglvl']
-return instance
+M.mkdir = vim.fn['utils#createIfNotExists']
+M.dbg = vim.fn['utils#dbg']
+M.info = vim.fn['utils#info']
+M.loglvl = vim.fn['utils#loglvl']
+return M
