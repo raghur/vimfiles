@@ -72,7 +72,27 @@ M.mapKeys = function()
   local wk = require('which-key')
   local utils = require('raghu.utils')
   local font = require('raghu.font')
+
+  local tele = require('telescope.builtin')
   local mappings = {
+    r = {function() require("telescope.builtin").buffers({sort_mru=true, ignore_current_buffer=true}) end, "Buffers"},
+    b = {function() require("telescope.builtin").buffers({sort_mru=true, ignore_current_buffer=true}) end, "Buffers"},
+    gf = { "<Cmd>Telescope git_files<CR>", "Git files" },
+    ['/'] = {"<Cmd>Telescope live_grep<CR>", "Grep" },
+    f = {"':Telescope find_files hidden=true no_ignore=true cwd='.FindRootDirectory().'/<cr>'", "find (no ignore)", expr=true},
+    [' '] = {"':Telescope find_files hidden=true cwd='.FindRootDirectory().'/<cr>'", "find", expr=true },
+    l = {
+      name = "+Language Server",
+      a = { "<Cmd>Telescope aerial<CR>", 'Anything' },
+      w =  {tele.lsp_workspace_symbols, "Workspace Symbols"},
+      o =  {tele.lsp_document_symbols, "Document Symbols"},
+      d =  {tele.lsp_definitions, "Defintions"},
+      r =  {tele.lsp_references, "References"},
+      l =  {tele.diagnostics, "Diagnostics"},
+      f =  {tele.current_buffer_fuzzy_find, "Fuzzy find"},
+    },
+    c = { "<Cmd>Telescope colorscheme<CR>", 'Colors' },
+    [":"] = {"<Cmd>Telescope commands<CR>", 'Commands'},
     ["1"] = {"<cmd>on<cr>", "which_key_ignore"},
     a =  {":b#<cr>", "which_key_ignore"},
     d = { ":bd!<cr>", "which_key_ignore"},
@@ -125,5 +145,6 @@ M.mapKeys = function()
     ["<M-->"] = {function() font.adjust(-1) end, 'Decrease Font'}
   }
   wk.register(mappings, {})
+  vim.notify('Mappings loaded', vim.log.levels.INFO)
 end
 return M
