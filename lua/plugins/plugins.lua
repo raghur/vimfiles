@@ -56,7 +56,7 @@ return {
 
   {
     "airblade/vim-rooter",
-    config = function(plugin, opts)
+    config = function()
       vim.g.rooter_silent_chdir = 1
     end,
   },
@@ -70,7 +70,7 @@ return {
   },
   {
     "alvan/vim-closetag",
-    config = function(plugin, opts)
+    config = function()
       vim.g.closetag_filenames = "*.html,*.xhtml,*.xml,*.htm,*.vue,*.jsx"
       vim.g.closetag_xhtml_filenames = "*.xhtml,*.jsx,*.vue"
     end,
@@ -110,12 +110,12 @@ return {
       { "nvim-treesitter/nvim-treesitter"}
     },
 
-    config = function (plugin, opts)
+    config = function ()
       vim.o.foldcolumn = '1'
       vim.o.foldlevel = 99
       vim.o.foldlevelstart = 99
       require('ufo').setup({
-        provider_selector = function(bufnr, filetype, buftype)
+        provider_selector = function()
           return {'treesitter', 'indent'}
         end
       })
