@@ -5,15 +5,15 @@ cnoremap <c-n> <down>
 cnoremap <c-p> <up>
 
 " disable arrow keys
-noremap   <Up>     <NOP>
-noremap   <Down>   <NOP>
-noremap   <Left>   <NOP>
-noremap   <Right>  <NOP>
-inoremap jk <esc>
-vnoremap > >gv
-vnoremap < <gv
-nnoremap 0 ^
-nnoremap ^ 0
+noremap  <Up>    <NOP>
+noremap  <Down>  <NOP>
+noremap  <Left>  <NOP>
+noremap  <Right> <NOP>
+inoremap jk      <esc>
+vnoremap >       >gv
+vnoremap <       <gv
+nnoremap 0       ^
+nnoremap ^       0
 
 "Move by screen lines
 nnoremap j gj
@@ -29,12 +29,12 @@ nnoremap <tab>    <C-i>
 map Q gq
 
 " open help in a vert split to the right
-cabbrev h vert bo h
+cabbrev h   vert bo h
 cabbrev map verb map<space>
 
 " CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
 " so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U> <C-G>u<C-U>
+inoremap <C-U>      <C-G>u<C-U>
 
 inoremap <S-Insert> <c-r>+
 inoremap <S-Insert> <c-r>+
@@ -48,10 +48,10 @@ nnoremap c "_c
 nnoremap C "_C
 
 " Search and replace related mappings
-nnoremap / /\v
-cnoremap %s/ %s/\v
-vnoremap % <space>%
-vnoremap <silent> * y:let @/=@"<cr>:set hlsearch<cr>n
+nnoremap /         /\v
+cnoremap %s/       %s/\v
+vnoremap %         <space>%
+vnoremap <silent>* y:let @/=@"<cr>:set hlsearch<cr>n
 " Center on screen after moving to next/prev match
 nnoremap n nzz
 nnoremap N Nzz
@@ -63,10 +63,8 @@ inoremap <A-j> <Esc>:m+<CR>==gi
 inoremap <A-k> <Esc>:m-2<CR>==gi
 vnoremap <A-j> :m'>+<CR>gv=gv
 vnoremap <A-k> :m-2<CR>gv=gv
-
-" vnoremap <leader>vs :'<,'>so<CR>
-" source a visual range
 ]])
+
 M.mapKeys = function()
   local wk = require('which-key')
   local utils = require('raghu.utils')
@@ -138,7 +136,7 @@ M.mapKeys = function()
     ["["] = { "<cmd>Lspsaga diagnostic_jump_prev<cr>", "prev problem" },
     ["]"] = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "next problem" },
     p = { tele.diagnostics, "diagnostics" },
-    r = { function () require('refactoring').select_refactor() end, "refactor", mode = {"x", "n"}}
+    ["."] = { function () require('refactoring').select_refactor() end, "refactor", mode = {"x", "n"}}
   }
   wk.register(mappings, { prefix = "<leader>"})
 
