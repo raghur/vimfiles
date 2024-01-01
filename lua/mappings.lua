@@ -1,5 +1,4 @@
 local M = {}
-vim.keymap.set('v', '<leader>=', vim.lsp.buf.format)
 vim.cmd([[
 " for browsing the input history
 cnoremap <c-n> <down>
@@ -81,16 +80,6 @@ M.mapKeys = function()
     ['/'] = {"<Cmd>Telescope live_grep<CR>", "Grep" },
     f = {"':Telescope find_files hidden=true no_ignore=true cwd='.FindRootDirectory().'/<cr>'", "find (no ignore)", expr=true},
     [' '] = {"':Telescope find_files hidden=true cwd='.FindRootDirectory().'/<cr>'", "find", expr=true },
-    l = {
-      name = "+Language Server",
-      a = { "<Cmd>Telescope aerial<CR>", 'Anything' },
-      w =  {tele.lsp_workspace_symbols, "Workspace Symbols"},
-      o =  {tele.lsp_document_symbols, "Document Symbols"},
-      d =  {tele.lsp_definitions, "Defintions"},
-      r =  {tele.lsp_references, "References"},
-      l =  {tele.diagnostics, "Diagnostics"},
-      f =  {tele.current_buffer_fuzzy_find, "Fuzzy find"},
-    },
     c = { "<Cmd>Telescope colorscheme<CR>", 'Colors' },
     [":"] = {"<Cmd>Telescope commands<CR>", 'Commands'},
     ["1"] = {"<cmd>on<cr>", "which_key_ignore"},
@@ -100,7 +89,6 @@ M.mapKeys = function()
     h = { ":noh<cr><c-l>", "which_key_ignore"},
     q = { ":qall<cr>", "which_key_ignore"},
     w = {":w<cr>", "which_key_ignore"},
-    ["="] =  {"<cmd>lua vim.lsp.lsp.buf.formatting({async=true})<cr>", "format"},
     z = {":call utils#toggleZoom()<cr>", "Zoom"},
     ex = {"<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", "Open directory"},
     i = {
@@ -145,6 +133,30 @@ M.mapKeys = function()
     ["<M-->"] = {function() font.adjust(-1) end, 'Decrease Font'}
   }
   wk.register(mappings, {})
+
+  -- various LSP mappings under <leader>l
+  mappings = {
+    ["="] =  {vim.lsp.buf.format, "format"},
+    l = {
+      name = "+Language Server",
+      [" "] = { "<cmd>Lspsaga rename<CR>", "Rename" },
+      ["."] = { "<cmd>Lspsaga code_action<CR>", "Code actions" },
+      ["["] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "Prev problem" },
+      ["]"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Next problem" },
+      a = { "<Cmd>Telescope aerial<CR>", 'Anything' },
+      d = { tele.lsp_definitions, "Defintions" },
+      f = { tele.current_buffer_fuzzy_find, "Fuzzy find" },
+      p = { tele.diagnostics, "Diagnostics" },
+      l = { "<cmd>Lspsaga finder<CR>", "Lsp Finder" },
+      o = { tele.lsp_document_symbols, "Document Symbols" },
+      -- o = {"<cmd>Lspsaga outline<CR>", "outline"},
+      r = { tele.lsp_references, "References" },
+      w = { tele.lsp_workspace_symbols, "Workspace Symbols" },
+    }
+  }
+  wk.register(mappings, { prefix = "<leader>"})
+  -- keymap("n", "<F2>", "<cmd>Lspsaga rename<CR>", { silent = true })
+  vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true, desc = "Hover docs"})
   vim.notify('Mappings loaded', vim.log.levels.INFO)
 end
 return M

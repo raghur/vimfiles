@@ -1,5 +1,4 @@
 local M = {}
-local keymap = vim.keymap.set
 local lspsaga = require 'lspsaga'
 
 M.config = function()
@@ -21,17 +20,6 @@ M.config = function()
       exec = "<CR>",
     },
   })
-  keymap("n", "gd", "<cmd>Lspsaga finder<CR>", { silent = true })
-  keymap("n", "<space>.", "<cmd>Lspsaga code_action<CR>", { silent = true })
-  -- keymap("n", "<F2>", "<cmd>Lspsaga rename<CR>", { silent = true })
-  keymap("n", "gr", "<cmd>Lspsaga rename<CR>", { silent = true })
-  keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
-  keymap("n", "g<space>", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
-  keymap("n", "go", "<cmd>Lspsaga outline<CR>", { silent = true })
-  -- Show buffer diagnostics
-  keymap("n", "<leader>p", "<cmd>Lspsaga show_workspace_diagnostics<CR>")
-  keymap("n", "<leader>]", "<cmd>Lspsaga diagnostic_jump_next<CR>")
-  keymap("n", "<leader>[", "<cmd>Lspsaga diagnostic_jump_prev<CR>")
   -- -- change the lsp symbol kind
   -- local kind = require('lspsaga.lspkind')
   -- kind[type_number][2] = icon -- see lua/lspsaga/lspkind.lua
