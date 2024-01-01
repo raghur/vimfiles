@@ -41,9 +41,6 @@ inoremap <S-Insert> <c-r>+
 cnoremap <S-Insert> <c-r>+
 
 " Paste sanity
-" vnoremap <S-Insert> "0p
-" vnoremap p "0p
-" vnoremap P "0P
 nnoremap c "_c
 nnoremap C "_C
 
