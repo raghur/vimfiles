@@ -133,35 +133,32 @@ M.mapKeys = function()
     ["<M-->"] = {function() font.adjust(-1) end, 'Decrease Font'}
   }
   wk.register(mappings, {})
-  -- prompt for a refactor to apply when the remap is triggered
-  vim.keymap.set(
-    {"n", "x"},
-    "<leader>.",
-    function() require('refactoring').select_refactor() end,
-    {desc = "Refactor"}
-  )
-  -- Note that not all refactor support both normal and visual mode
   -- various LSP mappings under <leader>l
   mappings = {
-    ["="] =  {vim.lsp.buf.format, "format"},
     ["["] = { "<cmd>Lspsaga diagnostic_jump_prev<cr>", "prev problem" },
     ["]"] = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "next problem" },
-    l = {
-      name = "+language server",
-      [" "] = { "<cmd>Lspsaga rename<cr>", "rename" },
-      ["."] = { "<cmd>Lspsaga code_action<cr>", "code actions" },
-      a = { "<cmd>Telescope aerial<cr>", 'anything' },
-      d = { tele.lsp_definitions, "defintions" },
-      f = { tele.current_buffer_fuzzy_find, "fuzzy find" },
-      p = { tele.diagnostics, "diagnostics" },
-      l = { "<cmd>Lspsaga finder<cr>", "lsp finder" },
-      o = { tele.lsp_document_symbols, "document symbols" },
-      -- o = {"<cmd>lspsaga outline<cr>", "outline"},
-      r = { tele.lsp_references, "references" },
-      w = { tele.lsp_workspace_symbols, "workspace symbols" },
-    }
+    p = { tele.diagnostics, "diagnostics" },
+    r = { function () require('refactoring').select_refactor() end, "refactor", {mode = {"x", "n"}}}
   }
   wk.register(mappings, { prefix = "<leader>"})
+
+  mappings = {
+    g = {
+      name = "+LSP nav",
+      ["="] =  {vim.lsp.buf.format, "format"},
+      ["."] = { "<cmd>Lspsaga code_action<cr>", "code actions" },
+      [";"] = { tele.lsp_references, "references" },
+      r = { "<cmd>Lspsaga rename<cr>", "rename" },
+      l = { "<cmd>Lspsaga finder<cr>", "lsp finder" },
+      -- ["/"] = { tele.current_buffer_fuzzy_find, "fuzzy find" },
+      ["/"] = { tele.lsp_document_symbols, "document symbols" },
+      d = { tele.lsp_definitions, "defintions" },
+      a = { "<cmd>Telescope aerial<cr>", 'anything' },
+      w = { tele.lsp_workspace_symbols, "workspace symbols" },
+
+    },
+  }
+  wk.register(mappings, {})
   -- keymap("n", "<F2>", "<cmd>Lspsaga rename<CR>", { silent = true })
   vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true, desc = "Hover docs"})
   vim.notify('Mappings loaded', vim.log.levels.INFO)

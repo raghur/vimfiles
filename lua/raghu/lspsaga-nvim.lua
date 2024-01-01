@@ -4,20 +4,25 @@ local lspsaga = require 'lspsaga'
 M.config = function()
   -- use default config
   lspsaga.setup({
-    rename_action_quit = "<C-c>",
-    rename_in_select = false,
-    finder_action_keys = {
-      open = "<CR>",
-      vsplit = "v",
-      split = "s",
-      tabe = "t",
-      quit = "q",
-      scroll_down = "<C-f>",
-      scroll_up = "<C-b>", -- quit can be a table
+    rename = {
+      keys = {
+        quit = "<C-c>"
+      }
     },
-    code_action_keys = {
-      quit = "<C-c>",
-      exec = "<CR>",
+    finder = {
+      default = "def+ref+imp+tyd",
+      methods = {
+        tyd = "textDocument/typeDefinition"
+      },
+      keys = {
+        toggle_or_open = "<CR>",
+        vsplit = "v",
+        split = "s",
+        tabe = "t",
+        quit = "q",
+        scroll_down = "<C-f>",
+        scroll_up = "<C-b>", -- quit can be a table
+      }
     },
   })
   -- -- change the lsp symbol kind
