@@ -138,7 +138,7 @@ M.mapKeys = function()
     ["["] = { "<cmd>Lspsaga diagnostic_jump_prev<cr>", "prev problem" },
     ["]"] = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "next problem" },
     p = { tele.diagnostics, "diagnostics" },
-    r = { function () require('refactoring').select_refactor() end, "refactor", {mode = {"x", "n"}}}
+    r = { function () require('refactoring').select_refactor() end, "refactor", mode = {"x", "n"}}
   }
   wk.register(mappings, { prefix = "<leader>"})
 

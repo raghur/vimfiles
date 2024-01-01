@@ -41,9 +41,9 @@ M.config = function ()
       enable = true,
       keymaps = {
         init_selection = "g<CR>",
-        node_incremental = " ",
-        scope_incremental = "<CR>",
+        node_incremental = "<tab>",
         node_decremental = "<BS>",
+        scope_incremental = "<CR>",
       },
     },
     indent = { enable = true }
