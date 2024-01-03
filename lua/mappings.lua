@@ -112,6 +112,9 @@ M.mapKeys = function()
     }
   }
   wk.register(mappings, {mode = 'v', prefix = "<leader>"})
+  wk.register({
+    S = { ":<C-U>lua MiniSurround.add('visual')<cr>", "surround"}
+  }, {mode = {"x", "n"}})
 
   mappings = {
     ["<S-insert>"] = {'"0p', 'paste'},
