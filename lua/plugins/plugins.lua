@@ -1,6 +1,7 @@
 local keymap = vim.keymap.set
 local myconfig = require("raghu")
 return {
+  { 'rose-pine/neovim', name = 'rose-pine' },
   {
     "raghur/vim-helpnav",
     ft = "help",
