@@ -26,7 +26,7 @@ set.wildignore:append({'*.jpg','*.png'})
 set.wildignore:append({'node_modules/*'})
 set.wildignorecase=true
 
-set.pastetoggle='<F11>'
+-- set.pastetoggle='<F11>'
 
 set.ignorecase=true
 set.smartcase=true
