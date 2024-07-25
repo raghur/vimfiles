@@ -6,7 +6,7 @@ M.config = function()
   lspsaga.setup({
     rename = {
       keys = {
-        quit = "<C-c>"
+        quit = "<Esc>"
       }
     },
     finder = {
