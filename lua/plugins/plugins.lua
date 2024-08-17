@@ -6,6 +6,7 @@ return {
     "raghur/vim-helpnav",
     ft = "help",
   },
+  { "sainnhe/sonokai" },
   { "tpope/vim-repeat" },
   {
     "mbbill/undotree",
@@ -30,7 +31,6 @@ return {
       require("telescope").load_extension("bookmarks")
     end
   },
-  { "flazz/vim-colorschemes" },
   { "sheerun/vim-polyglot", lazy = true },
   {
     "andymass/vim-matchup",
@@ -100,7 +100,6 @@ return {
       {
         "nvim-telescope/telescope.nvim",
         branch = "0.1.x",
-        tag = "0.1.5",
       }
     }
   },
@@ -125,7 +124,6 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     branch = "0.1.x",
-    tag = "0.1.5",
     cmd = "Telescope",
     dependencies = {
       {

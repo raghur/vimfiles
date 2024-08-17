@@ -69,10 +69,9 @@ M.mapKeys = function()
 
   local tele = require('telescope.builtin')
   local mappings = {
-    r = {function() require("telescope.builtin").buffers({sort_mru=true, ignore_current_buffer=true}) end, "Buffers"},
+    r = {function() require("telescope.builtin").oldfiles({sort_mru=true, ignore_current_buffer=true}) end, "Buffers"},
     b = {function() require("telescope.builtin").buffers({sort_mru=true, ignore_current_buffer=true}) end, "Buffers"},
     gf = { "<Cmd>Telescope git_files<CR>", "Git files" },
-    ['/'] = {"':Telescope live_grep cwd='.FindRootDirectory().'/<cr>'", "Grep", expr=true},
     ['/'] = {function() require("telescope.builtin").live_grep({}) end, "Grep" },
     -- f = {"':Telescope find_files hidden=true no_ignore=true cwd='.FindRootDirectory().'/<cr>'", "find (no ignore)", expr=true},
     f = {function() require("telescope.builtin").find_files({cwd = vim.fn.expand('%:p:h'), no_ignore=true, hidden=true}) end, "find (current)" },
@@ -99,7 +98,7 @@ M.mapKeys = function()
       [","] = { "<cmd>source %<cr>", "Source file"},
     }
   }
-  wk.register(mappings, {prefix = "<leader>"})
+  wk.register(mappings, { prefix = "<leader>"})
 
   mappings = {
     i = {
@@ -152,7 +151,7 @@ M.mapKeys = function()
       l = { "<cmd>Lspsaga finder<cr>", "lsp finder" },
       -- ["/"] = { tele.current_buffer_fuzzy_find, "fuzzy find" },
       ["/"] = { tele.lsp_document_symbols, "document symbols" },
-      d = { tele.lsp_definitions, "defintions" },
+      d = { tele.lsp_definitions, "definitions" },
       a = { "<cmd>Telescope aerial<cr>", 'anything' },
       w = { tele.lsp_workspace_symbols, "workspace symbols" },
 
