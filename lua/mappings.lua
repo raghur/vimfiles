@@ -67,17 +67,23 @@ M.mapKeys = function()
   local utils = require("raghu.utils")
   local font = require("raghu.font")
   local tele = require("telescope.builtin")
-
   local mappings = {
-    { "<leader>r", function() tele.oldfiles({ sort_mru = true, ignore_current_buffer = true }) end, desc = "Recents", },
-    { "<leader>b", function() tele.buffers({ sort_mru = true, ignore_current_buffer = true }) end, desc = "Buffers", },
-    { "<leader>gf", "<Cmd>Telescope git_files<CR>", desc = "Git files", },
-    { "<leader>/", function() tele.live_grep({}) end, desc = "Grep", },
+    { "<leader>f", group = "+Files"},
+    { "<leader>fr", function() tele.oldfiles({ sort_mru = true, ignore_current_buffer = true }) end, desc = "Recents", },
+    { "<leader>fb", function() tele.buffers({ sort_mru = true, ignore_current_buffer = true }) end, desc = "Buffers", },
+    { "<leader>fg", "<Cmd>Telescope git_files<CR>", desc = "Git files", },
+    { "<leader>f/", function() tele.live_grep({}) end, desc = "Grep", },
     -- {"<leader>f","':Telescope find_files hidden=true no_ignore=true cwd='.FindRootDirectory().'/<cr>'", "find (no ignore)", expr=true},
-    { "<leader>f", function() tele.find_files({ cwd = vim.fn.expand("%:p:h"), no_ignore = true, hidden = true }) end,
+    { "<leader>ff", function() tele.find_files({ cwd = vim.fn.expand("%:p:h"), no_ignore = true, hidden = true }) end,
       desc = "Find relative", },
-    { "<leader><space>", "':Telescope find_files hidden=true no_ignore=true cwd='.FindRootDirectory().'/<cr>'",
+    { "<leader>f<space>", "':Telescope find_files hidden=true no_ignore=true cwd='.FindRootDirectory().'/<cr>'",
       desc = "Find project", expr = true, },
+    { "<leader>fe", ":edit <C-R>=fnamemodify(@%, ':p:h')<CR>/", desc = "edit file", },
+    { "<leader>fd", "<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", desc = "Open directory", },
+  }
+  wk.add(mappings)
+
+  mappings = {
     { "<leader>c", "<Cmd>Telescope colorscheme<CR>", desc = "Colors", },
     { "<leader>:", "<Cmd>Telescope commands<CR>", desc = "Commands", },
     { "<leader>1", "<cmd>on<cr>", desc = "which_key_ignore", },
@@ -87,8 +93,6 @@ M.mapKeys = function()
     { "<leader>q", ":qall<cr>", desc = "which_key_ignore", },
     { "<leader>w", ":w<cr>", desc = "which_key_ignore", },
     { "<leader>z", ":call utils#toggleZoom()<cr>", desc = "Zoom", },
-    { "<leader>ef", ":edit <C-R>=fnamemodify(@%, ':p:h')<CR>/", desc = "edit file", },
-    { "<leader>ex", "<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", desc = "Open directory", },
   }
   wk.add(mappings)
 
