@@ -82,21 +82,27 @@ vim.schedule(function()
     }
   end
 end)
--- set.clipboard='unnamedplus'
 
 -- Open splits to the right by default
 set.splitright=true
+---@class vim.g
 vim.g.colors = {
   'catppuccin-latte',
   'Tomorrow-Night', 'Monokai', 'molokai', 'github', 'kalisi,dark', 'gruvbox,dark'}
 
 if (vim.uv.os_uname().sysname == "Darwin") then
   vim.g.fonts = {
-    'FantasqueSansM Nerd Font Mono',
-    'MonaspiceKr Nerd Font Mono',
-    'MonaspiceAr Nerd Font Mono',
-    'MonaspiceRn Nerd Font Mono',
-    'Iosevka Nerd Font Mono',
+    'FantasqueSansM Nerd Font',
+    'MonaspiceKr Nerd Font',
+    'MonaspiceAr Nerd Font',
+    'MonaspiceRn Nerd Font',
+    'MonaspiceXe Nerd Font',
+    'Iosevka Nerd Font',
+    'Andale Mono',
+    'Courier New',
+    'IBM Plex Mono',
+    'PT Mono',
+    'Monaco',
   }
 else
   vim.g.fonts = {
