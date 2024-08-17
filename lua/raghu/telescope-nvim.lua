@@ -29,6 +29,7 @@ M.config = function()
     })
   }
   require('telescope').load_extension('fzf')
+  require('telescope').load_extension('recent_files')
   require('telescope').load_extension('aerial')
   require('telescope').load_extension('ui-select')
   Info('sourced', vim.fn.expand('<sfile>'))

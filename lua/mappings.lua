@@ -67,9 +67,10 @@ M.mapKeys = function()
   local utils = require("raghu.utils")
   local font = require("raghu.font")
   local tele = require("telescope.builtin")
+  local teleExt = require("telescope")
   local mappings = {
     { "<leader>f", group = "+Files"},
-    { "<leader>fr", function() tele.oldfiles({ sort_mru = true, ignore_current_buffer = true }) end, desc = "Recents" },
+    { "<leader><tab>", teleExt.extensions.recent_files.pick, desc = "Recents" },
     { "<leader>fb", function() tele.buffers({ sort_mru = true, ignore_current_buffer = true }) end, desc = "Buffers" },
     { "<leader>fg", "<Cmd>Telescope git_files<CR>", desc = "Git files" },
     { "<leader>f/", function() tele.live_grep({}) end, desc = "Grep" },
