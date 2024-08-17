@@ -69,46 +69,46 @@ M.mapKeys = function()
   local tele = require("telescope.builtin")
   local mappings = {
     { "<leader>f", group = "+Files"},
-    { "<leader>fr", function() tele.oldfiles({ sort_mru = true, ignore_current_buffer = true }) end, desc = "Recents", },
-    { "<leader>fb", function() tele.buffers({ sort_mru = true, ignore_current_buffer = true }) end, desc = "Buffers", },
-    { "<leader>fg", "<Cmd>Telescope git_files<CR>", desc = "Git files", },
-    { "<leader>f/", function() tele.live_grep({}) end, desc = "Grep", },
+    { "<leader>fr", function() tele.oldfiles({ sort_mru = true, ignore_current_buffer = true }) end, desc = "Recents" },
+    { "<leader>fb", function() tele.buffers({ sort_mru = true, ignore_current_buffer = true }) end, desc = "Buffers" },
+    { "<leader>fg", "<Cmd>Telescope git_files<CR>", desc = "Git files" },
+    { "<leader>f/", function() tele.live_grep({}) end, desc = "Grep" },
     -- {"<leader>f","':Telescope find_files hidden=true no_ignore=true cwd='.FindRootDirectory().'/<cr>'", "find (no ignore)", expr=true},
     { "<leader>ff", function() tele.find_files({ cwd = vim.fn.expand("%:p:h"), no_ignore = true, hidden = true }) end,
-      desc = "Find relative", },
+      desc = "Find relative" },
     { "<leader>f<space>", "':Telescope find_files hidden=true no_ignore=true cwd='.FindRootDirectory().'/<cr>'",
-      desc = "Find project", expr = true, },
-    { "<leader>fe", ":edit <C-R>=fnamemodify(@%, ':p:h')<CR>/", desc = "edit file", },
-    { "<leader>fd", "<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", desc = "Open directory", },
+      desc = "Find project", expr = true },
+    { "<leader>fe", ":edit <C-R>=fnamemodify(@%, ':p:h')<CR>/", desc = "edit file" },
+    { "<leader>fd", "<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", desc = "Open directory" },
   }
   wk.add(mappings)
 
   mappings = {
-    { "<leader>c", "<Cmd>Telescope colorscheme<CR>", desc = "Colors", },
-    { "<leader>:", "<Cmd>Telescope commands<CR>", desc = "Commands", },
-    { "<leader>1", "<cmd>on<cr>", desc = "which_key_ignore", },
-    { "<leader>a", ":b#<cr>", desc = "which_key_ignore", },
-    { "<leader>d", ":bd!<cr>", desc = "which_key_ignore", },
-    { "<leader>h", ":noh<cr><c-l>", desc = "which_key_ignore", },
-    { "<leader>q", ":qall<cr>", desc = "which_key_ignore", },
-    { "<leader>w", ":w<cr>", desc = "which_key_ignore", },
-    { "<leader>z", ":call utils#toggleZoom()<cr>", desc = "Zoom", },
+    { "<leader>c", "<Cmd>Telescope colorscheme<CR>", desc = "Colors" },
+    { "<leader>:", "<Cmd>Telescope commands<CR>", desc = "Commands" },
+    { "<leader>1", "<cmd>on<cr>", desc = "Close others" },
+    { "<leader>a", ":b#<cr>", desc = "Last file" },
+    { "<leader>d", ":bd!<cr>", desc = "Close buffer" },
+    { "<leader>h", ":noh<cr><c-l>", desc = "no highlight" },
+    { "<leader>q", ":qall<cr>", desc = "Quit" },
+    { "<leader>w", ":w<cr>", desc = "Write" },
+    { "<leader>z", ":call utils#toggleZoom()<cr>", desc = "Zoom" },
   }
   wk.add(mappings)
 
   mappings = {
     { "<leader>i", group = "+Config" },
-    { "<leader>im", function() utils.editConfig("mappings.lua") end, desc = "Mappings", },
+    { "<leader>im", function() utils.editConfig("mappings.lua") end, desc = "Mappings" },
     { "<leader>ir", ReloadConfig, desc = "Reload" },
     { "<leader>ii", "<Cmd>ed $MYVIMRC<cr>", desc = "Edit init.lua" },
-    { "<leader>is", function() utils.editConfig("settings.lua") end, desc = "Settings", },
-    { "<leader>ip", function() utils.editConfig("plugins.lua") end, desc = "Plugins", },
-    { "<leader>ic", function() utils.editConfigFolder("raghu") end, desc = "Plugin Config Folder", },
+    { "<leader>is", function() utils.editConfig("settings.lua") end, desc = "Settings" },
+    { "<leader>ip", function() utils.editConfig("plugins.lua") end, desc = "Plugins" },
+    { "<leader>ic", function() utils.editConfigFolder("raghu") end, desc = "Plugin Config Folder" },
     { "<leader>i,", "<cmd>source %<cr>", desc = "Source file" },
     { "<leader>il", group = "+Logging" },
-    { "<leader>ild", function() utils.loglvl("DBG") end, desc = "Log - Debug", },
-    { "<leader>ili", function() utils.loglvl("INFO") end, desc = "Log - INFO", },
-    { "<leader>ilx", function() utils.loglvl("DISABLE") end, desc = "Log - disable", },
+    { "<leader>ild", function() utils.loglvl("DBG") end, desc = "Log - Debug" },
+    { "<leader>ili", function() utils.loglvl("INFO") end, desc = "Log - INFO" },
+    { "<leader>ilx", function() utils.loglvl("DISABLE") end, desc = "Log - disable" },
   }
   wk.add(mappings)
 
@@ -142,10 +142,10 @@ M.mapKeys = function()
     { "<F3>", ":redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR>", desc = "Copy last search to buffer" },
     { "<F4>", "<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", desc = "Open directory" },
     { "<F9>", "<Cmd>YankyRingHistory<cr>", desc = "Yanky" },
-    { "<M-=>", function() font.adjust(1) end, desc = "Increase Font", },
-    { "<M-->", function() font.adjust(-1) end, desc = "Decrease Font", },
-    { "<M-[>", function() utils.cycleFont(-1) end, desc = "Previous Font", },
-    { "<M-]>", function() utils.cycleFont(1) end, desc = "Next Font", },
+    { "<M-=>", function() font.adjust(1) end, desc = "Increase Font" },
+    { "<M-->", function() font.adjust(-1) end, desc = "Decrease Font" },
+    { "<M-[>", function() utils.cycleFont(-1) end, desc = "Previous Font" },
+    { "<M-]>", function() utils.cycleFont(1) end, desc = "Next Font" },
   }
   wk.add(mappings)
 
@@ -163,7 +163,7 @@ M.mapKeys = function()
     { "g[", "<cmd>Lspsaga diagnostic_jump_prev<cr>", desc = "prev problem" },
     { "g]", "<cmd>Lspsaga diagnostic_jump_next<cr>", desc = "next problem" },
     { "gw", tele.diagnostics, desc = "diagnostics" },
-    { "gk", function() require("refactoring").select_refactor() end, desc = "refactor", mode = { "x", "n" }, },
+    { "gk", function() require("refactoring").select_refactor() end, desc = "refactor", mode = { "x", "n" } },
   }
   wk.add(mappings)
   -- keymap("n", "<F2>", "<cmd>Lspsaga rename<CR>", { silent = true })
