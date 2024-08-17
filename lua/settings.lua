@@ -89,21 +89,32 @@ set.splitright=true
 vim.g.colors = {
   'catppuccin-latte',
   'Tomorrow-Night', 'Monokai', 'molokai', 'github', 'kalisi,dark', 'gruvbox,dark'}
-vim.g.fonts = {
-  'FantasqueSansMono NF',
-  'Iosevka Curly',
-  'Courier New',
-  'Cousine',
-  'DejaVu Sans Mono',
-  'Envy Code R',
-  'Inconsolata',
-  'Iosevka Term Curly',
-  'Liberation Mono',
-  'mononoki',
-  'Nimbus Mono L',
-  'Noto Mono',
-  'Noto Sans Mono',
-  'PT Mono',
-  'Ubuntu Mono',
-  'JetbrainsMonoNL Nerd Font Propo',
-  'Hack'}
+
+if (vim.uv.os_uname().sysname == "Darwin") then
+  vim.g.fonts = {
+    'FantasqueSansM Nerd Font Mono',
+    'MonaspiceKr Nerd Font Mono',
+    'MonaspiceAr Nerd Font Mono',
+    'MonaspiceRn Nerd Font Mono',
+    'Iosevka Nerd Font Mono',
+  }
+else
+  vim.g.fonts = {
+    'FantasqueSansMono NF',
+    'Iosevka Curly',
+    'Courier New',
+    'Cousine',
+    'DejaVu Sans Mono',
+    'Envy Code R',
+    'Inconsolata',
+    'Iosevka Term Curly',
+    'Liberation Mono',
+    'mononoki',
+    'Nimbus Mono L',
+    'Noto Mono',
+    'Noto Sans Mono',
+    'PT Mono',
+    'Ubuntu Mono',
+    'JetbrainsMonoNL Nerd Font Propo',
+    'Hack'}
+end

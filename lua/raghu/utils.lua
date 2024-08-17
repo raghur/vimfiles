@@ -1,4 +1,13 @@
 
+local indexOf = function(array, value)
+    for i, v in ipairs(array) do
+        if v == value then
+            return i
+        end
+    end
+    return nil
+end
+
 local M = {}
 local editConfig = function(file, type)
   local configHome = vim.fs.dirname(vim.env.MYVIMRC)
@@ -47,6 +56,18 @@ M.cycle = function (items, index, dir)
   if index > #items then index = 1 end
   if index < 1 then index = #items end
   return items[index]
+end
+
+M.cycleFont=function (dir)
+  local fonts = require("raghu.font")
+  local fontname = fonts.family()
+  local idx = indexOf(vim.g.fonts, fontname)
+  if not idx then
+    idx = 1
+  end
+  -- Info(fontname, idx, dir)
+  local newFont = M.cycle(vim.g.fonts, idx, dir)
+  fonts.family(newFont)
 end
 
 --  global require
