@@ -95,6 +95,12 @@ M.mapKeys = function()
       s = { function () utils.editConfig("settings.lua") end, "Settings"},
       p = { function () utils.editConfig("plugins.lua") end, "Plugins"},
       c = { function () utils.editConfigFolder("raghu") end, "Plugin Config Folder"},
+      ["l"] = {
+        name = '+Debug levels',
+        d = { function () utils.loglvl("DBG") end, "Log - Debug"},
+        i = { function () utils.loglvl("INFO") end, "Log - INFO"},
+        x = { function () utils.loglvl("DISABLE") end, "Log - disable"},
+      },
       [","] = { "<cmd>source %<cr>", "Source file"},
     }
   }
@@ -129,35 +135,37 @@ M.mapKeys = function()
     ["<F4>"] = {"<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", 'Open directory'},
     ["<F9>"] = {"<Cmd>YankyRingHistory<cr>", 'Yanky'},
     ["<M-=>"] = {function() font.adjust(1) end, 'Increase Font'},
-    ["<M-->"] = {function() font.adjust(-1) end, 'Decrease Font'}
+    ["<M-->"] = {function() font.adjust(-1) end, 'Decrease Font'},
+    ["<M-[>"] = {function() utils.cycleFont(-1) end, 'Previous Font'},
+    ["<M-]>"] = {function() utils.cycleFont(1) end, 'Next Font'}
   }
   wk.register(mappings, {})
-  -- various LSP mappings under <leader>l
-  mappings = {
-    ["["] = { "<cmd>Lspsaga diagnostic_jump_prev<cr>", "prev problem" },
-    ["]"] = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "next problem" },
-    p = { tele.diagnostics, "diagnostics" },
-    ["."] = { function () require('refactoring').select_refactor() end, "refactor", mode = {"x", "n"}}
-  }
-  wk.register(mappings, { prefix = "<leader>"})
+  -- -- various LSP mappings under <leader>l
+  -- mappings = {
+  --   ["["] = { "<cmd>Lspsaga diagnostic_jump_prev<cr>", "prev problem" },
+  --   ["]"] = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "next problem" },
+  --   p = { tele.diagnostics, "diagnostics" },
+  --   ["."] = { function () require('refactoring').select_refactor() end, "refactor", mode = {"x", "n"}}
+  -- }
+  -- wk.register(mappings, { prefix = "<leader>"})
 
   mappings = {
-    g = {
-      name = "+LSP nav",
-      ["="] =  {vim.lsp.buf.format, "format"},
-      ["."] = { "<cmd>Lspsaga code_action<cr>", "code actions" },
-      [";"] = { tele.lsp_references, "references" },
-      r = { "<cmd>Lspsaga rename<cr>", "rename" },
-      l = { "<cmd>Lspsaga finder<cr>", "lsp finder" },
-      -- ["/"] = { tele.current_buffer_fuzzy_find, "fuzzy find" },
-      ["/"] = { tele.lsp_document_symbols, "document symbols" },
-      d = { tele.lsp_definitions, "definitions" },
-      a = { "<cmd>Telescope aerial<cr>", 'anything' },
-      w = { tele.lsp_workspace_symbols, "workspace symbols" },
-
-    },
+    { "g", group = "LSP nav" },
+    { "g.", "<cmd>Lspsaga code_action<cr>", desc = "code actions" },
+    { "g/", tele.lsp_document_symbols, desc = "document symbols" },
+    { "g;", tele.lsp_references, desc = "references" },
+    { "g=", vim.lsp.buf.format, desc = "format" },
+    { "ga", "<cmd>Telescope aerial<cr>", desc = "anything" },
+    { "gd", tele.lsp_definitions, desc = "definitions" },
+    { "gl", "<cmd>Lspsaga finder<cr>", desc = "lsp finder" },
+    { "gr", "<cmd>Lspsaga rename<cr>", desc = "rename" },
+    { "gw", tele.lsp_workspace_symbols, desc = "workspace symbols" },
+    { "g[", "<cmd>Lspsaga diagnostic_jump_prev<cr>", desc = "prev problem" },
+    { "g]", "<cmd>Lspsaga diagnostic_jump_next<cr>", desc = "next problem" },
+    { "gp", tele.diagnostics, desc = "diagnostics" },
+    { "gk", function () require('refactoring').select_refactor() end, desc = "refactor", mode = {"x", "n"}}
   }
-  wk.register(mappings, {})
+  wk.add(mappings)
   -- keymap("n", "<F2>", "<cmd>Lspsaga rename<CR>", { silent = true })
   vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true, desc = "Hover docs"})
   vim.notify('Mappings loaded', vim.log.levels.INFO)

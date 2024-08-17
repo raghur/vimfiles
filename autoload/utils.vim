@@ -1,11 +1,11 @@
 let s:level=0
 fun! s:log(lvl, ...) abort
-    let levels = ['', 'INFO', 'DBG']
+    let levels = [ '', 'DBG', 'INFO']
     let targetLvl = s:level
     if has_key(environ(), 'NVIM_LOG')
         let targetLvl = $NVIM_LOG
     endif
-    if a:lvl <= targetLvl
+    if targetLvl > 0 && a:lvl >= targetLvl
         if has('vim_starting')
             " record to history for inspection
             echom levels[a:lvl].': '. join(a:000[0], ' ')

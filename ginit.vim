@@ -1,6 +1,6 @@
-nnoremap <silent> <M-]> :lua require("raghu.utils").cycleFont(1) <CR>
-nnoremap <silent> <M-[> :lua require("raghu.utils").cycleFont(-1)<CR>
-
+" nnoremap <silent> <M-]> :lua require("raghu.utils").cycleFont(1) <CR>
+" nnoremap <silent> <M-[> :lua require("raghu.utils").cycleFont(-1)<CR>
+"
 if exists('+guicursor')
     set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor25,o:hor25
                 \,a:blinkon0-Cursor/lCursor
