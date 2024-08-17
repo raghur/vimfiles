@@ -65,9 +65,9 @@ M.cycleFont=function (dir)
   if not idx then
     idx = 1
   end
-  -- Info(fontname, idx, dir)
   local newFont = M.cycle(vim.g.fonts, idx, dir)
   fonts.family(newFont)
+  Info(fontname)
 end
 
 --  global require
