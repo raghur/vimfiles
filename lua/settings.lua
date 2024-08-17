@@ -85,7 +85,6 @@ end)
 
 -- Open splits to the right by default
 set.splitright=true
----@class vim.g
 vim.g.colors = {
   'catppuccin-latte',
   'Tomorrow-Night', 'Monokai', 'molokai', 'github', 'kalisi,dark', 'gruvbox,dark'}

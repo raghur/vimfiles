@@ -63,91 +63,87 @@ vnoremap <A-k> :m-2<CR>gv=gv
 ]])
 
 M.mapKeys = function()
-  local wk = require('which-key')
-  local utils = require('raghu.utils')
-  local font = require('raghu.font')
+  local wk = require("which-key")
+  local utils = require("raghu.utils")
+  local font = require("raghu.font")
+  local tele = require("telescope.builtin")
 
-  local tele = require('telescope.builtin')
   local mappings = {
-    r = {function() require("telescope.builtin").oldfiles({sort_mru=true, ignore_current_buffer=true}) end, "Buffers"},
-    b = {function() require("telescope.builtin").buffers({sort_mru=true, ignore_current_buffer=true}) end, "Buffers"},
-    gf = { "<Cmd>Telescope git_files<CR>", "Git files" },
-    ['/'] = {function() require("telescope.builtin").live_grep({}) end, "Grep" },
-    -- f = {"':Telescope find_files hidden=true no_ignore=true cwd='.FindRootDirectory().'/<cr>'", "find (no ignore)", expr=true},
-    f = {function() require("telescope.builtin").find_files({cwd = vim.fn.expand('%:p:h'), no_ignore=true, hidden=true}) end, "find (current)" },
-    [' '] = {"':Telescope find_files hidden=true no_ignore=true cwd='.FindRootDirectory().'/<cr>'", "find (project root)", expr=true },
-    c = { "<Cmd>Telescope colorscheme<CR>", 'Colors' },
-    [":"] = {"<Cmd>Telescope commands<CR>", 'Commands'},
-    ["1"] = {"<cmd>on<cr>", "which_key_ignore"},
-    a =  {":b#<cr>", "which_key_ignore"},
-    d = { ":bd!<cr>", "which_key_ignore"},
-    e = {":edit <C-R>=fnamemodify(@%, ':p:h')<CR>/", "edit file"},
-    h = { ":noh<cr><c-l>", "which_key_ignore"},
-    q = { ":qall<cr>", "which_key_ignore"},
-    w = {":w<cr>", "which_key_ignore"},
-    z = {":call utils#toggleZoom()<cr>", "Zoom"},
-    ex = {"<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", "Open directory"},
-    i = {
-      name = '+Config',
-      m = { function () utils.editConfig("mappings.lua") end, 'Mappings'},
-      r = { ReloadConfig, 'Reload'},
-      i = { "<Cmd>ed $MYVIMRC<cr>", "init.lua"},
-      s = { function () utils.editConfig("settings.lua") end, "Settings"},
-      p = { function () utils.editConfig("plugins.lua") end, "Plugins"},
-      c = { function () utils.editConfigFolder("raghu") end, "Plugin Config Folder"},
-      ["l"] = {
-        name = '+Debug levels',
-        d = { function () utils.loglvl("DBG") end, "Log - Debug"},
-        i = { function () utils.loglvl("INFO") end, "Log - INFO"},
-        x = { function () utils.loglvl("DISABLE") end, "Log - disable"},
-      },
-      [","] = { "<cmd>source %<cr>", "Source file"},
-    }
+    { "<leader>r", function() tele.oldfiles({ sort_mru = true, ignore_current_buffer = true }) end, desc = "Recents", },
+    { "<leader>b", function() tele.buffers({ sort_mru = true, ignore_current_buffer = true }) end, desc = "Buffers", },
+    { "<leader>gf", "<Cmd>Telescope git_files<CR>", desc = "Git files", },
+    { "<leader>/", function() tele.live_grep({}) end, desc = "Grep", },
+    -- {"<leader>f","':Telescope find_files hidden=true no_ignore=true cwd='.FindRootDirectory().'/<cr>'", "find (no ignore)", expr=true},
+    { "<leader>f", function() tele.find_files({ cwd = vim.fn.expand("%:p:h"), no_ignore = true, hidden = true }) end,
+      desc = "Find relative", },
+    { "<leader><space>", "':Telescope find_files hidden=true no_ignore=true cwd='.FindRootDirectory().'/<cr>'",
+      desc = "Find project", expr = true, },
+    { "<leader>c", "<Cmd>Telescope colorscheme<CR>", desc = "Colors", },
+    { "<leader>:", "<Cmd>Telescope commands<CR>", desc = "Commands", },
+    { "<leader>1", "<cmd>on<cr>", desc = "which_key_ignore", },
+    { "<leader>a", ":b#<cr>", desc = "which_key_ignore", },
+    { "<leader>d", ":bd!<cr>", desc = "which_key_ignore", },
+    { "<leader>h", ":noh<cr><c-l>", desc = "which_key_ignore", },
+    { "<leader>q", ":qall<cr>", desc = "which_key_ignore", },
+    { "<leader>w", ":w<cr>", desc = "which_key_ignore", },
+    { "<leader>z", ":call utils#toggleZoom()<cr>", desc = "Zoom", },
+    { "<leader>ef", ":edit <C-R>=fnamemodify(@%, ':p:h')<CR>/", desc = "edit file", },
+    { "<leader>ex", "<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", desc = "Open directory", },
   }
-  wk.register(mappings, { prefix = "<leader>"})
+  wk.add(mappings)
 
   mappings = {
-    i = {
-      name="+Config",
-      [","] = {function ()
-        local start  = vim.fn.getpos("v")[2]
-        local fin = vim.fn.line(".")
-        local cmd =start..","..fin.."so"
-        print("Sourced: "..cmd)
-        vim.cmd(cmd)
-      end, 'Source lines'}
-    }
+    { "<leader>i", group = "+Config" },
+    { "<leader>im", function() utils.editConfig("mappings.lua") end, desc = "Mappings", },
+    { "<leader>ir", ReloadConfig, desc = "Reload" },
+    { "<leader>ii", "<Cmd>ed $MYVIMRC<cr>", desc = "Edit init.lua" },
+    { "<leader>is", function() utils.editConfig("settings.lua") end, desc = "Settings", },
+    { "<leader>ip", function() utils.editConfig("plugins.lua") end, desc = "Plugins", },
+    { "<leader>ic", function() utils.editConfigFolder("raghu") end, desc = "Plugin Config Folder", },
+    { "<leader>i,", "<cmd>source %<cr>", desc = "Source file" },
+    { "<leader>il", group = "+Logging" },
+    { "<leader>ild", function() utils.loglvl("DBG") end, desc = "Log - Debug", },
+    { "<leader>ili", function() utils.loglvl("INFO") end, desc = "Log - INFO", },
+    { "<leader>ilx", function() utils.loglvl("DISABLE") end, desc = "Log - disable", },
   }
-  wk.register(mappings, {mode = 'v', prefix = "<leader>"})
-  wk.register({
-    S = { ":<C-U>lua MiniSurround.add('visual')<cr>", "surround"}
-  }, {mode = {"x", "n"}})
+  wk.add(mappings)
+
+  local sourceRange = function()
+    local start = vim.fn.getpos("v")[2]
+    local fin = vim.fn.line(".")
+    local cmd = start .. "," .. fin .. "so"
+    print("Sourced: " .. cmd)
+    vim.cmd(cmd)
+  end
+  mappings = {
+    { "<leader>i", group = "Config", mode = "v" },
+    { "<leader>i,", sourceRange, desc = "Source lines", mode = "v" },
+  }
+  wk.add(mappings)
+
+  wk.add({
+    { "S", ":<C-U>lua MiniSurround.add('visual')<cr>", desc = "Surround", mode = "xn" },
+  })
 
   mappings = {
-    ["<S-insert>"] = {'"0p', 'paste'},
-    p = { '"0p', 'paste'},
-    P = { '"0P', 'paste before'},
+    { "<S-insert>", '"0p', desc = "paste", mode = "v"},
+    { "p", '"0p', desc = "paste", mode = "v"},
+    { "P", '"0P', desc = "paste before", mode = "v"},
+    { "<leader>p", '"0p', desc = 'Paste "0' },
+    { "<leader>P", '"0P', desc = 'Paste "0 before' },
   }
-  wk.register(mappings, {mode = 'v'})
+  wk.add(mappings)
 
   mappings = {
-    ["<F3>"] = {":redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR>", 'Copy last search to buffer'},
-    ["<F4>"] = {"<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", 'Open directory'},
-    ["<F9>"] = {"<Cmd>YankyRingHistory<cr>", 'Yanky'},
-    ["<M-=>"] = {function() font.adjust(1) end, 'Increase Font'},
-    ["<M-->"] = {function() font.adjust(-1) end, 'Decrease Font'},
-    ["<M-[>"] = {function() utils.cycleFont(-1) end, 'Previous Font'},
-    ["<M-]>"] = {function() utils.cycleFont(1) end, 'Next Font'}
+    { "<F3>", ":redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR>", desc = "Copy last search to buffer" },
+    { "<F4>", "<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", desc = "Open directory" },
+    { "<F9>", "<Cmd>YankyRingHistory<cr>", desc = "Yanky" },
+    { "<M-=>", function() font.adjust(1) end, desc = "Increase Font", },
+    { "<M-->", function() font.adjust(-1) end, desc = "Decrease Font", },
+    { "<M-[>", function() utils.cycleFont(-1) end, desc = "Previous Font", },
+    { "<M-]>", function() utils.cycleFont(1) end, desc = "Next Font", },
   }
-  wk.register(mappings, {})
-  -- -- various LSP mappings under <leader>l
-  -- mappings = {
-  --   ["["] = { "<cmd>Lspsaga diagnostic_jump_prev<cr>", "prev problem" },
-  --   ["]"] = { "<cmd>Lspsaga diagnostic_jump_next<cr>", "next problem" },
-  --   p = { tele.diagnostics, "diagnostics" },
-  --   ["."] = { function () require('refactoring').select_refactor() end, "refactor", mode = {"x", "n"}}
-  -- }
-  -- wk.register(mappings, { prefix = "<leader>"})
+  wk.add(mappings)
 
   mappings = {
     { "g", group = "LSP nav" },
@@ -162,12 +158,12 @@ M.mapKeys = function()
     { "gw", tele.lsp_workspace_symbols, desc = "workspace symbols" },
     { "g[", "<cmd>Lspsaga diagnostic_jump_prev<cr>", desc = "prev problem" },
     { "g]", "<cmd>Lspsaga diagnostic_jump_next<cr>", desc = "next problem" },
-    { "gp", tele.diagnostics, desc = "diagnostics" },
-    { "gk", function () require('refactoring').select_refactor() end, desc = "refactor", mode = {"x", "n"}}
+    { "gw", tele.diagnostics, desc = "diagnostics" },
+    { "gk", function() require("refactoring").select_refactor() end, desc = "refactor", mode = { "x", "n" }, },
   }
   wk.add(mappings)
   -- keymap("n", "<F2>", "<cmd>Lspsaga rename<CR>", { silent = true })
-  vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true, desc = "Hover docs"})
-  vim.notify('Mappings loaded', vim.log.levels.INFO)
+  vim.keymap.set("n", "K", "<cmd>Lspsaga hover_doc<CR>", { silent = true, desc = "Hover docs" })
+  vim.notify("Mappings loaded", vim.log.levels.INFO)
 end
 return M
