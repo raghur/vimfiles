@@ -1,4 +1,3 @@
-local M = {}
 vim.cmd([[
 " for browsing the input history
 cnoremap <c-n> <down>
@@ -18,9 +17,6 @@ nnoremap ^       0
 "Move by screen lines
 nnoremap j gj
 nnoremap k gk
-
-" copy a block and comment it and move to insert mode
-vmap <leader>ce  <S-v>ygv<Leader>cc`>pi
 
 nnoremap <backspace>    <C-o>
 nnoremap <tab>    <C-i>
@@ -48,6 +44,7 @@ nnoremap C "_C
 nnoremap /         /\v
 cnoremap %s/       %s/\v
 vnoremap %         <space>%
+cabbrev s/         s/\v
 vnoremap <silent>* y:let @/=@"<cr>:set hlsearch<cr>n
 " Center on screen after moving to next/prev match
 nnoremap n nzz
@@ -62,6 +59,7 @@ vnoremap <A-j> :m'>+<CR>gv=gv
 vnoremap <A-k> :m-2<CR>gv=gv
 ]])
 
+local M = {}
 M.mapKeys = function()
   local wk = require("which-key")
   local utils = require("raghu.utils")

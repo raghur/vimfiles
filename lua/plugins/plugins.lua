@@ -204,8 +204,8 @@ return {
     "nvimdev/lspsaga.nvim",
     dependencies = {
       { "onsails/lspkind-nvim" },
+      { "nvim-treesitter/nvim-treesitter" },
     },
-    branch = "main",
     config = myconfig.configurePlugin
   },
   {

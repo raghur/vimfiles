@@ -19,7 +19,7 @@ M.config = function()
         vsplit = "v",
         split = "s",
         tabe = "t",
-        quit = "q",
+        quit = "<Esc>",
         scroll_down = "<C-f>",
         scroll_up = "<C-b>", -- quit can be a table
       }
