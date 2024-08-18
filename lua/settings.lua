@@ -1,23 +1,26 @@
 local set=vim.opt
 
-local venvPath = vim.fn.stdpath("data") .. "/venv"
----@diagnostic disable-next-line: undefined-field
-if not vim.loop.fs_stat(venvPath) then
-  vim.fn.system({
-    "python",
-    "-m",
-    "venv",
-    venvPath,
-  })
-  vim.fn.system({
-    venvPath .. "/bin/python",
-    "-m",
-    "pip",
-    "install",
-    "pynvim",
-  })
+if vim.fn.executable('python') then
+  -- force python into a venv if not already available
+  local venvPath = vim.fn.stdpath("data") .. "/venv"
+  ---@diagnostic disable-next-line: undefined-field
+  if not vim.loop.fs_stat(venvPath) then
+    vim.fn.system({
+      "python",
+      "-m",
+      "venv",
+      venvPath,
+    })
+    vim.fn.system({
+      venvPath .. "/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "pynvim",
+    })
+  end
+  vim.g.python3_host_prog = venvPath .. "/bin/python"
 end
-vim.g.python3_host_prog = venvPath .. "/bin/python"
 set.completeopt="menu,menuone,noselect"
 -- set.guioptions^=c
 -- set.guioptions-=T
@@ -108,7 +111,7 @@ vim.g.colors = {
   'catppuccin-latte',
   'Tomorrow-Night', 'Monokai', 'molokai', 'github', 'kalisi,dark', 'gruvbox,dark'}
 
-if (vim.uv.os_uname().sysname == "Darwin") then
+if vim.fn.has('mac')  then
   vim.g.fonts = {
     'FantasqueSansM Nerd Font',
     'MonaspiceKr Nerd Font',
