@@ -75,7 +75,7 @@ M.mapKeys = function()
     -- {"<leader>f","':Telescope find_files hidden=true no_ignore=true cwd='.FindRootDirectory().'/<cr>'", "find (no ignore)", expr=true},
     { "<leader>ff", function() tele.find_files({ cwd = vim.fn.expand("%:p:h"), no_ignore = true, hidden = true }) end,
       desc = "Find relative" },
-    { "<leader>f<space>", "':Telescope find_files hidden=true no_ignore=true cwd='.FindRootDirectory().'/<cr>'",
+    { "<leader><space>", "':Telescope find_files hidden=true no_ignore=true cwd='.FindRootDirectory().'/<cr>'",
       desc = "Find project", expr = true },
     { "<leader>fe", ":edit <C-R>=fnamemodify(@%, ':p:h')<CR>/", desc = "edit file" },
     { "<leader>fd", "<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", desc = "Open directory" },
