@@ -1,6 +1,10 @@
 local M = {}
 M.config = function()
-  require("mini.files").setup()
+  require("mini.files").setup({
+    mappings = {
+      close       = '<Esc>',
+    }
+  })
   require("mini.comment").setup()
   require("mini.pairs").setup()
   require("mini.align").setup()
