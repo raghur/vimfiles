@@ -1,4 +1,23 @@
 local set=vim.opt
+
+local venvPath = vim.fn.stdpath("data") .. "/venv"
+---@diagnostic disable-next-line: undefined-field
+if not vim.loop.fs_stat(venvPath) then
+  vim.fn.system({
+    "python",
+    "-m",
+    "venv",
+    venvPath,
+  })
+  vim.fn.system({
+    venvPath .. "/bin/python",
+    "-m",
+    "pip",
+    "install",
+    "pynvim",
+  })
+end
+vim.g.python3_host_prog = venvPath .. "/bin/python"
 set.completeopt="menu,menuone,noselect"
 -- set.guioptions^=c
 -- set.guioptions-=T
