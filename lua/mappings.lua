@@ -145,8 +145,8 @@ M.mapKeys = function()
     { "<F9>", "<Cmd>YankyRingHistory<cr>", desc = "Yanky" },
     { "<M-=>", function() font.adjust(1) end, desc = "Increase Font" },
     { "<M-->", function() font.adjust(-1) end, desc = "Decrease Font" },
-    { "<M-[>", function() utils.cycleFont(-1) end, desc = "Previous Font" },
-    { "<M-]>", function() utils.cycleFont(1) end, desc = "Next Font" },
+    { "<M-[>", function() font.cycleFont(-1) end, desc = "Previous Font" },
+    { "<M-]>", function() font.cycleFont(1) end, desc = "Next Font" },
   }
   wk.add(mappings)
 
@@ -160,7 +160,7 @@ M.mapKeys = function()
     { "gd", tele.lsp_definitions, desc = "definitions" },
     { "gl", "<cmd>Lspsaga finder<cr>", desc = "lsp finder" },
     { "gr", "<cmd>Lspsaga rename<cr>", desc = "rename" },
-    { "gw", tele.lsp_workspace_symbols, desc = "workspace symbols" },
+    { "gt", tele.lsp_workspace_symbols, desc = "workspace symbols" },
     { "g[", "<cmd>Lspsaga diagnostic_jump_prev<cr>", desc = "prev problem" },
     { "g]", "<cmd>Lspsaga diagnostic_jump_next<cr>", desc = "next problem" },
     { "gw", tele.diagnostics, desc = "diagnostics" },

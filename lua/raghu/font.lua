@@ -1,6 +1,15 @@
 
 local utils = require('raghu.utils')
 
+local indexOf = function(array, value)
+    for i, v in ipairs(array) do
+        if v == value then
+            return i
+        end
+    end
+    return nil
+end
+
 -- this is a comment
 local M = {}
 M.family = function(newFont)
@@ -43,6 +52,18 @@ end
 M.adjust = function(step)
   local newSize = M.size() + step
   M.size(newSize)
+end
+
+M.cycleFont=function (dir)
+  local fonts = require("raghu.font")
+  local fontname = fonts.family()
+  local idx = indexOf(vim.g.fonts, fontname)
+  if not idx then
+    idx = 1
+  end
+  local newFont = utils.cycle(vim.g.fonts, idx, dir)
+  fonts.family(newFont)
+  Info(fontname)
 end
 
 return M

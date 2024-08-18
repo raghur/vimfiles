@@ -1,13 +1,4 @@
 
-local indexOf = function(array, value)
-    for i, v in ipairs(array) do
-        if v == value then
-            return i
-        end
-    end
-    return nil
-end
-
 local M = {}
 local editConfig = function(file, type)
   local configHome = vim.fs.dirname(vim.env.MYVIMRC)
@@ -33,22 +24,6 @@ ReloadConfig = function ()
   Require('commands')
   vim.notify('Config reloaded!', vim.log.levels.INFO)
 end
--- M.reloadconfig = function()
---   local luacache = (_G.__luacache or {}).cache
---   -- TODO unload commands, mappings + ?symbols?
---   for pkg, _ in pairs(package.loaded) do
---     if pkg:match '^my_.+'
---     then
---       print(pkg)
---       package.loaded[pkg] = nil
---       if luacache then
---         lucache[pkg] = nil
---       end
---     end
---   end
---   dofile(vim.env.MYVIMRC)
---   vim.notify('Config reloaded!', vim.log.levels.INFO)
--- end
 
 M.cycle = function (items, index, dir)
   if dir >= 0 then dir = 1 else dir = -1 end
@@ -58,17 +33,6 @@ M.cycle = function (items, index, dir)
   return items[index]
 end
 
-M.cycleFont=function (dir)
-  local fonts = require("raghu.font")
-  local fontname = fonts.family()
-  local idx = indexOf(vim.g.fonts, fontname)
-  if not idx then
-    idx = 1
-  end
-  local newFont = M.cycle(vim.g.fonts, idx, dir)
-  fonts.family(newFont)
-  Info(fontname)
-end
 
 --  global require
 Require = function (name)
