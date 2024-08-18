@@ -105,21 +105,20 @@ if (vim.uv.os_uname().sysname == "Darwin") then
   }
 else
   vim.g.fonts = {
-    'FantasqueSansMono NF',
-    'Iosevka Curly',
-    'Courier New',
-    'Cousine',
+    'FantasqueSansMono Nerd Font',
+    'Iosevka Nerd Font',
     'DejaVu Sans Mono',
     'Envy Code R',
     'Inconsolata',
-    'Iosevka Term Curly',
     'Liberation Mono',
     'mononoki',
-    'Nimbus Mono L',
-    'Noto Mono',
-    'Noto Sans Mono',
-    'PT Mono',
-    'Ubuntu Mono',
+    'Nimbus Mono PS',
     'JetbrainsMonoNL Nerd Font Propo',
-    'Hack'}
+    'MonaspiceKr Nerd Font',
+    'MonaspiceAr Nerd Font',
+    'MonaspiceRn Nerd Font',
+    'MonaspiceXe Nerd Font',
+    'Hack',
+    'SourceCodeVF'
+  }
 end
