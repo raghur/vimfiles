@@ -6,7 +6,6 @@ return {
     dependencies = {
       {
         "nvim-telescope/telescope.nvim",
-        branch = "0.1.x",
       }
     }
   },
@@ -15,7 +14,6 @@ return {
     dependencies = {
       {
         "nvim-telescope/telescope.nvim",
-        branch = "0.1.x",
       }
     }
   },

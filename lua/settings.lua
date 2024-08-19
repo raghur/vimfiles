@@ -57,7 +57,6 @@ set.timeoutlen=1000
 set.ttimeoutlen=100
 
 set.undofile=true
-set.undodir=vim.fn.stdpath('state')..'vimbackups/.undo'
 set.undolevels=1000
 
 set.completeopt = 'menu,menuone,noselect'
@@ -150,4 +149,5 @@ if vim.g.neovide then
   vim.g.neovide_remember_window_size = true
   vim.g.neovide_floating_blur_amount_x = 2.0
   vim.g.neovide_floating_blur_amount_y = 2.0
+  vim.g.neovide_input_macos_option_key_is_meta = 'only_left'
 end

@@ -5,8 +5,7 @@ M.config = function()
   require('telescope').setup {
     extensions = {
       ["ui-select"] = {
-        specific_opts = {
-          codeactions = false
+        require("telescope.themes").get_dropdown { -- even more opts
         }
       }
     },
