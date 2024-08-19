@@ -1,12 +1,5 @@
-local keymap = vim.keymap.set
 local myconfig = require("raghu")
 return {
-  { 'rose-pine/neovim', name = 'rose-pine' },
-  {
-    "raghur/vim-helpnav",
-    ft = "help",
-  },
-  { "sainnhe/sonokai" },
   { "tpope/vim-repeat" },
   {
     "mbbill/undotree",
@@ -16,22 +9,36 @@ return {
     cmd = "UndotreeToggle",
   },
   {
+    "L3MON4D3/LuaSnip",
+    -- follow latest release and install jsregexp.
+    dependencies = { "rafamadriz/friendly-snippets" },
+    version = "v2.*",
+    build = "make install_jsregexp",
+    config = function ()
+      require("luasnip.loaders.from_vscode").lazy_load()
+    end
+  },
+  {
     'crusj/bookmarks.nvim',
     keys = {
-      { "<tab><tab>", mode = { "n" } },
+      { "<tab><tab>", mode = { "n" }, desc = "Bookmarks" },
     },
     branch = 'main',
     dependencies = { 'nvim-web-devicons' },
     config = function()
       require("bookmarks").setup({
         keymap = {
-          add = '<F2>'
+          add = '<F2>',
+          close = '<Esc>'
         }
       })
       require("telescope").load_extension("bookmarks")
     end
   },
-  { "sheerun/vim-polyglot", lazy = true },
+  {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter"
+  },
   {
     "andymass/vim-matchup",
     event = "BufReadPost",
@@ -41,18 +48,6 @@ return {
     end,
   },
   { "wellle/targets.vim" },
-  {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    dependencies = {
-      {
-        "nvim-treesitter/nvim-treesitter",
-        build = function()
-          vim.cmd("TSUpdate")
-        end,
-        config = myconfig.configurePlugin,
-      },
-    },
-  },
   { "rstacruz/sparkup", rtp = "vim", enabled = false },
 
   {
@@ -87,29 +82,12 @@ return {
   },
   {
     "t9md/vim-choosewin",
-    keys = "-",
+    keys = {
+      {"-", "<Plug>(choosewin)", desc = "Choose Window", mode="n"}
+    },
     config = function()
-      keymap("n", "-", "<Plug>(choosewin)", { noremap = true })
       vim.g.choosewin_overlay_enable = 1
     end,
-  },
-  {
-    "smartpde/telescope-recent-files",
-    dependencies = {
-      {
-        "nvim-telescope/telescope.nvim",
-        branch = "0.1.x",
-      }
-    }
-  },
-  {
-    "nvim-telescope/telescope-ui-select.nvim",
-    dependencies = {
-      {
-        "nvim-telescope/telescope.nvim",
-        branch = "0.1.x",
-      }
-    }
   },
   {
     'kevinhwang91/nvim-ufo',
@@ -130,83 +108,23 @@ return {
     end
   },
   {
-    "nvim-telescope/telescope.nvim",
-    branch = "0.1.x",
-    cmd = "Telescope",
-    dependencies = {
-      {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make"
-      },
-      { "reaz1995/telescope-vim-bookmarks.nvim" },
-      { "stevearc/aerial.nvim", config = myconfig.configurePlugin },
-      { "nvim-lua/plenary.nvim" },
-    },
-    config = myconfig.configurePlugin
-  },
-  {
     "nvim-orgmode/orgmode",
     ft = "org",
     config = myconfig.configurePlugin
-  },
-  { "williamboman/mason.nvim" },
-  { "williamboman/mason-lspconfig.nvim" },
-  {
-    "hrsh7th/nvim-cmp",
-    event = {
-      "InsertEnter",
-      "CmdlineEnter"
-    },
-    dependencies = {
-      { "hrsh7th/cmp-nvim-lsp" },
-      { "hrsh7th/cmp-buffer" },
-      { "hrsh7th/cmp-emoji" },
-      { "hrsh7th/cmp-path" },
-      { "hrsh7th/cmp-cmdline" },
-      {
-        "saadparwaiz1/cmp_luasnip",
-        dependencies = {
-          {
-            "L3MON4D3/LuaSnip",
-            -- follow latest release and install jsregexp.
-            dependencies = { "rafamadriz/friendly-snippets" },
-            version = "v2.*",
-            build = "make install_jsregexp",
-            config = function ()
-              require("luasnip.loaders.from_vscode").lazy_load()
-            end
-          },
-        },
-      },
-    },
-    config = myconfig.configurePlugin,
   },
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     config = true,
   },
-  { "folke/tokyonight.nvim", lazy = true },
   {
     "echasnovski/mini.nvim",
     version='*',
     config = myconfig.configurePlugin,
   },
   {
-    "neovim/nvim-lspconfig",
-    config = myconfig.configurePlugin
-  },
-  {
     "nvim-tree/nvim-web-devicons",
     lazy = true,
-  },
-  {
-    "nvimdev/lspsaga.nvim",
-    dependencies = {
-      { "onsails/lspkind-nvim" },
-      { "nvim-treesitter/nvim-treesitter" },
-    },
-    config = myconfig.configurePlugin
   },
   {
     "ggandor/leap.nvim",
@@ -216,11 +134,6 @@ return {
     },
     config = function()
     end,
-  },
-  {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    priority = 1000,
   },
   {
     "gbprod/yanky.nvim",
