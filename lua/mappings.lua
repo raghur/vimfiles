@@ -79,6 +79,7 @@ M.mapKeys = function()
       desc = "Find project", expr = true },
     { "<leader>fe", ":edit <C-R>=fnamemodify(@%, ':p:h')<CR>/", desc = "edit file" },
     { "<leader>fd", "<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", desc = "Open directory" },
+    { "<leader>fs", "<cmd>vsp ~/Sync/scratch/scratch.txt<cr>", desc = "Scratchpad" },
   }
   wk.add(mappings)
 
