@@ -81,13 +81,12 @@ return {
     end,
   },
   {
-    "t9md/vim-choosewin",
+    's1n7ax/nvim-window-picker',
     keys = {
-      {"-", "<Plug>(choosewin)", desc = "Choose Window", mode="n"}
+      {"-", function() require('window-picker').pickWindow() end, desc = "Pick Pane"}
     },
-    config = function()
-      vim.g.choosewin_overlay_enable = 1
-    end,
+    version = '2.*',
+    config = myconfig.configurePlugin,
   },
   {
     'kevinhwang91/nvim-ufo',
