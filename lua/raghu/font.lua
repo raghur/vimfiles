@@ -13,7 +13,7 @@ end
 -- this is a comment
 local M = {}
 M.family = function(newFont)
-  if (vim.env.TERM) then return end
+  -- if (vim.env.TERM) then return end
   if newFont then
     -- if size spec is provided, then directly apply
     if string.find(newFont, ":h") then
