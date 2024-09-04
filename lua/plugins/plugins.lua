@@ -19,6 +19,15 @@ return {
     end
   },
   {
+    "sindrets/diffview.nvim",
+    keys = {
+      {"<leader>gdo", "<cmd>DiffviewOpen<cr>", desc = "Diff - Open"},
+      {"<leader>gdd", "<cmd>DiffviewClose<cr>", desc = "Diff - Close"},
+      {"<leader>gdh", "<cmd>DiffviewOpen develop..HEAD<cr>", desc = "Diff with base"}
+    }
+
+  },
+  {
     'crusj/bookmarks.nvim',
     keys = {
       { "<tab><tab>", mode = { "n" }, desc = "Bookmarks" },
