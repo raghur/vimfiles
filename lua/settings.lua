@@ -107,6 +107,7 @@ end)
 -- Open splits to the right by default
 set.splitright=true
 vim.g.colors = {
+  'sonokai',
   'catppuccin-latte',
   'Tomorrow-Night', 'Monokai', 'molokai', 'github', 'kalisi,dark', 'gruvbox,dark'}
 
