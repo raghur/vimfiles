@@ -22,9 +22,9 @@ if (vim.fn.has('linux') > 0 or vim.fn.has('mac')) then
   if (not vim.v.servername) then
     vim.fn.serverstart(vim.fn.stdpath('run') .. '/nvim.sock')
   end
+  vim.fn.writefile({vim.v.servername}, "/tmp/"..vim.env.USER.."-server.nvim")
   -- vim.cmd('echom "server running at '..vim.v.servername .. '"')
   Info('Server running at ', vim.v.servername)
-  vim.fn.writefile({vim.v.servername}, "/tmp/"..vim.env.USER.."-server.nvim", "a")
 end
 
 maps.mapKeys()
