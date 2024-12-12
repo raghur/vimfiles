@@ -72,16 +72,16 @@ M.mapKeys = function()
   local mappings = {
     { "<leader>f", group = "+Files"},
     { "<leader>ff",function() fzflua.files({ prompt=getProjectRoot() })end, desc = "Find relative"},
-    { "<leader>fp",":FzfLua files cwd=<CR>", desc = "Find files at"},
+    { "<leader>fp",":FzfLua files cwd=", desc = "Find files at"},
     { "<leader>fe", ":edit <C-R>=fnamemodify(@%, ':p:h')<CR>/", desc = "edit file" },
     { "<leader>fd", "<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", desc = "Open directory" },
 
 
-    { "<leader>r", "<Cmd>FzfLua oldfiles<cr>", desc = "Recents" },
-    { "<leader>b", "<Cmd>FzfLua buffers<cr>", desc = "Buffers" },
-    { "<leader>g", "<Cmd>FzfLua git_files<CR>", desc = "Git files" },
+    { "<leader>r", fzflua.oldfiles, desc = "Recents" },
+    { "<leader>b", fzflua.buffers, desc = "Buffers" },
+    { "<leader>g", fzflua.git_files, desc = "Git files" },
     { "<leader>/", function() fzflua.live_grep({ rg_opts="--hidden", prompt=getProjectRoot(), resume=true}) end, desc = "Grep" },
-    { "<leader><space>",function() fzflua.files({ cwd=getProjectRoot()})end, desc = "Find relative"},
+    { "<leader><space>",fzflua.files, desc = "Find relative"},
     { "<leader>s", "<cmd>vsp ~/Sync/scratch/scratch.txt<cr>", desc = "Scratchpad" },
   }
   wk.add(mappings)
