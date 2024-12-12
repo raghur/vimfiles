@@ -65,27 +65,30 @@ M.mapKeys = function()
   local utils = require("raghu.utils")
   local font = require("raghu.font")
   local tele = require("telescope.builtin")
-  local teleExt = require("telescope")
+  local getProjectRoot = function()
+    vim.fn.fnamemodify(vim.fn.FindRootDirectory(), ":t")
+  end
+  local fzflua = require'fzf-lua'
   local mappings = {
     { "<leader>f", group = "+Files"},
-    { "<leader><tab>", teleExt.extensions.recent_files.pick, desc = "Recents" },
-    { "<leader>fb", function() tele.buffers({ sort_mru = true, ignore_current_buffer = true }) end, desc = "Buffers" },
-    { "<leader>fg", "<Cmd>Telescope git_files<CR>", desc = "Git files" },
-    { "<leader>f/", function() tele.live_grep({}) end, desc = "Grep" },
-    -- {"<leader>f","':Telescope find_files hidden=true no_ignore=true cwd='.FindRootDirectory().'/<cr>'", "find (no ignore)", expr=true},
-    { "<leader>ff", function() tele.find_files({ cwd = vim.fn.expand("%:p:h"), no_ignore = true, hidden = true }) end,
-      desc = "Find relative" },
-    { "<leader><space>", "':Telescope find_files hidden=true no_ignore=true cwd='.FindRootDirectory().'/<cr>'",
-      desc = "Find project", expr = true },
+    { "<leader>ff",function() fzflua.files({ prompt=getProjectRoot() })end, desc = "Find relative"},
+    { "<leader>fp",":FzfLua files cwd=<CR>", desc = "Find files at"},
     { "<leader>fe", ":edit <C-R>=fnamemodify(@%, ':p:h')<CR>/", desc = "edit file" },
     { "<leader>fd", "<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", desc = "Open directory" },
-    { "<leader>fs", "<cmd>vsp ~/Sync/scratch/scratch.txt<cr>", desc = "Scratchpad" },
+
+
+    { "<leader>r", "<Cmd>FzfLua oldfiles<cr>", desc = "Recents" },
+    { "<leader>b", "<Cmd>FzfLua buffers<cr>", desc = "Buffers" },
+    { "<leader>g", "<Cmd>FzfLua git_files<CR>", desc = "Git files" },
+    { "<leader>/", function() fzflua.live_grep({ rg_opts="--hidden", prompt=getProjectRoot(), resume=true}) end, desc = "Grep" },
+    { "<leader><space>",function() fzflua.files({ cwd=getProjectRoot()})end, desc = "Find relative"},
+    { "<leader>s", "<cmd>vsp ~/Sync/scratch/scratch.txt<cr>", desc = "Scratchpad" },
   }
   wk.add(mappings)
 
   mappings = {
-    { "<leader>c", "<Cmd>Telescope colorscheme<CR>", desc = "Colors" },
-    { "<leader>:", "<Cmd>Telescope commands<CR>", desc = "Commands" },
+    { "<leader>c", "<Cmd>FzfLua colorschemes<CR>", desc = "Colors" },
+    { "<leader>:", "<Cmd>FzfLua commands<CR>", desc = "Commands" },
     { "<leader>1", "<cmd>on<cr>", desc = "Close others" },
     { "<leader>a", ":b#<cr>", desc = "Last file" },
     { "<leader>d", ":bd!<cr>", desc = "Close buffer" },
@@ -120,7 +123,7 @@ M.mapKeys = function()
     vim.cmd(cmd)
   end
   mappings = {
-    { "<leader>i", group = "Config", mode = "v" },
+    { "<leader>i", group = "+Config", mode = "v" },
     { "<leader>i,", sourceRange, desc = "Source lines", mode = "v" },
   }
   wk.add(mappings)
