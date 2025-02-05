@@ -156,5 +156,53 @@ return {
       -- calling `setup` is optional for customization
       require("fzf-lua").setup({})
     end
+  },
+  {
+    "nvim-neo-tree/neo-tree.nvim",
+    branch = "v3.x",
+    keys = {
+      { "<leader>xx", ":Neotree filesystem reveal toggle<cr>", "nxo", desc="Toggle file explorer"},
+      { "<leader>xg", ":Neotree git_status reveal toggle<cr>", "nxo", desc="Toggle gitstatus"},
+      -- { "<leader>xs", ":Neotree document_symbols reveal toggle<cr>", "nxo", desc="Toggle gitstatus"}
+    },
+    opts = {
+      sources = {
+        {
+          "document_symbols",
+        }
+      },
+      filesystem = {
+        filtered_items = {
+          visible = true,
+        },
+      },
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+      "MunifTanjim/nui.nvim",
+      -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
+    }
+  },
+  {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+      bigfile = { enabled = true },
+      dashboard = { enabled = true },
+      indent = { enabled = true },
+      input = { enabled = true },
+      picker = { enabled = true },
+      notifier = { enabled = true },
+      quickfile = { enabled = true },
+      scroll = { enabled = true },
+      statuscolumn = { enabled = true },
+      words = { enabled = true },
+    },
   }
 }
