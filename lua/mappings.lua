@@ -69,22 +69,7 @@ M.mapKeys = function()
   local getProjectRoot = function()
     vim.fn.fnamemodify(vim.fn.FindRootDirectory(), ":t")
   end
-  local fzflua = require'fzf-lua'
-  local mappings = {
-    { "<leader>f", group = "+Files"},
-    { "<leader>ff",function() fzflua.files({ prompt=getProjectRoot() })end, desc = "Find relative"},
-    { "<leader>fp",":FzfLua files cwd=", desc = "Find files at"},
-    { "<leader>fe", ":edit <C-R>=fnamemodify(@%, ':p:h')<CR>/", desc = "edit file" },
-    { "<leader>fd", "<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", desc = "Open directory" },
-
-
-    { "<leader>r", function() snacks.picker({
-      multi = {
-        "files",
-        "buffers",
-        "recent"
-      },
-      matcher = {
+  local matcherOpts ={
         fuzzy = true, -- use fuzzy matching
         smartcase = true, -- use smartcase
         ignorecase = true, -- use ignorecase
@@ -97,20 +82,35 @@ M.mapKeys = function()
         frecency = true, -- frecency bonus
         history_bonus = true, -- give more weight to chronological order
       }
+
+  local mappings = {
+    { "<leader>f", group = "+Files"},
+    { "<leader>ff",snacks.picker.files, desc = "Find relative"},
+    { "<leader>fp",snacks.picker.files, desc = "Find files at"},
+    { "<leader>fe", ":edit <C-R>=fnamemodify(@%, ':p:h')<CR>/", desc = "edit file" },
+    { "<leader>fd", "<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", desc = "Open directory" },
+
+
+    { "<leader>r", function() snacks.picker({
+      multi = {
+        "files",
+        "buffers",
+        "recent"
+      },
+      matcher = matcherOpts
     })
     end, desc = "Recents" },
-    -- { "<leader>r", fzflua.oldfiles, desc = "Recents" },
-    { "<leader>b", fzflua.buffers, desc = "Buffers" },
-    { "<leader>g", fzflua.git_files, desc = "Git files" },
-    { "<leader>/", function() fzflua.live_grep({ rg_opts="--hidden", prompt=getProjectRoot(), resume=true}) end, desc = "Grep" },
-    { "<leader><space>",fzflua.files, desc = "Find relative"},
+    { "<leader>b", snacks.picker.buffers, desc = "Buffers" },
+    { "<leader>g", snacks.picker.git_files, desc = "Git files" },
+    { "<leader>/", snacks.picker.grep_word, desc = "Grep" },
+    { "<leader><space>",snacks.picker.files, desc = "Find relative"},
     { "<leader>s", "<cmd>vsp ~/Sync/scratch/scratch.txt<cr>", desc = "Scratchpad" },
   }
   wk.add(mappings)
 
   mappings = {
-    { "<leader>c", "<Cmd>FzfLua colorschemes<CR>", desc = "Colors" },
-    { "<leader>:", "<Cmd>FzfLua commands<CR>", desc = "Commands" },
+    { "<leader>c", snacks.picker.colorschemes, desc = "Colors" },
+    { "<leader>:", snacks.picker.commands, desc = "Commands" },
     { "<leader>1", "<cmd>on<cr>", desc = "Close others" },
     { "<leader>a", ":b#<cr>", desc = "Last file" },
     { "<leader>d", ":bd!<cr>", desc = "Close buffer" },
@@ -174,17 +174,24 @@ M.mapKeys = function()
   }
   wk.add(mappings)
 
+  local lspAny = {
+    "lsp_workspace_symbols",
+    "lsp_definitions",
+    "lsp_type_definitions",
+    "lsp_implementations",
+    "lsp_symbols"
+  }
   mappings = {
     { "g", group = "LSP nav" },
     { "g.", "<cmd>Lspsaga code_action<cr>", desc = "code actions" },
     { "g/", tele.lsp_document_symbols, desc = "document symbols" },
-    { "g;", tele.lsp_references, desc = "references" },
+    { "gr", tele.lsp_references, desc = "references" },
     { "g=", vim.lsp.buf.format, desc = "format" },
     { "ga", "<cmd>Telescope aerial<cr>", desc = "anything" },
     { "gd", tele.lsp_definitions, desc = "definitions" },
     { "gl", "<cmd>Lspsaga finder<cr>", desc = "lsp finder" },
-    { "gr", "<cmd>Lspsaga rename<cr>", desc = "rename" },
-    { "gt", tele.lsp_workspace_symbols, desc = "workspace symbols" },
+    { "gc", "<cmd>Lspsaga rename<cr>", desc = "rename" },
+    { "gt", snacks.picker.lsp_workspace_symbols, desc = "workspace symbols" },
     { "g[", "<cmd>Lspsaga diagnostic_jump_prev<cr>", desc = "prev problem" },
     { "g]", "<cmd>Lspsaga diagnostic_jump_next<cr>", desc = "next problem" },
     { "gw", tele.diagnostics, desc = "diagnostics" },
