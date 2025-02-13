@@ -66,22 +66,6 @@ M.mapKeys = function()
   local font = require("raghu.font")
   local tele = require("telescope.builtin")
   local snacks = require("snacks")
-  local getProjectRoot = function()
-    vim.fn.fnamemodify(vim.fn.FindRootDirectory(), ":t")
-  end
-  local matcherOpts ={
-        fuzzy = true, -- use fuzzy matching
-        smartcase = true, -- use smartcase
-        ignorecase = true, -- use ignorecase
-        sort_empty = false, -- sort results when the search string is empty
-        filename_bonus = true, -- give bonus for matching file names (last part of the path)
-        file_pos = true, -- support patterns like `file:line:col` and `file:line`
-        -- the bonusses below, possibly require string concatenation and path normalization,
-        -- so this can have a performance impact for large lists and increase memory usage
-        cwd_bonus = true, -- give bonus for matching files in the cwd
-        frecency = true, -- frecency bonus
-        history_bonus = true, -- give more weight to chronological order
-      }
 
   local mappings = {
     { "<leader>f", group = "+Files"},
@@ -89,21 +73,11 @@ M.mapKeys = function()
     { "<leader>fp",snacks.picker.files, desc = "Find files at"},
     { "<leader>fe", ":edit <C-R>=fnamemodify(@%, ':p:h')<CR>/", desc = "edit file" },
     { "<leader>fd", "<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", desc = "Open directory" },
-
-
-    { "<leader>r", function() snacks.picker({
-      multi = {
-        "files",
-        "buffers",
-        "recent"
-      },
-      matcher = matcherOpts
-    })
-    end, desc = "Recents" },
+    { "<leader>r", snacks.picker.smart, desc = "Find recent" },
     { "<leader>b", snacks.picker.buffers, desc = "Buffers" },
     { "<leader>g", snacks.picker.git_files, desc = "Git files" },
     { "<leader>/", snacks.picker.grep_word, desc = "Grep" },
-    { "<leader><space>",snacks.picker.files, desc = "Find relative"},
+    { "<leader><space>",snacks.picker.smart, desc = "Find relative"},
     { "<leader>s", "<cmd>vsp ~/Sync/scratch/scratch.txt<cr>", desc = "Scratchpad" },
   }
   wk.add(mappings)
