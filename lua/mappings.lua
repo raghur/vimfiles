@@ -148,28 +148,21 @@ M.mapKeys = function()
   }
   wk.add(mappings)
 
-  local lspAny = {
-    "lsp_workspace_symbols",
-    "lsp_definitions",
-    "lsp_type_definitions",
-    "lsp_implementations",
-    "lsp_symbols"
-  }
   mappings = {
     { "g", group = "LSP nav" },
     { "g.", "<cmd>Lspsaga code_action<cr>", desc = "code actions" },
-    { "g/", tele.lsp_document_symbols, desc = "document symbols" },
-    { "gr", tele.lsp_references, desc = "references" },
     { "g=", vim.lsp.buf.format, desc = "format" },
-    { "ga", "<cmd>Telescope aerial<cr>", desc = "anything" },
-    { "gd", tele.lsp_definitions, desc = "definitions" },
-    { "gl", "<cmd>Lspsaga finder<cr>", desc = "lsp finder" },
-    { "gc", "<cmd>Lspsaga rename<cr>", desc = "rename" },
-    { "gt", snacks.picker.lsp_workspace_symbols, desc = "workspace symbols" },
     { "g[", "<cmd>Lspsaga diagnostic_jump_prev<cr>", desc = "prev problem" },
     { "g]", "<cmd>Lspsaga diagnostic_jump_next<cr>", desc = "next problem" },
-    { "gw", tele.diagnostics, desc = "diagnostics" },
+    { "ga", "<cmd>Telescope aerial<cr>", desc = "anything" },
+    { "gc", "<cmd>Lspsaga rename<cr>", desc = "rename" },
+    { "gd", tele.lsp_definitions, desc = "definitions" },
     { "gk", function() require("refactoring").select_refactor() end, desc = "refactor", mode = { "x", "n" } },
+    { "gl", "<cmd>Lspsaga finder<cr>", desc = "lsp finder" },
+    { "gp", snacks.picker.diagnostics, desc = "diagnostics" },
+    { "gr", snacks.picker.lsp_references, desc = "references" },
+    { "gs", snacks.picker.lsp_symbols, desc = "document symbols" },
+    { "gt", snacks.picker.lsp_workspace_symbols, desc = "workspace symbols" },
   }
   wk.add(mappings)
   -- keymap("n", "<F2>", "<cmd>Lspsaga rename<CR>", { silent = true })
