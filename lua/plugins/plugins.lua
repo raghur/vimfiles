@@ -195,5 +195,8 @@ return {
       statuscolumn = { enabled = true },
       words = { enabled = true },
     },
+  },
+  {
+    "loctvl842/monokai-pro.nvim"
   }
 }
