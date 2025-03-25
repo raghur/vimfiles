@@ -20,9 +20,9 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins", {})
 if (vim.fn.has('linux') > 0 or vim.fn.has('mac')) then
   if (not vim.v.servername) then
-    vim.fn.serverstart(vim.fn.stdpath('run') .. '/nvim.sock')
+    vim.fn.serverstart()
   end
-  vim.fn.writefile({vim.v.servername}, "/tmp/"..vim.env.USER.."-server.nvim")
+  -- vim.fn.writefile({vim.v.servername}, "/tmp/"..vim.env.USER.."-server.nvim")
   -- vim.cmd('echom "server running at '..vim.v.servername .. '"')
   Info('Server running at ', vim.v.servername)
 end

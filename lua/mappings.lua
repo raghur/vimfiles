@@ -64,7 +64,6 @@ M.mapKeys = function()
   local wk = require("which-key")
   local utils = require("raghu.utils")
   local font = require("raghu.font")
-  local tele = require("telescope.builtin")
   local snacks = require("snacks")
 
   local mappings = {
@@ -76,7 +75,7 @@ M.mapKeys = function()
     { "<leader>r", snacks.picker.smart, desc = "Find recent" },
     { "<leader>b", snacks.picker.buffers, desc = "Buffers" },
     { "<leader>g", snacks.picker.git_files, desc = "Git files" },
-    { "<leader>/", snacks.picker.grep_word, desc = "Grep" },
+    { "<leader>/", snacks.picker.grep, desc = "Grep" },
     { "<leader><space>",snacks.picker.smart, desc = "Find relative"},
     { "<leader>s", "<cmd>vsp ~/Sync/scratch/scratch.txt<cr>", desc = "Scratchpad" },
   }
@@ -138,6 +137,7 @@ M.mapKeys = function()
   wk.add(mappings)
 
   mappings = {
+    { "<F1>", function() snacks.explorer() end, desc = "toggle file explorer" },
     { "<F3>", ":redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR>", desc = "Copy last search to buffer" },
     { "<F4>", "<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", desc = "Open directory" },
     { "<F9>", "<Cmd>YankyRingHistory<cr>", desc = "Yanky" },
@@ -154,9 +154,9 @@ M.mapKeys = function()
     { "g=", vim.lsp.buf.format, desc = "format" },
     { "g[", "<cmd>Lspsaga diagnostic_jump_prev<cr>", desc = "prev problem" },
     { "g]", "<cmd>Lspsaga diagnostic_jump_next<cr>", desc = "next problem" },
-    { "ga", "<cmd>Telescope aerial<cr>", desc = "anything" },
+    -- { "ga", "<cmd>Telescope aerial<cr>", desc = "anything" },
     { "gc", "<cmd>Lspsaga rename<cr>", desc = "rename" },
-    { "gd", tele.lsp_definitions, desc = "definitions" },
+    { "gd", snacks.picker.lsp_definitions, desc = "definitions" },
     { "gk", function() require("refactoring").select_refactor() end, desc = "refactor", mode = { "x", "n" } },
     { "gl", "<cmd>Lspsaga finder<cr>", desc = "lsp finder" },
     { "gp", snacks.picker.diagnostics, desc = "diagnostics" },

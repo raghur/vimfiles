@@ -28,23 +28,6 @@ return {
 
   },
   {
-    'crusj/bookmarks.nvim',
-    keys = {
-      { "<tab><tab>", mode = { "n" }, desc = "Bookmarks" },
-    },
-    branch = 'main',
-    dependencies = { 'nvim-web-devicons' },
-    config = function()
-      require("bookmarks").setup({
-        keymap = {
-          add = '<F2>',
-          close = '<Esc>'
-        }
-      })
-      require("telescope").load_extension("bookmarks")
-    end
-  },
-  {
     "windwp/nvim-autopairs",
     event = "InsertEnter"
   },
@@ -149,33 +132,6 @@ return {
     config = myconfig.configurePlugin,
   },
   {
-    "nvim-neo-tree/neo-tree.nvim",
-    branch = "v3.x",
-    keys = {
-      { "<leader>xx", ":Neotree filesystem reveal toggle<cr>", "nxo", desc="Toggle file explorer"},
-      { "<leader>xg", ":Neotree git_status reveal toggle<cr>", "nxo", desc="Toggle gitstatus"},
-      -- { "<leader>xs", ":Neotree document_symbols reveal toggle<cr>", "nxo", desc="Toggle gitstatus"}
-    },
-    opts = {
-      sources = {
-        {
-          "document_symbols",
-        }
-      },
-      filesystem = {
-        filtered_items = {
-          visible = true,
-        },
-      },
-    },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-      "MunifTanjim/nui.nvim",
-      -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
-    }
-  },
-  {
     "folke/snacks.nvim",
     priority = 1000,
     lazy = false,
@@ -188,6 +144,7 @@ return {
       dashboard = { enabled = true },
       indent = { enabled = true },
       input = { enabled = true },
+      explorer = {enabled = true},
       picker = { enabled = true },
       notifier = { enabled = true },
       quickfile = { enabled = true },
