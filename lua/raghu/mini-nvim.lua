@@ -8,6 +8,7 @@ M.config = function()
   require("mini.comment").setup()
   require("mini.pairs").setup()
   require("mini.align").setup()
+  require("mini.ai").setup()
   require("mini.surround").setup({
     mappings = {
           add = 'ys', -- Add surrounding in Normal and Visual modes

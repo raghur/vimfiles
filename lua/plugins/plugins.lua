@@ -39,7 +39,6 @@ return {
       vim.g.matchup_surround_enabled = 1
     end,
   },
-  { "wellle/targets.vim" },
   { "rstacruz/sparkup", rtp = "vim", enabled = false },
 
   {
