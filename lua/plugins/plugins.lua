@@ -144,7 +144,15 @@ return {
       indent = { enabled = true },
       input = { enabled = true },
       explorer = {enabled = true},
-      picker = { enabled = true },
+      picker = {
+        win = {
+          input = {
+            keys = {
+              ["<Esc>"] = { "close", mode = { "n", "i" } },
+            }
+          }
+        },
+        enabled = true },
       notifier = { enabled = true },
       quickfile = { enabled = true },
       scroll = { enabled = true },
