@@ -147,7 +147,7 @@ M.mapKeys = function()
   wk.add(mappings)
 
   mappings = {
-    { "<F1>", function() snacks.explorer() end, desc = "toggle file explorer" },
+    { "<F1>", function() snacks.explorer.reveal() end, desc = "toggle file explorer" },
     { "<F3>", ":redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR>", desc = "Copy last search to buffer" },
     { "<F4>", "<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", desc = "Open directory" },
     { "<F9>", "<Cmd>YankyRingHistory<cr>", desc = "Yanky" },
