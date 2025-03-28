@@ -72,12 +72,22 @@ M.mapKeys = function()
     { "<leader>fp",snacks.picker.files, desc = "Find files at"},
     { "<leader>fe", ":edit <C-R>=fnamemodify(@%, ':p:h')<CR>/", desc = "edit file" },
     { "<leader>fd", "<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", desc = "Open directory" },
-    { "<leader>r", snacks.picker.smart, desc = "Find recent" },
+    { "<leader>r", snacks.picker.recent, desc = "Find recent" },
     { "<leader>b", snacks.picker.buffers, desc = "Buffers" },
     { "<leader>g", snacks.picker.git_files, desc = "Git files" },
     { "<leader>/", snacks.picker.grep, desc = "Grep" },
     { "<leader><space>",snacks.picker.smart, desc = "Find relative"},
     { "<leader>s", "<cmd>vsp ~/Sync/scratch/scratch.txt<cr>", desc = "Scratchpad" },
+
+
+    -- git
+    { "<leader>gb", function() snacks.picker.git_branches() end, desc = "Git Branches" },
+    { "<leader>gl", function() snacks.picker.git_log() end, desc = "Git Log" },
+    { "<leader>gL", function() snacks.picker.git_log_line() end, desc = "Git Log Line" },
+    { "<leader>gs", function() snacks.picker.git_status() end, desc = "Git Status" },
+    { "<leader>gS", function() snacks.picker.git_stash() end, desc = "Git Stash" },
+    { "<leader>gd", function() snacks.picker.git_diff() end, desc = "Git Diff (Hunks)" },
+    { "<leader>gf", function() snacks.picker.git_log_file() end, desc = "Git Log File" },
   }
   wk.add(mappings)
 
