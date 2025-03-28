@@ -162,6 +162,9 @@ return {
     },
   },
   {
+    'nanotee/zoxide.vim'
+  },
+  {
     "loctvl842/monokai-pro.nvim"
   }
 }

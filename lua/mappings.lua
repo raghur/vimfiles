@@ -69,7 +69,7 @@ M.mapKeys = function()
   local mappings = {
     { "<leader>f", group = "+Files"},
     { "<leader>ff",snacks.picker.files, desc = "Find relative"},
-    { "<leader>fp",snacks.picker.files, desc = "Find files at"},
+    { "<leader>fp",snacks.picker.zoxide, desc = "Find files at"},
     { "<leader>fe", ":edit <C-R>=fnamemodify(@%, ':p:h')<CR>/", desc = "edit file" },
     { "<leader>fd", "<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", desc = "Open directory" },
     { "<leader>r", snacks.picker.recent, desc = "Find recent" },
