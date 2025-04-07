@@ -76,7 +76,8 @@ M.mapKeys = function()
     { "<leader>b", snacks.picker.buffers, desc = "Buffers" },
     { "<leader>g", snacks.picker.git_files, desc = "Git files" },
     { "<leader>/", snacks.picker.grep, desc = "Grep" },
-    { "<leader><space>",snacks.picker.smart, desc = "Find relative"},
+    { "<leader><space>",function() snacks.picker.smart({ hidden=true
+    }) end, desc = "Find relative"},
     { "<leader>s", "<cmd>vsp ~/Sync/scratch/scratch.txt<cr>", desc = "Scratchpad" },
 
 
