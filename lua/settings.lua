@@ -88,20 +88,20 @@ set.gdefault=true
 set.colorcolumn='120'
 vim.schedule(function()
   vim.opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
-  if vim.fn.has('linux') > 0 then
-    vim.g.clipboard = {
-      name = "xsel",
-      copy = {
-        ["+"] = "xsel --nodetach -i -b",
-        ["*"] = "xsel --nodetach -i -p",
-      },
-      paste = {
-        ["+"] = "xsel -o -b",
-        ["*"] = "xsel -o -b",
-      },
-      cache_enabled = 1,
-    }
-  end
+--   if vim.fn.has('linux') > 0 then
+--     vim.g.clipboard = {
+--       name = "xsel",
+--       copy = {
+--         ["+"] = "xsel --nodetach -i -b",
+--         ["*"] = "xsel --nodetach -i -p",
+--       },
+--       paste = {
+--         ["+"] = "xsel -o -b",
+--         ["*"] = "xsel -o -b",
+--       },
+--       cache_enabled = 1,
+--     }
+--   end
 end)
 
 -- Open splits to the right by default
