@@ -166,5 +166,47 @@ return {
   },
   {
     "loctvl842/monokai-pro.nvim"
-  }
+  },
+{
+    "nvim-neorg/neorg",
+    lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+    version = "*", -- Pin Neorg to the latest stable release
+    config = true,
+    opts = {
+      load = {
+        ["core.defaults"] = {},
+        ["core.concealer"] = {},
+        ["core.esupports.hop"] = {},
+        ["core.dirman"] = {
+          config = {
+            workspaces = {
+              notes = "~/Sync/scratch/",
+            },
+          },
+        },
+      },
+    }
+}
+  -- {
+  --   'huggingface/llm.nvim',
+  --   opts = {
+  --     backend = "ollama",
+  --     model = "deepseek-coder-v2:16b-lite-base-q5_K_M",
+  --     url = "http://localhost:11434",
+  --     -- cf https://github.com/ollama/ollama/blob/main/docs/api.md#parameters
+  --     request_body = {
+  --       -- Modelfile options for the model you use
+  --     },
+  --     lsp = {
+  --       bin_path = vim.api.nvim_call_function("stdpath", { "data" }) .. "/mason/bin/llm-ls",
+  --     },
+  --     fim = {
+  --       enabled = true,
+  --       prefix = "<fim_prefix>",
+  --       middle = "<fim_middle>",
+  --       suffix = "<fim_suffix>",
+  --     },
+  --     -- cf Setup
+  --   },
+  --}
 }

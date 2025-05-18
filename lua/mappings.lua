@@ -78,7 +78,9 @@ M.mapKeys = function()
     { "<leader>/", snacks.picker.grep, desc = "Grep" },
     { "<leader><space>",function() snacks.picker.smart({ hidden=true
     }) end, desc = "Find relative"},
-    { "<leader>s", "<cmd>vsp ~/Sync/scratch/scratch.txt<cr>", desc = "Scratchpad" },
+    { "<leader>e", "<cmd>vsp ~/Sync/scratch/scratch.txt<cr>", desc = "Scratchpad" },
+    { "<leader>sk", snacks.picker.keymaps, desc = "Keymaps" },
+    { "<leader>sc", snacks.picker.commands, desc = "Commands" },
 
 
     -- git
