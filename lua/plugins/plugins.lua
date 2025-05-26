@@ -167,26 +167,37 @@ return {
   {
     "loctvl842/monokai-pro.nvim"
   },
-{
+  {
     "nvim-neorg/neorg",
     lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
     version = "*", -- Pin Neorg to the latest stable release
     config = true,
+    dependencies = {
+      "hrsh7th/nvim-cmp",
+    },
+    keys = {
+      { "<C-CR>", "<Plug>(neorg.itero.next-iteration)", desc = "[neorg] Continue Object", mode="i"},
+    },
     opts = {
       load = {
         ["core.defaults"] = {},
         ["core.concealer"] = {},
         ["core.esupports.hop"] = {},
+        ["core.itero"] = {},
+        -- ["core.completion"] = {
+        --   engine="nvim-cmp",
+        -- },
         ["core.dirman"] = {
           config = {
             workspaces = {
               notes = "~/Sync/scratch/",
             },
+            default_workspace = "notes"
           },
         },
       },
     }
-}
+  }
   -- {
   --   'huggingface/llm.nvim',
   --   opts = {

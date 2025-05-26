@@ -78,7 +78,7 @@ M.mapKeys = function()
     { "<leader>/", snacks.picker.grep, desc = "Grep" },
     { "<leader><space>",function() snacks.picker.smart({ hidden=true
     }) end, desc = "Find relative"},
-    { "<leader>e", "<cmd>vsp ~/Sync/scratch/scratch.txt<cr>", desc = "Scratchpad" },
+    { "<leader>e", ":vsp|Neorg index<CR>", desc = "Scratchpad Notes" },
     { "<leader>sk", snacks.picker.keymaps, desc = "Keymaps" },
     { "<leader>sc", snacks.picker.commands, desc = "Commands" },
 
