@@ -6,13 +6,19 @@ return {
     "jay-babu/mason-null-ls.nvim",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      "williamboman/mason.nvim",
+      "mason-org/mason.nvim",
       "nvimtools/none-ls.nvim",
     },
     config = myconfig.configurePlugin
   },
-  { "williamboman/mason.nvim" },
-  { "williamboman/mason-lspconfig.nvim" },
+  {
+    "mason-org/mason-lspconfig.nvim",
+    opts = {},
+    dependencies = {
+      { "mason-org/mason.nvim", opts = {} },
+      "neovim/nvim-lspconfig",
+    },
+  },
   {
     "neovim/nvim-lspconfig",
     config = myconfig.configurePlugin
@@ -24,15 +30,5 @@ return {
       { "nvim-treesitter/nvim-treesitter" },
     },
     config = myconfig.configurePlugin
-  },
-  {
-    "ThePrimeagen/refactoring.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-    },
-    config = function()
-      require("refactoring").setup()
-    end,
   },
 }
