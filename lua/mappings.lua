@@ -174,6 +174,7 @@ M.mapKeys = function()
     { "gk", vim.diagnostic.open_float, desc = "show line diagnostic"  },
     { "gl", "<cmd>Lspsaga finder<cr>", desc = "lsp finder" },
     { "gp", snacks.picker.diagnostics, desc = "diagnostics" },
+    { "gP", snacks.picker.diagnostics_buffer, desc = "diagnostics" },
     { "gr", snacks.picker.lsp_references, desc = "references" },
     { "gs", snacks.picker.lsp_symbols, desc = "document symbols" },
     { "gt", snacks.picker.lsp_workspace_symbols, desc = "workspace symbols" },
