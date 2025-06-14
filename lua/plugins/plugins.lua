@@ -190,6 +190,11 @@ return {
         -- ["core.completion"] = {
         --   engine="nvim-cmp",
         -- },
+        ["core.keybinds"] = {
+          config = {
+            default_keybinds = true
+          }
+        },
         ["core.dirman"] = {
           config = {
             workspaces = {
