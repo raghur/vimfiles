@@ -94,7 +94,7 @@ M.mapKeys = function()
   wk.add(mappings)
 
   mappings = {
-    { "<leader>c", snacks.picker.colorschemes, desc = "Colors" },
+    { "<leader>c", function() snacks.picker.colorschemes() end, desc = "Colors" },
     { "<leader>:", snacks.picker.commands, desc = "Commands" },
     { "<leader>1", "<cmd>on<cr>", desc = "Close others" },
     { "<leader>a", ":b#<cr>", desc = "Last file" },
