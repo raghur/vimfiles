@@ -23,7 +23,7 @@ M.config = function()
     },
     formatting = {
       format = lspkind.cmp_format({
-        maxwidth = 50,
+        maxwidth = 100,
         preset = "default",
         menu = ({
           buffer = "[Buffer]",
