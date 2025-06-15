@@ -71,7 +71,6 @@ M.mapKeys = function()
     { "<leader>ff",snacks.picker.files, desc = "Find relative"},
     { "<leader>fp",snacks.picker.zoxide, desc = "Find files at"},
     { "<leader>fe", ":edit <C-R>=fnamemodify(@%, ':p:h')<CR>/", desc = "edit file" },
-    { "<leader>fd", "<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", desc = "Open directory" },
     { "<leader>r", snacks.picker.recent, desc = "Find recent" },
     { "<leader>b", snacks.picker.buffers, desc = "Buffers" },
     { "<leader>g", snacks.picker.git_files, desc = "Git files" },
@@ -148,11 +147,10 @@ M.mapKeys = function()
     { "<leader>P", '"0P', desc = 'Paste "0 before' },
   }
   wk.add(mappings)
-
   mappings = {
-    { "<F1>", function() snacks.explorer.reveal() end, desc = "toggle file explorer" },
+    { "<F1>", snacks.explorer.reveal, desc = "Reveal in file explorer" },
+    { "<leader><F1>", snacks.explorer.open, desc = "Toggle file explorer" },
     { "<F3>", ":redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR>", desc = "Copy last search to buffer" },
-    { "<F4>", "<cmd>:lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<cr>", desc = "Open directory" },
     { "<F9>", "<Cmd>YankyRingHistory<cr>", desc = "Yanky" },
     { "<M-=>", function() font.adjust(1) end, desc = "Increase Font" },
     { "<M-->", function() font.adjust(-1) end, desc = "Decrease Font" },

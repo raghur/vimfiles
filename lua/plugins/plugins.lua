@@ -123,6 +123,7 @@ return {
       words = { enabled = true },
       zen = { enabled = true},
     },
+    config = myconfig.configurePlugin,
   },
   {
     'nanotee/zoxide.vim'
