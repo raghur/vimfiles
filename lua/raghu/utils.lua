@@ -1,4 +1,3 @@
-
 local M = {}
 local editConfig = function(file, type)
   local configHome = vim.fs.dirname(vim.env.MYVIMRC)

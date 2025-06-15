@@ -22,6 +22,7 @@ if vim.fn.executable('python') then
   vim.g.python3_host_prog = venvPath .. "/bin/python"
 end
 set.completeopt="menu,menuone,noselect"
+set.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 -- set.guioptions^=c
 -- set.guioptions-=T
 -- set.guioptions-=t
