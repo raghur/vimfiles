@@ -22,15 +22,6 @@ return {
     end
   },
   {
-    "sindrets/diffview.nvim",
-    keys = {
-      {"<leader>gdo", "<cmd>DiffviewOpen<cr>", desc = "Diff - Open"},
-      {"<leader>gdd", "<cmd>DiffviewClose<cr>", desc = "Diff - Close"},
-      {"<leader>gdh", "<cmd>DiffviewOpen develop..HEAD<cr>", desc = "Diff with base"}
-    }
-
-  },
-  {
     "windwp/nvim-autopairs",
     event = "InsertEnter"
   },
@@ -40,14 +31,6 @@ return {
     init = function()
       vim.g.matchup_matchparen_offscreen = { method = "status" }
       vim.g.matchup_surround_enabled = 1
-    end,
-  },
-  { "rstacruz/sparkup", rtp = "vim", enabled = false },
-
-  {
-    "airblade/vim-rooter",
-    config = function()
-      vim.g.rooter_silent_chdir = 1
     end,
   },
   {
@@ -102,11 +85,6 @@ return {
     end
   },
   {
-    "nvim-orgmode/orgmode",
-    ft = "org",
-    config = myconfig.configurePlugin
-  },
-  {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     config = true,
@@ -120,15 +98,15 @@ return {
     "nvim-tree/nvim-web-devicons",
     lazy = true,
   },
-  {
-    "ggandor/leap.nvim",
-    keys= {
-      { "f", '<Plug>(leap-forward-to)', "nxo", desc='Leap forward'},
-      { "F", '<Plug>(leap-backward-to)', "nxo", desc='Leap backward'}
-    },
-    config = function()
-    end,
-  },
+  -- {
+  --   "ggandor/leap.nvim",
+  --   keys= {
+  --     { "f", '<Plug>(leap-forward-to)', "nxo", desc='Leap forward'},
+  --     { "F", '<Plug>(leap-backward-to)', "nxo", desc='Leap backward'}
+  --   },
+  --   config = function()
+  --   end,
+  -- },
   {
     "gbprod/yanky.nvim",
     config = myconfig.configurePlugin,
@@ -168,9 +146,6 @@ return {
     'nanotee/zoxide.vim'
   },
   {
-    "loctvl842/monokai-pro.nvim"
-  },
-  {
     "nvim-neorg/neorg",
     lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
     version = "*", -- Pin Neorg to the latest stable release
@@ -206,26 +181,4 @@ return {
       },
     }
   }
-  -- {
-  --   'huggingface/llm.nvim',
-  --   opts = {
-  --     backend = "ollama",
-  --     model = "deepseek-coder-v2:16b-lite-base-q5_K_M",
-  --     url = "http://localhost:11434",
-  --     -- cf https://github.com/ollama/ollama/blob/main/docs/api.md#parameters
-  --     request_body = {
-  --       -- Modelfile options for the model you use
-  --     },
-  --     lsp = {
-  --       bin_path = vim.api.nvim_call_function("stdpath", { "data" }) .. "/mason/bin/llm-ls",
-  --     },
-  --     fim = {
-  --       enabled = true,
-  --       prefix = "<fim_prefix>",
-  --       middle = "<fim_middle>",
-  --       suffix = "<fim_suffix>",
-  --     },
-  --     -- cf Setup
-  --   },
-  --}
 }

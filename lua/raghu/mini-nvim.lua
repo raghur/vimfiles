@@ -9,6 +9,9 @@ M.config = function()
   require("mini.pairs").setup()
   require("mini.align").setup()
   require("mini.ai").setup()
+  require("mini.misc").setup({
+    make_global = {'setup_auto_root', 'put', 'put_text'}
+  })
   require("mini.surround").setup({
     mappings = {
           add = 'ys', -- Add surrounding in Normal and Visual modes
@@ -36,6 +39,9 @@ M.config = function()
       try_as_border = true,     -- let's you stay on func header and select body as scope
     },
   })
+---@diagnostic disable-next-line: undefined-global
+  MiniMisc.setup_auto_root()
   Info('configured mini.nvim')
+
 end
 return M
