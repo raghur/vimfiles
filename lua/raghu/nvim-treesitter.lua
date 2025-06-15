@@ -37,6 +37,11 @@ M.config = function ()
       -- code block highlights that do not have ts grammar
       additional_vim_regex_highlighting = {'org'},
     },
+    matchup = {
+      enable = true,              -- mandatory, false will disable the whole extension
+      disable = {},  -- optional, list of language that will be disabled
+      -- [options]
+    },
     incremental_selection = {
       enable = true,
       keymaps = {
