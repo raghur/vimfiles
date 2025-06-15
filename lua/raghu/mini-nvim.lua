@@ -12,6 +12,9 @@ M.config = function()
   require("mini.misc").setup({
     make_global = {'setup_auto_root', 'put', 'put_text'}
   })
+  require("mini.sessions").setup({
+    autoread = true
+  })
   require("mini.surround").setup({
     mappings = {
           add = 'ys', -- Add surrounding in Normal and Visual modes
