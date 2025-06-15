@@ -4,6 +4,7 @@ vim.g.maplocalleader = "\\"
 vim.g.mapleader = ' '
 local maps = require("mappings")
 local utils = require("raghu.utils")
+-- To enable these use `NVIM_LOG=1/2 nvim` resply
 Info, Dbg = utils.info, utils.dbg
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then

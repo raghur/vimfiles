@@ -2,8 +2,9 @@ local M = {}
 M.config = function ()
   local explorer = require("snacks.explorer")
   local origReveal = explorer.reveal
+  -- redefining reveal
+  -- Without this, if you're on the selected buffer, reveal() does not switch to the explorer window
   explorer.reveal = function(opts)
-    -- find the window if it's open
     local explorer_win = nil
     for _, bufnr in ipairs(vim.api.nvim_list_bufs()) do
       if vim.api.nvim_buf_is_loaded(bufnr) and
