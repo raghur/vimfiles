@@ -27,19 +27,10 @@ return {
   },
   {
     "andymass/vim-matchup",
-    event = "BufReadPost",
     init = function()
       vim.g.matchup_matchparen_offscreen = { method = "status" }
       vim.g.matchup_surround_enabled = 1
     end,
-  },
-  {
-    "xolox/vim-session",
-    config = myconfig.configurePlugin,
-    dependencies = {
-      { "xolox/vim-misc" },
-    },
-    -- cmd = {'OpenSession', 'SaveSession'}
   },
   {
     "alvan/vim-closetag",
@@ -98,15 +89,6 @@ return {
     "nvim-tree/nvim-web-devicons",
     lazy = true,
   },
-  -- {
-  --   "ggandor/leap.nvim",
-  --   keys= {
-  --     { "f", '<Plug>(leap-forward-to)', "nxo", desc='Leap forward'},
-  --     { "F", '<Plug>(leap-backward-to)', "nxo", desc='Leap backward'}
-  --   },
-  --   config = function()
-  --   end,
-  -- },
   {
     "gbprod/yanky.nvim",
     config = myconfig.configurePlugin,
