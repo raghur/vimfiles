@@ -90,6 +90,7 @@ M.mapKeys = function()
     { "<leader>gS", function() snacks.picker.git_stash() end, desc = "Git Stash" },
     { "<leader>gd", function() snacks.picker.git_diff() end, desc = "Git Diff (Hunks)" },
     { "<leader>gf", function() snacks.picker.git_log_file() end, desc = "Git Log File" },
+    { "<leader>g/", function() snacks.picker.git_grep() end, desc = "Git Log File" },
   }
   wk.add(mappings)
 
