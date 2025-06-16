@@ -46,8 +46,10 @@
   "vim-ghost": { "branch": "master", "commit": "115e2600481c92c0bfb69d82ccbd8af7dc052a03" },
   "vim-helpnav": { "branch": "master", "commit": "be748b09a775845c6c68d5ef512c9f8cd4278424" },
   "vim-matchup": { "branch": "master", "commit": "c478d4a72bbf397eff42743198f1939f6a264736" },
+  "vim-misc": { "branch": "master", "commit": "3e6b8fb6f03f13434543ce1f5d24f6a5d3f34f0b" },
   "vim-polyglot": { "branch": "master", "commit": "f5393cfee07aeb666f4d75f9b3a83163862fb094" },
   "vim-repeat": { "branch": "master", "commit": "65846025c15494983dafe5e3b46c8f88ab2e9635" },
+  "vim-session": { "branch": "master", "commit": "9e9a6088f0554f6940c19889d0b2a8f39d13f2bb" },
   "which-key.nvim": { "branch": "main", "commit": "370ec46f710e058c9c1646273e6b225acf47cbed" },
   "yanky.nvim": { "branch": "main", "commit": "04775cc6e10ef038c397c407bc17f00a2f52b378" },
   "zoxide.vim": { "branch": "master", "commit": "b1e70b6fc1682a83929aee63680d2b43456fe9a5" }
