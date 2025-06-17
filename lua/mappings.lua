@@ -119,6 +119,7 @@ M.mapKeys = function()
     { "<leader>ild", function() utils.loglvl("DBG") end, desc = "Log - Debug" },
     { "<leader>ili", function() utils.loglvl("INFO") end, desc = "Log - INFO" },
     { "<leader>ilx", function() utils.loglvl("DISABLE") end, desc = "Log - disable" },
+    { "<leader>in",  snacks.notifier.show_history , desc = "Notification history" },
   }
   wk.add(mappings)
 

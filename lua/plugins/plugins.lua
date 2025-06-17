@@ -31,6 +31,7 @@ return {
     init = function()
       vim.g.matchup_matchparen_offscreen = { method = "status" }
       vim.g.matchup_surround_enabled = 1
+      vim.o.matchpairs = "(:),{:},[:]"
     end,
   },
   {
@@ -71,8 +72,12 @@ return {
       {"kevinhwang91/promise-async"},
       { "nvim-treesitter/nvim-treesitter"}
     },
+    keys = {
+      {'zR', function() require('ufo').openAllFolds() end, desc = "Open all folds"},
+      {'zM', function() require('ufo').closeAllFolds() end, desc = "Close all folds"}
+    },
     config = function ()
-      vim.o.foldcolumn = 'auto:9'
+      vim.o.foldcolumn = '1'
       vim.o.foldlevel = 99
       vim.o.foldlevelstart = 99
       vim.o.foldenable = true
