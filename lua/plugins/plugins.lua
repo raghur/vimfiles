@@ -120,16 +120,21 @@ return {
       dashboard = { enabled = true },
       indent = { enabled = true },
       input = { enabled = true },
-      explorer = {enabled = true},
+      explorer = {
+        enabled = true,
+        replace_netrw = true,
+      },
       picker = {
         win = {
           input = {
             keys = {
               ["<Esc>"] = { "close", mode = { "n", "i" } },
+              ["<c-l>"] = { "toggle_focus", mode = { "n", "i" } },
             }
           }
         },
-        enabled = true },
+        enabled = true
+      },
       notifier = { enabled = true },
       quickfile = { enabled = true },
       scroll = { enabled = true },
