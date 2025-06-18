@@ -86,7 +86,8 @@ M.mapKeys = function()
 
 
     -- git
-    { "<leader>G", function() snacks.lazygit.open() end, desc = "LazyGit" },
+    { "<leader>tG", function() snacks.lazygit.open() end, desc = "LazyGit" },
+    { "<leader>tT", function() snacks.terminal.toggle() end, desc = "Open terminal" },
     { "<leader>gb", function() snacks.picker.git_branches() end, desc = "Git Branches" },
     { "<leader>gl", function() snacks.picker.git_log() end, desc = "Git Log" },
     { "<leader>gL", function() snacks.picker.git_log_line() end, desc = "Git Log Line" },
