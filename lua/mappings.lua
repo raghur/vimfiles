@@ -1,66 +1,67 @@
-vim.cmd([[
-" for browsing the input history
-cnoremap <c-n> <down>
-cnoremap <c-p> <up>
 
-" disable arrow keys
-noremap  <Up>    <NOP>
-noremap  <Down>  <NOP>
-noremap  <Left>  <NOP>
-noremap  <Right> <NOP>
-inoremap jk      <esc>
-vnoremap >       >gv
-vnoremap <       <gv
-nnoremap 0       ^
-nnoremap ^       0
+local key=vim.keymap.set
+-- for Browse the input history
+key('c', '<c-n>', '<down>', { desc = 'Next command history' })
+key('c', '<c-p>', '<up>', { desc = 'Previous command history' })
 
-" terminal mode esc
-tnoremap <Esc> <C-\><C-n>
+-- disable arrow keys
+key({ 'n', 'i', 'v' }, '<Up>',    '<Nop>', { desc = 'Disable Up arrow key' })
+key({ 'n', 'i', 'v' }, '<Down>',  '<Nop>', { desc = 'Disable Down arrow key' })
+key({ 'n', 'i', 'v' }, '<Left>',  '<Nop>', { desc = 'Disable Left arrow key' })
+key({ 'n', 'i', 'v' }, '<Right>', '<Nop>', { desc = 'Disable Right arrow key' })
 
-"Move by screen lines
-nnoremap j gj
-nnoremap k gk
+key('i', 'jk', '<esc>', { desc = 'Escape with jk' })
+key('v', '>',  '>gv',   { desc = 'Re-select after indent' })
+key('v', '<',  '<gv',   { desc = 'Re-select after unindent' })
+key('n', '0',  '^',     { desc = 'Go to first non-blank character' })
+key('n', '^',  '0',     { desc = 'Go to beginning of line' })
 
-nnoremap <backspace>    <C-o>
-nnoremap <tab>    <C-i>
+-- terminal mode esc (uncomment if you want this mapping)
+-- vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Escape in terminal mode' })
 
-" Don't use Ex mode, use Q for formatting
-map Q gq
+-- Move by screen lines
+key('n', 'j',           'gj',    { desc = 'Move down by screen line' })
+key('n', 'k',           'gk',    { desc = 'Move up by screen line' })
 
-" open help in a vert split to the right
-cabbrev h   vert bo h
-cabbrev map verb map<space>
+key('n', '<backspace>', '<C-o>', { desc = 'Go back in jump list' })
+key('n', '<tab>',       '<C-i>', { desc = 'Go forward in jump list' })
 
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U>      <C-G>u<C-U>
+-- Don't use Ex mode, use Q for formatting
+key('n', 'Q', 'gq', { desc = 'Format text with gq' })
 
-inoremap <S-Insert> <c-r>+
-inoremap <S-Insert> <c-r>+
-cnoremap <S-Insert> <c-r>+
+-- open help in a vert split to the right
+vim.cmd([[cabbrev h vert bo h]])
+vim.cmd([[cabbrev map verb map<space>]])
+vim.cmd([[cabbrev s/ s/\v]]) -- For command line abbreviations, vim.cmd is still often used
 
-" Paste sanity
-nnoremap c "_c
-nnoremap C "_C
+-- CTRL-U in insert mode deletes a lot. Use CTRL-G u to first break undo,
+-- so that you can undo CTRL-U after inserting a line break.
+key('i', '<C-U>',      '<C-G>u<C-U>', { desc = 'Break undo before C-U' })
 
-" Search and replace related mappings
-nnoremap /         /\v
-cnoremap %s/       %s/\v
-vnoremap %         <space>%
-cabbrev s/         s/\v
-vnoremap <silent>* y:let @/=@"<cr>:set hlsearch<cr>n
-" Center on screen after moving to next/prev match
-nnoremap n nzz
-nnoremap N Nzz
+key('i', '<S-Insert>', '<c-r>+',      { desc = 'Paste from system clipboard (insert mode)' })
+key('c', '<S-Insert>', '<c-r>+',      { desc = 'Paste from system clipboard (command mode)' })
 
-"Move lines
-nnoremap <A-j> :m+<CR>==
-nnoremap <A-k> :m-2<CR>==
-inoremap <A-j> <Esc>:m+<CR>==gi
-inoremap <A-k> <Esc>:m-2<CR>==gi
-vnoremap <A-j> :m'>+<CR>gv=gv
-vnoremap <A-k> :m-2<CR>gv=gv
-]])
+-- Paste sanity
+key('n', 'c',          '"_c',         { desc = 'Change without yanking' })
+key('n', 'C',          '"_C',         { desc = 'Change to end of line without yanking' })
+
+-- Search and replace related mappings
+key('n', '/',         '/\\v',                              { desc = 'Start search with very magic' })
+key('c', '%s/',       '%s/\\v',                            { desc = 'Start substitute with very magic' })
+key('v', '%',         '<space>%',                          { desc = 'Visual mode search for current selection' })
+key('v', '<silent>*', 'y:let @/=@"<cr>:set hlsearch<cr>n', { desc = 'Search for visual selection' })
+
+-- Center on screen after moving to next/prev match
+key('n', 'n',         'nzz',                               { desc = 'Next search result and center' })
+key('n', 'N',         'Nzz',                               { desc = 'Previous search result and center' })
+
+-- Move lines
+key('n', '<A-j>',     ':m+<CR>==',                         { desc = 'Move line down (Normal)' })
+key('n', '<A-k>',     ':m-2<CR>==',                        { desc = 'Move line up (Normal)' })
+key('i', '<A-j>',     '<Esc>:m+<CR>==gi',                  { desc = 'Move line down (Insert)' })
+key('i', '<A-k>',     '<Esc>:m-2<CR>==gi',                 { desc = 'Move line up (Insert)' })
+key('v', '<A-j>',     ':m\'>+<CR>gv=gv',                   { desc = 'Move selected lines down (Visual)' })
+key('v', '<A-k>',     ':m-2<CR>gv=gv',                     { desc = 'Move selected lines up (Visual)' })
 
 local M = {}
 M.mapKeys = function()
@@ -86,8 +87,8 @@ M.mapKeys = function()
 
 
     -- git
-    { "<leader>tG", function() snacks.lazygit.open() end, desc = "LazyGit" },
-    { "<leader>tT", function() snacks.terminal.toggle() end, desc = "Open terminal" },
+    { "<leader>tg", function() snacks.lazygit.open() end, desc = "LazyGit" },
+    { "<leader>tt", function() snacks.terminal.toggle() end, desc = "Open terminal" },
     { "<leader>gb", function() snacks.picker.git_branches() end, desc = "Git Branches" },
     { "<leader>gl", function() snacks.picker.git_log() end, desc = "Git Log" },
     { "<leader>gL", function() snacks.picker.git_log_line() end, desc = "Git Log Line" },
