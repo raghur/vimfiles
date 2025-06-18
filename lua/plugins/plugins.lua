@@ -105,7 +105,11 @@ return {
   },
   {
     "gbprod/yanky.nvim",
-    config = myconfig.configurePlugin,
+    opts = { },
+    dependencies = { "folke/snacks.nvim" },
+    keys = {
+      { "<C-p>", function() Snacks.picker.yanky() end, mode = { "n", "x", "i" }, desc = "Open Yank History", },
+    }
   },
   {
     "folke/snacks.nvim",
@@ -144,9 +148,7 @@ return {
     },
     config = myconfig.configurePlugin,
   },
-  {
-    'nanotee/zoxide.vim'
-  },
+  { 'nanotee/zoxide.vim' },
   {
     "nvim-neorg/neorg",
     lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
