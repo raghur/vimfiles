@@ -14,6 +14,9 @@ vnoremap <       <gv
 nnoremap 0       ^
 nnoremap ^       0
 
+" terminal mode esc
+tnoremap <Esc> <C-\><C-n>
+
 "Move by screen lines
 nnoremap j gj
 nnoremap k gk
