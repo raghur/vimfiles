@@ -32,6 +32,22 @@ M.cycle = function (items, index, dir)
   return items[index]
 end
 
+local function logit(min, levelName, ...)
+  local level = tonumber(vim.env.NVIM_LOG)
+  if level == 0 or level == nil then return end
+  if level <= min then
+    local processed = {levelName }
+    local argsTable = {...}
+    for i = 1, select('#',...) do
+      if type(argsTable[i]) == 'table' then
+        processed[i+1] = vim.inspect(argsTable[i])
+      else
+        processed[i+1] = argsTable[i]
+      end
+    end
+    vim.print(table.concat(processed, " "))
+  end
+end
 
 --  global require
 Require = function (name)
@@ -39,7 +55,12 @@ Require = function (name)
   return require(name)
 end
 M.mkdir = vim.fn['utils#createIfNotExists']
-M.dbg = vim.fn['utils#dbg']
-M.info = vim.fn['utils#info']
+
+M.dbg = function(...)
+  logit(1, "DEBG",...)
+end
+M.info = function(...)
+  logit(2, "INFO",...)
+end
 M.loglvl = vim.fn['utils#loglvl']
 return M
