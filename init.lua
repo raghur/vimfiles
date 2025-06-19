@@ -2,7 +2,6 @@ require("settings")
 require("commands")
 vim.g.maplocalleader = "\\"
 vim.g.mapleader = ' '
-local maps = require("mappings")
 local utils = require("raghu.utils")
 -- To enable these use `NVIM_LOG=1/2 nvim` resply
 Info, Dbg = utils.info, utils.dbg
@@ -30,5 +29,5 @@ if (vim.fn.has('linux') > 0 or vim.fn.has('mac')) then
   Info('Server running at ', vim.v.servername)
 end
 
-maps.mapKeys()
+require("mappings")
 utils.info("sourced init.lua")

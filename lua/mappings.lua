@@ -63,21 +63,18 @@ key('i', '<A-k>',     '<Esc>:m-2<CR>==gi',                 { desc = 'Move line u
 key('v', '<A-j>',     ':m\'>+<CR>gv=gv',                   { desc = 'Move selected lines down (Visual)' })
 key('v', '<A-k>',     ':m-2<CR>gv=gv',                     { desc = 'Move selected lines up (Visual)' })
 
-local M = {}
-M.mapKeys = function()
-  local wk = require("which-key")
-  local utils = require("raghu.utils")
-  local font = require("raghu.font")
-  local snacks = require("snacks")
+local wk = require("which-key")
+local utils = require("raghu.utils")
+local font = require("raghu.font")
+local snacks = require("snacks")
 
-  local mappings = {
+local mappings = {
     { "<leader>f", group = "+Files"},
     { "<leader>ff",snacks.picker.files, desc = "Find relative"},
     { "<leader>fp",snacks.picker.zoxide, desc = "Find files at"},
     { "<leader>fe", ":edit <C-R>=fnamemodify(@%, ':p:h')<CR>/", desc = "edit file" },
     { "<leader>r", snacks.picker.recent, desc = "Find recent" },
     { "<leader>b", snacks.picker.buffers, desc = "Buffers" },
-    { "<leader>g", snacks.picker.git_files, desc = "Git files" },
     { "<leader>/", snacks.picker.grep, desc = "Grep" },
     { "<leader><space>",function() snacks.picker.smart({ hidden=true
     }) end, desc = "Find relative"},
@@ -89,9 +86,16 @@ M.mapKeys = function()
     -- terminal apps
     { "<leader>t", group = "Terminal apps"},
     { "<leader>tg", function() snacks.lazygit.open() end, desc = "LazyGit" },
-    { "<leader>tt", function() snacks.terminal.toggle() end, desc = "Open terminal" },
+    { "<leader>tt", function() snacks.terminal.toggle(nil, {
+        win = {
+            style = "terminal",
+            position = "right",
+        }
+    }) end, desc = "Open terminal" },
 
     -- git
+    { "<leader>g", group = "Git"},
+    { "<leader>gg", snacks.picker.git_files, desc = "Git files" },
     { "<leader>gb", function() snacks.picker.git_branches() end, desc = "Git Branches" },
     { "<leader>gl", function() snacks.picker.git_log() end, desc = "Git Log" },
     { "<leader>gL", function() snacks.picker.git_log_line() end, desc = "Git Log Line" },
@@ -100,10 +104,10 @@ M.mapKeys = function()
     { "<leader>gd", function() snacks.picker.git_diff() end, desc = "Git Diff (Hunks)" },
     { "<leader>gf", function() snacks.picker.git_log_file() end, desc = "Git Log File" },
     { "<leader>g/", function() snacks.picker.git_grep() end, desc = "Git Log File" },
-  }
-  wk.add(mappings)
+}
+wk.add(mappings)
 
-  mappings = {
+mappings = {
     { "<leader>c", function() snacks.picker.colorschemes() end, desc = "Colors" },
     { "<leader>:", snacks.picker.commands, desc = "Commands" },
     { "<leader>1", "<cmd>on<cr>", desc = "Close others" },
@@ -113,10 +117,10 @@ M.mapKeys = function()
     { "<leader>q", ":qall<cr>", desc = "Quit" },
     { "<leader>w", ":w<cr>", desc = "Write" },
     { "<leader>z", ":call utils#toggleZoom()<cr>", desc = "Zoom" },
-  }
-  wk.add(mappings)
+}
+wk.add(mappings)
 
-  mappings = {
+mappings = {
     { "<leader>i", group = "+Config" },
     { "<leader>im", function() utils.editConfig("mappings.lua") end, desc = "Mappings" },
     { "<leader>ir", ReloadConfig, desc = "Reload" },
@@ -130,35 +134,35 @@ M.mapKeys = function()
     { "<leader>ili", function() utils.loglvl("INFO") end, desc = "Log - INFO" },
     { "<leader>ilx", function() utils.loglvl("DISABLE") end, desc = "Log - disable" },
     { "<leader>in",  snacks.notifier.show_history , desc = "Notification history" },
-  }
-  wk.add(mappings)
+}
+wk.add(mappings)
 
-  local sourceRange = function()
+local sourceRange = function()
     local start = vim.fn.getpos("v")[2]
     local fin = vim.fn.line(".")
     local cmd = start .. "," .. fin .. "so"
     print("Sourced: " .. cmd)
     vim.cmd(cmd)
-  end
-  mappings = {
+end
+mappings = {
     { "<leader>i", group = "+Config", mode = "v" },
     { "<leader>i,", sourceRange, desc = "Source lines", mode = "v" },
-  }
-  wk.add(mappings)
+}
+wk.add(mappings)
 
-  wk.add({
+wk.add({
     { "S", ":<C-U>lua MiniSurround.add('visual')<cr>", desc = "Surround", mode = "xn" },
-  })
+})
 
-  mappings = {
+mappings = {
     { "<S-insert>", '"0p', desc = "paste", mode = "v"},
     { "p", '"0p', desc = "paste", mode = "v"},
     { "P", '"0P', desc = "paste before", mode = "v"},
     { "<leader>p", '"0p', desc = 'Paste "0' },
     { "<leader>P", '"0P', desc = 'Paste "0 before' },
-  }
-  wk.add(mappings)
-  mappings = {
+}
+wk.add(mappings)
+mappings = {
     { "<F1>", snacks.explorer.reveal, desc = "Reveal in file explorer" },
     { "<leader><F1>", snacks.explorer.open, desc = "Toggle file explorer" },
     { "<F3>", ":redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR>", desc = "Copy last search to buffer" },
@@ -167,10 +171,10 @@ M.mapKeys = function()
     { "<M-->", function() font.adjust(-1) end, desc = "Decrease Font" },
     { "<M-[>", function() font.cycleFont(-1) end, desc = "Previous Font" },
     { "<M-]>", function() font.cycleFont(1) end, desc = "Next Font" },
-  }
-  wk.add(mappings)
+}
+wk.add(mappings)
 
-  mappings = {
+mappings = {
     { "g", group = "LSP nav" },
     { "g.", "<cmd>Lspsaga code_action<cr>", desc = "code actions" },
     { "g=", vim.lsp.buf.format, desc = "format" },
@@ -187,11 +191,9 @@ M.mapKeys = function()
     { "gr", snacks.picker.lsp_references, desc = "references" },
     { "gs", snacks.picker.lsp_symbols, desc = "document symbols" },
     { "gt", snacks.picker.lsp_workspace_symbols, desc = "workspace symbols" },
-  }
-  wk.add(mappings)
-  -- keymap("n", "<F2>", "<cmd>Lspsaga rename<CR>", { silent = true })
-  vim.keymap.set("n", "K", vim.lsp.buf.signature_help, { silent = true, desc = "Hover docs" })
-  vim.keymap.set("i", "<C-K>",  vim.lsp.buf.signature_help, { silent = true, desc = "Hover docs" })
-  vim.notify("Mappings loaded", vim.log.levels.INFO)
-end
-return M
+}
+wk.add(mappings)
+-- keymap("n", "<F2>", "<cmd>Lspsaga rename<CR>", { silent = true })
+vim.keymap.set("n", "K", vim.lsp.buf.signature_help, { silent = true, desc = "Hover docs" })
+vim.keymap.set("i", "<C-K>",  vim.lsp.buf.signature_help, { silent = true, desc = "Hover docs" })
+vim.notify("Mappings loaded", vim.log.levels.INFO)
