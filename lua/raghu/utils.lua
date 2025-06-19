@@ -32,10 +32,10 @@ M.cycle = function (items, index, dir)
   return items[index]
 end
 
-local function logit(min, levelName, ...)
-  local level = tonumber(vim.env.NVIM_LOG)
-  if level == 0 or level == nil then return end
-  if level <= min then
+local function logit(level, levelName, ...)
+  local enabledLevel = tonumber(vim.env.NVIM_LOG)
+  if enabledLevel == 0 or enabledLevel == nil then return end
+  if level >= enabledLevel then
     local processed = {levelName }
     local argsTable = {...}
     for i = 1, select('#',...) do

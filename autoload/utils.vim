@@ -24,9 +24,9 @@ endfunction
 
 fun! utils#loglvl(lvl) abort
     if a:lvl == 'INFO'
-        let $NVIM_LOG=1
-    elseif a:lvl == 'DBG'
         let $NVIM_LOG=2
+    elseif a:lvl == 'DBG'
+        let $NVIM_LOG=1
     else
         let $NVIM_LOG=0
     endif
