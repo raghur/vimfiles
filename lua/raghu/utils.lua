@@ -18,7 +18,7 @@ M.editConfigFolder = function(folder)
   end
 
 ReloadConfig = function ()
-  Require('mappings').mapKeys()
+  Require('mappings')
   Require('settings')
   Require('commands')
   vim.notify('Config reloaded!', vim.log.levels.INFO)
