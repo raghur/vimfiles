@@ -86,9 +86,12 @@ M.mapKeys = function()
     { "<leader>sc", snacks.picker.commands, desc = "Commands" },
 
 
-    -- git
+    -- terminal apps
+    { "<leader>t", group = "Terminal apps"},
     { "<leader>tg", function() snacks.lazygit.open() end, desc = "LazyGit" },
     { "<leader>tt", function() snacks.terminal.toggle() end, desc = "Open terminal" },
+
+    -- git
     { "<leader>gb", function() snacks.picker.git_branches() end, desc = "Git Branches" },
     { "<leader>gl", function() snacks.picker.git_log() end, desc = "Git Log" },
     { "<leader>gL", function() snacks.picker.git_log_line() end, desc = "Git Log Line" },
