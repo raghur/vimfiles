@@ -1,36 +1,3 @@
-local M = {}
-local editConfig = function(file, type)
-  local configHome = vim.fs.dirname(vim.env.MYVIMRC)
-
-  local targetfiles = vim.fs.find(
-    {file},
-    {limit = 1, type = type, path = configHome}
-  )
-  print(vim.inspect(targetfiles))
-  vim.cmd.edit(targetfiles)
-end
-
-M.editConfig = function(file)
-    editConfig(file, 'file')
-  end
-M.editConfigFolder = function(folder)
-    editConfig(folder, 'directory')
-  end
-
-ReloadConfig = function ()
-  Require('mappings')
-  Require('settings')
-  Require('commands')
-  vim.notify('Config reloaded!', vim.log.levels.INFO)
-end
-
-M.cycle = function (items, index, dir)
-  if dir >= 0 then dir = 1 else dir = -1 end
-  index = index + dir
-  if index > #items then index = 1 end
-  if index < 1 then index = #items end
-  return items[index]
-end
 
 local function logit(level, levelName, ...)
   local enabledLevel = tonumber(vim.env.NVIM_LOG)
@@ -49,11 +16,50 @@ local function logit(level, levelName, ...)
   end
 end
 
+local M = {}
+
 --  global require
-Require = function (name)
+M.requireUncached = function (name)
   package.loaded[name] = nil
   return require(name)
 end
+
+M.reload = function ()
+  M.requireUncached('mappings')
+  M.requireUncached('settings')
+  M.requireUncached('commands')
+  vim.notify('Config reloaded!', vim.log.levels.INFO)
+end
+
+local editConfig = function(file, type)
+  local configHome = vim.fs.dirname(vim.env.MYVIMRC)
+
+  local targetfiles = vim.fs.find(
+    {file},
+    {limit = 1, type = type, path = configHome}
+  )
+  print(vim.inspect(targetfiles))
+  vim.cmd.edit(targetfiles)
+end
+
+M.editConfig = function(file)
+    editConfig(file, 'file')
+  end
+
+M.editConfigFolder = function(folder)
+  editConfig(folder, 'directory')
+end
+
+
+M.cycle = function (items, index, dir)
+  if dir >= 0 then dir = 1 else dir = -1 end
+  index = index + dir
+  if index > #items then index = 1 end
+  if index < 1 then index = #items end
+  return items[index]
+end
+
+
 M.mkdir = vim.fn['utils#createIfNotExists']
 
 M.dbg = function(...)

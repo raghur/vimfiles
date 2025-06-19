@@ -123,7 +123,7 @@ wk.add(mappings)
 mappings = {
     { "<leader>i", group = "+Config" },
     { "<leader>im", function() utils.editConfig("mappings.lua") end, desc = "Mappings" },
-    { "<leader>ir", ReloadConfig, desc = "Reload" },
+    { "<leader>ir", utils.reload, desc = "Reload settings and mappings" },
     { "<leader>ii", "<Cmd>ed $MYVIMRC<cr>", desc = "Edit init.lua" },
     { "<leader>is", function() utils.editConfig("settings.lua") end, desc = "Settings" },
     { "<leader>ip", function() utils.editConfig("plugins.lua") end, desc = "Plugins" },
