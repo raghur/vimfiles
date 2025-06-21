@@ -26,9 +26,6 @@ key('n', 'k',           'gk',    { desc = 'Move up by screen line' })
 key('n', '<backspace>', '<C-o>', { desc = 'Go back in jump list' })
 key('n', '<tab>',       '<C-i>', { desc = 'Go forward in jump list' })
 
--- Don't use Ex mode, use Q for formatting
-key('n', 'Q', 'gq', { desc = 'Format text with gq' })
-
 -- open help in a vert split to the right
 vim.cmd([[cabbrev h vert bo h]])
 vim.cmd([[cabbrev map verb map<space>]])
