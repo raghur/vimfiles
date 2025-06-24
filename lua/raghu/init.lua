@@ -10,8 +10,9 @@ instance.configurePlugin = function (plugin, opts)
     utils.info("running default setup(opts)", main, plugin.name, opts)
     require(main).setup(opts)
   end
-  local config = require('raghu.'.. string.gsub(plugin.name, '%.', '-'))
-  config.config(opts)
-  utils.dbg(plugin, opts)
+  local module = 'raghu.'.. string.gsub(plugin.name, '%.', '-')
+  local configModule = require(module)
+  utils.info("Calling additional config from", module, plugin.name)
+  configModule.config(opts)
 end
 return instance
