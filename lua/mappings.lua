@@ -105,15 +105,17 @@ local mappings = {
 wk.add(mappings)
 
 mappings = {
-    { "<leader>c", function() snacks.picker.colorschemes() end, desc = "Colors" },
-    { "<leader>:", snacks.picker.commands, desc = "Commands" },
-    { "<leader>1", "<cmd>on<cr>", desc = "Close others" },
-    { "<leader>a", ":b#<cr>", desc = "Last file" },
-    { "<leader>d", ":bd!<cr>", desc = "Close buffer" },
-    { "<leader>h", ":noh<cr><c-l>", desc = "no highlight" },
-    { "<leader>q", ":qall<cr>", desc = "Quit" },
-    { "<leader>w", ":w<cr>", desc = "Write" },
-    { "<leader>z", ":call utils#toggleZoom()<cr>", desc = "Zoom" },
+  { "<leader>c", function() snacks.picker.colorschemes() end, desc = "Colors" },
+  { "<leader>:", snacks.picker.commands, desc = "Commands" },
+  { "<leader>1", "<cmd>on<cr>", desc = "Close others" },
+  { "<leader>a", ":b#<cr>", desc = "Last file" },
+  { "<leader>d", ":bd!<cr>", desc = "Close buffer" },
+  { "<leader>h", ":noh<cr><c-l>", desc = "no highlight" },
+  { "<leader>q", ":qall<cr>", desc = "Quit" },
+  { "<leader>w", ":w<cr>", desc = "Write" },
+  { "<leader>z", ":call utils#toggleZoom()<cr>", desc = "Zoom" },
+  {'zR', function() require('ufo').openAllFolds() end, desc = "Open all folds"},
+  {'zM', function() require('ufo').closeAllFolds() end, desc = "Close all folds"}
 }
 wk.add(mappings)
 
@@ -174,7 +176,7 @@ wk.add(mappings)
 mappings = {
     { "g", group = "LSP nav" },
     { "g.", "<cmd>Lspsaga code_action<cr>", desc = "code actions" },
-    { "g=", vim.lsp.buf.format, desc = "format" },
+    { "gq", vim.lsp.buf.format, desc = "format" },
     { "g[", "<cmd>Lspsaga diagnostic_jump_prev<cr>", desc = "prev problem" },
     { "g]", "<cmd>Lspsaga diagnostic_jump_next<cr>", desc = "next problem" },
     -- { "ga", "<cmd>Telescope aerial<cr>", desc = "anything" },

@@ -1,4 +1,4 @@
-local myconfig = require("raghu")
+local config = require("raghu").configurePlugin
 return {
   { "tpope/vim-repeat" },
   {
@@ -36,7 +36,7 @@ return {
   },
   {
     "xolox/vim-session",
-    config = myconfig.configurePlugin,
+    config = config,
     dependencies = {
       { "xolox/vim-misc" },
     },
@@ -64,7 +64,7 @@ return {
       {"-", function() require('window-picker').pickWindow() end, desc = "Pick Pane"}
     },
     version = '2.*',
-    config = myconfig.configurePlugin,
+    config = config,
   },
   {
     'kevinhwang91/nvim-ufo',
@@ -72,22 +72,7 @@ return {
       {"kevinhwang91/promise-async"},
       { "nvim-treesitter/nvim-treesitter"}
     },
-    keys = {
-      {'zR', function() require('ufo').openAllFolds() end, desc = "Open all folds"},
-      {'zM', function() require('ufo').closeAllFolds() end, desc = "Close all folds"}
-    },
-    config = function ()
-      vim.o.foldcolumn = '1'
-      vim.o.foldlevel = 99
-      vim.o.foldlevelstart = 99
-      vim.o.foldenable = true
-      vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep:│,foldclose:]]
-      require('ufo').setup({
-        provider_selector = function()
-          return {'treesitter', 'indent'}
-        end
-      })
-    end
+    config = config,
   },
   {
     "nvim-lualine/lualine.nvim",
@@ -97,7 +82,7 @@ return {
   {
     "echasnovski/mini.nvim",
     version='*',
-    config = myconfig.configurePlugin,
+    config = config,
   },
   {
     "nvim-tree/nvim-web-devicons",
@@ -146,13 +131,13 @@ return {
       words = { enabled = true },
       zen = { enabled = true},
     },
-    config = myconfig.configurePlugin,
+    config = config,
   },
   { 'nanotee/zoxide.vim' },
   {
     'stevearc/conform.nvim',
     opts = {},
-    config = myconfig.configurePlugin,
+    config = config,
   },
   {
     "nvim-neorg/neorg",
