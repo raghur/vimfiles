@@ -9,7 +9,6 @@ local feedkey = function(key, mode)
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
 end
 
-
 M.config = function()
   -- Setup nvim-cmp.
   local cmp = require 'cmp'
@@ -17,6 +16,9 @@ M.config = function()
   local lspkind = require('lspkind')
   cmp.setup({
     matching = {
+      disallow_fullfuzzy_matching = false,
+      disallow_partial_fuzzy_matching = false,
+      disallow_symbol_nonprefix_matching = false,
       disallow_fuzzy_matching = false,
       disallow_partial_matching = false,
       disallow_prefix_unmatching = false
@@ -132,15 +134,14 @@ M.config = function()
   -- Setup lspconfig.
   local capabilities = require('cmp_nvim_lsp').default_capabilities()
   -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-  require('lspconfig')['vimls'].setup {
-    capabilities = capabilities
-  }
-  require('lspconfig')['yamlls'].setup {
-    capabilities = capabilities
-  }
-  require('lspconfig')['bashls'].setup {
-    capabilities = capabilities
-  }
+  --
+  local language_servers = vim.lsp.get_clients() -- or list servers manually like {'gopls', 'clangd'}
+  for _, ls in ipairs(language_servers) do
+    require('lspconfig')[ls].setup({
+      capabilities = capabilities
+      -- you can add other fields for setting up lsp server in this table
+    })
+  end
   Info('executed nvim-cmp init')
 end
 return M

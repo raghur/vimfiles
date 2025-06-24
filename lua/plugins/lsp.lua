@@ -1,22 +1,21 @@
 
-local myconfig = require("raghu")
+local config = require("raghu").configurePlugin
 return {
   { "sheerun/vim-polyglot", lazy = true },
   {
     "jay-babu/mason-null-ls.nvim",
     event = { "BufReadPre", "BufNewFile" },
     dependencies = {
-      "mason-org/mason.nvim",
+      {"mason-org/mason.nvim", opts = {}},
       "nvimtools/none-ls.nvim",
     },
-    config = myconfig.configurePlugin
+    config = config
   },
   {
     "mason-org/mason-lspconfig.nvim",
-    opts = {},
     dependencies = {
-      { "mason-org/mason.nvim", opts = {} },
-      "neovim/nvim-lspconfig",
+      { "mason-org/mason.nvim", opts = {}},
+      { "neovim/nvim-lspconfig" },
     },
   },
   {
@@ -24,7 +23,7 @@ return {
     dependencies = {
       {'folke/neodev.nvim'},
     },
-    config = myconfig.configurePlugin
+    config = config
   },
   {
     "nvimdev/lspsaga.nvim",
@@ -32,6 +31,6 @@ return {
       { "onsails/lspkind-nvim" },
       { "nvim-treesitter/nvim-treesitter" },
     },
-    config = myconfig.configurePlugin
+    config = config
   },
 }
