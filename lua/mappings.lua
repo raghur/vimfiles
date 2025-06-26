@@ -174,22 +174,22 @@ mappings = {
 wk.add(mappings)
 
 mappings = {
-    { "g", group = "LSP nav" },
-    { "g.", "<cmd>Lspsaga code_action<cr>", desc = "code actions" },
-    { "gq", vim.lsp.buf.format, desc = "format" },
+    { "g",  group = "LSP nav" },
+    { "g.", "<cmd>Lspsaga code_action<cr>",          desc = "code actions" },
+    { "gq", vim.lsp.buf.format,                      desc = "format" },
     { "g[", "<cmd>Lspsaga diagnostic_jump_prev<cr>", desc = "prev problem" },
     { "g]", "<cmd>Lspsaga diagnostic_jump_next<cr>", desc = "next problem" },
-    -- { "ga", "<cmd>Telescope aerial<cr>", desc = "anything" },
-    { "gc", "<cmd>Lspsaga rename<cr>", desc = "rename" },
-    { "gd", snacks.picker.lsp_definitions, desc = "definitions" },
+    { "gc", "<cmd>Lspsaga rename<cr>",               desc = "rename" },
+    { "gd", snacks.picker.lsp_definitions,           desc = "definitions" },
     -- { "gk", function() require("refactoring").select_refactor() end, desc = "refactor", mode = { "x", "n" } },
-    { "gk", vim.diagnostic.open_float, desc = "show line diagnostic"  },
-    { "gl", "<cmd>Lspsaga finder<cr>", desc = "lsp finder" },
-    { "gp", snacks.picker.diagnostics, desc = "diagnostics" },
-    { "gP", snacks.picker.diagnostics_buffer, desc = "diagnostics" },
-    { "gr", snacks.picker.lsp_references, desc = "references" },
-    { "gs", snacks.picker.lsp_symbols, desc = "document symbols" },
-    { "gt", snacks.picker.lsp_workspace_symbols, desc = "workspace symbols" },
+    { "gk", vim.diagnostic.open_float,               desc = "show line diagnostic" },
+    { "gl", "<cmd>Lspsaga finder<cr>",               desc = "lsp finder" },
+    { "go", "<cmd>Lspsaga outline<cr>",              desc = "diagnostics" },
+    { "gp", snacks.picker.diagnostics,               desc = "diagnostics" },
+    { "gP", snacks.picker.pickers,        desc = "Select picker" },
+    { "gr", snacks.picker.lsp_references,            desc = "references" },
+    { "gs", snacks.picker.lsp_symbols,               desc = "document symbols" },
+    { "gt", snacks.picker.lsp_workspace_symbols,     desc = "workspace symbols" },
 }
 wk.add(mappings)
 -- keymap("n", "<F2>", "<cmd>Lspsaga rename<CR>", { silent = true })
