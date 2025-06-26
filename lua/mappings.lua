@@ -80,20 +80,16 @@ local mappings = {
 
 
   -- terminal apps
-  { "<leader>t",       group = "Terminal apps" },
-  { "<leader>tg",      function() snacks.lazygit.open() end,                  desc = "LazyGit" },
-  {
-    "<leader>tt",
-    function()
-      snacks.terminal.toggle(nil, {
+  { "t",       group = "Terminal apps" },
+  { "tg",      function() snacks.lazygit.open() end,                  desc = "LazyGit" },
+  { "tt", function() snacks.terminal.toggle(nil, {
         win = {
           style = "terminal",
           position = "right",
         }
       })
     end,
-    desc = "Open terminal"
-  },
+    desc = "Open terminal" },
 
   -- git
   { "<leader>g",  group = "Git" },
