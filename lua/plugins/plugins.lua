@@ -174,5 +174,8 @@ return {
         },
       },
     }
+  },
+  {
+    "wellle/context.vim",
   }
 }
