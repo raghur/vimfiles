@@ -179,6 +179,7 @@ mappings = {
   { "g.", "<cmd>Lspsaga code_action<cr>",          desc = "code actions" },
   { "gq", vim.lsp.buf.format,                      desc = "format" },
   { "g[", "<cmd>Lspsaga diagnostic_jump_prev<cr>", desc = "prev problem" },
+  { "g]e", function() require"lspsaga.diagnostic":goto_next({severity = vim.diagnostic.severity.ERROR}) end, desc = "prev problem" },
   { "g]", "<cmd>Lspsaga diagnostic_jump_next<cr>", desc = "next problem" },
   { "gc", "<cmd>Lspsaga rename<cr>",               desc = "rename" },
   { "gd", snacks.picker.lsp_definitions,           desc = "definitions" },
