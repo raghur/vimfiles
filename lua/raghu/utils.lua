@@ -18,6 +18,19 @@ end
 
 local M = {}
 
+M.requireMaybe = function(module, fun)
+  local function requiref(module)
+    require(module)
+  end
+  res = pcall(requiref,module)
+  if (res) then
+    M.dbg("loaded res - calling func", module)
+    return fun(require(module))
+  else
+    M.dbg("module not found", module)
+  end
+  return nil
+end
 --  global require
 M.requireUncached = function (name)
   package.loaded[name] = nil

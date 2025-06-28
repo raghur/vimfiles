@@ -1,3 +1,4 @@
+local utils = require('raghu.utils')
 local M = {}
 M.config = function()
 
@@ -33,7 +34,12 @@ M.config = function()
       },
     },
   })
-  capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
+  capabilities = utils.requireMaybe('cmp_nvim_lsp', function(cmpNvimLsp) return cmpNvimLsp.default_capabilities(capabilities) end)
+  if not capabilities then
+    capabilities = utils.requireMaybe('blink.cmp', function(blink) return blink.get_lsp_capabilities(capabilities) end)
+  end
+
   masonLspConfig.setup()
   lspconfig.lua_ls.setup({
     capabilities = capabilities,

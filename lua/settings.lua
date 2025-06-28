@@ -44,24 +44,32 @@ set.signcolumn='yes:3'
 -- set.wildchar='<Tab>'
 set.wildmenu=true
 set.wildmode='longest,list:longest'
+set.wildignorecase=true
 set.wildignore:append({'*.swp','*.bak','*.class','.git/*','.svn/*'})
 set.wildignore:append({'*.jpg','*.png'})
 set.wildignore:append({'node_modules/*'})
-set.wildignorecase=true
 
 -- set.pastetoggle='<F11>'
 
+set.hlsearch=true
 set.ignorecase=true
 set.smartcase=true
+set.inccommand='split'
+set.gdefault=true
+
+-- wait time for mapped sequences
 set.timeout=true
 set.timeoutlen=1000
-set.ttimeoutlen=100
+
+-- wait time for mapped keychords
+set.ttimeout=true
+set.ttimeoutlen=500
 
 set.undofile=true
 set.undolevels=1000
 
 set.completeopt = 'menu,menuone,noselect'
-set.omnifunc = 'syntaxcomplete#Complete'
+-- set.omnifunc = vim.lsp.omnifunc
 
 set.winaltkeys='no'
 set.mouse='a'
@@ -69,9 +77,9 @@ set.mouse='a'
 set.backup=false
 
 set.switchbuf='usetab'
--- set.matchpairs+=<:>
 set.showmatch=true
 set.wrap=false
+
 set.copyindent=true
 set.smartindent=true
 set.smarttab=true
@@ -79,30 +87,14 @@ set.expandtab=true
 set.tabstop=4
 set.softtabstop=4
 set.shiftwidth=4
+
 set.visualbell=true
 set.errorbells=false
 set.list=true
 set.listchars='tab:».,trail:░,extends:→,nbsp:.'
-set.inccommand='split'
-set.hlsearch=true
-set.gdefault=true
 set.colorcolumn='120'
 vim.schedule(function()
   vim.opt.clipboard = vim.env.SSH_TTY and "" or "unnamedplus" -- Sync with system clipboard
---   if vim.fn.has('linux') > 0 then
---     vim.g.clipboard = {
---       name = "xsel",
---       copy = {
---         ["+"] = "xsel --nodetach -i -b",
---         ["*"] = "xsel --nodetach -i -p",
---       },
---       paste = {
---         ["+"] = "xsel -o -b",
---         ["*"] = "xsel -o -b",
---       },
---       cache_enabled = 1,
---     }
---   end
 end)
 
 -- Open splits to the right by default

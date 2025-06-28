@@ -21,6 +21,7 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
+      {'saghen/blink.cmp'},
       {'folke/neodev.nvim'},
     },
     config = config

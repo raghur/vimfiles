@@ -93,7 +93,7 @@ return {
     opts = { },
     dependencies = { "folke/snacks.nvim" },
     keys = {
-      { "<C-p>", function() Snacks.picker.yanky() end, mode = { "n", "x", "i" }, desc = "Open Yank History", },
+      { "<C-y>", function() Snacks.picker.yanky() end, mode = { "n", "x", "i" }, desc = "Open Yank History", },
     }
   },
   {
