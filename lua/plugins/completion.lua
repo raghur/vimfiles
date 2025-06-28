@@ -1,4 +1,5 @@
 local myconfig = require("raghu")
+local utils = require("raghu.utils")
 local plugin = {}
 
 local cmp = {
@@ -144,12 +145,33 @@ local blink= {
     -- See the fuzzy documentation for more information
     fuzzy = { implementation = "prefer_rust_with_warning" },
     cmdline = {
-      keymap = { preset = 'inherit' },
-      completion = { menu = { auto_show = true } },
+      enabled = false,
+      --   function ()
+      --   -- disable for searches
+      --   -- with verymagic enabled, the completion eats the \v char
+      --   -- and is a PITA to deal with
+      --   local v = vim.fn.getcmdwintype()
+      --   utils.dbg("cmd mode is", v)
+      --   return  not (v == "/" or v == "?")
+      -- end,
+      keymap = {
+        preset = 'inherit',
+        ["<Tab>"] = {"show_and_insert", "select_next", "snippet_forward", "fallback" },
+        ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
+      },
+      completion = {
+        menu = { auto_show = false },
+        list = {
+          selection  = {
+            auto_insert = false,
+            preselect = false
+          }
+        }
+      },
     },
   },
   opts_extend = { "sources.default" },
 }
--- plugin = cmp
-plugin = blink
+plugin = cmp
+-- plugin = blink
 return plugin

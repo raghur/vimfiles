@@ -2,8 +2,7 @@ local utils = require('raghu.utils')
 local M = {}
 M.config = function()
 
-  require('neodev').setup({
-    -- You can configure neodev here if needed
+  require('lazydev').setup({
     -- e.g., for specific runtime paths or custom types
   })
   local lspconfig = require('lspconfig')
