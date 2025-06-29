@@ -146,9 +146,7 @@ return {
     config = true,
     dependencies = {
       "hrsh7th/nvim-cmp",
-    },
-    keys = {
-      { "<C-CR>", "<Plug>(neorg.itero.next-iteration)", desc = "[neorg] Continue Object", mode="i"},
+      -- "benlubas/neorg-interim-ls",
     },
     opts = {
       load = {
@@ -156,14 +154,13 @@ return {
         ["core.concealer"] = {},
         ["core.esupports.hop"] = {},
         ["core.itero"] = {},
-        -- ["core.completion"] = {
-        --   engine="nvim-cmp",
-        -- },
-        ["core.keybinds"] = {
-          config = {
-            default_keybinds = true
-          }
+--         ["external.interim-ls"] = {
+-- config = { engine = { cmp_nvim_lsp = "external.lsp-completion" } },
+--         },
+        ["core.completion"] = {
+          engine = "nvim-cmp"
         },
+        ["core.keybinds"] = {},
         ["core.dirman"] = {
           config = {
             workspaces = {
