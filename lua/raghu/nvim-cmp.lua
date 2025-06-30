@@ -107,12 +107,12 @@ M.config = function()
       --    end, { "i", "s" }),
     },
     sources = cmp.config.sources({
+      { name = 'neorg' },
       { name = 'nvim_lsp' },
       { name = 'buffer' },
       { name = 'emoji' },
       { name = 'path' },
       { name = 'luasnip' },
-      { name = 'orgmode' },
     })
   })
 

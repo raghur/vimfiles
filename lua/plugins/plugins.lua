@@ -151,6 +151,11 @@ return {
     opts = {
       load = {
         ["core.defaults"] = {},
+        ["core.esupports.indent"] = {
+          config = {
+            format_on_enter = false
+          }
+        },
         ["core.concealer"] = {},
         ["core.esupports.hop"] = {},
         ["core.itero"] = {},
@@ -158,7 +163,9 @@ return {
 -- config = { engine = { cmp_nvim_lsp = "external.lsp-completion" } },
 --         },
         ["core.completion"] = {
-          engine = "nvim-cmp"
+          config = {
+            engine = "nvim-cmp"
+          }
         },
         ["core.keybinds"] = {},
         ["core.dirman"] = {

@@ -17,9 +17,9 @@ key('n', '0',  '^',     { desc = 'Go to first non-blank character' })
 key('n', '^',  '0',     { desc = 'Go to beginning of line' })
 
 -- terminal mode esc (uncomment if you want this mapping)
--- vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Escape in terminal mode' })
+key('t', '<Esc>', "<C-\\><C-n>", { desc = 'Escape in terminal mode' })
 
--- Move by screen lines
+-- -- Move by screen lines
 key('n', 'j',           'gj',    { desc = 'Move down by screen line' })
 key('n', 'k',           'gk',    { desc = 'Move up by screen line' })
 
@@ -52,13 +52,13 @@ key('v', '<silent>*', 'y:let @/=@"<cr>:set hlsearch<cr>n', { desc = 'Search for 
 key('n', 'n',         'nzz',                               { desc = 'Next search result and center' })
 key('n', 'N',         'Nzz',                               { desc = 'Previous search result and center' })
 
--- Move lines
-key('n', '<A-j>',     ':m+<CR>==',                         { desc = 'Move line down (Normal)' })
-key('n', '<A-k>',     ':m-2<CR>==',                        { desc = 'Move line up (Normal)' })
-key('i', '<A-j>',     '<Esc>:m+<CR>==gi',                  { desc = 'Move line down (Insert)' })
-key('i', '<A-k>',     '<Esc>:m-2<CR>==gi',                 { desc = 'Move line up (Insert)' })
-key('v', '<A-j>',     ':m\'>+<CR>gv=gv',                   { desc = 'Move selected lines down (Visual)' })
-key('v', '<A-k>',     ':m-2<CR>gv=gv',                     { desc = 'Move selected lines up (Visual)' })
+-- -- Move lines
+-- key('n', '<A-j>',     ':m+<CR>==',                         { desc = 'Move line down (Normal)' })
+-- key('n', '<A-k>',     ':m-2<CR>==',                        { desc = 'Move line up (Normal)' })
+-- key('i', '<A-j>',     '<Esc>:m+<CR>==gi',                  { desc = 'Move line down (Insert)' })
+-- key('i', '<A-k>',     '<Esc>:m-2<CR>==gi',                 { desc = 'Move line up (Insert)' })
+-- key('v', '<A-j>',     ':m\'>+<CR>gv=gv',                   { desc = 'Move selected lines down (Visual)' })
+-- key('v', '<A-k>',     ':m-2<CR>gv=gv',                     { desc = 'Move selected lines up (Visual)' })
 
 local wk = require("which-key")
 local utils = require("raghu.utils")
@@ -68,16 +68,12 @@ local snacks = require("snacks")
 local mappings = {
   { "<leader>f",       group = "+Files" },
   { "<leader>ff",      snacks.picker.files,                                   desc = "Find relative" },
-  { "<leader>fp",      snacks.picker.zoxide,                                  desc = "Find files at" },
   { "<leader>fe",      ":edit <C-R>=fnamemodify(@%, ':p:h')<CR>/",            desc = "edit file" },
   { "<leader>r",       snacks.picker.recent,                                  desc = "Find recent" },
   { "<leader>b",       snacks.picker.buffers,                                 desc = "Buffers" },
   { "<leader>/",       snacks.picker.grep,                                    desc = "Grep" },
   { "<leader><space>", function() snacks.picker.smart({ hidden = true }) end, desc = "Find relative" },
   { "<leader>e",       ":vsp|Neorg index<CR>",                                desc = "Scratchpad Notes" },
-  { "<leader>sk",      snacks.picker.keymaps,                                 desc = "Keymaps" },
-  { "<leader>sc",      snacks.picker.commands,                                desc = "Commands" },
-
 
   -- terminal apps
   { "t",       group = "Terminal apps" },
@@ -104,9 +100,33 @@ local mappings = {
   { "<leader>g/", function() snacks.picker.git_grep() end,     desc = "Git Log File" },
 }
 wk.add(mappings)
+local preferredColors = function()
+    local items = {}
+    for idx,name in ipairs(vim.g.colors) do
+        local it = {
+            name,
+            idx = idx,
+            text = name
+        }
+        items[idx] = it
+    end
 
+  return Snacks.picker({
+    items = items,
+    format = function(item)
+      local ret = {}
+      ret[1] = {item.text, 'SnacksPickerLabel'}
+      ret[2] = {item.text, 'SnacksPickerComment'}
+      return ret
+        end,
+    confirm = function(picker, item)
+      picker:close()
+      vim.cmd('colors '.. item.text)
+    end
+  })
+end
 mappings = {
-  { "<leader>c", function() snacks.picker.colorschemes() end,   desc = "Colors" },
+  { "<leader>c", preferredColors,   desc = "Colors" },
   { "<leader>:", snacks.picker.commands,                        desc = "Commands" },
   { "<leader>1", "<cmd>on<cr>",                                 desc = "Close others" },
   { "<leader>a", ":b#<cr>",                                     desc = "Last file" },
@@ -173,7 +193,6 @@ mappings = {
   { "<M-]>",        function() font.cycleFont(1) end,                         desc = "Next Font" },
 }
 wk.add(mappings)
-
 mappings = {
   { "g",  group = "LSP nav" },
   { "g.", "<cmd>Lspsaga code_action<cr>",          desc = "code actions" },
@@ -188,8 +207,10 @@ mappings = {
   { "gl", "<cmd>Lspsaga finder<cr>",               desc = "lsp finder" },
   { "go", "<cmd>Lspsaga outline<cr>",              desc = "outline" },
   { "gpd", snacks.picker.diagnostics,               desc = "Diagnostics" },
+  { "gpp", snacks.picker.zoxide,                                  desc = "Find files at" },
   { "gph", snacks.picker.help,               desc = "Help topics" },
   { "gpc", snacks.picker.commands,               desc = "Commands" },
+  { "gpC", snacks.picker.colorschemes,               desc = "Colorschemes" },
   { "gpk", snacks.picker.keymaps,               desc = "Commands" },
   { "<C-p>", snacks.picker.pickers,                   desc = "Select picker" },
   { "gr", snacks.picker.lsp_references,            desc = "references" },
