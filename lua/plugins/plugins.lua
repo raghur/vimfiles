@@ -179,7 +179,4 @@ return {
       },
     }
   },
-  {
-    "wellle/context.vim",
-  }
 }
