@@ -187,7 +187,6 @@ mappings = {
   { "<F1>",         snacks.explorer.reveal,                                   desc = "Reveal in file explorer" },
   { "<leader><F1>", snacks.explorer.open,                                     desc = "Toggle file explorer" },
   { "<F3>",         ":redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR>", desc = "Copy last search to buffer" },
-  { "<F9>",         "<Cmd>YankyRingHistory<cr>",                              desc = "Yanky" },
   { "<M-=>",        function() font.adjust(1) end,                            desc = "Increase Font" },
   { "<M-->",        function() font.adjust(-1) end,                           desc = "Decrease Font" },
   { "<M-[>",        function() font.cycleFont(-1) end,                        desc = "Previous Font" },
