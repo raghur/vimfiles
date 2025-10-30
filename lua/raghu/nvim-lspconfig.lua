@@ -1,15 +1,15 @@
 local utils = require('raghu.utils')
 local M = {}
 M.config = function()
-
   require('lazydev').setup({
     -- e.g., for specific runtime paths or custom types
   })
-  local lspconfig = require('lspconfig')
-  local masonLspConfig =require("mason-lspconfig")
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  -- local lspconfig = require('lspconfig')
+  local unused = ""
+  local masonLspConfig = require("mason-lspconfig")
+  local capabilities
   require("mason").setup()
-  lspconfig.yamlls.setup({
+  vim.lsp.config.yamlls = {
     settings = {
       yaml = {
         schemaStore = {
@@ -22,8 +22,6 @@ M.config = function()
         validate = true,
       },
     },
-  })
-  lspconfig.yamlls.setup ({
     capabilities = {
       textDocument = {
         foldingRange = {
@@ -32,7 +30,7 @@ M.config = function()
         },
       },
     },
-  })
+  }
 
   capabilities = utils.requireMaybe('cmp_nvim_lsp', function(cmpNvimLsp) return cmpNvimLsp.default_capabilities(capabilities) end)
   if not capabilities then
@@ -40,7 +38,7 @@ M.config = function()
   end
 
   masonLspConfig.setup()
-  lspconfig.lua_ls.setup({
+  vim.lsp.config.lua_ls = {
     capabilities = capabilities,
     settings = {
       Lua = {
@@ -71,8 +69,8 @@ M.config = function()
         },
       },
     },
-  })
 
+  }
   Info("sourced", vim.fn.expand("<sfile>"))
 end
   return M
