@@ -72,6 +72,7 @@ local mappings = {
   { "<leader>r",       snacks.picker.recent,                                  desc = "Find recent" },
   { "<leader>b",       snacks.picker.buffers,                                 desc = "Buffers" },
   { "<leader>/",       snacks.picker.grep,                                    desc = "Grep" },
+  { "<leader>k",       snacks.picker.keymaps,                                 desc = "Keymaps" },
   { "<leader><space>", function() snacks.picker.smart({ hidden = true }) end, desc = "Find relative" },
   { "<leader>e",       ":vsp|Neorg index<CR>",                                desc = "Scratchpad Notes" },
 
