@@ -22,10 +22,6 @@ return {
     end
   },
   {
-    "windwp/nvim-autopairs",
-    event = "InsertEnter"
-  },
-  {
     "andymass/vim-matchup",
     event = "BufReadPost",
     init = function()

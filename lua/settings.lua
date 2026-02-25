@@ -4,7 +4,7 @@ if vim.fn.executable('python') then
   -- force python into a venv if not already available
   local venvPath = vim.fn.stdpath("data") .. "/venv"
   ---@diagnostic disable-next-line: undefined-field
-  if not vim.loop.fs_stat(venvPath) then
+  if not vim.uv.fs_stat(venvPath) then
     vim.fn.system({
       "python",
       "-m",
