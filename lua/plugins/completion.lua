@@ -172,6 +172,6 @@ local blink= {
   },
   opts_extend = { "sources.default" },
 }
-plugin = cmp
+plugin = blink
 -- plugin = blink
 return plugin

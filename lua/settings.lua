@@ -43,7 +43,8 @@ set.number=true
 set.signcolumn='yes:3'
 -- set.wildchar='<Tab>'
 set.wildmenu=true
-set.wildmode='longest,list:longest'
+set.wildmode='longest:full,full'
+set.wildoptions='pum'
 set.wildignorecase=true
 set.wildignore:append({'*.swp','*.bak','*.class','.git/*','.svn/*'})
 set.wildignore:append({'*.jpg','*.png'})
