@@ -1,7 +1,7 @@
 
 local config = require("raghu").configurePlugin
 return {
-  { "sheerun/vim-polyglot", lazy = true },
+  { "sheerun/vim-polyglot", event = "BufReadPost" },
   {
     "mason-org/mason-lspconfig.nvim",
     dependencies = {
