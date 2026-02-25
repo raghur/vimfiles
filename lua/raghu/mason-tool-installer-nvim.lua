@@ -4,7 +4,7 @@ M.config = function()
 
   require("mason").setup()
 
-  require("mason-null-ls").setup({
+  require("mason-tool-installer").setup({
     ensure_installed = {
       'stylua',
       'jq',
@@ -15,10 +15,10 @@ M.config = function()
       'vim-language-server',
       -- Opt to list sources here, when available in mason.
     },
-    automatic_installation = false,
-    handlers = {},
+    auto_update = false,
+    -- Run the installation on startup
+    run_on_start = true,
   })
-  require("null-ls").setup()
   Info("sourced", vim.fn.expand("<sfile>"))
 end
 return M
