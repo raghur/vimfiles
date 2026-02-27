@@ -11,7 +11,9 @@ M.config = function()
         quit = "<Esc>"
       }
     },
-
+    symbol_in_winbar = {
+      enable = false
+    },
     finder = {
       default = "def+ref+imp+tyd",
       methods = {
@@ -29,7 +31,7 @@ M.config = function()
     },
     code_action = {
       num_shortcut = true,
-      keys =  {
+      keys = {
         quit = "<Esc>",
         exec = "<CR>",
       }

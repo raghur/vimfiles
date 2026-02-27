@@ -193,10 +193,17 @@ mappings = {
   { "<M-]>",        function() font.cycleFont(1) end,                         desc = "Next Font" },
 }
 wk.add(mappings)
+function format ()
+  require("conform").format({
+    async = true,
+    lsp_fallback = true,
+  })
+end
+
 mappings = {
   { "g",  group = "LSP nav" },
   { "g.", "<cmd>Lspsaga code_action<cr>",          desc = "code actions" },
-  { "gq", vim.lsp.buf.format,                      desc = "format" },
+  { "gq", format,                      desc = "format" },
   { "g[", "<cmd>Lspsaga diagnostic_jump_prev<cr>", desc = "prev problem" },
   { "g]e", function() require"lspsaga.diagnostic":goto_next({severity = vim.diagnostic.severity.ERROR}) end, desc = "prev problem" },
   { "g]", "<cmd>Lspsaga diagnostic_jump_next<cr>", desc = "next problem" },

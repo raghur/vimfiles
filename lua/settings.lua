@@ -163,9 +163,13 @@ vim.diagnostic.config {
 }
 
 if vim.g.neovide then
+  print ("init neovide settings")
+  vim.g.neovide_box_drawing_mode = "native"
   vim.g.neovide_floating_shadow = true
   vim.g.neovide_remember_window_size = true
   vim.g.neovide_floating_blur_amount_x = 2.0
   vim.g.neovide_floating_blur_amount_y = 2.0
   vim.g.neovide_input_macos_option_key_is_meta = 'only_left'
+  vim.opt.linespace = 0
+  vim.g.neovide_no_multigrid = true
 end

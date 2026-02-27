@@ -71,6 +71,7 @@ M.config = function()
     },
 
   }
+
   Info("sourced", vim.fn.expand("<sfile>"))
 end
   return M
