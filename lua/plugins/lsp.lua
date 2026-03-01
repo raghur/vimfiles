@@ -3,6 +3,12 @@ local config = require("raghu").configurePlugin
 return {
   { "sheerun/vim-polyglot", event = "BufReadPost" },
   {
+      "rachartier/tiny-inline-diagnostic.nvim",
+      event = "VeryLazy",
+      priority = 1000,
+      opts = {},
+  },
+  {
     "mason-org/mason-lspconfig.nvim",
     dependencies = {
       { "mason-org/mason.nvim", opts = {}},

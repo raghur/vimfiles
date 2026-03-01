@@ -4,11 +4,12 @@ M.config = function()
   require('lazydev').setup({
     -- e.g., for specific runtime paths or custom types
   })
-  -- local lspconfig = require('lspconfig')
-  local unused = ""
   local masonLspConfig = require("mason-lspconfig")
   local capabilities
   require("mason").setup()
+  vim.lsp.config.diagnostics = {
+    virtual_text = false
+  }
   vim.lsp.config.yamlls = {
     settings = {
       yaml = {

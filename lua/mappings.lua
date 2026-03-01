@@ -155,6 +155,25 @@ mappings = {
   { "<leader>ili", function() utils.loglvl("INFO") end,             desc = "Log - INFO" },
   { "<leader>ilx", function() utils.loglvl("DISABLE") end,          desc = "Log - disable" },
   { "<leader>in",  snacks.notifier.show_history,                    desc = "Notification history" },
+  {
+    "<leader>iv",
+    function()
+      -- This helper captures the visual selection text
+      local _, ls, cs = unpack(vim.fn.getpos("v"))
+      local _, le, ce = unpack(vim.fn.getpos("."))
+      local lines = vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {})
+      local expr = table.concat(lines, "\n")
+
+      local success, result = pcall(loadstring("return " .. expr))
+      if success then
+        vim.print(result)
+      else
+        vim.notify("Error evaluating selection", vim.log.levels.ERROR)
+      end
+    end,
+    mode = "v",
+    desc = "Inspect Selection (Visual)",
+  },
 }
 wk.add(mappings)
 
