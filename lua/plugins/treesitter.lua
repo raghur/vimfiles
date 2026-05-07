@@ -5,6 +5,7 @@ return {
     dependencies = {
       {
         "nvim-treesitter/nvim-treesitter",
+        branch = "master",
         build = function()
           vim.cmd("TSUpdate")
         end,
