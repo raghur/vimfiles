@@ -1,7 +1,7 @@
 local M = {}
-local lspsaga = require 'lspsaga'
 
 M.config = function()
+  local lspsaga = require 'lspsaga'
   -- use default config
   lspsaga.setup({
     --- config reference here - no other readme seems to be available

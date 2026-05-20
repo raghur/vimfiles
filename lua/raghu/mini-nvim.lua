@@ -24,16 +24,16 @@ M.config = function()
     search_method = 'cover_or_next'
   })
 
-  require("mini.indentscope").setup({
-    symbol = "│",
-    mappings = {
-      goto_top = "git",
-      goto_bottom = "gib",
-    },
-    options = {
-      try_as_border = true,     -- let's you stay on func header and select body as scope
-    },
-  })
+  -- require("mini.indentscope").setup({
+  --   symbol = "│",
+  --   mappings = {
+  --     goto_top = "git",
+  --     goto_bottom = "gib",
+  --   },
+  --   options = {
+  --     try_as_border = true,     -- let's you stay on func header and select body as scope
+  --   },
+  -- })
 ---@diagnostic disable-next-line: undefined-global
   MiniMisc.setup_auto_root()
   Info('configured mini.nvim')

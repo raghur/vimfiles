@@ -222,7 +222,7 @@ end
 mappings = {
   { "g",  group = "LSP nav" },
   { "g.", "<cmd>Lspsaga code_action<cr>",          desc = "code actions" },
-  { "gq", format,                      desc = "format" },
+  { "gq", format,                                 desc = "format" },
   { "g[", "<cmd>Lspsaga diagnostic_jump_prev<cr>", desc = "prev problem" },
   { "g]e", function() require"lspsaga.diagnostic":goto_next({severity = vim.diagnostic.severity.ERROR}) end, desc = "prev problem" },
   { "g]", "<cmd>Lspsaga diagnostic_jump_next<cr>", desc = "next problem" },
@@ -233,7 +233,7 @@ mappings = {
   { "gl", "<cmd>Lspsaga finder<cr>",               desc = "lsp finder" },
   { "go", "<cmd>Lspsaga outline<cr>",              desc = "outline" },
   { "gpd", snacks.picker.diagnostics,               desc = "Diagnostics" },
-  { "gpp", snacks.picker.zoxide,                                  desc = "Find files at" },
+  { "gpp", snacks.picker.zoxide,                    desc = "Find files at" },
   { "gph", snacks.picker.help,               desc = "Help topics" },
   { "gpc", snacks.picker.commands,               desc = "Commands" },
   { "gpC", snacks.picker.colorschemes,               desc = "Colorschemes" },

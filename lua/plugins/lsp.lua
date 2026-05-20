@@ -1,7 +1,6 @@
 
 local config = require("raghu").configurePlugin
 return {
-  { "sheerun/vim-polyglot", event = "BufReadPost" },
   {
       "rachartier/tiny-inline-diagnostic.nvim",
       event = "VeryLazy",

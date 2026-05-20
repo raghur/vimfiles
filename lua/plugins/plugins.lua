@@ -2,11 +2,6 @@ local config = require("raghu").configurePlugin
 return {
   {
     'Bekaboo/dropbar.nvim',
-    -- optional, but required for fuzzy finder support
-    dependencies = {
-      'nvim-telescope/telescope-fzf-native.nvim',
-      build = 'make'
-    },
     config = function()
       local dropbar_api = require('dropbar.api')
       vim.keymap.set('n', '<Leader>;', dropbar_api.pick, { desc = 'Pick symbols in winbar' })
@@ -15,13 +10,6 @@ return {
     end
   },
   { "tpope/vim-repeat" },
-  {
-    "mbbill/undotree",
-    keys = {
-      {"<F5>", "<cmd>UndotreeToggle<cr>", desc = 'Undotree'},
-    },
-    cmd = "UndotreeToggle",
-  },
   {
     "L3MON4D3/LuaSnip",
     -- follow latest release and install jsregexp.
@@ -54,6 +42,7 @@ return {
   },
   {
     "alvan/vim-closetag",
+    ft = {"html","xml","vue","jsx","tsx"},
     config = function()
       vim.g.closetag_filenames = "*.html,*.xhtml,*.xml,*.htm,*.vue,*.jsx"
       vim.g.closetag_xhtml_filenames = "*.xhtml,*.jsx,*.vue"
@@ -65,7 +54,7 @@ return {
       vim.cmd("GhostInstall")
     end,
     config = function()
-      vim.g.ghost_autostart = 1
+      vim.g.ghost_autostart = 0
     end,
   },
   {
@@ -134,7 +123,7 @@ return {
         },
         enabled = true
       },
-      notifier = { enabled = true },
+      -- notifier = { enabled = true },
       quickfile = { enabled = true },
       scroll = { enabled = true },
       statuscolumn = { enabled = true },
@@ -143,7 +132,6 @@ return {
     },
     config = config,
   },
-  { 'nanotee/zoxide.vim' },
   {
     'stevearc/conform.nvim',
     opts = {},
@@ -151,12 +139,28 @@ return {
   },
   {
     "nvim-neorg/neorg",
-    lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
-    version = "*", -- Pin Neorg to the latest stable release
+    -- lazy = false, -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+    ft = "norg",
+    cmd = "Neorg",
     config = true,
     dependencies = {
-      "hrsh7th/nvim-cmp",
-      -- "benlubas/neorg-interim-ls",
+      {
+        "nvim-neorg/tree-sitter-norg",
+        opts = {
+          hererocks = true
+        },
+        init = function ()
+          -- Enable treesitter automatically for some filetypes.
+          vim.api.nvim_create_autocmd("FileType", {
+            pattern = {
+              "norg",
+            },
+            callback = function() vim.treesitter.start() end
+          })
+        end,
+        config = function ()
+        end
+      }
     },
     opts = {
       load = {
@@ -166,17 +170,13 @@ return {
             format_on_enter = false
           }
         },
-        ["core.concealer"] = {},
+        ["core.concealer"] = {
+          config = {
+            icon_preset = "diamond", -- or "basic"
+          },
+        },
         ["core.esupports.hop"] = {},
         ["core.itero"] = {},
---         ["external.interim-ls"] = {
--- config = { engine = { cmp_nvim_lsp = "external.lsp-completion" } },
---         },
-        ["core.completion"] = {
-          config = {
-            engine = "nvim-cmp"
-          }
-        },
         ["core.keybinds"] = {},
         ["core.dirman"] = {
           config = {

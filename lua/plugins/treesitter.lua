@@ -8,9 +8,6 @@ return {
         build = function()
           vim.cmd("TSUpdate")
         end,
-        dependencies = {
-          "OXY2DEV/markview.nvim"
-        },
         config = myconfig.configurePlugin,
       },
     },

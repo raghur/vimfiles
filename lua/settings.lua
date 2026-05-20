@@ -21,14 +21,13 @@ if vim.fn.executable('python') then
   end
   vim.g.python3_host_prog = venvPath .. "/bin/python"
 end
-set.completeopt="menu,menuone,noselect"
 set.sessionoptions="blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 -- set.guioptions^=c
 -- set.guioptions-=T
 -- set.guioptions-=t
 -- set.guioptions-=r
 -- set.guioptions+=R
-set.updatetime=2000
+set.updatetime=300
 set.showmode=true
 -- allow backspacing over everything in insert mode
 set.backspace="indent,eol,start"
@@ -60,7 +59,6 @@ set.gdefault=true
 
 -- wait time for mapped sequences
 set.timeout=true
-set.timeoutlen=1000
 
 -- wait time for mapped keychords
 set.ttimeout=true
