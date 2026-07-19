@@ -138,7 +138,7 @@ else
 end
 
 -- diagnostic config
-vim.diagnostic.config {
+vim.diagnostic.config({
   virtual_text = false,
   signs = {
     text = {
@@ -156,9 +156,11 @@ vim.diagnostic.config {
   },
   underline = true,
   jump = {
-    float = true,
+    on_jump = function()
+      vim.diagnostic.open_float({ focus = false })
+    end,
   },
-}
+})
 
 if vim.g.neovide then
   print ("init neovide settings")
