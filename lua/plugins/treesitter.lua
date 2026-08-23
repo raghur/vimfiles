@@ -2,10 +2,12 @@ local myconfig = require("raghu")
 return {
   {
     "nvim-treesitter/nvim-treesitter-textobjects",
+    branch = "main",
     dependencies = {
       {
         "nvim-treesitter/nvim-treesitter",
-        branch = "master",
+        branch = "main",
+        lazy = false,
         build = function()
           vim.cmd("TSUpdate")
         end,

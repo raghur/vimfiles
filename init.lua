@@ -1,5 +1,6 @@
 require("settings")
 require("commands")
+vim.g.matchup_filetype_blacklist = { "markdown" }
 vim.g.maplocalleader = "\\"
 vim.g.mapleader = ' '
 local utils = require("raghu.utils")
