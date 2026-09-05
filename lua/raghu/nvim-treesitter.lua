@@ -32,7 +32,14 @@ M.config = function()
   vim.api.nvim_create_autocmd("FileType", {
     group = group,
     callback = function(args)
-      if pcall(vim.treesitter.start, args.buf) then
+      if not pcall(vim.treesitter.start, args.buf) then
+        return
+      end
+
+      local filetype = vim.bo[args.buf].filetype
+      local language = vim.treesitter.language.get_lang(filetype)
+      local ok, indent_query = pcall(vim.treesitter.query.get, language, "indents")
+      if ok and indent_query then
         vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
       end
     end,
