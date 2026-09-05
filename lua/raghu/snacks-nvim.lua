@@ -16,7 +16,7 @@ M.config = function ()
         break
       end
     end
-    if explorer_win  then
+    if explorer_win ~= nil and explorer_win ~= -1 then
       Dbg("switching explorer bufnr", explorer_win)
       vim.api.nvim_set_current_win(explorer_win)
     else

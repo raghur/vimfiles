@@ -32,8 +32,8 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins", {
   checker = { enabled = true, notify = false}
 })
-if (vim.fn.has('linux') > 0 or vim.fn.has('mac')) then
-  if (not vim.v.servername) then
+if vim.fn.has('linux') == 1 or vim.fn.has('mac') == 1 then
+  if vim.v.servername == "" then
     vim.fn.serverstart()
   end
   -- vim.fn.writefile({vim.v.servername}, "/tmp/"..vim.env.USER.."-server.nvim")

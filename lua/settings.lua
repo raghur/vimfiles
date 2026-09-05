@@ -1,6 +1,6 @@
 local set = vim.opt
 
-if vim.fn.executable("python") then
+if vim.fn.executable("python") == 1 then
   -- force python into a venv if not already available
   local venvPath = vim.fn.stdpath("data") .. "/venv"
   ---@diagnostic disable-next-line: undefined-field
@@ -109,7 +109,7 @@ vim.g.colors = {
   "gruvbox,dark",
 }
 
-if vim.fn.has("mac") then
+if vim.fn.has("mac") == 1 then
   vim.g.fonts = {
     "FantasqueSansM Nerd Font",
     "MonaspiceKr Nerd Font",
