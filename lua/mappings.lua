@@ -253,6 +253,6 @@ mappings = {
 }
 wk.add(mappings)
 -- keymap("n", "<F2>", "<cmd>Lspsaga rename<CR>", { silent = true })
-vim.keymap.set("n", "K", vim.lsp.buf.signature_help, { silent = true, desc = "Signature help" })
-vim.keymap.set("i", "<C-K>",  vim.lsp.buf.signature_help, { silent = true, desc = "Hover docs" })
+vim.keymap.set("n", "K", vim.lsp.buf.hover, { silent = true, desc = "Hover docs" })
+vim.keymap.set("i", "<C-K>", vim.lsp.buf.signature_help, { silent = true, desc = "Signature help" })
 vim.notify("Mappings loaded", vim.log.levels.INFO)
