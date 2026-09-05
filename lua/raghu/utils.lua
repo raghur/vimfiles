@@ -31,17 +31,23 @@ M.requireMaybe = function(module, fun)
   end
   return nil
 end
---  global require
-M.requireUncached = function (name)
-  package.loaded[name] = nil
-  return require(name)
-end
+M.reload = function()
+  local modules = { "settings", "mappings" }
+  for _, module in ipairs(modules) do
+    package.loaded[module] = nil
+  end
 
-M.reload = function ()
-  M.requireUncached('mappings')
-  M.requireUncached('settings')
-  M.requireUncached('commands')
-  vim.notify('Config reloaded!', vim.log.levels.INFO)
+  local ok, err = xpcall(function()
+    for _, module in ipairs(modules) do
+      require(module)
+    end
+  end, debug.traceback)
+
+  if not ok then
+    vim.notify(err, vim.log.levels.ERROR)
+    return
+  end
+  vim.notify("Settings and mappings reloaded", vim.log.levels.INFO)
 end
 
 local editConfig = function(file, type)
