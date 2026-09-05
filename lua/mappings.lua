@@ -102,28 +102,35 @@ local mappings = {
 }
 wk.add(mappings)
 local preferredColors = function()
-    local items = {}
-    for idx,name in ipairs(vim.g.colors) do
-        local it = {
-            name,
-            idx = idx,
-            text = name
-        }
-        items[idx] = it
+  local available = {}
+  for _, name in ipairs(vim.fn.getcompletion("", "color")) do
+    available[name] = true
+  end
+
+  local items = {}
+  for _, color in ipairs(vim.g.colors) do
+    if available[color.name] then
+      local suffix = color.background and (" (%s)"):format(color.background) or ""
+      items[#items + 1] = {
+        colorscheme = color.name,
+        background = color.background,
+        text = color.name .. suffix,
+      }
     end
+  end
 
   return snacks.picker({
     items = items,
     format = function(item)
-      local ret = {}
-      ret[1] = {item.text, 'SnacksPickerLabel'}
-      ret[2] = {item.text, 'SnacksPickerComment'}
-      return ret
-        end,
+      return { { item.text, "SnacksPickerLabel" } }
+    end,
     confirm = function(picker, item)
       picker:close()
-      vim.cmd('colors '.. item.text)
-    end
+      if item.background then
+        vim.o.background = item.background
+      end
+      vim.cmd.colorscheme(item.colorscheme)
+    end,
   })
 end
 mappings = {

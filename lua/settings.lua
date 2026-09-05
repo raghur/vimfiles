@@ -99,14 +99,14 @@ end)
 -- Open splits to the right by default
 set.splitright = true
 vim.g.colors = {
-  "sonokai",
-  "catppuccin-latte",
-  "Tomorrow-Night",
-  "Monokai",
-  "molokai",
-  "github",
-  "kalisi,dark",
-  "gruvbox,dark",
+  { name = "sonokai" },
+  { name = "catppuccin-latte", background = "light" },
+  { name = "Tomorrow-Night" },
+  { name = "Monokai" },
+  { name = "molokai" },
+  { name = "github" },
+  { name = "kalisi", background = "dark" },
+  { name = "gruvbox", background = "dark" },
 }
 
 if vim.fn.has("mac") == 1 then
