@@ -3,7 +3,14 @@ M.config = function()
   require("mini.comment").setup()
   require("mini.pairs").setup()
   require("mini.align").setup()
-  require("mini.ai").setup()
+  require("mini.ai").setup({
+    mappings = {
+      around_next = "aN",
+      inside_next = "iN",
+      around_last = "aL",
+      inside_last = "iL",
+    },
+  })
   require("mini.misc").setup({
     make_global = {'setup_auto_root', 'put', 'put_text'}
   })
