@@ -3,6 +3,19 @@ M.config = function()
   require("mini.comment").setup()
   require("mini.pairs").setup()
   require("mini.align").setup()
+
+  local function copy_visual_mapping(from_lhs, to_lhs)
+    local mapping = vim.fn.maparg(from_lhs, "x", false, true)
+    local rhs = mapping.callback or mapping.rhs
+    assert(rhs, ("Visual mapping %s is unavailable"):format(from_lhs))
+    vim.keymap.set("x", to_lhs, rhs, { desc = mapping.desc })
+  end
+
+  copy_visual_mapping("an", "<Tab>")
+  copy_visual_mapping("in", "<BS>")
+  copy_visual_mapping("]N", "<M-j>")
+  copy_visual_mapping("[N", "<M-k>")
+
   require("mini.ai").setup({
     mappings = {
       around_next = "aN",
