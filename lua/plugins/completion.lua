@@ -1,7 +1,8 @@
 local myconfig = require("raghu")
-local utils = require("raghu.utils")
-local plugin = {}
 
+-- Completion profiles are intentionally kept side by side. Blink is the active
+-- profile; change `active_profile` below to "nvim-cmp" to opt into the legacy
+-- alternative. Inactive profiles are not loaded by lazy.nvim.
 local cmp = {
   {
     "hrsh7th/nvim-cmp",
@@ -26,7 +27,7 @@ local cmp = {
   }
 
 }
-local blink= {
+local blink = {
     'saghen/blink.cmp',
     -- optional: provides snippets for the snippet source
     dependencies = {
@@ -42,8 +43,6 @@ local blink= {
     -- If you use nix, you can build from source using latest nightly rust with:
     -- build = 'nix run .#build-plugin',
 
-    ---@module 'blink.cmp'
-    ---@type blink.cmp.Config
   opts = {
     -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
     -- 'super-tab' for mappings similar to vscode (tab to accept)
@@ -172,6 +171,10 @@ local blink= {
   },
   opts_extend = { "sources.default" },
 }
-plugin = blink
--- plugin = blink
-return plugin
+local active_profile = "blink"
+local profiles = {
+  blink = blink,
+  ["nvim-cmp"] = cmp,
+}
+
+return profiles[active_profile]
