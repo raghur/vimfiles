@@ -112,7 +112,7 @@ local preferredColors = function()
         items[idx] = it
     end
 
-  return Snacks.picker({
+  return snacks.picker({
     items = items,
     format = function(item)
       local ret = {}
@@ -159,12 +159,12 @@ mappings = {
     "<leader>iv",
     function()
       -- This helper captures the visual selection text
-      local _, ls, cs = unpack(vim.fn.getpos("v"))
-      local _, le, ce = unpack(vim.fn.getpos("."))
+      local _, ls, cs = table.unpack(vim.fn.getpos("v"))
+      local _, le, ce = table.unpack(vim.fn.getpos("."))
       local lines = vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {})
       local expr = table.concat(lines, "\n")
 
-      local chunk, compile_error = loadstring("return " .. expr)
+      local chunk, compile_error = load("return " .. expr)
       if not chunk then
         vim.notify(compile_error, vim.log.levels.ERROR)
         return
