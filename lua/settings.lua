@@ -157,7 +157,13 @@ vim.diagnostic.config({
   float = {
     border = "rounded",
     format = function(d)
-      return ("%s (%s) [%s]"):format(d.message, d.source, d.code or d.user_data.lsp.code)
+      local lsp_data = d.user_data and d.user_data.lsp
+      local code = d.code or (lsp_data and lsp_data.code)
+      local source = d.source or "unknown"
+      if code then
+        return ("%s (%s) [%s]"):format(d.message, source, code)
+      end
+      return ("%s (%s)"):format(d.message, source)
     end,
   },
   underline = true,

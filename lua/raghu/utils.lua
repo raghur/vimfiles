@@ -22,8 +22,8 @@ M.requireMaybe = function(module, fun)
   local function requiref(module)
     require(module)
   end
-  res = pcall(requiref,module)
-  if (res) then
+  local res = pcall(requiref,module)
+  if res then
     M.dbg("loaded res - calling func", module)
     return fun(require(module))
   else
