@@ -46,7 +46,7 @@ key('n', 'C',          '"_C',         { desc = 'Change to end of line without ya
 key('n', '/',         '/\\v',                              { desc = 'Start search with very magic' })
 key('c', '%s/',       '%s/\\v',                            { desc = 'Start substitute with very magic' })
 key('v', '%',         '<space>%',                          { desc = 'Visual mode search for current selection' })
-key('v', '<silent>*', 'y:let @/=@"<cr>:set hlsearch<cr>n', { desc = 'Search for visual selection' })
+key('v', '*', 'y:let @/=@"<cr>:set hlsearch<cr>n', { desc = 'Search for visual selection', silent = true })
 
 -- Center on screen after moving to next/prev match
 key('n', 'n',         'nzz',                               { desc = 'Next search result and center' })
@@ -164,11 +164,17 @@ mappings = {
       local lines = vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {})
       local expr = table.concat(lines, "\n")
 
-      local success, result = pcall(loadstring("return " .. expr))
+      local chunk, compile_error = loadstring("return " .. expr)
+      if not chunk then
+        vim.notify(compile_error, vim.log.levels.ERROR)
+        return
+      end
+
+      local success, result = pcall(chunk)
       if success then
         vim.print(result)
       else
-        vim.notify("Error evaluating selection", vim.log.levels.ERROR)
+        vim.notify(result, vim.log.levels.ERROR)
       end
     end,
     mode = "v",
@@ -178,8 +184,10 @@ mappings = {
 wk.add(mappings)
 
 local sourceRange = function()
-    local start = vim.fn.getpos("v")[2]
-    local fin = vim.fn.line(".")
+    local visual_line = vim.fn.getpos("v")[2]
+    local cursor_line = vim.fn.line(".")
+    local start = math.min(visual_line, cursor_line)
+    local fin = math.max(visual_line, cursor_line)
     local cmd = start .. "," .. fin .. "so"
     print("Sourced: " .. cmd)
     vim.cmd(cmd)
@@ -212,10 +220,10 @@ mappings = {
   { "<M-]>",        function() font.cycleFont(1) end,                         desc = "Next Font" },
 }
 wk.add(mappings)
-function format ()
+local function format()
   require("conform").format({
     async = true,
-    lsp_fallback = true,
+    lsp_format = "fallback",
   })
 end
 
@@ -224,7 +232,7 @@ mappings = {
   { "g.", "<cmd>Lspsaga code_action<cr>",          desc = "code actions" },
   { "gq", format,                                 desc = "format" },
   { "g[", "<cmd>Lspsaga diagnostic_jump_prev<cr>", desc = "prev problem" },
-  { "g]e", function() require"lspsaga.diagnostic":goto_next({severity = vim.diagnostic.severity.ERROR}) end, desc = "prev problem" },
+  { "g]e", function() require"lspsaga.diagnostic":goto_next({severity = vim.diagnostic.severity.ERROR}) end, desc = "next error" },
   { "g]", "<cmd>Lspsaga diagnostic_jump_next<cr>", desc = "next problem" },
   { "gc", "<cmd>Lspsaga rename<cr>",               desc = "rename" },
   { "gd", snacks.picker.lsp_definitions,           desc = "definitions" },
@@ -245,6 +253,6 @@ mappings = {
 }
 wk.add(mappings)
 -- keymap("n", "<F2>", "<cmd>Lspsaga rename<CR>", { silent = true })
-vim.keymap.set("n", "K", vim.lsp.buf.signature_help, { silent = true, desc = "Hover docs" })
+vim.keymap.set("n", "K", vim.lsp.buf.signature_help, { silent = true, desc = "Signature help" })
 vim.keymap.set("i", "<C-K>",  vim.lsp.buf.signature_help, { silent = true, desc = "Hover docs" })
 vim.notify("Mappings loaded", vim.log.levels.INFO)
