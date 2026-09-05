@@ -11,16 +11,6 @@ M.config = function(plugin, opts)
       json = { "jq" },
       sh = { "beautysh" },
     },
-    formatters = {
-      yamlfix = {
-        -- Change where to find the command
-        command = "local/path/yamlfix",
-        -- Adds environment args to the yamlfix formatter
-        env = {
-          YAMLFIX_SEQUENCE_STYLE = "block_style",
-        },
-      },
-    },
   })
 end
 return M
