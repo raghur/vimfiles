@@ -1,26 +1,48 @@
 local set = vim.opt
 
-if vim.fn.executable("python") == 1 then
-  -- force python into a venv if not already available
-  local venvPath = vim.fn.stdpath("data") .. "/venv"
-  ---@diagnostic disable-next-line: undefined-field
-  if not vim.uv.fs_stat(venvPath) then
-    vim.fn.system({
-      "python",
-      "-m",
-      "venv",
-      venvPath,
-    })
-    vim.fn.system({
-      venvPath .. "/bin/python",
-      "-m",
-      "pip",
-      "install",
-      "pynvim",
-    })
-  end
-  vim.g.python3_host_prog = venvPath .. "/bin/python"
+local python_venv = vim.fs.joinpath(vim.fn.stdpath("data"), "venv")
+local python_host = vim.fs.joinpath(
+  python_venv,
+  vim.fn.has("win32") == 1 and "Scripts/python.exe" or "bin/python"
+)
+
+if vim.fn.executable(python_host) == 1 then
+  vim.g.python3_host_prog = python_host
 end
+
+vim.api.nvim_create_user_command("PythonProviderBootstrap", function()
+  local python = vim.fn.exepath("python3")
+  if python == "" then
+    python = vim.fn.exepath("python")
+  end
+  if python == "" then
+    vim.notify("Python 3 is required to bootstrap the Neovim provider", vim.log.levels.ERROR)
+    return
+  end
+
+  local function run(args)
+    local result = vim.system(args, { text = true }):wait()
+    if result.code == 0 then
+      return true
+    end
+    local message = result.stderr ~= "" and result.stderr or result.stdout
+    vim.notify(message or "Python provider bootstrap failed", vim.log.levels.ERROR)
+    return false
+  end
+
+  if not run({ python, "-m", "venv", python_venv }) then
+    return
+  end
+  if not run({ python_host, "-m", "pip", "install", "pynvim" }) then
+    return
+  end
+
+  vim.g.python3_host_prog = python_host
+  vim.notify("Python provider ready at " .. python_host, vim.log.levels.INFO)
+end, {
+  desc = "Create Neovim's Python environment and install pynvim",
+  force = true,
+})
 set.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 -- set.guioptions^=c
 -- set.guioptions-=T
