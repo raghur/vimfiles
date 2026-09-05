@@ -8,16 +8,18 @@ endfunction
 if exists("g:vscode")
 	let g:home=expand('<sfile>:p:h')."/"
 	echom "home: ". g:home
-	if empty(glob(g:home . 'autoload/plug.vim'))
-	  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-		\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	if empty(globpath(&runtimepath, 'autoload/plug.vim'))
+		echohl WarningMsg
+		echom "vim-plug is not installed; install it in an autoload directory on 'runtimepath'"
+		echohl None
+	else
+		call plug#begin(g:home.'bundle')
+		Plug 'tpope/vim-surround'
+		Plug 'wellle/targets.vim'
+		Plug 'sheerun/vim-polyglot'
+		call plug#end()
+		echom "loaded plugins"
 	endif
-	call plug#begin(g:home.'bundle')
-	Plug 'tpope/vim-surround'
-	Plug 'wellle/targets.vim'
-	Plug 'sheerun/vim-polyglot'
-	call plug#end()
-	echom "loaded plugins"
 
 	set ignorecase
     set clipboard+=unnamedplus
