@@ -7,6 +7,8 @@ M.config = function()
   require("mason-tool-installer").setup({
     ensure_installed = {
       'stylua',
+      'isort',
+      'black',
       'jq',
       'beautysh',
       'prettierd',
