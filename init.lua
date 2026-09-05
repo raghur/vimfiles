@@ -32,13 +32,14 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins", {
   checker = { enabled = true, notify = false}
 })
-if vim.fn.has('linux') == 1 or vim.fn.has('mac') == 1 then
-  if vim.v.servername == "" then
-    vim.fn.serverstart()
+if vim.fn.has("unix") == 1 and vim.v.servername == "" then
+  local address = ("/tmp/nvim-%d.sock"):format(vim.uv.os_getpid())
+  local started, result = pcall(vim.fn.serverstart, address)
+  if started then
+    utils.info("Server running at", result)
+  else
+    utils.dbg("Could not start server at", address, result)
   end
-  -- vim.fn.writefile({vim.v.servername}, "/tmp/"..vim.env.USER.."-server.nvim")
-  -- vim.cmd('echom "server running at '..vim.v.servername .. '"')
-  Info('Server running at ', vim.v.servername)
 end
 
 require("mappings")
