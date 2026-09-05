@@ -50,20 +50,10 @@ set.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,te
 -- set.guioptions-=r
 -- set.guioptions+=R
 set.updatetime = 300
-set.showmode = true
--- allow backspacing over everything in insert mode
-set.backspace = "indent,eol,start"
-set.history = 50 --  keep 50 lines of command line history
-set.ruler = true -- show the cursor position all the time
-set.cursorline = false -- nocursorline
-set.cursorcolumn = false -- display incomplete commands
-set.incsearch = true -- " do incremental searching
-set.encoding = "utf-8"
-set.hidden = true
+set.history = 50 -- keep 50 lines of command line history
 set.number = true
 set.signcolumn = "yes:3"
 -- set.wildchar='<Tab>'
-set.wildmenu = true
 set.wildmode = "longest:full,full"
 set.wildoptions = "pum"
 set.wildignorecase = true
@@ -73,21 +63,15 @@ set.wildignore:append({ "node_modules/*" })
 
 -- set.pastetoggle='<F11>'
 
-set.hlsearch = true
 set.ignorecase = true
 set.smartcase = true
 set.inccommand = "split"
 set.gdefault = true
 
--- wait time for mapped sequences
-set.timeout = true
-
 -- wait time for mapped keychords
-set.ttimeout = true
 set.ttimeoutlen = 500
 
 set.undofile = true
-set.undolevels = 1000
 
 set.completeopt = "menu,menuone,noselect"
 -- set.omnifunc = vim.lsp.omnifunc
@@ -95,22 +79,18 @@ set.completeopt = "menu,menuone,noselect"
 set.winaltkeys = "no"
 set.mouse = "a"
 
-set.backup = false
-
 set.switchbuf = "usetab"
 set.showmatch = true
 set.wrap = false
 
 set.copyindent = true
 set.smartindent = true
-set.smarttab = true
 set.expandtab = true
 set.tabstop = 4
 set.softtabstop = 4
 set.shiftwidth = 4
 
 set.visualbell = true
-set.errorbells = false
 set.list = true
 set.listchars = "tab:».,trail:░,extends:→,nbsp:."
 set.colorcolumn = "120"
