@@ -26,10 +26,18 @@ key('n', 'k',           'gk',    { desc = 'Move up by screen line' })
 key('n', '<backspace>', '<C-o>', { desc = 'Go back in jump list' })
 key('n', '<tab>',       '<C-i>', { desc = 'Go forward in jump list' })
 
--- open help in a vert split to the right
-vim.cmd([[cabbrev h vert bo h]])
-vim.cmd([[cabbrev map verb map<space>]])
-vim.cmd([[cabbrev s/ s/\v]]) -- For command line abbreviations, vim.cmd is still often used
+-- Command-line abbreviations that only expand when they are the whole `:`
+-- command, so they don't fire inside searches or arguments.
+local function cmd_abbrev(lhs, rhs)
+  key("ca", lhs, function()
+    if vim.fn.getcmdtype() == ":" and vim.fn.getcmdline() == lhs then
+      return rhs
+    end
+    return lhs
+  end, { expr = true, desc = ("Expand :%s to :%s"):format(lhs, rhs) })
+end
+cmd_abbrev("h", "vert bo h") -- open help in a vert split to the right
+cmd_abbrev("map", "verb map")
 
 -- CTRL-U in insert mode deletes a lot. Use CTRL-G u to first break undo,
 -- so that you can undo CTRL-U after inserting a line break.
@@ -42,10 +50,7 @@ key('c', '<S-Insert>', '<c-r>+',      { desc = 'Paste from system clipboard (com
 key('n', 'c',          '"_c',         { desc = 'Change without yanking' })
 key('n', 'C',          '"_C',         { desc = 'Change to end of line without yanking' })
 
--- Search and replace related mappings
-key('n', '/',         '/\\v',                              { desc = 'Start search with very magic' })
-key('c', '%s/',       '%s/\\v',                            { desc = 'Start substitute with very magic' })
-key('v', '%',         '<space>%',                          { desc = 'Visual mode search for current selection' })
+-- Search related mappings
 key('v', '*', 'y:let @/=@"<cr>:set hlsearch<cr>n', { desc = 'Search for visual selection', silent = true })
 
 -- Center on screen after moving to next/prev match
@@ -138,7 +143,7 @@ mappings = {
   { "<leader>:", snacks.picker.commands,                        desc = "Commands" },
   { "<leader>1", "<cmd>on<cr>",                                 desc = "Close others" },
   { "<leader>a", ":b#<cr>",                                     desc = "Last file" },
-  { "<leader>d", ":bd!<cr>",                                    desc = "Close buffer" },
+  { "<leader>d", function() snacks.bufdelete() end,             desc = "Close buffer" },
   { "<leader>h", ":noh<cr><c-l>",                               desc = "no highlight" },
   { "<leader>q", ":qall<cr>",                                   desc = "Quit" },
   { "<leader>w", ":w<cr>",                                      desc = "Write" },

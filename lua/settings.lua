@@ -50,9 +50,8 @@ set.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,te
 -- set.guioptions-=r
 -- set.guioptions+=R
 set.updatetime = 300
-set.history = 50 -- keep 50 lines of command line history
 set.number = true
-set.signcolumn = "yes:3"
+set.signcolumn = "yes:1"
 -- set.wildchar='<Tab>'
 set.wildmode = "longest:full,full"
 set.wildoptions = "pum"
@@ -66,10 +65,10 @@ set.wildignore:append({ "node_modules/*" })
 set.ignorecase = true
 set.smartcase = true
 set.inccommand = "split"
-set.gdefault = true
 
--- wait time for mapped keychords
-set.ttimeoutlen = 500
+-- wait time for terminal key codes (Esc, Alt-combos); mapped key chords use
+-- 'timeoutlen', which which-key sets
+set.ttimeoutlen = 10
 
 set.undofile = true
 
