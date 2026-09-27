@@ -111,6 +111,13 @@ local preferredColors = function()
   for _, name in ipairs(vim.fn.getcompletion("", "color")) do
     available[name] = true
   end
+  -- lazy-loaded theme plugins aren't on 'runtimepath' yet, so also look in
+  -- their colors/ directories
+  for _, plugin in pairs(require("lazy.core.config").plugins) do
+    for _, file in ipairs(vim.fn.globpath(plugin.dir, "colors/*.{vim,lua}", false, true)) do
+      available[vim.fn.fnamemodify(file, ":t:r")] = true
+    end
+  end
 
   local items = {}
   for _, color in ipairs(vim.g.colors) do
@@ -271,4 +278,4 @@ mappings = {
 wk.add(mappings)
 -- K (hover) is mapped by Neovim in LSP buffers and blink.cmp provides <C-k>
 -- signature help, so no global overrides are needed here.
-vim.notify("Mappings loaded", vim.log.levels.INFO)
+utils.info("Mappings loaded")

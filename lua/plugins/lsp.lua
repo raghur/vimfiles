@@ -9,8 +9,9 @@ return {
   },
   {
     "mason-org/mason-lspconfig.nvim",
+    lazy = true, -- loaded by nvim-lspconfig
     dependencies = {
-      { "mason-org/mason.nvim", opts = {}},
+      { "mason-org/mason.nvim", cmd = "Mason", opts = {}},
       { "WhoIsSethDaniel/mason-tool-installer.nvim", config = config },
     },
   },
@@ -26,6 +27,7 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
+    event = { "BufReadPre", "BufNewFile" },
     dependencies = {
       -- load blink first so its capabilities are registered before servers start
       {'saghen/blink.cmp'},
@@ -35,6 +37,8 @@ return {
   },
   {
     "nvimdev/lspsaga.nvim",
+    event = "LspAttach",
+    cmd = "Lspsaga",
     dependencies = {
       { "onsails/lspkind-nvim" },
       { "nvim-treesitter/nvim-treesitter" },

@@ -99,14 +99,17 @@ end)
 
 -- Open splits to the right by default
 set.splitright = true
+-- Preferred colorschemes for <leader>c (see lua/plugins/themes.lua)
 vim.g.colors = {
+  { name = "kanagawa" },
   { name = "sonokai" },
   { name = "catppuccin-latte", background = "light" },
-  { name = "Tomorrow-Night" },
-  { name = "Monokai" },
-  { name = "molokai" },
-  { name = "github" },
-  { name = "kalisi", background = "dark" },
+  { name = "catppuccin-mocha", background = "dark" },
+  { name = "rose-pine" },
+  { name = "rose-pine-dawn", background = "light" },
+  { name = "tokyonight" },
+  { name = "monokai-pro" },
+  { name = "tender" },
   { name = "gruvbox", background = "dark" },
 }
 
@@ -176,7 +179,6 @@ vim.diagnostic.config({
 })
 
 if vim.g.neovide then
-  print("init neovide settings")
   vim.g.neovide_box_drawing_mode = "native"
   vim.g.neovide_floating_shadow = true
   vim.g.neovide_remember_window_size = true

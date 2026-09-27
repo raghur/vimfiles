@@ -44,5 +44,12 @@ if vim.fn.has("unix") == 1 and not vim.tbl_contains(vim.fn.serverlist(), address
   end
 end
 
-require("mappings")
+-- Mappings pull in which-key and other plugins; load them after the UI is up.
+vim.api.nvim_create_autocmd("User", {
+  pattern = "VeryLazy",
+  once = true,
+  callback = function()
+    require("mappings")
+  end,
+})
 utils.info("sourced init.lua")

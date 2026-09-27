@@ -15,6 +15,7 @@ return {
     -- follow latest release and install jsregexp.
     dependencies = { "rafamadriz/friendly-snippets" },
     version = "v2.*",
+    lazy = true, -- loaded by blink.cmp
     build = "make install_jsregexp",
     config = function ()
       require("luasnip.loaders.from_vscode").lazy_load()
@@ -70,6 +71,15 @@ return {
   },
   {
     'kevinhwang91/nvim-ufo',
+    event = "BufReadPost",
+    -- fold options must be in place before the first buffer is displayed
+    init = function()
+      vim.o.foldcolumn = '1'
+      vim.o.foldlevel = 99
+      vim.o.foldlevelstart = 99
+      vim.o.foldenable = true
+      vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep:│,foldclose:]]
+    end,
     dependencies = {
       {"kevinhwang91/promise-async"},
       { "nvim-treesitter/nvim-treesitter"}
@@ -137,6 +147,7 @@ return {
   },
   {
     'stevearc/conform.nvim',
+    cmd = "ConformInfo", -- otherwise loaded on require() by the format mapping
     opts = {},
     config = config,
   },

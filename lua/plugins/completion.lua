@@ -29,8 +29,10 @@ local cmp = {
 }
 local blink = {
     'saghen/blink.cmp',
-    -- optional: provides snippets for the snippet source
+    -- also loaded early by nvim-lspconfig so its capabilities are registered
+    event = "InsertEnter",
     dependencies = {
+      "L3MON4D3/LuaSnip",
       "moyiz/blink-emoji.nvim",
       -- "Kaiser-Yang/blink-cmp-dictionary",
     },
