@@ -78,7 +78,7 @@ local mappings = {
   { "<leader>b",       snacks.picker.buffers,                                 desc = "Buffers" },
   { "<leader>/",       snacks.picker.grep,                                    desc = "Grep" },
   { "<leader>k",       snacks.picker.keymaps,                                 desc = "Keymaps" },
-  { "<leader><space>", function() snacks.picker.smart({ hidden = true }) end, desc = "Find relative" },
+  { "<leader><space>", function() snacks.picker.smart({ hidden = true }) end, desc = "Smart find" },
   { "<leader>e",       ":vsp|Neorg index<CR>",                                desc = "Scratchpad Notes" },
 
   -- terminal apps (under <leader> so the builtin `t` motion keeps working)
@@ -103,7 +103,7 @@ local mappings = {
   { "<leader>gS", function() snacks.picker.git_stash() end,    desc = "Git Stash" },
   { "<leader>gd", function() snacks.picker.git_diff() end,     desc = "Git Diff (Hunks)" },
   { "<leader>gf", function() snacks.picker.git_log_file() end, desc = "Git Log File" },
-  { "<leader>g/", function() snacks.picker.git_grep() end,     desc = "Git Log File" },
+  { "<leader>g/", function() snacks.picker.git_grep() end,     desc = "Git Grep" },
 }
 wk.add(mappings)
 local preferredColors = function()
@@ -267,7 +267,7 @@ mappings = {
   { "gph", snacks.picker.help,               desc = "Help topics" },
   { "gpc", snacks.picker.commands,               desc = "Commands" },
   { "gpC", snacks.picker.colorschemes,               desc = "Colorschemes" },
-  { "gpk", snacks.picker.keymaps,               desc = "Commands" },
+  { "gpk", snacks.picker.keymaps,               desc = "Keymaps" },
   { "<C-p>", snacks.picker.pickers,                   desc = "Select picker" },
   -- grr matches Neovim's default LSP references key; a bare `gr` would shadow grn/gra/gri
   { "grr", snacks.picker.lsp_references,           desc = "references" },

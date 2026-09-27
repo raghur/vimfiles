@@ -3,8 +3,6 @@ vim.cmd([[
 command! -nargs=+ -bang -complete=command R call utils#ReadExCommandOutput(<bang>1, <q-args>)
 inoremap <c-r>R <c-o>:<up><home>R! <cr>
 
-command! BlogSave call utils#BlogSave(expand("%:p"))
-
 ]])
 
 -- `:w !sudo tee` cannot prompt for a password in Neovim (no TTY), so ask for it

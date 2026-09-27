@@ -160,18 +160,10 @@ return {
     dependencies = {
       {
         "nvim-neorg/tree-sitter-norg",
+        -- treesitter is started for every filetype in raghu/nvim-treesitter.lua
         opts = {
           hererocks = true
         },
-        init = function ()
-          -- Enable treesitter automatically for some filetypes.
-          vim.api.nvim_create_autocmd("FileType", {
-            pattern = {
-              "norg",
-            },
-            callback = function() vim.treesitter.start() end
-          })
-        end,
         config = function ()
         end
       }
