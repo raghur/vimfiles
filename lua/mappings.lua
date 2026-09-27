@@ -207,10 +207,12 @@ wk.add({
   { "S", ":<C-U>lua MiniSurround.add('visual')<cr>", desc = "Surround", mode = "x" },
 })
 
+-- Visual p/P keep their builtin behaviour: with clipboard=unnamedplus, `p`
+-- pastes the system clipboard, and builtin v_P replaces the selection without
+-- overwriting the register. Forcing "0 made it impossible to paste text
+-- copied in other applications over a selection.
 mappings = {
-  { "<S-insert>", '"0p', desc = "paste",          mode = "v" },
-  { "p",          '"0p', desc = "paste",          mode = "v" },
-  { "P",          '"0P', desc = "paste before",   mode = "v" },
+  { "<S-insert>", '"+P', desc = "paste clipboard", mode = "v" },
   { "<leader>p",  '"0p', desc = 'Paste "0' },
   { "<leader>P",  '"0P', desc = 'Paste "0 before' },
 }
