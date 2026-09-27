@@ -76,10 +76,10 @@ local mappings = {
   { "<leader><space>", function() snacks.picker.smart({ hidden = true }) end, desc = "Find relative" },
   { "<leader>e",       ":vsp|Neorg index<CR>",                                desc = "Scratchpad Notes" },
 
-  -- terminal apps
-  { "t",       group = "Terminal apps" },
-  { "tg",      function() snacks.lazygit.open() end,                  desc = "LazyGit" },
-  { "tt", function() snacks.terminal.toggle(nil, {
+  -- terminal apps (under <leader> so the builtin `t` motion keeps working)
+  { "<leader>t",  group = "Terminal apps" },
+  { "<leader>tg", function() snacks.lazygit.open() end,               desc = "LazyGit" },
+  { "<leader>tt", function() snacks.terminal.toggle(nil, {
         win = {
           style = "terminal",
           position = "right",
@@ -206,7 +206,7 @@ mappings = {
 wk.add(mappings)
 
 wk.add({
-  { "S", ":<C-U>lua MiniSurround.add('visual')<cr>", desc = "Surround", mode = "xn" },
+  { "S", ":<C-U>lua MiniSurround.add('visual')<cr>", desc = "Surround", mode = "x" },
 })
 
 mappings = {
@@ -237,11 +237,14 @@ end
 mappings = {
   { "g",  group = "LSP nav" },
   { "g.", "<cmd>Lspsaga code_action<cr>",          desc = "code actions" },
-  { "gq", format,                                 desc = "format" },
   { "g[", "<cmd>Lspsaga diagnostic_jump_prev<cr>", desc = "prev problem" },
-  { "g]e", function() require"lspsaga.diagnostic":goto_next({severity = vim.diagnostic.severity.ERROR}) end, desc = "next error" },
   { "g]", "<cmd>Lspsaga diagnostic_jump_next<cr>", desc = "next problem" },
-  { "gc", "<cmd>Lspsaga rename<cr>",               desc = "rename" },
+  { "[e", function() vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR }) end, desc = "prev error" },
+  { "]e", function() vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR }) end,  desc = "next error" },
+  -- LSP actions live under <leader>l so builtin gc (comment) and gq (wrap) keep working
+  { "<leader>l",  group = "+LSP" },
+  { "<leader>lr", "<cmd>Lspsaga rename<cr>",       desc = "rename" },
+  { "<leader>lf", format,                          desc = "format" },
   { "gd", snacks.picker.lsp_definitions,           desc = "definitions" },
   -- { "gk", function() require("refactoring").select_refactor() end, desc = "refactor", mode = { "x", "n" } },
   { "gk", vim.diagnostic.open_float,               desc = "show line diagnostic" },
@@ -254,12 +257,13 @@ mappings = {
   { "gpC", snacks.picker.colorschemes,               desc = "Colorschemes" },
   { "gpk", snacks.picker.keymaps,               desc = "Commands" },
   { "<C-p>", snacks.picker.pickers,                   desc = "Select picker" },
-  { "gr", snacks.picker.lsp_references,            desc = "references" },
+  -- grr matches Neovim's default LSP references key; a bare `gr` would shadow grn/gra/gri
+  { "grr", snacks.picker.lsp_references,           desc = "references" },
   { "gs", snacks.picker.lsp_symbols,               desc = "document symbols" },
-  { "gt", snacks.picker.lsp_workspace_symbols,     desc = "workspace symbols" },
+  -- gS rather than gt, which is the builtin next-tab motion
+  { "gS", snacks.picker.lsp_workspace_symbols,     desc = "workspace symbols" },
 }
 wk.add(mappings)
--- keymap("n", "<F2>", "<cmd>Lspsaga rename<CR>", { silent = true })
-vim.keymap.set("n", "K", vim.lsp.buf.hover, { silent = true, desc = "Hover docs" })
-vim.keymap.set("i", "<C-K>", vim.lsp.buf.signature_help, { silent = true, desc = "Signature help" })
+-- K (hover) is mapped by Neovim in LSP buffers and blink.cmp provides <C-k>
+-- signature help, so no global overrides are needed here.
 vim.notify("Mappings loaded", vim.log.levels.INFO)
