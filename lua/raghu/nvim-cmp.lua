@@ -136,17 +136,8 @@ M.config = function()
     )
   })
 
-  -- Setup lspconfig.
-  local capabilities = require('cmp_nvim_lsp').default_capabilities()
-  -- Replace <YOUR_LSP_SERVER> with each lsp server you've enabled.
-  --
-  local language_servers = vim.lsp.get_clients() -- or list servers manually like {'gopls', 'clangd'}
-  for _, ls in ipairs(language_servers) do
-    require('lspconfig')[ls].setup({
-      capabilities = capabilities
-      -- you can add other fields for setting up lsp server in this table
-    })
-  end
+  -- Advertise nvim-cmp's completion capabilities to every LSP server.
+  vim.lsp.config("*", { capabilities = require('cmp_nvim_lsp').default_capabilities() })
   Info('executed nvim-cmp init')
 end
 return M

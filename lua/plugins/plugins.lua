@@ -15,11 +15,12 @@ return {
     -- follow latest release and install jsregexp.
     dependencies = { "rafamadriz/friendly-snippets" },
     version = "v2.*",
+    lazy = true, -- loaded by blink.cmp
     build = "make install_jsregexp",
     config = function ()
       require("luasnip.loaders.from_vscode").lazy_load()
       require("luasnip.loaders.from_snipmate").load({
-        paths="./snippets"
+        paths = vim.fn.stdpath("config") .. "/snippets",
       })
     end
   },
@@ -42,10 +43,13 @@ return {
   },
   {
     "alvan/vim-closetag",
-    ft = {"html","xml","vue","jsx","tsx"},
-    config = function()
-      vim.g.closetag_filenames = "*.html,*.xhtml,*.xml,*.htm,*.vue,*.jsx"
-      vim.g.closetag_xhtml_filenames = "*.xhtml,*.jsx,*.vue"
+    ft = { "html", "xhtml", "xml", "vue", "javascriptreact", "typescriptreact" },
+    -- must be set before the plugin loads; it reads these when defining its autocmds
+    init = function()
+      vim.g.closetag_filenames = "*.html,*.xhtml,*.xml,*.htm,*.vue,*.jsx,*.tsx"
+      vim.g.closetag_xhtml_filenames = "*.xhtml,*.jsx,*.tsx,*.vue"
+      vim.g.closetag_filetypes = "html,xhtml,xml,vue,javascriptreact,typescriptreact"
+      vim.g.closetag_xhtml_filetypes = "xhtml,javascriptreact,typescriptreact,vue"
     end,
   },
   {
@@ -53,7 +57,7 @@ return {
     build = function()
       vim.cmd("GhostInstall")
     end,
-    config = function()
+    init = function()
       vim.g.ghost_autostart = 0
     end,
   },
@@ -67,6 +71,15 @@ return {
   },
   {
     'kevinhwang91/nvim-ufo',
+    event = "BufReadPost",
+    -- fold options must be in place before the first buffer is displayed
+    init = function()
+      vim.o.foldcolumn = '1'
+      vim.o.foldlevel = 99
+      vim.o.foldlevelstart = 99
+      vim.o.foldenable = true
+      vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep:│,foldclose:]]
+    end,
     dependencies = {
       {"kevinhwang91/promise-async"},
       { "nvim-treesitter/nvim-treesitter"}
@@ -134,6 +147,7 @@ return {
   },
   {
     'stevearc/conform.nvim',
+    cmd = "ConformInfo", -- otherwise loaded on require() by the format mapping
     opts = {},
     config = config,
   },
@@ -146,18 +160,10 @@ return {
     dependencies = {
       {
         "nvim-neorg/tree-sitter-norg",
+        -- treesitter is started for every filetype in raghu/nvim-treesitter.lua
         opts = {
           hererocks = true
         },
-        init = function ()
-          -- Enable treesitter automatically for some filetypes.
-          vim.api.nvim_create_autocmd("FileType", {
-            pattern = {
-              "norg",
-            },
-            callback = function() vim.treesitter.start() end
-          })
-        end,
         config = function ()
         end
       }

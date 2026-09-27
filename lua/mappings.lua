@@ -26,10 +26,18 @@ key('n', 'k',           'gk',    { desc = 'Move up by screen line' })
 key('n', '<backspace>', '<C-o>', { desc = 'Go back in jump list' })
 key('n', '<tab>',       '<C-i>', { desc = 'Go forward in jump list' })
 
--- open help in a vert split to the right
-vim.cmd([[cabbrev h vert bo h]])
-vim.cmd([[cabbrev map verb map<space>]])
-vim.cmd([[cabbrev s/ s/\v]]) -- For command line abbreviations, vim.cmd is still often used
+-- Command-line abbreviations that only expand when they are the whole `:`
+-- command, so they don't fire inside searches or arguments.
+local function cmd_abbrev(lhs, rhs)
+  key("ca", lhs, function()
+    if vim.fn.getcmdtype() == ":" and vim.fn.getcmdline() == lhs then
+      return rhs
+    end
+    return lhs
+  end, { expr = true, desc = ("Expand :%s to :%s"):format(lhs, rhs) })
+end
+cmd_abbrev("h", "vert bo h") -- open help in a vert split to the right
+cmd_abbrev("map", "verb map")
 
 -- CTRL-U in insert mode deletes a lot. Use CTRL-G u to first break undo,
 -- so that you can undo CTRL-U after inserting a line break.
@@ -42,10 +50,7 @@ key('c', '<S-Insert>', '<c-r>+',      { desc = 'Paste from system clipboard (com
 key('n', 'c',          '"_c',         { desc = 'Change without yanking' })
 key('n', 'C',          '"_C',         { desc = 'Change to end of line without yanking' })
 
--- Search and replace related mappings
-key('n', '/',         '/\\v',                              { desc = 'Start search with very magic' })
-key('c', '%s/',       '%s/\\v',                            { desc = 'Start substitute with very magic' })
-key('v', '%',         '<space>%',                          { desc = 'Visual mode search for current selection' })
+-- Search related mappings
 key('v', '*', 'y:let @/=@"<cr>:set hlsearch<cr>n', { desc = 'Search for visual selection', silent = true })
 
 -- Center on screen after moving to next/prev match
@@ -73,13 +78,13 @@ local mappings = {
   { "<leader>b",       snacks.picker.buffers,                                 desc = "Buffers" },
   { "<leader>/",       snacks.picker.grep,                                    desc = "Grep" },
   { "<leader>k",       snacks.picker.keymaps,                                 desc = "Keymaps" },
-  { "<leader><space>", function() snacks.picker.smart({ hidden = true }) end, desc = "Find relative" },
+  { "<leader><space>", function() snacks.picker.smart({ hidden = true }) end, desc = "Smart find" },
   { "<leader>e",       ":vsp|Neorg index<CR>",                                desc = "Scratchpad Notes" },
 
-  -- terminal apps
-  { "t",       group = "Terminal apps" },
-  { "tg",      function() snacks.lazygit.open() end,                  desc = "LazyGit" },
-  { "tt", function() snacks.terminal.toggle(nil, {
+  -- terminal apps (under <leader> so the builtin `t` motion keeps working)
+  { "<leader>t",  group = "Terminal apps" },
+  { "<leader>tg", function() snacks.lazygit.open() end,               desc = "LazyGit" },
+  { "<leader>tt", function() snacks.terminal.toggle(nil, {
         win = {
           style = "terminal",
           position = "right",
@@ -98,13 +103,20 @@ local mappings = {
   { "<leader>gS", function() snacks.picker.git_stash() end,    desc = "Git Stash" },
   { "<leader>gd", function() snacks.picker.git_diff() end,     desc = "Git Diff (Hunks)" },
   { "<leader>gf", function() snacks.picker.git_log_file() end, desc = "Git Log File" },
-  { "<leader>g/", function() snacks.picker.git_grep() end,     desc = "Git Log File" },
+  { "<leader>g/", function() snacks.picker.git_grep() end,     desc = "Git Grep" },
 }
 wk.add(mappings)
 local preferredColors = function()
   local available = {}
   for _, name in ipairs(vim.fn.getcompletion("", "color")) do
     available[name] = true
+  end
+  -- lazy-loaded theme plugins aren't on 'runtimepath' yet, so also look in
+  -- their colors/ directories
+  for _, plugin in pairs(require("lazy.core.config").plugins) do
+    for _, file in ipairs(vim.fn.globpath(plugin.dir, "colors/*.{vim,lua}", false, true)) do
+      available[vim.fn.fnamemodify(file, ":t:r")] = true
+    end
   end
 
   local items = {}
@@ -138,7 +150,7 @@ mappings = {
   { "<leader>:", snacks.picker.commands,                        desc = "Commands" },
   { "<leader>1", "<cmd>on<cr>",                                 desc = "Close others" },
   { "<leader>a", ":b#<cr>",                                     desc = "Last file" },
-  { "<leader>d", ":bd!<cr>",                                    desc = "Close buffer" },
+  { "<leader>d", function() snacks.bufdelete() end,             desc = "Close buffer" },
   { "<leader>h", ":noh<cr><c-l>",                               desc = "no highlight" },
   { "<leader>q", ":qall<cr>",                                   desc = "Quit" },
   { "<leader>w", ":w<cr>",                                      desc = "Write" },
@@ -165,10 +177,8 @@ mappings = {
   {
     "<leader>iv",
     function()
-      -- This helper captures the visual selection text
-      local _, ls, cs = table.unpack(vim.fn.getpos("v"))
-      local _, le, ce = table.unpack(vim.fn.getpos("."))
-      local lines = vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {})
+      -- getregion handles backwards, linewise and blockwise selections
+      local lines = vim.fn.getregion(vim.fn.getpos("v"), vim.fn.getpos("."), { type = vim.fn.mode() })
       local expr = table.concat(lines, "\n")
 
       local chunk, compile_error = load("return " .. expr)
@@ -206,13 +216,15 @@ mappings = {
 wk.add(mappings)
 
 wk.add({
-  { "S", ":<C-U>lua MiniSurround.add('visual')<cr>", desc = "Surround", mode = "xn" },
+  { "S", ":<C-U>lua MiniSurround.add('visual')<cr>", desc = "Surround", mode = "x" },
 })
 
+-- Visual p/P keep their builtin behaviour: with clipboard=unnamedplus, `p`
+-- pastes the system clipboard, and builtin v_P replaces the selection without
+-- overwriting the register. Forcing "0 made it impossible to paste text
+-- copied in other applications over a selection.
 mappings = {
-  { "<S-insert>", '"0p', desc = "paste",          mode = "v" },
-  { "p",          '"0p', desc = "paste",          mode = "v" },
-  { "P",          '"0P', desc = "paste before",   mode = "v" },
+  { "<S-insert>", '"+P', desc = "paste clipboard", mode = "v" },
   { "<leader>p",  '"0p', desc = 'Paste "0' },
   { "<leader>P",  '"0P', desc = 'Paste "0 before' },
 }
@@ -237,11 +249,14 @@ end
 mappings = {
   { "g",  group = "LSP nav" },
   { "g.", "<cmd>Lspsaga code_action<cr>",          desc = "code actions" },
-  { "gq", format,                                 desc = "format" },
   { "g[", "<cmd>Lspsaga diagnostic_jump_prev<cr>", desc = "prev problem" },
-  { "g]e", function() require"lspsaga.diagnostic":goto_next({severity = vim.diagnostic.severity.ERROR}) end, desc = "next error" },
   { "g]", "<cmd>Lspsaga diagnostic_jump_next<cr>", desc = "next problem" },
-  { "gc", "<cmd>Lspsaga rename<cr>",               desc = "rename" },
+  { "[e", function() vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR }) end, desc = "prev error" },
+  { "]e", function() vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR }) end,  desc = "next error" },
+  -- LSP actions live under <leader>l so builtin gc (comment) and gq (wrap) keep working
+  { "<leader>l",  group = "+LSP" },
+  { "<leader>lr", "<cmd>Lspsaga rename<cr>",       desc = "rename" },
+  { "<leader>lf", format,                          desc = "format" },
   { "gd", snacks.picker.lsp_definitions,           desc = "definitions" },
   -- { "gk", function() require("refactoring").select_refactor() end, desc = "refactor", mode = { "x", "n" } },
   { "gk", vim.diagnostic.open_float,               desc = "show line diagnostic" },
@@ -252,14 +267,15 @@ mappings = {
   { "gph", snacks.picker.help,               desc = "Help topics" },
   { "gpc", snacks.picker.commands,               desc = "Commands" },
   { "gpC", snacks.picker.colorschemes,               desc = "Colorschemes" },
-  { "gpk", snacks.picker.keymaps,               desc = "Commands" },
+  { "gpk", snacks.picker.keymaps,               desc = "Keymaps" },
   { "<C-p>", snacks.picker.pickers,                   desc = "Select picker" },
-  { "gr", snacks.picker.lsp_references,            desc = "references" },
+  -- grr matches Neovim's default LSP references key; a bare `gr` would shadow grn/gra/gri
+  { "grr", snacks.picker.lsp_references,           desc = "references" },
   { "gs", snacks.picker.lsp_symbols,               desc = "document symbols" },
-  { "gt", snacks.picker.lsp_workspace_symbols,     desc = "workspace symbols" },
+  -- gS rather than gt, which is the builtin next-tab motion
+  { "gS", snacks.picker.lsp_workspace_symbols,     desc = "workspace symbols" },
 }
 wk.add(mappings)
--- keymap("n", "<F2>", "<cmd>Lspsaga rename<CR>", { silent = true })
-vim.keymap.set("n", "K", vim.lsp.buf.hover, { silent = true, desc = "Hover docs" })
-vim.keymap.set("i", "<C-K>", vim.lsp.buf.signature_help, { silent = true, desc = "Signature help" })
-vim.notify("Mappings loaded", vim.log.levels.INFO)
+-- K (hover) is mapped by Neovim in LSP buffers and blink.cmp provides <C-k>
+-- signature help, so no global overrides are needed here.
+utils.info("Mappings loaded")

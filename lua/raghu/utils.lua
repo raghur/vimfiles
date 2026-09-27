@@ -57,8 +57,11 @@ local editConfig = function(file, type)
     {file},
     {limit = 1, type = type, path = configHome}
   )
-  print(vim.inspect(targetfiles))
-  vim.cmd.edit(targetfiles)
+  if #targetfiles == 0 then
+    vim.notify(("%s not found under %s"):format(file, configHome), vim.log.levels.WARN)
+    return
+  end
+  vim.cmd.edit(vim.fn.fnameescape(targetfiles[1]))
 end
 
 M.editConfig = function(file)

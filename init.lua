@@ -32,8 +32,10 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins", {
   checker = { enabled = true, notify = false}
 })
-if vim.fn.has("unix") == 1 and vim.v.servername == "" then
-  local address = ("/tmp/nvim-%d.sock"):format(vim.uv.os_getpid())
+-- Neovim always starts a server at a long $TMPDIR path, so v:servername is
+-- never empty. Add a short, predictable endpoint alongside it.
+local address = ("/tmp/nvim-%d.sock"):format(vim.uv.os_getpid())
+if vim.fn.has("unix") == 1 and not vim.tbl_contains(vim.fn.serverlist(), address) then
   local started, result = pcall(vim.fn.serverstart, address)
   if started then
     utils.info("Server running at", result)
@@ -42,5 +44,12 @@ if vim.fn.has("unix") == 1 and vim.v.servername == "" then
   end
 end
 
-require("mappings")
+-- Mappings pull in which-key and other plugins; load them after the UI is up.
+vim.api.nvim_create_autocmd("User", {
+  pattern = "VeryLazy",
+  once = true,
+  callback = function()
+    require("mappings")
+  end,
+})
 utils.info("sourced init.lua")

@@ -21,6 +21,5 @@ M.config = function()
     -- Run the installation on startup
     run_on_start = true,
   })
-  Info("sourced", vim.fn.expand("<sfile>"))
 end
 return M
