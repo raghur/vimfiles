@@ -16,5 +16,27 @@ inoremap <c-r>R <c-o>:<up><home>R! <cr>
 command! BlogSave call utils#BlogSave(expand("%:p"))
 
 set foldtext=NeatFoldText()
-command! -bar W exe 'w !sudo tee >/dev/null %:p:S' | setl nomod
 ]])
+
+-- `:w !sudo tee` cannot prompt for a password in Neovim (no TTY), so ask for it
+-- here and feed it to sudo on stdin.
+vim.api.nvim_create_user_command("W", function()
+  local path = vim.fn.expand("%:p")
+  if path == "" then
+    vim.notify("Buffer has no file name", vim.log.levels.ERROR)
+    return
+  end
+  local password = vim.fn.inputsecret("sudo password: ")
+  local content = table.concat(vim.api.nvim_buf_get_lines(0, 0, -1, true), "\n") .. "\n"
+  local result = vim.system({ "sudo", "-S", "-p", "", "tee", path }, {
+    stdin = password .. "\n" .. content,
+    text = true,
+  }):wait()
+  if result.code ~= 0 then
+    vim.notify("sudo write failed: " .. (result.stderr or ""), vim.log.levels.ERROR)
+    return
+  end
+  vim.bo.modified = false
+  vim.cmd.checktime()
+  vim.notify("Wrote " .. path .. " with sudo", vim.log.levels.INFO)
+end, { desc = "Write the current file with sudo" })

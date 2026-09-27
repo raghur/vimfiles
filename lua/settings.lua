@@ -30,7 +30,7 @@ vim.api.nvim_create_user_command("PythonProviderBootstrap", function()
     return false
   end
 
-  if not run({ python, "-m", "venv", python_venv }) then
+  if not run({ python, "-m", "venv", "--clear", python_venv }) then
     return
   end
   if not run({ python_host, "-m", "pip", "install", "pynvim" }) then

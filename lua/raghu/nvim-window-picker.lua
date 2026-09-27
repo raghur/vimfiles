@@ -10,7 +10,9 @@ M.config = function()
 
   plugin.pickWindow = function()
     local id = require('window-picker').pick_window()
-    vim.fn.win_gotoid(id)
+    if id then
+      vim.fn.win_gotoid(id)
+    end
   end
 end
 return M

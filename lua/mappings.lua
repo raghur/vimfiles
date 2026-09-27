@@ -165,10 +165,8 @@ mappings = {
   {
     "<leader>iv",
     function()
-      -- This helper captures the visual selection text
-      local _, ls, cs = table.unpack(vim.fn.getpos("v"))
-      local _, le, ce = table.unpack(vim.fn.getpos("."))
-      local lines = vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {})
+      -- getregion handles backwards, linewise and blockwise selections
+      local lines = vim.fn.getregion(vim.fn.getpos("v"), vim.fn.getpos("."), { type = vim.fn.mode() })
       local expr = table.concat(lines, "\n")
 
       local chunk, compile_error = load("return " .. expr)

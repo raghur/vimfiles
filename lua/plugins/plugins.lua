@@ -19,7 +19,7 @@ return {
     config = function ()
       require("luasnip.loaders.from_vscode").lazy_load()
       require("luasnip.loaders.from_snipmate").load({
-        paths="./snippets"
+        paths = vim.fn.stdpath("config") .. "/snippets",
       })
     end
   },
@@ -42,10 +42,13 @@ return {
   },
   {
     "alvan/vim-closetag",
-    ft = {"html","xml","vue","jsx","tsx"},
-    config = function()
-      vim.g.closetag_filenames = "*.html,*.xhtml,*.xml,*.htm,*.vue,*.jsx"
-      vim.g.closetag_xhtml_filenames = "*.xhtml,*.jsx,*.vue"
+    ft = { "html", "xhtml", "xml", "vue", "javascriptreact", "typescriptreact" },
+    -- must be set before the plugin loads; it reads these when defining its autocmds
+    init = function()
+      vim.g.closetag_filenames = "*.html,*.xhtml,*.xml,*.htm,*.vue,*.jsx,*.tsx"
+      vim.g.closetag_xhtml_filenames = "*.xhtml,*.jsx,*.tsx,*.vue"
+      vim.g.closetag_filetypes = "html,xhtml,xml,vue,javascriptreact,typescriptreact"
+      vim.g.closetag_xhtml_filetypes = "xhtml,javascriptreact,typescriptreact,vue"
     end,
   },
   {
@@ -53,7 +56,7 @@ return {
     build = function()
       vim.cmd("GhostInstall")
     end,
-    config = function()
+    init = function()
       vim.g.ghost_autostart = 0
     end,
   },
