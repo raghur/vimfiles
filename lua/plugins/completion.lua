@@ -31,9 +31,8 @@ local blink = {
     'saghen/blink.cmp',
     -- optional: provides snippets for the snippet source
     dependencies = {
-    "moyiz/blink-emoji.nvim",
-        -- "Kaiser-Yang/blink-cmp-dictionary",
-    {'folke/lazydev.nvim'},
+      "moyiz/blink-emoji.nvim",
+      -- "Kaiser-Yang/blink-cmp-dictionary",
     },
 
     -- use a release tag to download pre-built binaries
@@ -99,7 +98,10 @@ local blink = {
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     --
     sources = {
-      default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer', "emoji"},
+      default = { 'lsp', 'path', 'snippets', 'buffer', "emoji" },
+      per_filetype = {
+        lua = { inherit_defaults = true, 'lazydev' },
+      },
       providers = {
         emoji = {
           module = "blink-emoji",
@@ -112,14 +114,11 @@ local blink = {
               return { ":" }
             end,
           },
-          -- should_show_items = function()
-          --     return vim.tbl_contains(
-          --         -- Enable emoji completion only for git commits and markdown.
-          --         -- By default, enabled for all file-types.
-          --         { "gitcommit", "markdown", "text" },
-          --         vim.o.filetype
-          --     )
-          -- end,
+          -- `:` is too common in code (Lua methods, Python slices, YAML) to
+          -- offer emoji everywhere.
+          should_show_items = function()
+            return vim.tbl_contains({ "gitcommit", "markdown", "text", "norg" }, vim.o.filetype)
+          end,
         },
         lazydev = {
             name = "LazyDev",
@@ -130,9 +129,6 @@ local blink = {
 
       },
 
-      -- per_filetype = {
-      --   lua = { inherit_defaults = true, 'lazydev' }
-      -- },
     },
     snippets = {
       preset = "luasnip",
